@@ -1,0 +1,40 @@
+.App {
+  h1 {
+    text-align: center;
+    color: #C0B2A1;
+    letter-spacing: 0.7px;
+    margin: 5em 0;
+  }
+
+  form {
+    width: 40vw;
+    padding: 1em;
+    margin: 0 auto;
+    text-align: center;
+    border-radius: 4px;
+    border: 1px solid #333434;
+    background-color: rgba(0,0,0,0.1);
+
+    div.field {
+      label {
+        color: #212025;
+        font-size: 18px;
+        letter-spacing: 0.7px;
+      }
+
+      &:first-child {  margin-top: 5vh;  }
+      &:last-of-type {  margin-bottom: 4.5vh;  }
+    }
+  }
+
+  .sign-up-link {
+    width: 100%;
+    margin: 1.7em 0;
+    text-align: center;
+
+    a {
+      color: antiquewhite;
+      letter-spacing: 0.4px;
+    }
+  }
+}
