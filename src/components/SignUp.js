@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 import 'intl-tel-input/build/css/intlTelInput.css'
@@ -27,7 +27,7 @@ class SignUp extends React.Component {
     this.fiatQuestion     = React.createRef();
     this.cryptoQuestion   = React.createRef();
 
-    this.state = {};
+    this.state = { redirect: null };
 
     this.state.answers = {
       isSeller: false,
@@ -277,8 +277,15 @@ class SignUp extends React.Component {
 
     const form = this.normalSignup.current;
 
+    const emailInput    = form.querySelector('input#email');
     const usernameInput = form.querySelector('input#username');
-    if (usernameInput.value === '') {
+    const phoneInput    = form.querySelector('input#phone');
+
+
+    // Validate Username
+    var usernameRegex = /^[a-zA-Z0-9]+$/;
+    const username = usernameInput.value;
+    if (username === '' || !username.match(usernameRegex)) {
       // todo: CHECK IF TAKEN
       usernameInput.classList.add('error');
 
@@ -287,7 +294,10 @@ class SignUp extends React.Component {
       usernameInput.classList.remove('error');
     }
 
-    const phoneInput  = form.querySelector('input#phone');
+    // Validate email not taken
+
+
+    // Validate Phone #
     const countryCode = form.querySelector('.iti__selected-dial-code').innerText;
 
     if (phoneInput.value === '') {
@@ -297,13 +307,38 @@ class SignUp extends React.Component {
     } else {
       phoneInput.classList.remove('error');
     }
-
     const phoneNumber = countryCode + phoneInput.value;
 
     if (this.validPassword(form)) {
-      debugger
-    } else {
-      debugger;
+      let password = form.querySelector('input#password').value;
+
+      let payload = {
+        user: {
+          username: username,
+          password: password,
+          email: emailInput.value,
+          phone_number: phoneNumber
+        }
+      }
+
+      const answers = this.state.answers;
+      if (answers.interested) {
+        payload.user.seller_attributes = {
+          accepted_crypto: answers.accepted_crypto,
+          default_currency: answers.default_currency,
+          business_name: answers.company_name,
+          studio_size: answers.studio_size
+        }
+      }
+
+      // TODO: move api url to env
+      axios.post('http://localhost:3000/v1/users', payload).then((response) => {
+        console.log(response);
+        this.setState({ redirect: '/' })
+      }).catch((error) => {
+        console.log(error)
+        debugger;
+      });
     }
   }
 
@@ -324,7 +359,11 @@ class SignUp extends React.Component {
   }
 
   render() {
+    if (this.state.redirect) {
+      return <Redirect to={this.state.redirect} />
+    }
     return (
+
         <div className="App signup">
           <div className="logo" ref={this.logo}>
             <Link to="/">
