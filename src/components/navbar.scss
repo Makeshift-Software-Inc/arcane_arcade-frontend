@@ -7,6 +7,9 @@ header.nav {
 
   .links {
     margin-top: 60px;
+
+    &.left, &.right { display: flex; }
+
     a {
       color: #C0B2A1;
       font-weight: 600;

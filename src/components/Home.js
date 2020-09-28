@@ -14,15 +14,16 @@ import greedfall from '../img/greedfall.jpg';
 import xcom from '../img/xcom.jpg';
 
 
-const Home = () => {
-  return (
-    <div className="App">
-      <ToastContainer />
+class Home extends React.Component {
+  render() {
+    return (
+      <div className="App">
+        <ToastContainer />
 
-      <Navbar />
+        <Navbar loggedInStatus={this.props.loggedInStatus} />
 
-      <div className="slider-container">
-        <div className="slider">
+        <div className="slider-container">
+          <div className="slider">
             <a href="#slide-1">1</a>
             <a href="#slide-2">2</a>
             <a href="#slide-3">3</a>
@@ -48,11 +49,12 @@ const Home = () => {
             </div>
           </div>
 
+        </div>
+
+
       </div>
-
-
-    </div>
-  );
+    );
+  }
 }
 
 export default Home;

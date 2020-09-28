@@ -54,7 +54,6 @@ class Login extends React.Component {
       withCredentials: true
     })
     .then((response) => {
-      debugger;
       this.props.handleLogin(response.data);
       this.props.history.push('/');
 
@@ -70,7 +69,7 @@ class Login extends React.Component {
         <div className="App">
           <ToastContainer />
 
-          <Navbar />
+          <Navbar loggedInStatus={this.props.loggedInStatus}/>
 
           <h1> Login </h1>
           <div className="login-form">

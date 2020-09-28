@@ -5,23 +5,40 @@ import './navbar.scss'
 
 import logo from '../img/temp-logo.png';
 
-const Navbar = () => {
-  return (
-    <header className="nav">
-      <div className="left links">
-        <Link to="/login">Login</Link>
-      </div>
-      <div className="center">
-        <Link to="/">
-          <h3>Arcane Arcade</h3>
-          <img src={logo} className="App-logo" alt="logo" />
-        </Link>
-      </div>
-      <div className="right links">
-        <Link to="/how-it-works">How It Works</Link>
-      </div>
-    </header>
-  )
+class Navbar extends React.Component {
+  render() {
+    let leftLink, rightLink;
+    if (!this.props.loggedInStatus) {
+      leftLink  = <Link to="/login">Login</Link>
+      rightLink = <Link to="/how-it-works">How It Works</Link>
+    } else {
+      leftLink  = <Link to="/my-library">My Library</Link>
+    }
+
+
+
+    return (
+      <header className="nav">
+        <div className="left links">
+          { this.props.loggedInStatus &&
+            <Link to="/browse">Browse</Link>
+          }
+          { leftLink }
+        </div>
+        <div className="center">
+          <Link to="/">
+            <h3>Arcane Arcade</h3>
+            <img src={logo} className="App-logo" alt="logo" />
+          </Link>
+        </div>
+        <div className="right links">
+          <Link to="/become-a-seller">Sell With Us</Link>
+          <Link to="/how-it-works">How It Works</Link>
+          <Link to="/contact">Contact Us</Link>
+        </div>
+      </header>
+    )
+  }
 }
 
 export default Navbar;

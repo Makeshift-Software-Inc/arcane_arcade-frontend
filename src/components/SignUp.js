@@ -157,7 +157,7 @@ class SignUp extends React.Component {
 
         console.log(response);
 
-        this.setState({ 
+        this.setState({
           redirect: '/authorize',
           redirectState: response.data.user
         });
@@ -178,7 +178,8 @@ class SignUp extends React.Component {
     return (
         <div className="App sign-up">
           <ToastContainer />
-          <Navbar />
+          <Navbar loggedInStatus={this.props.loggedInStatus}/>
+
 
           <h1> Sign Up </h1>
           <form className="normal-signup" ref={this.normalSignup} >

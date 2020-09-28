@@ -34,7 +34,6 @@ class TwoFactorAuth extends React.Component {
       auth: { delivery_method: deliveryMethod }
     }, { withCredentials: true })
     .then(response => {
-      debugger;
       this.chooseDelivery.current.classList.add('is-hidden');
       this.enterCode.current.classList.remove('is-hidden');
     }).catch((error) => {
@@ -71,9 +70,8 @@ class TwoFactorAuth extends React.Component {
       auth: { code: code }
     }, { withCredentials: true })
     .then(response => {
-      debugger;
-      this.chooseDelivery.current.classList.add('is-hidden');
-      this.enterCode.current.classList.remove('is-hidden');
+      this.props.handleLogin(this.state);
+      this.props.history.push('/');
     }).catch((error) => {
       console.log(error)
     });

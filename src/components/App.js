@@ -33,7 +33,7 @@ class App extends React.Component {
       isLoggedIn: true,
       user: data.user
     });
-    debugger
+
   }
 
   handleLogout = () => {
