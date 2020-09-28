@@ -1,0 +1,40 @@
+.App.two-factor {
+  input[type=number] {
+    width: 38px;
+    padding: 1em 0px 1em 8px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 23px;
+    height: 40px;
+  }
+
+  .send-code {
+    width: 30vw;
+    margin: 0 auto;
+
+    p {
+      color: aliceblue;
+    }
+
+    .delivery-options {
+      display: flex;
+      justify-content: center;
+      padding: 2em 0;
+
+      .topcoat-radio-button {
+        margin: 0 1em;
+        font-size: 19px;
+      }
+    }
+
+    .submit-delivery {
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  .code {
+    display: flex;
+    justify-content: center;
+  }
+}

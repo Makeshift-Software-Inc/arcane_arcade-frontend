@@ -1,0 +1,128 @@
+.App.onboarding {
+  background: linear-gradient(-45deg, #58595A, #58595A, #AAACB3, #91959F);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+  padding-bottom: 5vh;
+
+
+  .welcome {
+    width: 100%;
+    text-align: center;
+
+    h1 {
+      margin: 0;
+      padding-top: 1em;
+      font-size: 32px;
+      color: aliceblue;
+    }
+
+  }
+
+  .logo {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    img {
+      width: 150px;
+    }
+  }
+
+  form {
+    color: aliceblue;
+    margin-top: 25px;
+    padding-top: 25px;
+
+    &.vanishOut { display: none; }
+    input.error {
+      border-color: red;
+    }
+
+    input[type=checkbox]{
+      height: 0;
+      width: 0;
+      visibility: hidden;
+    }
+
+    label {
+      cursor: pointer;
+      text-indent: -9999px;
+      width: 110px;
+      height: 36px;
+      background: grey;
+      display: block;
+      border-radius: 100px;
+      position: relative;
+    }
+
+    label:after {
+      content: 'YES';
+      color: 'red';
+      position: absolute;
+      top: 4px;
+      left: 5px;
+      width: 31px;
+      height: 28px;
+      background: #fff;
+      border-radius: 90px;
+      transition: 0.3s;
+    }
+
+    input:checked + label {
+      background: #bada55;
+    }
+
+    input:checked + label:after {
+      left: calc(100% - 5px);
+      transform: translateX(-100%);
+    }
+
+    .answer {
+      display: flex;
+      padding-top: 2em;
+      justify-content: center;
+
+      div {
+        color: aliceblue;
+        font-weight: 700;
+        padding: 6px 1em;
+      }
+    }
+
+    .continue {
+      margin: 2em 0 0;
+    }
+  }
+
+  form.company-name {
+    input[type="text"] {
+      width: 21vw;
+      font-size: 18px;
+      padding: 0.5em 1em;
+      text-align: center;
+    }
+  }
+
+  form.crypto {
+    .crypto-options {
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+
+      .btc {
+        .coin-icon img {
+          width: 50px;
+        }
+      }
+
+      .xmr {
+        .coin-icon img {
+          width: 50px;
+          background: white;
+          border-radius: 40px;
+        }
+      }
+
+    }
+  }
+}

@@ -1,4 +1,6 @@
 import React from 'react';
+import { ToastContainer } from 'react-toastify';
+
 
 import './Home.scss';
 import '../slider.css';
@@ -12,22 +14,22 @@ import greedfall from '../img/greedfall.jpg';
 import xcom from '../img/xcom.jpg';
 
 
-
-
 const Home = () => {
   return (
     <div className="App">
+      <ToastContainer />
+
       <Navbar />
 
       <div className="slider-container">
-        <div class="slider">
+        <div className="slider">
             <a href="#slide-1">1</a>
             <a href="#slide-2">2</a>
             <a href="#slide-3">3</a>
             <a href="#slide-4">4</a>
             <a href="#slide-5">5</a>
 
-            <div class="slides">
+            <div className="slides">
               <div id="slide-1">
                 <img src={kingdomCome}  alt="kingdom come deliverance cover" />
               </div>
