@@ -13,6 +13,7 @@ import Home from './Home.js';
 import Login from './Login.js';
 import SignUp from './SignUp.js';
 import TwoFactorAuth from './TwoFactorAuth.js';
+import Onboarding from './Onboarding.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -118,6 +119,15 @@ class App extends React.Component {
           exact path='/authorize'
           render={props => (
             <TwoFactorAuth {...props}
+              handleLogin={this.handleLogin}
+              loggedInStatus={this.state.isLoggedIn}
+            />
+          )}
+        />
+        <Route
+          exact path='/seller/onboarding'
+          render={props => (
+            <Onboarding {...props}
               handleLogin={this.handleLogin}
               loggedInStatus={this.state.isLoggedIn}
             />

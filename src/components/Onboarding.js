@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
-// import axios from 'axios';
+import axios from 'axios';
 
 import '../magic.css';
 import './onboarding.scss';
@@ -15,7 +15,6 @@ class Onboarding extends React.Component {
 
     this.welcome  = React.createRef();
     this.logo     = React.createRef();
-    this.normalSignup     = React.createRef();
     this.firstQuestion    = React.createRef();
     this.sellingQuestion  = React.createRef();
     this.companyQuestion  = React.createRef();
@@ -23,10 +22,10 @@ class Onboarding extends React.Component {
     this.fiatQuestion     = React.createRef();
     this.cryptoQuestion   = React.createRef();
 
-    this.state = { redirect: null };
+    this.state = { redirect: null, phase: '' };
 
     this.state.answers = {
-      isSeller: false,
+      is_seller: false,
       interested: false,
       default_currency: '',
       accepted_crypto: [],
@@ -35,6 +34,7 @@ class Onboarding extends React.Component {
       destinations: {}
     }
   }
+
   componentDidMount() {
     const logo = this.logo.current
     const text = this.welcome.current;
@@ -42,6 +42,21 @@ class Onboarding extends React.Component {
     logo.classList.add('magictime', 'puffIn');
     text.classList.add('magictime', 'puffIn');
   }
+
+
+  handleChange = (event) => {
+    const { name, value, checked } = event.target
+    const target = event.target;
+
+    debugger
+    if (target.type === 'text') {
+      this.setState({ [name]: value })
+    } else if (target.type === 'checkbox') {
+      this.setState({ [name]: checked })
+    }
+
+  };
+
 
   showFirstQuestion() {
     const firstQuestion = this.firstQuestion.current;
@@ -57,14 +72,14 @@ class Onboarding extends React.Component {
     form.classList.remove('magictime', 'vanishIn');
     form.classList.add('magictime', 'vanishOut');
 
-    const isSeller = form.querySelector('input[type=checkbox]').checked;
+    const is_seller = form.querySelector('input[type=checkbox]').checked;
 
     let newAnswers = this.state.answers;
-    newAnswers.isSeller = isSeller;
+    newAnswers.is_seller = is_seller;
 
     this.setState({ answers: newAnswers });
 
-    if (this.state.answers.isSeller) {
+    if (this.state.answers.is_seller) {
       this.showSellingQuestion();
     } else {
       this.showNormalForm();
@@ -211,13 +226,6 @@ class Onboarding extends React.Component {
     this.showNormalForm();
   }
 
-  showNormalForm() {
-    const normalSignup = this.normalSignup.current;
-
-    normalSignup.classList.remove('is-hidden');
-    normalSignup.classList.add('magictime', 'vanishIn');
-  }
-
   submitForm(e) {
     e.preventDefault();
 
@@ -232,7 +240,6 @@ class Onboarding extends React.Component {
         studio_size: answers.studio_size
       }
     }
-
   }
 
 
@@ -260,7 +267,7 @@ class Onboarding extends React.Component {
 
                 <div className="answer">
                   <div>NO</div>
-                  <input type="checkbox" id="is-a-seller" name='user[is_a_seller]' />
+                  <input type="checkbox" id="is-a-seller" onChange={this.handleChange.bind(this)} name='is_a_seller' />
                   <label htmlFor="is-a-seller" >Toggle</label>
                   <div>YES</div>
                 </div>
@@ -278,7 +285,7 @@ class Onboarding extends React.Component {
 
                 <div className="answer">
                   <div>NO</div>
-                  <input type="checkbox" id="wants-to-sell" name='user[wants-to-sell]' />
+                  <input type="checkbox" id="wants-to-sell" onChange={this.handleChange.bind(this)} name='user[wants-to-sell]' />
                   <label htmlFor="wants-to-sell" >Toggle</label>
                   <div>YES</div>
                 </div>
@@ -295,7 +302,7 @@ class Onboarding extends React.Component {
                 <p>What is the name of your company?</p>
 
                 <div className="answer">
-                  <input type="text" className="topcoat-text-input" placeholder="Company Name" />
+                  <input type="text" className="topcoat-text-input" onChange={this.handleChange.bind(this)} placeholder="Company Name" />
                 </div>
 
                 <button type="submit" className="topcoat-button--large continue" onClick={this.fourthQuestion.bind(this)} >Continue</button>
@@ -311,7 +318,7 @@ class Onboarding extends React.Component {
 
                 <div className="answer">
                   <div className="select">
-                    <select>
+                    <select onChange={this.handleChange.bind(this)}>
                       <option value="INDIE">Indie</option>
                       <option value="MIDSIZE">Mid-Size</option>
                       <option value="AAA">AAA</option>
@@ -333,7 +340,7 @@ class Onboarding extends React.Component {
 
                 <div className="answer">
                   <div className="select">
-                    <select>
+                    <select onChange={this.handleChange.bind(this)}>
                       <option value="USD">USD - US Dollar</option>
                       <option value="EUR">EUR - Euro</option>
                       <option value="JPY">JPY - Japanese Yen</option>
@@ -367,7 +374,7 @@ class Onboarding extends React.Component {
                         <img src={btcIcon} alt="bitcoin logo" />
                       </div>
 
-                      <input type="checkbox" id="bitcoin" name='seller[accepted_crypto][]' />
+                      <input type="checkbox" id="bitcoin" onChange={this.handlePaymentChange.bind(this)} name='accepted_crypto' />
                       <label htmlFor="bitcoin" >Toggle</label>
                     </div>
 
@@ -376,7 +383,7 @@ class Onboarding extends React.Component {
                         <img src={xmrIcon} alt="monero logo" />
                       </div>
 
-                      <input type="checkbox" id="monero" name='seller[accepted_crypto][]' />
+                      <input type="checkbox" onChange={this.handlePaymentChange.bind(this)} id="monero" name='accepted_crypto' />
                       <label htmlFor="monero" >Toggle</label>
 
                     </div>

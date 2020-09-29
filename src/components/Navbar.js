@@ -7,10 +7,9 @@ import logo from '../img/temp-logo.png';
 
 class Navbar extends React.Component {
   render() {
-    let leftLink, rightLink;
+    let leftLink;
     if (!this.props.loggedInStatus) {
       leftLink  = <Link to="/login">Login</Link>
-      rightLink = <Link to="/how-it-works">How It Works</Link>
     } else {
       leftLink  = <Link to="/my-library">My Library</Link>
     }
@@ -32,7 +31,9 @@ class Navbar extends React.Component {
           </Link>
         </div>
         <div className="right links">
-          <Link to="/become-a-seller">Sell With Us</Link>
+          { this.props.loggedInStatus &&
+            <Link to="/seller/onboarding">Sell With Us</Link>
+          }
           <Link to="/how-it-works">How It Works</Link>
           <Link to="/contact">Contact Us</Link>
         </div>
