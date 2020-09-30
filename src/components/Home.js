@@ -122,26 +122,6 @@ class Home extends React.Component {
 
         <div className="games">
           <div className="game-list">
-            <div className="game-listing">
-              <img src={kingdomCome}  alt="kingdom come deliverance cover" />
-            </div>
-
-            <div className="game-listing">
-              <img src={fire_emblem}  alt="civilizations 6 cover" />
-            </div>
-
-            <div className="game-listing">
-              <img src={bastion}  alt="bastion cover" />
-
-            </div>
-
-            <div className="game-listing">
-              <img src={greedfall}  alt="bastion cover" />
-
-            </div><div className="game-listing">
-              <img src={xcom}  alt="bastion cover" />
-
-            </div>
             {this.gameListings()}
           </div>
 
