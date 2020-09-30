@@ -13,7 +13,7 @@
     text-align: center;
     border-radius: 4px;
     border: 1px solid #333434;
-    background-color: rgba(0,0,0,0.1);
+    background-color: rgba(0, 0, 0, 0.1);
 
     div.field {
       label {
@@ -22,8 +22,12 @@
         letter-spacing: 0.7px;
       }
 
-      &:first-child {  margin-top: 5vh;  }
-      &:last-of-type {  margin-bottom: 4.5vh;  }
+      &:first-child {
+        margin-top: 5vh;
+      }
+      &:last-of-type {
+        margin-bottom: 4.5vh;
+      }
     }
   }
 
