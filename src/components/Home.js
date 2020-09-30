@@ -61,7 +61,7 @@ class Home extends React.Component {
 
               <div class="navbar-end">
                 <div class="navbar-item">
-                  <label for="sort-by">Sort By</label>
+                  <label htmlFor="sort-by">Sort By</label>
 
                   <div class="select">
                     <select name="sort-by">
@@ -93,10 +93,42 @@ class Home extends React.Component {
 
         <div className="games">
           <div className="game-list">
+            <div className="game-listing">
+              <img src={kingdomCome}  alt="kingdom come deliverance cover" />
+            </div>
 
+            <div className="game-listing">
+              <img src={fire_emblem}  alt="civilizations 6 cover" />
+            </div>
+
+            <div className="game-listing">
+              <img src={bastion}  alt="bastion cover" />
+
+            </div>
+
+            <div className="game-listing">
+              <img src={greedfall}  alt="bastion cover" />
+
+            </div><div className="game-listing">
+              <img src={xcom}  alt="bastion cover" />
+
+            </div>
           </div>
 
           <div className="filters">
+            <div class="card">
+              <header class="card-header">
+                <p class="card-header-title">
+                  Narrow by Price
+                </p>
+              </header>
+              <div class="card-content">
+                <div class="content">
+                  <input type="range" class="topcoat-range" />
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
