@@ -1,0 +1,78 @@
+.App.sign-up {
+  h1 {
+    text-align: center;
+    color: aliceblue;
+    letter-spacing: 0.7px;
+    margin: 5em 0 1em;
+    font-size: 25px;
+  }
+
+  form {
+    width: 40vw;
+    padding: 1em;
+    margin: 0 auto;
+    text-align: center;
+    border-radius: 4px;
+    border: 1px solid #333434;
+    background-color: rgba(0, 0, 0, 0.1);
+
+    div.field {
+      label {
+        position: absolute;
+        color: aliceblue;
+        font-size: 18px;
+        letter-spacing: 0.7px;
+        border-top: 1px solid gray;
+        border-left: 1px solid gray;
+        border-right: 1px solid gray;
+        padding: 0 0.7em;
+        font-size: 15px;
+        background: #79808f;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+      }
+
+      &.phone {
+        margin-top: 30px;
+      }
+
+      input {
+        margin: 2.1em 0 0;
+
+        &#password_confirmation {
+          margin: 0;
+        }
+
+        &[type="tel"] {
+          width: 200px;
+        }
+
+        &.error {
+          border-color: red;
+        }
+      }
+
+      .iti {
+        margin-top: 25px;
+      }
+
+      &:first-child {
+        margin-top: 5vh;
+      }
+      &:last-of-type {
+        margin-bottom: 4.5vh;
+      }
+    }
+  }
+
+  .sign-up-link {
+    width: 100%;
+    margin: 1.7em 0;
+    text-align: center;
+
+    a {
+      color: antiquewhite;
+      letter-spacing: 0.4px;
+    }
+  }
+}
