@@ -5,7 +5,10 @@ import { ToastContainer } from 'react-toastify';
 import './Home.scss';
 import '../slider.css';
 
+import Api from '../services/Api.js'
+
 import Navbar from './Navbar.js'
+import GameListing from './GameListing.js'
 
 import bastion from '../img/bastion.jpeg';
 import fire_emblem from '../img/fire_emblem.png';
@@ -15,6 +18,32 @@ import xcom from '../img/xcom.jpg';
 
 
 class Home extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { listings: { data: [] } };
+  }
+
+  componentDidMount() {
+    Api.get('/listings').then((response) => {
+      this.setState({
+        listings: response.data.data
+      });
+    })
+  }
+
+  gameListings() {
+    let listings = [];
+
+    if (this.state.listings.data.length > 0) {
+      this.state.listings.data.forEach((listing) => {
+        listings.push( <GameListing listing={listing.attributes} />)
+      })
+    }
+
+    return listings;
+  }
+
   render() {
     return (
       <div className="App">
@@ -51,19 +80,19 @@ class Home extends React.Component {
 
         </div>
 
-        <nav class="navbar browse-listings" role="navigation" aria-label="main navigation">
-            <div id="navbarBasicExample" class="navbar-menu">
-              <div class="navbar-start">
-                <div class="navbar-item">
-                  <input type="search" placeholder="enter search term or tag" class="topcoat-search-input" />
+        <nav className="navbar browse-listings" role="navigation" aria-label="main navigation">
+            <div id="navbarBasicExample" className="navbar-menu">
+              <div className="navbar-start">
+                <div className="navbar-item">
+                  <input type="search" placeholder="enter search term or tag" className="topcoat-search-input" />
                 </div>
               </div>
 
-              <div class="navbar-end">
-                <div class="navbar-item">
+              <div className="navbar-end">
+                <div className="navbar-item">
                   <label htmlFor="sort-by">Sort By</label>
 
-                  <div class="select">
+                  <div className="select">
                     <select name="sort-by">
                       <option value="sort_by"
                         >Relevance
@@ -113,18 +142,19 @@ class Home extends React.Component {
               <img src={xcom}  alt="bastion cover" />
 
             </div>
+            {this.gameListings()}
           </div>
 
           <div className="filters">
-            <div class="card">
-              <header class="card-header">
-                <p class="card-header-title">
+            <div className="card">
+              <header className="card-header">
+                <p className="card-header-title">
                   Narrow by Price
                 </p>
               </header>
-              <div class="card-content">
-                <div class="content">
-                  <input type="range" class="topcoat-range" />
+              <div className="card-content">
+                <div className="content">
+                  <input type="range" className="topcoat-range" />
                 </div>
               </div>
             </div>
