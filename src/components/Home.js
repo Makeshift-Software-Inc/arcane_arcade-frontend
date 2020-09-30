@@ -51,7 +51,54 @@ class Home extends React.Component {
 
         </div>
 
+        <nav class="navbar browse-listings" role="navigation" aria-label="main navigation">
+            <div id="navbarBasicExample" class="navbar-menu">
+              <div class="navbar-start">
+                <div class="navbar-item">
+                  <input type="search" placeholder="enter search term or tag" class="topcoat-search-input" />
+                </div>
+              </div>
 
+              <div class="navbar-end">
+                <div class="navbar-item">
+                  <label for="sort-by">Sort By</label>
+
+                  <div class="select">
+                    <select name="sort-by">
+                      <option value="sort_by"
+                        >Relevance
+                      </option>
+                      <option value="release_date">
+                        Release Date
+                      </option>
+                      <option value="Name">
+                        Name
+                      </option>
+                      <option value="price_asc">
+                        Lowest Price
+                      </option>
+                      <option value="price_desc">
+                        Highest Price
+                      </option>
+                      <option value="reviews">
+                        User Reviews
+                      </option>
+                    </select>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </nav>
+
+        <div className="games">
+          <div className="game-list">
+
+          </div>
+
+          <div className="filters">
+          </div>
+        </div>
       </div>
     );
   }

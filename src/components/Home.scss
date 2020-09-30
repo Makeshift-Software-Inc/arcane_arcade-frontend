@@ -5,4 +5,36 @@
     justify-content: center;
     margin-top: 100px;
   }
+
+  .browse-listings {
+    margin-top: 5vh;
+    height: 6vh;
+    background-color: rgba(0, 0, 0, 0.5);
+
+    label {
+      padding-right: 1vw;
+      color: aliceblue;
+    }
+    input[type=search] {
+      text-align: center;
+      color: aliceblue;
+    }
+  }
+
+  .games {
+    display: flex;
+  }
+
+  .game-list {
+    min-height: 40vh;
+    width: 75vw;
+    background-color: rgba(0, 0, 0, 0.3);
+
+  }
+
+  .filters {
+    min-height: 40vh;
+    width: 25vw;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
 }
