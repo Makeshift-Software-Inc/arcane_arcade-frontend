@@ -30,7 +30,6 @@ class Onboarding extends React.Component {
       accepted_crypto: [],
       company_name: "",
       studio_size: "",
-      destinations: {},
     };
   }
 
@@ -46,13 +45,36 @@ class Onboarding extends React.Component {
     const { name, value, checked } = event.target;
     const target = event.target;
 
-    debugger;
     if (target.type === "text") {
       this.setState({ [name]: value });
     } else if (target.type === "checkbox") {
       this.setState({ [name]: checked });
     }
   };
+
+  handlePaymentChange = (event) => {
+    const { id, checked } = event.target;
+
+    let acceptedCryptos = this.state.accepted_crypt;
+
+    if (id === 'bitcoin') {
+      if (!acceptedCryptos.contains('BTC') && checked) {
+        acceptedCryptos.push("BTC")
+      } else {
+        acceptedCryptos.remove("BTC")
+      }
+    }
+
+    if (id === 'monero') {
+      if (!acceptedCryptos.contains('XMR') && checked) {
+        acceptedCryptos.push("XMR")
+      } else {
+        acceptedCryptos.remove("XMR")
+      }
+    }
+
+    this.setState({ accepted_crypto: acceptedCryptos });
+  }
 
   showFirstQuestion() {
     const firstQuestion = this.firstQuestion.current;
@@ -78,7 +100,8 @@ class Onboarding extends React.Component {
     if (this.state.answers.is_seller) {
       this.showSellingQuestion();
     } else {
-      this.showNormalForm();
+      debugger
+      this.props.history.push('/');
     }
   }
 
@@ -105,7 +128,7 @@ class Onboarding extends React.Component {
     if (this.state.answers.interested) {
       this.showCompanyQuestion();
     } else {
-      this.showNormalForm();
+      this.props.history.push('/');
     }
   }
 
@@ -215,7 +238,7 @@ class Onboarding extends React.Component {
 
     this.setState({ answers: newAnswers });
 
-    this.showNormalForm();
+    this.props.history.push('/');
   }
 
   submitForm(e) {
