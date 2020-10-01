@@ -1,15 +1,13 @@
 import React, { useEffect, createRef } from "react";
 import { observer } from "mobx-react";
 
-import { ToastContainer } from "react-toastify";
-
 import "intl-tel-input/build/css/intlTelInput.css";
 import "intl-tel-input/build/js/utils.js";
 import intlTelInput from "intl-tel-input";
 
 import { useStore } from "../../store";
 
-import Navbar from "../../components/Navbar";
+import Navbar from "../../components/Navbar/Navbar";
 import Errors from "../../components/Errors/Errors";
 
 import "./SignUp.scss";
@@ -40,7 +38,6 @@ const SignUpPage = ({ history }) => {
 
   return (
     <div className="App sign-up">
-      <ToastContainer />
       <Navbar />
 
       <h1>Sign Up</h1>

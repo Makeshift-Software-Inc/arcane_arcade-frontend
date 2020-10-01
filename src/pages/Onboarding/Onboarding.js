@@ -1,12 +1,12 @@
 import React from "react";
 import { Link, Redirect } from "react-router-dom";
 
-import "../magic.css";
-import "./onboarding.scss";
+import "../../magic.css";
+import "./Onboarding.scss";
 
-import logo from "../img/temp-logo.png";
-import btcIcon from "../img/bitcoin.png";
-import xmrIcon from "../img/monero.png";
+import logo from "../../img/temp-logo.png";
+import btcIcon from "../../img/bitcoin.png";
+import xmrIcon from "../../img/monero.png";
 
 class Onboarding extends React.Component {
   constructor(props) {
