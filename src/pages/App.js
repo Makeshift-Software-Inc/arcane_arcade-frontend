@@ -7,7 +7,6 @@ import "../topcoat-desktop-dark.css";
 import "bulma/bulma.sass";
 
 import { observer } from "mobx-react";
-import { Redirect } from "react-router-dom";
 
 import { useStore } from "../store";
 

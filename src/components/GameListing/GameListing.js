@@ -4,67 +4,46 @@ import "tippy.js/dist/tippy.css";
 
 import "./GameListing.scss";
 
-class GameListing extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = { listing: this.props.listing };
-  }
-
-  popoverContent() {
-    let popoverContent = [];
-
-    const firstImg = this.state.listing.images[1];
-    const secondImg = this.state.listing.images[2];
-
-    if (firstImg) popoverContent.push(<img src={firstImg} alt="" />);
-    if (secondImg) popoverContent.push(<img src={secondImg} alt="" />);
-
-    if (this.props.listing.videos.length > 0) {
-      popoverContent.push(
-        <button
-          onClick={this.playTrailer.bind(this)}
-          class="topcoat-button--large--cta"
-        >
+const PopupContent = ({ title, images, videos, play }) => {
+  return (
+    <div className="popover">
+      <div className="title">{title}</div>
+      {images[0] && <img src={images[0]} alt="" />}
+      {images[1] && <img src={images[1]} alt="" />}
+      {videos.length > 0 && (
+        <button onClick={play} className="topcoat-button--large--cta">
           Play Trailer
         </button>
-      );
-    }
+      )}
+    </div>
+  );
+};
 
-    return popoverContent;
-  }
+const GameListing = ({ game }) => {
+  const imageAlt = `${game.title} cover`;
 
-  playTrailer() {
-    this.props.playVideo(this.state.listing);
-  }
-
-  render() {
-    const coverImageSrc = this.state.listing.images[0];
-    const imgAlt = `${this.state.listing.title} cover`;
-
-    const popupContent = (
-      <div className="popover">
-        <div className="title">{this.state.listing.title}</div>
-        {this.popoverContent()}
+  return (
+    <Tippy
+      content={
+        <PopupContent
+          title={game.title}
+          images={game.images}
+          videos={game.videos}
+          play={game.play}
+        />
+      }
+      interactive={true}
+      interactiveBorder={20}
+      delay={100}
+      arrow={true}
+      placement="top"
+      key={game.id}
+    >
+      <div className="game-listing" key={game.id}>
+        <img src={game.images[0]} alt={imageAlt} />
       </div>
-    );
-
-    return (
-      <Tippy
-        content={popupContent}
-        interactive={true}
-        interactiveBorder={20}
-        delay={100}
-        arrow={true}
-        placement="top"
-        key={this.state.listing.id}
-      >
-        <div className="game-listing" key={this.state.listing.id}>
-          <img src={coverImageSrc} alt={imgAlt} />
-        </div>
-      </Tippy>
-    );
-  }
-}
+    </Tippy>
+  );
+};
 
 export default GameListing;

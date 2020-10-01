@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import ReactPlayer from "react-player";
+
+import { observer } from "mobx-react";
 
 import "./Home.scss";
 import "../../slider.css";
 
-import Api from "../../services/Api";
-
 import Navbar from "../../components/Navbar/Navbar";
-import GameListing from "../../components/GameListing/GameListing";
+
+import GamesListings from "./GamesListings";
 
 import bastion from "../../img/bastion.jpeg";
 import fire_emblem from "../../img/fire_emblem.png";
@@ -16,23 +17,10 @@ import kingdomCome from "../../img/kingdom_come.jpeg";
 import greedfall from "../../img/greedfall.jpg";
 import xcom from "../../img/xcom.jpg";
 
+import { useStore } from "../../store";
+
 const Home = () => {
-  const [selectedGame, setSelectedGame] = useState(null);
-  const [games, setGames] = useState([]);
-
-  useEffect(() => {
-    const load = async () => {
-      const response = await Api.get("/listings");
-      setGames(response.data.data);
-    };
-
-    load();
-  }, []);
-
-  const renderGames = () =>
-    games.forEach((game) => (
-      <GameListing listing={game.attributes} playVideo={selectedGame} />
-    ));
+  const { selectedGame } = useStore("games");
 
   return (
     <div className="App">
@@ -114,7 +102,9 @@ const Home = () => {
         </nav>
 
         <div className="games">
-          <div className="game-list">{renderGames()}</div>
+          <div className="game-list">
+            <GamesListings />
+          </div>
 
           <div className="filters">
             <div className="card">
@@ -134,4 +124,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default observer(Home);

@@ -5,6 +5,7 @@ import { types } from "mobx-state-tree";
 import AuthStore from "./AuthStore";
 import NotificationsStore from "./NotificationsStore";
 import FormsStore from "./FormsStore";
+import GamesStore from "./GamesStore";
 
 let store;
 
@@ -12,6 +13,7 @@ const RootStore = types.model("Root", {
   auth: types.optional(AuthStore, {}),
   notifications: types.optional(NotificationsStore, {}),
   forms: types.optional(FormsStore, {}),
+  games: types.optional(GamesStore, {}),
 });
 
 const initStore = (initialState) => {
