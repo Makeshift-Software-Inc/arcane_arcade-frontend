@@ -39,6 +39,9 @@ class GameListing extends React.Component {
 
     const popupContent = (
       <div className="popover">
+        <div className="title">
+          {this.state.listing.title}
+        </div>
         {this.popoverContent()}
       </div>
     )
