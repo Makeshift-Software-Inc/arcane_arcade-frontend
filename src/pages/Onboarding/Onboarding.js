@@ -100,7 +100,6 @@ class Onboarding extends React.Component {
     if (this.state.answers.is_seller) {
       this.showSellingQuestion();
     } else {
-      debugger
       this.props.history.push('/');
     }
   }
@@ -248,13 +247,17 @@ class Onboarding extends React.Component {
 
     const answers = this.state.answers;
     if (answers.interested) {
-      payload.user.seller_attributes = {
+      payload.seller = {
         accepted_crypto: answers.accepted_crypto,
         default_currency: answers.default_currency,
         business_name: answers.company_name,
         studio_size: answers.studio_size,
       };
     }
+
+    // APi.post('/sellers'), on success, create a notification (from rails)
+    // redirect to '/'
+    // on error, same page show an error Toast notification
   }
 
   render() {
