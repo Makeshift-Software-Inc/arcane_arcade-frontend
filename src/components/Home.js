@@ -1,11 +1,15 @@
 import React from 'react';
 import { ToastContainer } from 'react-toastify';
+import ReactPlayer from 'react-player'
 
 
 import './Home.scss';
 import '../slider.css';
 
+import Api from '../services/Api.js'
+
 import Navbar from './Navbar.js'
+import GameListing from './GameListing.js'
 
 import bastion from '../img/bastion.jpeg';
 import fire_emblem from '../img/fire_emblem.png';
@@ -15,6 +19,54 @@ import xcom from '../img/xcom.jpg';
 
 
 class Home extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      videoSrc: '',
+      playingVideo: false,
+      listings: { data: [] },
+    };
+    this.featuredSlider = React.createRef();
+    this.videoPlyr = React.createRef();
+  }
+
+  componentDidMount() {
+    Api.get('/listings').then((response) => {
+      this.setState({
+        listings: response.data.data
+      });
+    })
+  }
+
+  gameListings() {
+    let listings = [];
+
+    if (this.state.listings.data.length > 0) {
+      this.state.listings.data.forEach((listing) => {
+        listings.push(
+          <GameListing
+            listing={listing.attributes}
+            playVideo={this.playVideo.bind(this)}
+          />)
+      })
+    }
+
+    return listings;
+  }
+
+  playVideo(selectedListing) {
+    this.featuredSlider.current.classList.add('is-hidden');
+    this.videoPlyr.current.classList.remove('is-hidden');
+
+    this.setState({
+      videoSrc: selectedListing.videos[0],
+      playingVideo: true
+    });
+
+  }
+
+
   render() {
     return (
       <div className="App">
@@ -23,7 +75,12 @@ class Home extends React.Component {
         <Navbar loggedInStatus={this.props.loggedInStatus} />
 
         <div className="slider-container">
-          <div className="slider">
+          <div ref={this.videoPlyr} className="is-hidden">
+
+            <ReactPlayer url={this.state.videoSrc} playing={true} width="80vw" height="100%" autoPlay controls muted/>
+          </div>
+
+          <div ref={this.featuredSlider} className="slider">
             <a href="#slide-1">1</a>
             <a href="#slide-2">2</a>
             <a href="#slide-3">3</a>
@@ -51,19 +108,19 @@ class Home extends React.Component {
 
         </div>
 
-        <nav class="navbar browse-listings" role="navigation" aria-label="main navigation">
-            <div id="navbarBasicExample" class="navbar-menu">
-              <div class="navbar-start">
-                <div class="navbar-item">
-                  <input type="search" placeholder="enter search term or tag" class="topcoat-search-input" />
+        <nav className="navbar browse-listings" role="navigation" aria-label="main navigation">
+            <div id="navbarBasicExample" className="navbar-menu">
+              <div className="navbar-start">
+                <div className="navbar-item">
+                  <input type="search" placeholder="enter search term or tag" className="topcoat-search-input" />
                 </div>
               </div>
 
-              <div class="navbar-end">
-                <div class="navbar-item">
+              <div className="navbar-end">
+                <div className="navbar-item">
                   <label htmlFor="sort-by">Sort By</label>
 
-                  <div class="select">
+                  <div className="select">
                     <select name="sort-by">
                       <option value="sort_by"
                         >Relevance
@@ -93,38 +150,19 @@ class Home extends React.Component {
 
         <div className="games">
           <div className="game-list">
-            <div className="game-listing">
-              <img src={kingdomCome}  alt="kingdom come deliverance cover" />
-            </div>
-
-            <div className="game-listing">
-              <img src={fire_emblem}  alt="civilizations 6 cover" />
-            </div>
-
-            <div className="game-listing">
-              <img src={bastion}  alt="bastion cover" />
-
-            </div>
-
-            <div className="game-listing">
-              <img src={greedfall}  alt="bastion cover" />
-
-            </div><div className="game-listing">
-              <img src={xcom}  alt="bastion cover" />
-
-            </div>
+            {this.gameListings()}
           </div>
 
           <div className="filters">
-            <div class="card">
-              <header class="card-header">
-                <p class="card-header-title">
+            <div className="card">
+              <header className="card-header">
+                <p className="card-header-title">
                   Narrow by Price
                 </p>
               </header>
-              <div class="card-content">
-                <div class="content">
-                  <input type="range" class="topcoat-range" />
+              <div className="card-content">
+                <div className="content">
+                  <input type="range" className="topcoat-range" />
                 </div>
               </div>
             </div>
