@@ -1,7 +1,6 @@
 import React from 'react';
 import { ToastContainer } from 'react-toastify';
-import Plyr from 'plyr'
-import 'plyr/dist/plyr.css'
+import ReactPlayer from 'react-player'
 
 
 import './Home.scss';
@@ -65,9 +64,6 @@ class Home extends React.Component {
       playingVideo: true
     });
 
-    const player = new Plyr('#player', {
-      autoplay: true
-    });
   }
 
 
@@ -80,9 +76,8 @@ class Home extends React.Component {
 
         <div className="slider-container">
           <div ref={this.videoPlyr} className="is-hidden">
-            <video id="player" playsinline controls data-poster="/path/to/poster.jpg">
-              <source src={this.state.videoSrc} type="video/webm" />
-            </video>
+
+            <ReactPlayer url={this.state.videoSrc} playing={true} width="80vw" height="100%" autoPlay controls muted/>
           </div>
 
           <div ref={this.featuredSlider} className="slider">

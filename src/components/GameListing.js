@@ -57,8 +57,9 @@ class GameListing extends React.Component {
         delay={100}
         arrow={true}
         placement="top"
+        key={this.state.listing.id}
       >
-        <div className="game-listing">
+        <div className="game-listing" key={this.state.listing.id}>
           <img src={coverImageSrc}  alt={imgAlt} />
         </div>
       </Tippy>
