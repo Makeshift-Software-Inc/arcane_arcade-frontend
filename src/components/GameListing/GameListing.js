@@ -4,10 +4,13 @@ import "tippy.js/dist/tippy.css";
 
 import "./GameListing.scss";
 
-const PopupContent = ({ title, images, videos, play }) => {
+const PopupContent = ({ title, price, images, videos, play }) => {
   return (
     <div className="popover">
-      <div className="title">{title}</div>
+      <div className="title">
+        {title}
+        <span className="price">{price / 100}</span>
+      </div>
       {images[0] && <img src={images[0]} alt="" />}
       {images[1] && <img src={images[1]} alt="" />}
       {videos.length > 0 && (
@@ -29,6 +32,7 @@ const GameListing = ({ game }) => {
           title={game.title}
           images={game.images}
           videos={game.videos}
+          price={game.price}
           play={game.play}
         />
       }
