@@ -15,7 +15,7 @@ const GamesListings = () => {
   if (loading) return <Loading />;
 
   return games.map((game) => {
-    return <GameListing key={game.id} game={game} />;
+    return <GameListing key={game.slug} game={game} />;
   });
 };
 

@@ -8,6 +8,7 @@ import Login from "./Login/Login";
 import SignUp from "./SignUp/SignUp";
 import TwoFactorAuth from "./TwoFactorAuth/TwoFactorAuth";
 import Onboarding from "./Onboarding/Onboarding";
+import GamesShow from "./Games/Show/GamesShow";
 import Logout from "./Logout/Logout";
 import HowItWorks from "./HowItWorks/HowItWorks";
 import ContactUs from "./ContactUs/ContactUs";
@@ -49,6 +50,7 @@ const Routes = () => {
       <Route exact path="/contact-us" component={ContactUs} />
       <Route exact path="/seller/onboarding" component={Onboarding} />
       <Route exact path="/logout" component={Logout} />
+      <Route exact path="/games/:slug" component={GamesShow} />
       <Redirect to="/" />
     </Switch>
   );

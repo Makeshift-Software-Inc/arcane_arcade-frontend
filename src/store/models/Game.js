@@ -3,12 +3,19 @@ import BaseUpdate from "./BaseUpdate";
 
 const Game = types
   .model("Game", {
-    id: types.identifier,
+    slug: types.identifier,
     title: types.string,
     description: types.string,
     price: types.string,
     images: types.array(types.string),
     videos: types.array(types.string),
+    preorderable: types.boolean,
+    early_access: types.boolean,
+    esrb: types.string,
+    btc_amount: types.number,
+    xmr_amount: types.number,
+    default_currency: types.string,
+    currency_symbol: types.string,
   })
   .actions((self) => ({
     play() {

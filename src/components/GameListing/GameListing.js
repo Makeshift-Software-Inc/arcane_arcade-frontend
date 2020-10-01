@@ -1,15 +1,19 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 
 import "./GameListing.scss";
 
-const PopupContent = ({ title, price, images, videos, play }) => {
+const PopupContent = ({ title, price, images, videos, currencySymbol, defaultCurrency, play }) => {
   return (
     <div className="popover">
       <div className="title">
-        {title}
-        <span className="price">{price / 100}</span>
+        <h3>{title}</h3>
+        <span className="price">
+          {currencySymbol}{price / 100} {defaultCurrency}
+        </span>
       </div>
       {images[0] && <img src={images[0]} alt="" />}
       {images[1] && <img src={images[1]} alt="" />}
@@ -24,7 +28,7 @@ const PopupContent = ({ title, price, images, videos, play }) => {
 
 const GameListing = ({ game }) => {
   const imageAlt = `${game.title} cover`;
-
+  const listingShowLink = `/games/${game.slug}`
   return (
     <Tippy
       content={
@@ -33,6 +37,8 @@ const GameListing = ({ game }) => {
           images={game.images}
           videos={game.videos}
           price={game.price}
+          currencySymbol={game.currency_symbol}
+          defaultCurrency={game.default_currency}
           play={game.play}
         />
       }
@@ -40,12 +46,14 @@ const GameListing = ({ game }) => {
       interactiveBorder={20}
       delay={100}
       arrow={true}
-      placement="top"
+      placement="auto"
       key={game.id}
     >
-      <div className="game-listing" key={game.id}>
-        <img src={game.images[0]} alt={imageAlt} />
-      </div>
+        <div className="game-listing" key={game.id}>
+          <Link to={listingShowLink}>
+            <img src={game.images[0]} alt={imageAlt} />
+          </Link>
+        </div>
     </Tippy>
   );
 };

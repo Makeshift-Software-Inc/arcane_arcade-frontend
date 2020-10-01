@@ -33,7 +33,7 @@ const Home = () => {
               url={selectedGame.videos[0]}
               playing={true}
               width="80vw"
-              height="100%"
+              height="80vh"
               autoPlay
               controls
               muted
