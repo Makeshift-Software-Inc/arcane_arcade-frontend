@@ -1,5 +1,7 @@
 import React from 'react';
 import { ToastContainer } from 'react-toastify';
+import Plyr from 'plyr'
+import 'plyr/dist/plyr.css'
 
 
 import './Home.scss';
@@ -21,7 +23,13 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { listings: { data: [] } };
+    this.state = {
+      videoSrc: '',
+      playingVideo: false,
+      listings: { data: [] },
+    };
+    this.featuredSlider = React.createRef();
+    this.videoPlyr = React.createRef();
   }
 
   componentDidMount() {
@@ -37,12 +45,31 @@ class Home extends React.Component {
 
     if (this.state.listings.data.length > 0) {
       this.state.listings.data.forEach((listing) => {
-        listings.push( <GameListing listing={listing.attributes} />)
+        listings.push(
+          <GameListing
+            listing={listing.attributes}
+            playVideo={this.playVideo.bind(this)}
+          />)
       })
     }
 
     return listings;
   }
+
+  playVideo(selectedListing) {
+    this.featuredSlider.current.classList.add('is-hidden');
+    this.videoPlyr.current.classList.remove('is-hidden');
+
+    this.setState({
+      videoSrc: selectedListing.videos[0],
+      playingVideo: true
+    });
+
+    const player = new Plyr('#player', {
+      autoplay: true
+    });
+  }
+
 
   render() {
     return (
@@ -52,7 +79,13 @@ class Home extends React.Component {
         <Navbar loggedInStatus={this.props.loggedInStatus} />
 
         <div className="slider-container">
-          <div className="slider">
+          <div ref={this.videoPlyr} className="is-hidden">
+            <video id="player" playsinline controls data-poster="/path/to/poster.jpg">
+              <source src={this.state.videoSrc} type="video/webm" />
+            </video>
+          </div>
+
+          <div ref={this.featuredSlider} className="slider">
             <a href="#slide-1">1</a>
             <a href="#slide-2">2</a>
             <a href="#slide-3">3</a>
