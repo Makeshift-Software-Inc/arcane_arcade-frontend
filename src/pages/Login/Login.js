@@ -1,20 +1,21 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { observer } from "mobx-react";
 
 import { useStore } from "../../store";
 
-import Navbar from "../../components/Navbar.js";
+import Navbar from "../../components/Navbar/Navbar";
 import Errors from "../../components/Errors/Errors";
+
 import "./Login.scss";
 
 const LoginPage = ({ location, history }) => {
-  useEffect(() => {
-    if (location.state) {
-      toast(location.state);
-    }
-  }, [location.state]);
+  // useEffect(() => {
+  //   if (location.state) {
+  //     toast(location.state);
+  //   }
+  // }, [location.state]);
 
   const {
     auth: authStore,
@@ -32,7 +33,6 @@ const LoginPage = ({ location, history }) => {
 
   return (
     <div className="App">
-      <ToastContainer />
       <Navbar />
 
       <h1> Login </h1>

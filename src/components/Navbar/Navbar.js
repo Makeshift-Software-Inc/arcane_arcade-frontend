@@ -1,11 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { observer } from "mobx-react";
 
-import "./navbar.scss";
+import "./Navbar.scss";
 
-import logo from "../img/temp-logo.png";
+import logo from "../../img/temp-logo.png";
 
-import { useStore } from "../store";
+import { useStore } from "../../store";
 
 const Navbar = () => {
   const { isLoggedIn } = useStore("auth");
@@ -29,10 +30,11 @@ const Navbar = () => {
       <div className="right links">
         {isLoggedIn && <Link to="/seller/onboarding">Sell With Us</Link>}
         <Link to="/how-it-works">How It Works</Link>
-        <Link to="/contact">Contact Us</Link>
+        <Link to="/contact-us">Contact Us</Link>
+        {isLoggedIn && <Link to="/logout">Logout</Link>}
       </div>
     </header>
   );
 };
 
-export default Navbar;
+export default observer(Navbar);

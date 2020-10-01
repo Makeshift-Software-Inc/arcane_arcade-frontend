@@ -1,9 +1,8 @@
 .App.onboarding {
-  background: linear-gradient(-45deg, #58595A, #58595A, #AAACB3, #91959F);
+  background: linear-gradient(-45deg, #58595a, #58595a, #aaacb3, #91959f);
   background-size: 400% 400%;
   animation: gradient 15s ease infinite;
   padding-bottom: 5vh;
-
 
   .welcome {
     width: 100%;
@@ -15,7 +14,6 @@
       font-size: 32px;
       color: aliceblue;
     }
-
   }
 
   .logo {
@@ -33,12 +31,14 @@
     margin-top: 25px;
     padding-top: 25px;
 
-    &.vanishOut { display: none; }
+    &.vanishOut {
+      display: none;
+    }
     input.error {
       border-color: red;
     }
 
-    input[type=checkbox]{
+    input[type="checkbox"] {
       height: 0;
       width: 0;
       visibility: hidden;
@@ -56,8 +56,8 @@
     }
 
     label:after {
-      content: 'YES';
-      color: 'red';
+      content: "YES";
+      color: "red";
       position: absolute;
       top: 4px;
       left: 5px;
@@ -122,7 +122,6 @@
           border-radius: 40px;
         }
       }
-
     }
   }
 }

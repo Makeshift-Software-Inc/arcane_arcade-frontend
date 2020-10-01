@@ -3,12 +3,14 @@ import { useLocalStore } from "mobx-react";
 import { types } from "mobx-state-tree";
 
 import AuthStore from "./AuthStore";
+import NotificationsStore from "./NotificationsStore";
 import FormsStore from "./FormsStore";
 
 let store;
 
 const RootStore = types.model("Root", {
   auth: types.optional(AuthStore, {}),
+  notifications: types.optional(NotificationsStore, {}),
   forms: types.optional(FormsStore, {}),
 });
 
