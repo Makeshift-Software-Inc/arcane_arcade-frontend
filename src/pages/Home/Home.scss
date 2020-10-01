@@ -5,4 +5,87 @@
     justify-content: center;
     margin-top: 100px;
   }
+
+  .browse-listings {
+    margin-top: 5vh;
+    height: 6vh;
+    background-color: rgba(0, 0, 0, 0.5);
+
+    label {
+      padding-right: 1vw;
+      color: aliceblue;
+    }
+    input[type=search] {
+      text-align: center;
+      color: aliceblue;
+    }
+  }
+
+  .games {
+    display: flex;
+  }
+
+  .game-list {
+    min-height: 40vh;
+    width: 75vw;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    padding-top: 4vh;
+    flex-wrap: wrap;
+
+    .game-listing {
+      width: 9vw;
+      height: 9vh;
+      margin: 0 2rem;
+      min-width: 100px;
+      max-width: 120px;
+      max-height: 120px;
+      min-height: 100px;
+      border-radius: 1.1em;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+
+      &:hover {
+        box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+
+      }
+
+      img {
+        width: 9vw;
+        max-width: 120px;
+        min-width: 100px;
+        max-height: 120px;
+        min-height: 100px;
+        height: 9vh;
+        object-fit: cover;
+        border-radius: 1.1em;
+      }
+
+    }
+  }
+
+  .filters {
+    min-height: 40vh;
+    width: 25vw;
+    border-left: 3px solid #2F2D32;
+    background-color: rgba(0, 0, 0, 0.4);
+
+    .card {
+      background-color: rgba(0,0,0,0.2);
+      margin: 2rem;
+      min-height: 150px;
+      color: aliceblue;
+      text-align: center;
+
+      header p {
+        color: aliceblue;
+        text-align: center;
+        justify-content: center;
+      }
+
+      .content {
+        display: flex;
+        justify-content: center;
+      }
+    }
+  }
 }
