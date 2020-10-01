@@ -66,55 +66,56 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <nav
-          className="navbar browse-listings"
-          role="navigation"
-          aria-label="main navigation"
-        >
-          <div id="navbarBasicExample" className="navbar-menu">
-            <div className="navbar-start">
-              <div className="navbar-item">
-                <input
-                  type="search"
-                  placeholder="enter search term or tag"
-                  className="topcoat-search-input"
-                />
-              </div>
+      </div>
+
+      <nav
+        className="navbar browse-listings"
+        role="navigation"
+        aria-label="main navigation"
+      >
+        <div id="navbarBasicExample" className="navbar-menu">
+          <div className="navbar-start">
+            <div className="navbar-item">
+              <input
+                type="search"
+                placeholder="enter search term or tag"
+                className="topcoat-search-input"
+              />
             </div>
+          </div>
 
-            <div className="navbar-end">
-              <div className="navbar-item">
-                <label htmlFor="sort-by">Sort By</label>
+          <div className="navbar-end">
+            <div className="navbar-item">
+              <label htmlFor="sort-by">Sort By</label>
 
-                <div className="select">
-                  <select name="sort-by">
-                    <option value="sort_by">Relevance</option>
-                    <option value="release_date">Release Date</option>
-                    <option value="Name">Name</option>
-                    <option value="price_asc">Lowest Price</option>
-                    <option value="price_desc">Highest Price</option>
-                    <option value="reviews">User Reviews</option>
-                  </select>
-                </div>
+              <div className="select">
+                <select name="sort-by">
+                  <option value="sort_by">Relevance</option>
+                  <option value="release_date">Release Date</option>
+                  <option value="Name">Name</option>
+                  <option value="price_asc">Lowest Price</option>
+                  <option value="price_desc">Highest Price</option>
+                  <option value="reviews">User Reviews</option>
+                </select>
               </div>
             </div>
           </div>
-        </nav>
+        </div>
+      </nav>
 
-        <div className="games">
-          <div className="game-list">
-            <GamesListings />
-          </div>
+      <div className="games">
+        <div className="game-list">
+          <GamesListings />
+        </div>
 
-          <div className="filters">
-            <div className="card">
-              <header className="card-header">
-                <p className="card-header-title">Narrow by Price</p>
-              </header>
-              <div className="card-content">
-                <div className="content">
-                  <input type="range" className="topcoat-range" />
-                </div>
+        <div className="filters">
+          <div className="card">
+            <header className="card-header">
+              <p className="card-header-title">Narrow by Price</p>
+            </header>
+            <div className="card-content">
+              <div className="content">
+                <input type="range" className="topcoat-range" />
               </div>
             </div>
           </div>
