@@ -25,6 +25,7 @@ const Routes = () => {
       <Route exact path="/sign-up" component={SignUp} />
       <Route exact path="/how-it-works" component={HowItWorks} />
       <Route exact path="/contact-us" component={ContactUs} />
+      <Route exact path="/games/:slug" component={GamesShow} />
       <Redirect to="/login" />
     </Switch>
   );
@@ -35,8 +36,9 @@ const Routes = () => {
     <Switch>
       <Route exact path="/authorize" component={TwoFactorAuth} />
       <Route exact path="/how-it-works" component={HowItWorks} />
-      <Route exact path="/contact-us" component={ContactUs} />
       <Route exact path="/logout" component={Logout} />
+      <Route exact path="/contact-us" component={ContactUs} />
+      <Route exact path="/games/:slug" component={GamesShow} />
       <Redirect to="/authorize" />
     </Switch>
   );
