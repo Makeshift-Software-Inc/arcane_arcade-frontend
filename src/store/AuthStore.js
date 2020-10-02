@@ -112,7 +112,7 @@ const AuthStore = types
       const { forms } = getRoot(self);
 
       try {
-        const response = yield Api.post("/authorize", {
+        yield Api.post("/authorize", {
           auth: { code },
         });
         self.user.update({ activation_state: "active" });
