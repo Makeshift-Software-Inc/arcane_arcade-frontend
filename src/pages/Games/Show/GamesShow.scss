@@ -1,3 +1,52 @@
 .App.listings-show {
-    
+  .container {
+    display: flex;
+
+    .row {
+      display: flex;
+    }
+
+    .game-info {
+      top: 79px;
+      width: 100%;
+      margin: 1em;
+      height: 29.9vh;
+      position: relative;
+      background: rgba(0, 0, 0, 0.3);
+      color: aliceblue;
+
+      img {
+        width: 100%;
+        height: 125px;
+        object-fit: cover;
+      }
+
+      p {
+        padding: 1em;
+      }
+    }
+  }
+  .splide-container {
+    padding: 6rem 2em;
+  }
+  .splide {
+    max-width: 640px!important;
+    width: 606px !important;
+    height: 395px;
+
+
+    .splide__track {
+      height: 56vh;
+      width: 640px;
+    }
+
+    .splide__slide {
+      width: 640px !important;
+    }
+
+    video {
+      height: auto !important;
+    }
+
+  }
 }
