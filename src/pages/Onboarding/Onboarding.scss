@@ -30,6 +30,8 @@
     color: aliceblue;
     margin-top: 25px;
     padding-top: 25px;
+    display: flex;
+    justify-content: center;
 
     &.vanishOut {
       display: none;
@@ -90,7 +92,8 @@
     }
 
     .continue {
-      margin: 2em 0 0;
+      margin: 3em auto;
+      display: flex;
     }
   }
 

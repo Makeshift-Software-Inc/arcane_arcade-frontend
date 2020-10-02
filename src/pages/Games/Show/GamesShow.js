@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
 import { observer } from "mobx-react";
 
 
@@ -22,7 +21,6 @@ import './GamesShow.scss'
 class GamesShow extends React.Component {
   constructor(props) {
     super(props);
-
 
     this.state = { game: {}}
   }
@@ -76,6 +74,10 @@ class GamesShow extends React.Component {
     });
 
     return slides;
+  }
+
+  onFormSubmit(e) {
+    e.preventDefault();
   }
 
   render() {
@@ -180,10 +182,10 @@ class GamesShow extends React.Component {
                 </div>
               </div>
               <div className="payment-submit">
-                    <button class="topcoat-button--large--cta" type="submit" >
-                      Buy
-                    </button>
-                  </div>
+                <button onClick={this.onFormSubmit.bind(this)} class="topcoat-button--large--cta" type="submit" >
+                  Buy
+                </button>
+              </div>
             </form>
 
           </div>

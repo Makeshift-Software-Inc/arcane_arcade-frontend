@@ -1,7 +1,11 @@
 import React from "react";
 
 const HowItWorks = () => {
-  return <div>How it works</div>;
+  return (
+    <div className="App how-it-works">
+      <div>How it works</div>
+    </div>
+  );
 };
 
 export default HowItWorks;

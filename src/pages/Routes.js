@@ -54,6 +54,7 @@ const Routes = () => {
       <Route exact path="/seller/onboarding" component={Onboarding} />
       <Route exact path="/logout" component={Logout} />
       <Route exact path="/games/:slug" component={GamesShow} />
+      <Route exact path="/buy/:id" component={OrdersShow} />
       <Redirect to="/" />
     </Switch>
   );
