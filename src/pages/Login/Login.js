@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
 import { observer } from "mobx-react";
 
 import { useStore } from "../../store";
@@ -11,12 +10,6 @@ import Errors from "../../components/Errors/Errors";
 import "./Login.scss";
 
 const LoginPage = ({ location, history }) => {
-  // useEffect(() => {
-  //   if (location.state) {
-  //     toast(location.state);
-  //   }
-  // }, [location.state]);
-
   const {
     auth: authStore,
     forms: { login },

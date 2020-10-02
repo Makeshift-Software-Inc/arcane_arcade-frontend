@@ -19,6 +19,7 @@ const App = () => {
 
   useEffect(() => {
     auth.checkLoggedIn();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (auth.loading) return <Loading />;

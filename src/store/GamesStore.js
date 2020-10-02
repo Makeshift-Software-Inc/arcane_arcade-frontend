@@ -17,7 +17,6 @@ const GamesStore = types
 
       try {
         const response = yield Api.get("/listings");
-        console.log(response.data.data);
         self.games = deserialize(response.data.data);
         self.loading = false;
         return true;
