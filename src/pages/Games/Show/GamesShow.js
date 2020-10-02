@@ -111,6 +111,7 @@ class GamesShow extends React.Component {
 
         </div>
         <div className="info-section">
+
           <div className="pricing">
             <form>
               <div className="payment">
@@ -119,35 +120,35 @@ class GamesShow extends React.Component {
                       <label class="topcoat-radio-button">
                         <input type="radio" id="btc" name="payment_method" />
                         <div class="topcoat-radio-button__checkmark"></div>
+                        <Tippy
+                          content={`${this.state.game.btc_amount} BTC`}
+                          interactive={true}
+                          interactiveBorder={20}
+                          delay={100}
+                          arrow={true}
+                          placement="auto"
+                          >
+                            <i class="fab fa-bitcoin"></i>
+                        </Tippy>
                       </label>
-                      <Tippy
-                        content={`${this.state.game.btc_amount} BTC`}
-                        interactive={true}
-                        interactiveBorder={20}
-                        delay={100}
-                        arrow={true}
-                        placement="auto"
-                        >
-                        <i class="fab fa-bitcoin"></i>
 
-                      </Tippy>
 
                     </div>
                     <div className="monero">
                       <label class="topcoat-radio-button">
                         <input type="radio" id="xmr" name="payment_method" />
                         <div class="topcoat-radio-button__checkmark"></div>
+                        <Tippy
+                          content={`${this.state.game.xmr_amount} XMR`}
+                          interactive={true}
+                          interactiveBorder={20}
+                          delay={100}
+                          arrow={true}
+                          placement="auto"
+                          >
+                          <i class="fab fa-monero"></i>
+                        </Tippy>
                       </label>
-                      <Tippy
-                        content={`${this.state.game.xmr_amount} XMR`}
-                        interactive={true}
-                        interactiveBorder={20}
-                        delay={100}
-                        arrow={true}
-                        placement="auto"
-                        >
-                        <i class="fab fa-monero"></i>
-                      </Tippy>
 
                     </div>
                   </div>
@@ -158,20 +159,34 @@ class GamesShow extends React.Component {
                       {this.state.game.price / 100} {this.state.game.default_currency}
                     </h3>
                   </div>
-                  <div className="payment-submit">
-                    <button class="topcoat-button--large--cta" disabled type="submit" >
-                      Buy
-                    </button>
-                  </div>
               </div>
 
               <div class="vl"></div>
 
-              <div className="platforms"></div>
+              <div className="platforms">
+                <div className="windows">
+                  <i class="fab fa-windows"></i>
+                  <h3>Windows</h3>
+                </div>
+
+                <div className="mac">
+                  <i class="fab fa-apple"></i>
+                  <h3>Mac</h3>
+                </div>
+
+                <div className="linux">
+                  <i class="fab fa-linux"></i>
+                  <h3>Linux</h3>
+                </div>
+              </div>
+              <div className="payment-submit">
+                    <button class="topcoat-button--large--cta" type="submit" >
+                      Buy
+                    </button>
+                  </div>
             </form>
 
           </div>
-
           <p className="description">
             {this.state.game.description}
           </p>

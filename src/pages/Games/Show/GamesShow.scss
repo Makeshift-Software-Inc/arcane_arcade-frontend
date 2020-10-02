@@ -32,6 +32,7 @@
       }
     }
   }
+
   .info-section {
     padding: 3em;
     background-color: rgba(0,0,0,0.3);
@@ -41,17 +42,16 @@
     .payment-submit {
       display: flex;
       justify-content: center;
-      margin: 1em 0;
 
       button {
         font-size: 18px;
         padding: 0.5em 1.4em;
       }
     }
+
     .pricing {
       display: flex;
       justify-content: center;
-
 
       .tippy-content {
         font-size: 25px;
@@ -59,22 +59,27 @@
 
       .payment {
         display: inline-block;
+        vertical-align: top;
 
         .crypto {
           display: flex;
+
           .monero {
             margin-left: 10px;
           }
         }
+
         i.fab {
-          margin: 0.2em;
+          margin: 0.2em 0.3em;
           font-size: 50px;
         }
+
         .fiat {
           display: flex;
           justify-content: center;
+
           h3 {
-            font-size: 32px
+            font-size: 32px;
           }
         }
       }
@@ -82,26 +87,47 @@
       .vl {
         display: inline-block;
         border-left: 1px solid;
-        height: 165px;
-        margin: 0 3em;
+        height: 90px;
+        margin: 1em 3em;
+      }
+
+      .platforms {
+        vertical-align: top;
+        display: inline-flex;
+
+        i {
+          font-size: 70px;
+        }
+        h3 {
+          text-align: center;
+        }
+        div {
+          margin: 0 0em 0em 2em;
+          &:first-of-type {
+            margin: 0;
+          }
+
+          &:last-of-type {
+            margin: 0 2em;
+          }
+        }
       }
     }
 
-
-      p {
-        margin-top: 2em;
-        color: aliceblue;
-      }
+    p {
+      margin-top: 2em;
+      color: aliceblue;
     }
+  }
 
   .splide-container {
     padding: 6rem 2em;
   }
+
   .splide {
     max-width: 640px!important;
     width: 606px !important;
     height: 395px;
-
 
     .splide__track {
       height: 35vh;
@@ -115,6 +141,5 @@
     video {
       height: auto !important;
     }
-
   }
 }

@@ -9,6 +9,7 @@ import SignUp from "./SignUp/SignUp";
 import TwoFactorAuth from "./TwoFactorAuth/TwoFactorAuth";
 import Onboarding from "./Onboarding/Onboarding";
 import GamesShow from "./Games/Show/GamesShow";
+import OrdersShow from "./Orders/Show/OrdersShow";
 import Logout from "./Logout/Logout";
 import HowItWorks from "./HowItWorks/HowItWorks";
 import ContactUs from "./ContactUs/ContactUs";

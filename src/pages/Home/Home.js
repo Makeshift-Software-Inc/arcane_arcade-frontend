@@ -32,8 +32,8 @@ const Home = () => {
             <ReactPlayer
               url={selectedGame.videos[0]}
               playing={true}
-              width="80vw"
-              height="80vh"
+              width="55vw"
+              height="50vh"
               autoPlay
               controls
               muted

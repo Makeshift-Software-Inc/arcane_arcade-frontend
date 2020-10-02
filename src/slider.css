@@ -3,7 +3,7 @@
 }
 
 .slider {
-  width: 80vw;
+  width: 50vw;
   text-align: center;
   overflow: hidden;
 }
@@ -38,8 +38,8 @@
 .slides > div {
   scroll-snap-align: start;
   flex-shrink: 0;
-  width: 80vw;
-  height: 80vh;
+  width: 50vw;
+  height: 55vh;
   margin-right: 50px;
   border-radius: 10px;
   background: #eee;
