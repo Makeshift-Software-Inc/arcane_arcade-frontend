@@ -27,9 +27,13 @@
       }
     }
 
-    .submit-delivery {
-      display: flex;
-      justify-content: center;
+  }
+  .submit-delivery {
+    display: flex;
+    justify-content: center;
+
+    button {
+      margin: 14px;
     }
   }
 
