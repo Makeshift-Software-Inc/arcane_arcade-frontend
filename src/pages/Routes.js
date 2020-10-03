@@ -9,6 +9,7 @@ import SignUp from "./SignUp/SignUp";
 import TwoFactorAuth from "./TwoFactorAuth/TwoFactorAuth";
 import Onboarding from "./Onboarding/Onboarding";
 import GamesShow from "./Games/Show/GamesShow";
+import GamesNew from "./Games/New/GamesNew";
 import OrdersShow from "./Orders/Show/OrdersShow";
 import Logout from "./Logout/Logout";
 import HowItWorks from "./HowItWorks/HowItWorks";
@@ -45,6 +46,22 @@ const Routes = () => {
   );
 
   if (!auth.user.activated()) return nonActivatedRoutes;
+
+  const sellerRoutes = (
+    <Switch>
+      <Route exact path="/" component={Home} />
+      <Route exact path="/how-it-works" component={HowItWorks} />
+      <Route exact path="/contact-us" component={ContactUs} />
+      <Route exact path="/seller/onboarding" component={Onboarding} />
+      <Route exact path="/logout" component={Logout} />
+      <Route exact path="/games/:slug" component={GamesShow} />
+      <Route exact path="/sell-your-game" component={GamesNew} />
+      <Route exact path="/buy/:id" component={OrdersShow} />
+      <Redirect to="/" />
+    </Switch>
+  );
+
+  if(auth.user.isSeller()) return sellerRoutes;
 
   const activatedRoutes = (
     <Switch>

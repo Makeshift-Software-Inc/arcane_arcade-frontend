@@ -9,6 +9,7 @@
 }
 
 .slides {
+  border-radius: 15px;
   display: flex;
 
   overflow-x: auto;
