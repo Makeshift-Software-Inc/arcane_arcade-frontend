@@ -17,15 +17,27 @@ const SellerListingsNew = () => {
       supported_platforms,
       addSupportedPlatform,
       removeSupportedPlatform,
+      systemRequirementsFields,
+      esrb,
+      title,
+      description,
+      earlyAccess,
+      price,
+      update,
+      onChange,
     },
   } = useStore("forms");
 
-  console.log(supported_platforms.toJSON());
-  console.log(selected_category && selected_category.toJSON());
+  console.log(description);
 
   useEffect(() => {
     load();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const toggleEarlyAccess = () => {
+    update({ earlyAccess: !earlyAccess });
+  };
 
   const handleCategoryChange = (e) => {
     selectCategory(e.target.value);
@@ -40,15 +52,26 @@ const SellerListingsNew = () => {
   };
 
   return (
-    <div className="seller-listings-new">
+    <div className="App seller-listings-new">
       <h1>Sell your game</h1>
       <label>
         Game title
-        <input type="text" name="title" className="topcoat-text-input" />
+        <input
+          type="text"
+          value={title}
+          onChange={onChange}
+          name="title"
+          className="topcoat-text-input"
+        />
       </label>
       <label>
         Select ESRB
-        <select name="esrb" className="topcoat-text-input">
+        <select
+          name="esrb"
+          value={esrb}
+          onChange={onChange}
+          className="topcoat-text-input"
+        >
           <option value="EVERYONE">EVERYONE</option>
           <option value="E_TEN_PLUS">E_TEN_PLUS</option>
           <option value="TEEN">TEEN</option>
@@ -93,7 +116,12 @@ const SellerListingsNew = () => {
       </div>
       <label>
         Game Desscription
-        <textarea name="description" className="topcoat-text-input"></textarea>
+        <textarea
+          name="description"
+          value={description}
+          onChange={onChange}
+          className="topcoat-text-input"
+        ></textarea>
       </label>
       <div>
         <h4>Platforms Supported</h4>
@@ -101,29 +129,92 @@ const SellerListingsNew = () => {
           {loading ? (
             <Loading />
           ) : (
-            supportedPlatformOptions.map((platform) => (
-              <label
-                key={platform.id}
-                className="topcoat-checkbox"
-                style={{ margin: 10 }}
-              >
-                <input
-                  type="checkbox"
-                  name={platform.name}
-                  data-id={platform.id}
-                  onChange={handleSupportedPlatformChange}
-                  checked={supported_platforms.find(
-                    (p) => p.id === platform.id
-                  )}
-                />
-                <div
-                  className="topcoat-checkbox__checkmark"
-                  style={{ marginRight: 10 }}
-                ></div>
-                {platform.name}
-              </label>
-            ))
+            supportedPlatformOptions.map((platform) => {
+              const checked = !!supported_platforms.find(
+                (p) => p.id === platform.id
+              );
+              return (
+                <React.Fragment key={platform.id}>
+                  <label className="topcoat-checkbox" style={{ margin: 10 }}>
+                    <input
+                      type="checkbox"
+                      name={platform.name}
+                      data-id={platform.id}
+                      onChange={handleSupportedPlatformChange}
+                      checked={checked}
+                    />
+                    <div
+                      className="topcoat-checkbox__checkmark"
+                      style={{ marginRight: 10 }}
+                    ></div>
+                    {platform.name}
+                  </label>
+                  {checked &&
+                    platform.children.length > 0 &&
+                    platform.children.map((children) => (
+                      <label
+                        className="topcoat-checkbox"
+                        key={children.id}
+                        style={{ margin: 10 }}
+                      >
+                        <input
+                          type="checkbox"
+                          name={children.name}
+                          data-id={children.id}
+                          onChange={handleSupportedPlatformChange}
+                          checked={
+                            !!supported_platforms.find(
+                              (p) => p.id === children.id
+                            )
+                          }
+                        />
+                        <div
+                          className="topcoat-checkbox__checkmark"
+                          style={{ marginRight: 10 }}
+                        ></div>
+                        {children.name}
+                      </label>
+                    ))}
+                </React.Fragment>
+              );
+            })
           )}
+        </div>
+      </div>
+      <div>
+        <h4>System Requirements</h4>
+        {systemRequirementsFields().map((platform) => (
+          <label key={platform.id}>
+            {platform.name}
+            <textarea></textarea>
+          </label>
+        ))}
+      </div>
+      <div>
+        <div className="early-access">
+          <div>NO</div>
+          <input
+            type="checkbox"
+            onChange={toggleEarlyAccess}
+            id="early-access"
+            name="early-access"
+            value={earlyAccess}
+          />
+          <label htmlFor="early-access">Toggle</label>
+          <div>YES</div>
+        </div>
+
+        <div className="price">
+          <label>
+            Price in USD
+            <input
+              type="number"
+              className="topcoat-text-input"
+              value={price}
+              onChange={onChange}
+              name="price"
+            />
+          </label>
         </div>
       </div>
     </div>

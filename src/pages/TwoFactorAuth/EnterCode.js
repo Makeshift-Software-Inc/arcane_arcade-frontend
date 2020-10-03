@@ -133,16 +133,17 @@ const EnterCode = ({ authorize, resend }) => {
           data-code="7"
         />
 
-        <div className="submit-delivery">
-          <button
-            onClick={authorizeCode}
-            className="topcoat-button--large--cta"
-          >
-            Send
-          </button>
-        </div>
         {/* eslint-disable-next-line */}
-        <a onClick={resend}> Resend Code </a>
+      </div>
+      <div className="submit-delivery">
+        <button onClick={authorizeCode} className="topcoat-button--large--cta">
+          Send
+        </button>
+      </div>
+      <div className="submit-delivery">
+        <button type="button" onClick={resend}>
+          Resend Code
+        </button>
       </div>
     </div>
   );

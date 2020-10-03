@@ -12,11 +12,27 @@ const ListingForm = types
   .model("ListingForm", {
     supportedPlatformOptions: types.array(SupportedPlatform),
     categoryOptions: types.array(Category),
+    title: types.optional(types.string, ""),
+    esrb: types.optional(
+      types.enumeration(["EVERYONE", "E_TEN_PLUS", "TEEN", "MATURE", "ADULT"]),
+      "EVERYONE"
+    ),
+    description: types.optional(types.string, ""),
     selected_category: types.maybe(types.reference(Category)),
     supported_platforms: types.array(types.reference(SupportedPlatform)),
+    earlyAccess: false,
+    price: types.optional(types.string, ""),
     errors: types.optional(Errors, {}),
     loading: false,
   })
+  .views((self) => ({
+    systemRequirementsFields() {
+      const doNotInclude = ["PC", "XB1", "SWITCH", "PS4"];
+      return self.supported_platforms.filter(
+        (platform) => !doNotInclude.includes(platform.name)
+      );
+    },
+  }))
   .actions((self) => ({
     load: flow(function* load() {
       // already loaded

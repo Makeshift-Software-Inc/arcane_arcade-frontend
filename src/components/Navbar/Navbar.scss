@@ -7,13 +7,15 @@ header.nav {
 
   .links {
     margin-top: 60px;
+    margin-left: 72px;
 
     &.left, &.right { display: flex; }
 
     a {
       color: #C0B2A1;
       font-weight: 600;
-      width: 100px;
+      width: 125px;
+      text-align: center;
     }
   }
 

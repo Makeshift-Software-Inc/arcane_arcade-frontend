@@ -1,7 +1,9 @@
 import React from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import { observer } from "mobx-react";
 import { useStore } from "../store";
+
+import ProtectedRoute from "./routes/Protected";
 
 import Home from "./Home/Home";
 import Login from "./Login/Login";
@@ -16,68 +18,82 @@ import SellerOnboarding from "./Seller/Onboarding/Onboarding";
 import SellerDashboard from "./Seller/Dashboard/Dashboard";
 import SellerListingsNew from "./Seller/Listings/New";
 
-const Routes = () => {
+const Routes = (props) => {
   const { auth } = useStore();
 
   if (auth.loading) return null;
 
-  const sharedRoutes = (
-    <React.Fragment>
+  return (
+    <Switch>
+      <Route exact path="/" component={Home} />
       <Route exact path="/how-it-works" component={HowItWorks} />
       <Route exact path="/contact-us" component={ContactUs} />
       <Route exact path="/games/:slug" component={GamesShow} />
-    </React.Fragment>
-  );
-
-  const guestRoutes = (
-    <Switch>
-      <Route exact path="/" component={Home} />
-      <Route exact path="/login" component={Login} />
-      <Route exact path="/sign-up" component={SignUp} />
-      {sharedRoutes}
-      <Redirect to="/login" />
+      <ProtectedRoute
+        asGuest
+        redirectTo="/"
+        exact
+        path="/login"
+        component={Login}
+      />
+      <ProtectedRoute
+        asGuest
+        redirectTo="/"
+        exact
+        path="/sign-up"
+        component={SignUp}
+      />
+      <ProtectedRoute
+        asLoggedIn
+        redirectTo="/login"
+        exact
+        path="/authorize"
+        component={TwoFactorAuth}
+      />
+      <ProtectedRoute
+        asLoggedIn
+        redirectTo="/login"
+        exact
+        path="/logout"
+        component={Logout}
+      />
+      <ProtectedRoute
+        asLoggedIn
+        redirectTo="/login"
+        exact
+        path="/authorize"
+        component={TwoFactorAuth}
+      />
+      <ProtectedRoute
+        asActiveUser
+        redirectTo="/authorize"
+        exact
+        path="/seller/onboarding"
+        component={SellerOnboarding}
+      />
+      <ProtectedRoute
+        asActiveUser
+        redirectTo="/authorize"
+        exact
+        path="/buy/:id"
+        component={OrdersShow}
+      />
+      <ProtectedRoute
+        asSeller
+        redirectTo="/seller/onboarding"
+        exact
+        path="/seller/dashboard"
+        component={SellerDashboard}
+      />
+      <ProtectedRoute
+        asSeller
+        redirectTo="/seller/onboarding"
+        exact
+        path="/sell-your-game"
+        component={SellerListingsNew}
+      />
     </Switch>
   );
-
-  if (!auth.isLoggedIn) return guestRoutes;
-
-  const nonActivatedRoutes = (
-    <Switch>
-      <Route exact path="/authorize" component={TwoFactorAuth} />
-      <Route exact path="/logout" component={Logout} />
-      {sharedRoutes}
-      <Redirect to="/authorize" />
-    </Switch>
-  );
-
-  if (!auth.user.activated()) return nonActivatedRoutes;
-
-  const activatedRoutes = (
-    <Switch>
-      <Route exact path="/" component={Home} />
-      <Route exact path="/seller/onboarding" component={SellerOnboarding} />
-      <Route exact path="/logout" component={Logout} />
-      <Route exact path="/buy/:id" component={OrdersShow} />
-      {sharedRoutes}
-      <Redirect to="/" />
-    </Switch>
-  );
-
-  if (!auth.user.isSeller()) return activatedRoutes;
-
-  const sellerRoutes = (
-    <Switch>
-      <Route exact path="/" component={Home} />
-      <Route exact path="/logout" component={Logout} />
-      <Route exact path="/buy/:id" component={OrdersShow} />
-      <Route exact path="/seller/dashboard" component={SellerDashboard} />
-      <Route exact path="/seller/listings/new" component={SellerListingsNew} />
-      {sharedRoutes}
-      <Redirect to="/" />
-    </Switch>
-  );
-
-  return sellerRoutes;
 };
 
 export default observer(Routes);

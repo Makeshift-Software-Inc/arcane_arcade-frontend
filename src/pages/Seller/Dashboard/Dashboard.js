@@ -4,9 +4,9 @@ import "./Dashboard.scss";
 
 const SellerDashboard = (props) => {
   return (
-    <div>
+    <div className="App seller-dashboard">
       Seller Dashboard
-      <Link to="/seller/listings/new">Create Listing</Link>
+      <Link to="/sell-your-game">Create Listing</Link>
     </div>
   );
 };
