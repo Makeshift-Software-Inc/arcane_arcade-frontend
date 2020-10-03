@@ -32,7 +32,7 @@ const Home = () => {
             <ReactPlayer
               url={selectedGame.videos[0]}
               playing={true}
-              width="55vw"
+              width="75vw"
               height="50vh"
               autoPlay
               controls
