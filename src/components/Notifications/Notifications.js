@@ -22,6 +22,7 @@ const Notifications = ({ push }) => {
           closeOnClick: true,
           pauseOnHover: true,
           onClick: () => {
+            notification.markAsRead();
             history.push(notification.destination_path);
           },
         });

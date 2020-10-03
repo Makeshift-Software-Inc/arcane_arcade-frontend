@@ -27,7 +27,8 @@ const AuthStore = types
         const response = yield Api.post("/users", {
           user: forms.signUp.keys(keysToSend),
         });
-        self.user = deserialize(response.data.data);
+        const { user } = deserialize(response.data);
+        self.user = user;
         // FIXME: are we sure we want users to be logged in immedietly after signup?
         self.isLoggedIn = true;
         return true;
@@ -48,7 +49,8 @@ const AuthStore = types
         const response = yield Api.post("/login", {
           user: forms.login.keys(keysToSend),
         });
-        self.user = deserialize(response.data.data);
+        const { user } = deserialize(response.data);
+        self.user = user;
         self.isLoggedIn = true;
         return true;
       } catch (e) {
@@ -64,7 +66,8 @@ const AuthStore = types
 
       try {
         const response = yield Api.get("/logged_in");
-        self.user = deserialize(response.data.data);
+        const { user } = deserialize(response.data);
+        self.user = user;
         self.isLoggedIn = true;
         self.loading = false;
         return true;

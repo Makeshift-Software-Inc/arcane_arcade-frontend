@@ -1,0 +1,16 @@
+.seller-listings-new {
+  min-height: 100vh;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  .uploader {
+    display: flex;
+    flex-direction: row;
+    .drop-placeholder,
+    .previews {
+      border: 2px solid white;
+      flex: 1;
+      min-height: 300px;
+    }
+  }
+}

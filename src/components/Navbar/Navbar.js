@@ -9,7 +9,7 @@ import logo from "../../img/temp-logo.png";
 import { useStore } from "../../store";
 
 const Navbar = () => {
-  const { isLoggedIn } = useStore("auth");
+  const { isLoggedIn, user } = useStore("auth");
 
   return (
     <header className="nav">
@@ -28,7 +28,13 @@ const Navbar = () => {
         </Link>
       </div>
       <div className="right links">
-        {isLoggedIn && <Link to="/seller/onboarding">Sell With Us</Link>}
+        {isLoggedIn ? (
+          user.isSeller() ? (
+            <Link to="/seller/dashboard">Dashboard</Link>
+          ) : (
+            <Link to="/seller/onboarding">Sell With Us</Link>
+          )
+        ) : null}
         <Link to="/how-it-works">How It Works</Link>
         <Link to="/contact-us">Contact Us</Link>
         {isLoggedIn && <Link to="/logout">Logout</Link>}

@@ -20,6 +20,7 @@ const initStore = (initialState) => {
   if (store) return store;
 
   store = RootStore.create(initialState);
+  window.STORE = store;
   return store;
 };
 

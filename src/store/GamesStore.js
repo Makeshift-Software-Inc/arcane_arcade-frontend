@@ -13,11 +13,15 @@ const GamesStore = types
   })
   .actions((self) => ({
     load: flow(function* load() {
+      // don't load again if games are loaded
+      if (self.games.length > 0) return;
+
       self.loading = true;
 
       try {
         const response = yield Api.get("/listings");
-        self.games = deserialize(response.data.data);
+        const games = deserialize(response.data);
+        self.games = games;
         self.loading = false;
         return true;
       } catch (e) {

@@ -19,6 +19,9 @@ const User = types
     activated() {
       return self.activation_state === "active";
     },
+    isSeller() {
+      return !!self.seller;
+    },
   }))
   .actions((self) => ({
     createSeller: flow(function* create() {
