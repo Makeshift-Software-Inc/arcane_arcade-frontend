@@ -1,4 +1,4 @@
-import { types, flow } from "mobx-state-tree";
+import { types, flow, getRoot } from "mobx-state-tree";
 import Game from "./models/Game";
 
 import Api from "../services/Api";
@@ -27,6 +27,23 @@ const GamesStore = types
       } catch (e) {
         console.log(e);
         self.loading = false;
+        return false;
+      }
+    }),
+    create: flow(function* create(listing) {
+      self.loading = true;
+
+      try {
+        const response = yield Api.post("/listings", { listing });
+        console.log(response);
+        return true;
+      } catch (e) {
+        console.log(e);
+        const { forms } = getRoot(self);
+        self.loading = false;
+        if (e.response && e.response.data) {
+          forms.listing.errors.update(e.response.data);
+        }
         return false;
       }
     }),

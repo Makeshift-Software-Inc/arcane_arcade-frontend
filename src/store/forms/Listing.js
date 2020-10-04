@@ -4,6 +4,8 @@ import Errors from "./Errors";
 
 import SupportedPlatform from "../models/SupportedPlatform";
 import Category from "../models/Category";
+import SystemRequirements from "../models/SystemRequirements";
+import UploadedFile from "../models/UploadedFile";
 
 import Api from "../../services/Api";
 import deserialize from "../../utils/deserialize";
@@ -24,8 +26,14 @@ const ListingForm = types
     price: types.optional(types.string, ""),
     errors: types.optional(Errors, {}),
     loading: false,
+    system_requirements: types.array(SystemRequirements),
+    files: types.array(UploadedFile),
+    errors: types.optional(Errors, {}),
   })
   .views((self) => ({
+    allowedSystemRequirementsFields() {
+      return ["WINDOWS", "MAC", "LINUX"];
+    },
     systemRequirementsFields() {
       const doNotInclude = ["PC", "XB1", "SWITCH", "PS4"];
       return self.supported_platforms.filter(
@@ -58,18 +66,46 @@ const ListingForm = types
         return false;
       }
     }),
-    addSupportedPlatform(id) {
+    addSupportedPlatform(id, name) {
       self.supported_platforms.push(id);
+      if (self.allowedSystemRequirementsFields().includes(name)) {
+        self.system_requirements.push({ name, description: "" });
+      }
     },
-    removeSupportedPlatform(id) {
+    removeSupportedPlatform(id, name) {
       self.supported_platforms = self.supported_platforms.filter(
         (platform) => id !== platform.id
       );
+      if (self.allowedSystemRequirementsFields().includes(name)) {
+        self.system_requirements = self.system_requirements.filter(
+          (systemRequirement) => systemRequirement.name !== name
+        );
+      }
     },
     selectCategory(title) {
       self.selected_category = self.categoryOptions.find(
         (category) => category.title === title
       );
+    },
+    addFile(file) {
+      // if there is a file with a same name, don't add it again
+      if (self.files.find((f) => f.name === file.name)) return;
+
+      self.files.push({
+        name: file.name,
+        type: file.type,
+        size: file.size,
+        data: file,
+        url: URL.createObjectURL(file),
+      });
+    },
+    reorderFiles(oldIndex, newIndex) {
+      if (oldIndex === newIndex) return;
+
+      const items = self.files.toJSON();
+      const [removed] = items.splice(oldIndex, 1);
+      items.splice(newIndex, 0, removed);
+      self.files = items;
     },
     validate: () => {
       // TODO: Validate here (check ./SignUp for details)

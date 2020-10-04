@@ -19,7 +19,10 @@ import SellerDashboard from "./Seller/Dashboard/Dashboard";
 import SellerListingsNew from "./Seller/Listings/New";
 
 const Routes = (props) => {
-  const { auth } = useStore();
+  const {
+    auth,
+    auth: { isLoggedIn },
+  } = useStore();
 
   if (auth.loading) return null;
 
@@ -66,28 +69,28 @@ const Routes = (props) => {
       />
       <ProtectedRoute
         asActiveUser
-        redirectTo="/authorize"
+        redirectTo={isLoggedIn ? "/authorize" : "/login"}
         exact
         path="/seller/onboarding"
         component={SellerOnboarding}
       />
       <ProtectedRoute
         asActiveUser
-        redirectTo="/authorize"
+        redirectTo={isLoggedIn ? "/authorize" : "/login"}
         exact
         path="/buy/:id"
         component={OrdersShow}
       />
       <ProtectedRoute
         asSeller
-        redirectTo="/seller/onboarding"
+        redirectTo={isLoggedIn ? "/seller/onboarding" : "/login"}
         exact
         path="/seller/dashboard"
         component={SellerDashboard}
       />
       <ProtectedRoute
         asSeller
-        redirectTo="/seller/onboarding"
+        redirectTo={isLoggedIn ? "/seller/onboarding" : "/login"}
         exact
         path="/sell-your-game"
         component={SellerListingsNew}
