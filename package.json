@@ -23,6 +23,7 @@
     "particles.js": "^2.0.0",
     "react": "^16.13.1",
     "react-cookie": "^4.0.3",
+    "react-countdown": "^2.2.1",
     "react-dom": "^16.13.1",
     "react-player": "^2.6.2",
     "react-rails-form-helpers": "0.1.0-beta.18",

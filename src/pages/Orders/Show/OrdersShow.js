@@ -41,6 +41,24 @@ class OrdersShow extends React.Component {
         <div className="logo magictime puffIn">
           <h1> Order ID: {this.state.order.id} </h1>
         </div>
+
+        <div className="qr-code">
+          <img src={this.state.order.qr_url} alt="qr-code" />
+        </div>
+
+        <div className="order-text" >
+          <h3>
+            Send <b>exactly</b> {this.state.order.coin_amount} {this.state.order.coin_type} to:
+          </h3>
+        </div>
+
+        <div className="coin-address">
+          <b>{this.state.order.escrow_address}</b>
+        </div>
+
+        <div className="expiry">
+          <h2>Expires In: <span className='countdown'></span></h2>
+        </div>
       </div>
     )
   }

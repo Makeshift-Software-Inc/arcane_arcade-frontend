@@ -16,7 +16,32 @@
     h1 {
       font-size: 23px;
       margin-top: 3em;
+      letter-spacing: -0.3px;
     }
+
+  }
+  .qr-code {
+    img {
+      margin: 0 auto;
+      display: flex;
+      width: 250px;
+    }
+  }
+
+  .order-text {
+    h3 {
+      margin: 2em 0 0.5em;
+      font-size: 25px;
+      color: aliceblue;
+      text-align: center;
+    }
+  }
+
+  .coin-address {
+    text-align: center;
+    color: aliceblue;
+    font-size: 30px;
+    letter-spacing: -0.3px;
   }
 
 }
