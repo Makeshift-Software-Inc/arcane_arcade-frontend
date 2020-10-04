@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 // import { useStore } from "../../../store";
+import Countdown from 'react-countdown';
 
 import '../../../magic.css';
 import './OrdersShow.scss'
@@ -21,7 +22,6 @@ class OrdersShow extends React.Component {
     const path = `/orders/${id}`;
 
     Api.get(path).then((response) => {
-      debugger
       // This is unacceptable. I have to call data THREE TIMES?!
       this.setState({
         order: response.data.data.data.attributes
@@ -30,6 +30,9 @@ class OrdersShow extends React.Component {
   }
 
   render() {
+    debugger;
+    const expiresAt = new Date(this.state.order.expires_at);
+
     return (
       <div className="App orders-show">
         <div className="logo magictime puffIn">
@@ -57,7 +60,9 @@ class OrdersShow extends React.Component {
         </div>
 
         <div className="expiry">
-          <h2>Expires In: <span className='countdown'></span></h2>
+          <h2>
+            Expires In:<Countdown date={expiresAt} />
+          </h2>
         </div>
       </div>
     )

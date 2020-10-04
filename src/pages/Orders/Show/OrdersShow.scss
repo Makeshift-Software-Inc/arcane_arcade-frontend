@@ -42,6 +42,20 @@
     color: aliceblue;
     font-size: 30px;
     letter-spacing: -0.3px;
+    margin-bottom: 0.5em
+  }
+
+  .expiry {
+    display: flex;
+    justify-content: center;
+
+    h2 {
+      font-size: 23px;
+      color: aliceblue;
+      span {
+        margin-left: 10px;
+      }
+    }
   }
 
 }
