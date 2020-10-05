@@ -9,18 +9,23 @@ import logo from "../../img/temp-logo.png";
 import { useStore } from "../../store";
 
 const Navbar = () => {
-  const { isLoggedIn } = useStore("auth");
+  const { isLoggedIn, user } = useStore("auth");
+
+  const isSeller = isLoggedIn && user.isSeller();
 
   return (
-
     <header className="nav">
       <div className="left links">
+        {isSeller ? (
+          <Link to="/seller/dashboard">Dashboard</Link>
+        ) : (
+          <Link to="/seller/onboarding">Sell With Us</Link>
+        )}
         {isLoggedIn ? (
           <Link to="/my-library">My Library</Link>
         ) : (
           <Link to="/login">Login</Link>
         )}
-        {isLoggedIn && <Link to="/seller/onboarding">Sell With Us</Link>}
       </div>
       <div className="center">
         <Link to="/">

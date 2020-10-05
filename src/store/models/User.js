@@ -19,10 +19,9 @@ const User = types
     activated() {
       return self.activation_state === "active";
     },
-    // Need a boolean function checking if user is a seller
     isSeller() {
-      return typeof self.seller !== 'undefined';
-    }
+      return !!self.seller;
+    },
   }))
   .actions((self) => ({
     createSeller: flow(function* create() {

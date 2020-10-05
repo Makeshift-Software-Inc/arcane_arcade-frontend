@@ -6,6 +6,8 @@ import "../normalize.css";
 import "../topcoat-desktop-dark.css";
 import "bulma/bulma.sass";
 
+import { ToastContainer } from "react-toastify";
+
 import { observer } from "mobx-react";
 
 import { useStore } from "../store";
@@ -25,10 +27,11 @@ const App = () => {
   if (auth.loading) return <Loading />;
 
   return (
-    <>
+    <React.Fragment>
+      <ToastContainer />
       {auth.isLoggedIn && <Notifications />}
       <Routes />
-    </>
+    </React.Fragment>
   );
 };
 

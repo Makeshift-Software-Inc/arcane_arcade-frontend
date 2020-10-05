@@ -136,15 +136,14 @@ const EnterCode = ({ authorize, resend }) => {
         {/* eslint-disable-next-line */}
       </div>
       <div className="submit-delivery">
-        <button
-          onClick={authorizeCode}
-          className="topcoat-button--large--cta"
-          >
+        <button onClick={authorizeCode} className="topcoat-button--large--cta">
           Send
         </button>
       </div>
       <div className="submit-delivery">
-        <a onClick={resend}> Resend Code </a>
+        <button type="button" onClick={resend}>
+          Resend Code
+        </button>
       </div>
     </div>
   );

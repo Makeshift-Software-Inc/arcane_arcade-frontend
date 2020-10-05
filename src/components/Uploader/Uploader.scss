@@ -1,0 +1,47 @@
+.uploader {
+  display: flex;
+  flex-direction: row;
+  .drop-placeholder,
+  .previews {
+    border: 2px solid white;
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin: auto;
+    padding: 24px 12px 64px;
+    max-width: 720px;
+    min-height: 332px;
+    overflow-y: auto;
+    .preview {
+      display: flex;
+      padding: 16px;
+      position: relative;
+      border-radius: 2px;
+      flex-direction: column;
+      .drag-handle {
+        position: absolute;
+        top: -10px;
+        right: 0;
+        z-index: 2;
+        font-size: 26px;
+        font-style: bold;
+        cursor: pointer;
+        color: black;
+      }
+      img,
+      video {
+        width: 100px;
+        height: 100px;
+      }
+    }
+  }
+}
+
+.SortableHelper.preview {
+  img,
+  video {
+    width: 100px;
+    height: 100px;
+  }
+}
