@@ -73,8 +73,27 @@ class GamesShow extends React.Component {
     return slides;
   }
 
-  onFormSubmit(e) {
+  async onFormSubmit(e) {
     e.preventDefault();
+
+    // TODO: IF NOT LOGGED IN, REDIRECT TO LOGIN. ACTIVATED USERS ONLY CAN
+    //       CREATE ORDERS.
+
+    const coin_type = document
+                          .querySelector('input[name="payment_method"]:checked')
+                          .id;
+    const deposit_amount = this.state.game[`${coin_type}_amount`];
+
+    const response = await Api.post('/orders', {
+      coin_type: coin_type.toUpperCase(),
+      coin_amount: deposit_amount,
+      listing_id: this.state.game.id,
+      fiat_currency: this.state.game.default_currency
+    })
+
+    if (response.status === 200)  {
+      this.props.history.push(`/buy/${response.data.data.id}`)
+    }
   }
 
   render() {
