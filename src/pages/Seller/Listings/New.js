@@ -12,7 +12,10 @@ import Uploader from "../../../components/Uploader/Uploader";
 import Loading from "../../../components/Loading/Loading";
 import "./New.scss";
 
+
 const SellerListingsNew = ({ history }) => {
+  const trixInput = React.createRef();
+
   const {
     games,
     forms: {
@@ -47,6 +50,11 @@ const SellerListingsNew = ({ history }) => {
   useEffect(() => {
     load();
     // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    trixInput.current.addEventListener("trix-change", event => {
+       console.log("trix change event fired");
+       onChange(event); //calling custom event
+   });
   }, []);
 
   const toggleEarlyAccess = () => {
@@ -91,7 +99,6 @@ const SellerListingsNew = ({ history }) => {
     }
   };
 
-  const trixInput = React.createRef();
 
   return (
     <div className="App seller-listings-new">
@@ -101,21 +108,21 @@ const SellerListingsNew = ({ history }) => {
 
         <div className="field spacer">
           <div className="title">
-            <label htmlFor="game[title]" className="form-label"> Game title </label>
+            <label htmlFor="title" className="form-label"> Game title </label>
             <input
               type="text"
               value={title}
               onChange={onChange}
-              name="game[title]"
+              name="title"
               className="topcoat-text-input"
               />
           </div>
           <div className="esrb">
-            <label htmlFor="game[esrb]" className="form-label">
+            <label htmlFor="esrb" className="form-label">
               Rated
             </label>
             <select
-              name="game[esrb]"
+              name="esrb"
               value={esrb}
               onChange={onChange}
               className="topcoat-text-input"
@@ -140,14 +147,14 @@ const SellerListingsNew = ({ history }) => {
 
         <div className="field spacer">
           <div className="game-category">
-            <label htmlFor="game[category]" className="form-label">
+            <label htmlFor="category" className="form-label">
               Game Category
             </label>
             {loading ? (
               <Loading />
             ) : (
               <select
-                name="game[category]"
+                name="category"
                 className="topcoat-text-input"
                 onChange={handleCategoryChange}
                 value={selected_category && selected_category.title}
@@ -162,7 +169,7 @@ const SellerListingsNew = ({ history }) => {
             )}
           </div>
           <div className="game-tags">
-            <label htmlFor="game[tags]" className="form-label">Game Tags</label>
+            <label htmlFor="tags" className="form-label">Game Tags</label>
             <input type="text" name="game[tags]" className="topcoat-text-input" />
           </div>
         </div>
@@ -173,8 +180,9 @@ const SellerListingsNew = ({ history }) => {
             <input
                 type="hidden"
                 id="trix"
+                name="description"
             />
-          <trix-editor input="trix" ref={trixInput} />
+          <trix-editor input="trix" name="description" ref={trixInput} />
           </div>
         </div>
 

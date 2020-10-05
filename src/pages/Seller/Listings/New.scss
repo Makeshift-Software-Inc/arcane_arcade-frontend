@@ -48,7 +48,6 @@
         textarea {
           color: aliceblue;
           background: rgba(0,0,0,0.3);
-  
         }
       }
     }
@@ -63,18 +62,18 @@
       padding: 0.7em 1em;
     }
 
-    input[name='game[title]'] {
+    input[name='title'] {
       padding: 8px 5px;
       width: 300px;
     }
 
-    input[name='game[tags]'] {
+    input[name='tags'] {
       padding: 5px;
       width: 350px;
       margin-top: 27px;
     }
 
-    select[name='game[category]'] {
+    select[name='category'] {
       width: 300px
     }
 
