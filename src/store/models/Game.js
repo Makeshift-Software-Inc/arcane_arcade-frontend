@@ -5,7 +5,7 @@ import Seller from "./Seller";
 const Game = types
   .model("Game", {
     id: types.identifier,
-    // slug: types.identifier,
+    slug: types.string,
     title: types.string,
     description: types.string,
     price: types.string,

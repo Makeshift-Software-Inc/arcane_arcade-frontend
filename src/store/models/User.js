@@ -20,6 +20,7 @@ const User = types
       return self.activation_state === "active";
     },
     isSeller() {
+      const SELF = self;;
       return !!self.seller;
     },
   }))
@@ -42,7 +43,7 @@ const User = types
 
       try {
         const response = yield Api.post("/sellers", { seller: seller });
-        self.seller = deserialize(response.data.data);
+        self.seller = response.data.data.attributes;
         console.log(response);
         self.loadingSeller = false;
         return true;
