@@ -28,7 +28,7 @@ class GamesShow extends React.Component {
 
     Api.get(path).then((response) => {
       this.setState({
-        game: response.data.data.attributes,
+        game: response.data.attributes,
       });
     });
   }

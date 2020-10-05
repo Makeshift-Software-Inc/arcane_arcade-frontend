@@ -58,6 +58,7 @@ const SellerOnboarding = () => {
   } = useStore();
 
   const createSeller = async () => {
+    debugger
     if (await user.createSeller()) {
       setRedirect("/");
     }
