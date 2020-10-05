@@ -30,7 +30,6 @@ class OrdersShow extends React.Component {
   }
 
   render() {
-    debugger;
     const expiresAt = new Date(this.state.order.expires_at);
 
     return (
