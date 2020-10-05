@@ -31,6 +31,12 @@ const ListingForm = types
     errors: types.optional(Errors, {}),
   })
   .views((self) => ({
+    images() {
+      return self.files.filter((file) => file.type.startsWith("image"));
+    },
+    videos() {
+      return self.files.filter((file) => file.type.startsWith("video"));
+    },
     allowedSystemRequirementsFields() {
       return ["WINDOWS", "MAC", "LINUX"];
     },
