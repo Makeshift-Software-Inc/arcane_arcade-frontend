@@ -2,6 +2,10 @@ import React, { useEffect } from "react";
 import { useStore } from "../../../store";
 import { observer } from "mobx-react";
 
+import Trix from "trix";
+import "trix/dist/trix.css";
+
+
 import Errors from "../../../components/Errors/Errors";
 
 import Uploader from "../../../components/Uploader/Uploader";
@@ -81,6 +85,8 @@ const SellerListingsNew = ({ history }) => {
     }
   };
 
+  const trixInput = React.createRef();
+
   return (
     <div className="App seller-listings-new">
       <div className="container">
@@ -156,17 +162,14 @@ const SellerListingsNew = ({ history }) => {
         </div>
 
         <div className="field description-field">
-          <label htmlFor="game[description]" className="form-label">
-            Game Description
-          </label>
-          <textarea
-            name="game[description]"
-            value={description}
-            onChange={onChange}
-            className="topcoat-text-input"
-            rows={20}
-            cols={100}
-            ></textarea>
+          <h2>Game Description</h2>
+          <div>
+            <input
+                type="hidden"
+                id="trix"
+            />
+          <trix-editor input="trix" ref={trixInput} />
+          </div>
         </div>
 
         <div>
@@ -227,20 +230,29 @@ const SellerListingsNew = ({ history }) => {
             )}
           </div>
         </div>
-        <div>
+
+        <div className="system-requirements" >
           {system_requirements.length > 0 && (
             <React.Fragment>
               <h4>System Requirements</h4>
               {system_requirements.map((systemRequirement) => (
-                <label key={systemRequirement.name}>
-                  {systemRequirement.name}
+                <div>
+                  <div className="topcoat-tab-bar">
+                    <label className="topcoat-tab-bar__item">
+                      <input type="radio" name="tab-bar" />
+                      <button className="topcoat-tab-bar__button">
+                        {systemRequirement.name}
+                      </button>
+                    </label>
+                  </div>
+
                   <textarea
                     name="description"
                     className="topcoat-text-input"
                     value={systemRequirement.description}
                     onChange={systemRequirement.onChange}
-                  ></textarea>
-                </label>
+                  />
+              </div>
               ))}
             </React.Fragment>
           )}
@@ -248,16 +260,10 @@ const SellerListingsNew = ({ history }) => {
         <div>
           <div className="early-access">
             <div>Early access</div>
-            <div>NO</div>
-            <input
-              type="checkbox"
-              onChange={toggleEarlyAccess}
-              id="early-access"
-              name="early-access"
-              value={earlyAccess}
-            />
-            <label htmlFor="early-access">Toggle</label>
-            <div>YES</div>
+              <label className="topcoat-checkbox">
+                <input type="checkbox"/>
+                <div className="topcoat-checkbox__checkmark"></div>
+              </label>
           </div>
 
           <div className="price">

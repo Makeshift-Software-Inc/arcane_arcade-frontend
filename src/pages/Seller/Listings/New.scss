@@ -35,14 +35,24 @@
     }
 
     div.description-field {
-      display: flex;
+      display: block;
       margin: 5em 0;
       justify-content: center;
 
-      textarea {
-        margin-top: 29px;
+      trix-editor {
+        padding: 3em;
+        min-height: 50vh;
+        color: aliceblue;
+        background: rgba(0,0,0,0.3);
+
+        textarea {
+          color: aliceblue;
+          background: rgba(0,0,0,0.3);
+  
+        }
       }
     }
+
 
     input[type=text] {
       margin-top: 22px;
@@ -54,8 +64,8 @@
     }
 
     input[name='game[title]'] {
-      padding: 5px;
-      width: 250px;
+      padding: 8px 5px;
+      width: 300px;
     }
 
     input[name='game[tags]'] {
@@ -66,6 +76,10 @@
 
     select[name='game[category]'] {
       width: 300px
+    }
+
+    .trix-button {
+      background-color: whitesmoke;
     }
 
     .title, .esrb {
@@ -89,19 +103,6 @@
         display: block;
         border-radius: 100px;
         position: relative;
-      }
-
-      label:after {
-        content: "YES";
-        color: "red";
-        position: absolute;
-        top: 4px;
-        left: 5px;
-        width: 31px;
-        height: 28px;
-        background: #fff;
-        border-radius: 90px;
-        transition: 0.3s;
       }
 
       input:checked + label {
