@@ -83,35 +83,42 @@ const SellerListingsNew = ({ history }) => {
 
   return (
     <div className="App seller-listings-new">
-      <form onSubmit={handleSubmit}>
+      <div className="container">
+        <form onSubmit={handleSubmit}>
         <h1>Sell your game</h1>
-        <label>
-          Game title
-          <input
-            type="text"
-            value={title}
-            onChange={onChange}
-            name="title"
-            className="topcoat-text-input"
-          />
-        </label>
-        <label>
-          Select ESRB
-          <select
-            name="esrb"
-            value={esrb}
-            onChange={onChange}
-            className="topcoat-text-input"
-          >
-            <option value="EVERYONE">EVERYONE</option>
-            <option value="E_TEN_PLUS">E_TEN_PLUS</option>
-            <option value="TEEN">TEEN</option>
-            <option value="MATURE">MATURE</option>
-            <option value="ADULT">ADULT</option>
-          </select>
-        </label>
 
-        <h1>Add photos and videos</h1>
+        <div className="field spacer">
+          <div className="title">
+            <label htmlFor="game[title]" className="form-label"> Game title </label>
+            <input
+              type="text"
+              value={title}
+              onChange={onChange}
+              name="game[title]"
+              className="topcoat-text-input"
+              />
+          </div>
+          <div className="esrb">
+            <label htmlFor="game[esrb]" className="form-label">
+              Rated
+            </label>
+            <select
+              name="game[esrb]"
+              value={esrb}
+              onChange={onChange}
+              className="topcoat-text-input"
+              >
+              <option value="EVERYONE">EVERYONE</option>
+              <option value="E10+">E_TEN_PLUS</option>
+              <option value="TEEN">TEEN</option>
+              <option value="MATURE">MATURE</option>
+              <option value="ADULT">ADULT</option>
+            </select>
+          </div>
+        </div>
+
+
+        <h3>Add photos and videos</h3>
         <Uploader
           accepts="image/*, video/*"
           addFile={addFile}
@@ -119,19 +126,21 @@ const SellerListingsNew = ({ history }) => {
           reorder={reorderFiles}
         />
 
-        <div>
-          <label>
-            Game Category
+        <div className="field spacer">
+          <div className="game-category">
+            <label htmlFor="game[category]" className="form-label">
+              Game Category
+            </label>
             {loading ? (
               <Loading />
             ) : (
               <select
-                name="category"
+                name="game[category]"
                 className="topcoat-text-input"
                 onChange={handleCategoryChange}
                 value={selected_category && selected_category.title}
-              >
-                <option>SELECT</option>
+                >
+                <option></option>
                 {categoryOptions.map((category) => (
                   <option key={category.id} value={category.title}>
                     {category.title}
@@ -139,21 +148,27 @@ const SellerListingsNew = ({ history }) => {
                 ))}
               </select>
             )}
-          </label>
-          <label>
-            Game Tags
-            <input type="text" name="tags" className="topcoat-text-input" />
-          </label>
+          </div>
+          <div className="game-tags">
+            <label htmlFor="game[tags]" className="form-label">Game Tags</label>
+            <input type="text" name="game[tags]" className="topcoat-text-input" />
+          </div>
         </div>
-        <label>
-          Game Desscription
+
+        <div className="field description-field">
+          <label htmlFor="game[description]" className="form-label">
+            Game Description
+          </label>
           <textarea
-            name="description"
+            name="game[description]"
             value={description}
             onChange={onChange}
             className="topcoat-text-input"
-          ></textarea>
-        </label>
+            rows={20}
+            cols={100}
+            ></textarea>
+        </div>
+
         <div>
           <h4>Platforms Supported</h4>
           <div className="flex-column">
@@ -269,6 +284,7 @@ const SellerListingsNew = ({ history }) => {
           CREATE
         </button>
       </form>
+      </div>
     </div>
   );
 };

@@ -1,9 +1,18 @@
 .uploader {
   display: flex;
   flex-direction: row;
+
+  .drop-placeholder {
+    border: 2px dashed aliceblue;
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+  .previews {
+    background-color: rgba(0,0,0,0.1);
+  }
+
   .drop-placeholder,
   .previews {
-    border: 2px solid white;
+    border: 1px solid white;
     flex: 1;
     display: flex;
     flex-wrap: wrap;
@@ -13,6 +22,9 @@
     max-width: 720px;
     min-height: 332px;
     overflow-y: auto;
+    text-align: center;
+    width: 100%;
+
     .preview {
       display: flex;
       padding: 16px;

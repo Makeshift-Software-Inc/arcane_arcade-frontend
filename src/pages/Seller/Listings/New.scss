@@ -1,46 +1,117 @@
-.seller-listings-new {
+.App.seller-listings-new {
   min-height: 100vh;
   color: white;
   display: flex;
   flex-direction: column;
-  .early-access {
-    input[type="checkbox"] {
-      height: 0;
-      width: 0;
-      visibility: hidden;
+
+  form {
+    h1 {
+      margin: 2em 0;
+      font-size: 32px;
+      text-transform: capitalize;
     }
 
-    label {
-      cursor: pointer;
-      text-indent: -9999px;
-      width: 110px;
-      height: 36px;
-      background: grey;
-      display: block;
-      border-radius: 100px;
-      position: relative;
-    }
-
-    label:after {
-      content: "YES";
-      color: "red";
+    label.form-label {
       position: absolute;
-      top: 4px;
-      left: 5px;
-      width: 31px;
-      height: 28px;
-      background: #fff;
-      border-radius: 90px;
-      transition: 0.3s;
+      color: aliceblue;
+      font-size: 18px;
+      text-transform: capitalize;
+      letter-spacing: 0.7px;
+      border-top: 1px solid gray;
+      border-left: 1px solid gray;
+      border-right: 1px solid gray;
+      padding: 0 0.7em;
+      font-size: 18px;
+      background: #79808f;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
     }
 
-    input:checked + label {
-      background: #bada55;
+    div.field.spacer {
+      display: flex;
+      width: 80vw;
+      justify-content: space-around;
+      margin-top: 4em;
     }
 
-    input:checked + label:after {
-      left: calc(100% - 5px);
-      transform: translateX(-100%);
+    div.description-field {
+      display: flex;
+      margin: 5em 0;
+      justify-content: center;
+
+      textarea {
+        margin-top: 29px;
+      }
+    }
+
+    input[type=text] {
+      margin-top: 22px;
+    }
+
+    select {
+      margin-top: 27px;
+      padding: 0.7em 1em;
+    }
+
+    input[name='game[title]'] {
+      padding: 5px;
+      width: 250px;
+    }
+
+    input[name='game[tags]'] {
+      padding: 5px;
+      width: 350px;
+      margin-top: 27px;
+    }
+
+    select[name='game[category]'] {
+      width: 300px
+    }
+
+    .title, .esrb {
+      display: inline-flex;
+    }
+
+    .early-access {
+      input[type="checkbox"] {
+        height: 0;
+        width: 0;
+        visibility: hidden;
+      }
+
+
+      label.drag-cursor {
+        cursor: pointer;
+        text-indent: -9999px;
+        width: 110px;
+        height: 36px;
+        background: grey;
+        display: block;
+        border-radius: 100px;
+        position: relative;
+      }
+
+      label:after {
+        content: "YES";
+        color: "red";
+        position: absolute;
+        top: 4px;
+        left: 5px;
+        width: 31px;
+        height: 28px;
+        background: #fff;
+        border-radius: 90px;
+        transition: 0.3s;
+      }
+
+      input:checked + label {
+        background: #bada55;
+      }
+
+      input:checked + label:after {
+        left: calc(100% - 5px);
+        transform: translateX(-100%);
+      }
     }
   }
 }
