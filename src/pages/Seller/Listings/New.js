@@ -38,11 +38,11 @@ const SellerListingsNew = ({ history }) => {
         addFile,
         reorderFiles,
         errors,
+        images,
+        videos,
       },
     },
   } = useStore();
-
-  console.log(selected_category && selected_category.toJSON());
 
   useEffect(() => {
     load();
@@ -77,6 +77,12 @@ const SellerListingsNew = ({ history }) => {
       supported_platforms_ids: supported_platforms.map(
         (platform) => platform.id
       ),
+      listing_images_attributes: images().map((image) => ({
+        image: image.keys(),
+      })),
+      listing_videos_attributes: videos().map((video) => ({
+        video: video.keys(),
+      })),
     };
 
     if (await games.create(listing)) {

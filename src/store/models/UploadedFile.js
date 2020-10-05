@@ -16,7 +16,25 @@ const UploadedFile = types
     isDragged: false,
     loading: false,
     source: types.frozen(),
+    progress: 0,
+    awsId: types.maybe(types.string),
   })
+  .views((self) => ({
+    uploaded() {
+      return self.progress === 100;
+    },
+    keys() {
+      return {
+        id: self.awsId,
+        storage: "cache",
+        metadata: {
+          size: self.size,
+          filename: self.name,
+          mime_type: self.type,
+        },
+      };
+    },
+  }))
   .actions((self) => ({
     afterCreate() {
       self.source = CancelToken.source();
@@ -49,27 +67,38 @@ const UploadedFile = types
         return false;
       }
 
+      const data = new FormData();
+      Object.keys(presignParams.fields).forEach((field) => {
+        data.append(field, presignParams.fields[field]);
+      });
+
+      data.append("file", self.data);
+
       try {
-        const response = yield axios({
-          method: presignParams.method,
+        yield axios({
+          method: "post",
           url: presignParams.url,
-          data: presignParams.fields,
-          headers: presignParams.headers,
+          data,
           onUploadProgress: self.onUploadProgress,
           cancelToken: self.source.token,
         });
+        const splitedKeys = presignParams.fields.key.split("/");
 
-        console.log(response);
+        self.awsId = splitedKeys[splitedKeys.length - 1];
+        self.loading = false;
+        return true;
       } catch (e) {
-        debugger;
         console.log("UPLOAD ERROR", e);
+        self.loading = false;
+        return false;
       }
     }),
     cancelUpload() {
       self.source.cancel("Upload canceled");
     },
-    onUploadProgress(progressEvent) {
-      console.log(progressEvent);
+    onUploadProgress(e) {
+      self.progress = Math.round(e.loaded / e.total) * 100;
+      console.log(self.progress);
     },
   }));
 
