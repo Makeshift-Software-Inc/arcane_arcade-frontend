@@ -5,6 +5,9 @@ import { observer } from "mobx-react";
 import Trix from "trix";
 import "trix/dist/trix.css";
 
+import Tagify from '@yaireo/tagify'
+import '@yaireo/tagify/src/tagify.scss';
+
 
 import Errors from "../../../components/Errors/Errors";
 
@@ -15,6 +18,7 @@ import "./New.scss";
 
 const SellerListingsNew = ({ history }) => {
   const trixInput = React.createRef();
+  const tagsInput = React.createRef();
 
   const {
     games,
@@ -50,11 +54,18 @@ const SellerListingsNew = ({ history }) => {
   useEffect(() => {
     load();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-
+    const trix = trixInput.current;
     trixInput.current.addEventListener("trix-change", event => {
        console.log("trix change event fired");
        onChange(event); //calling custom event
-   });
+    });
+
+    trixInput.current.addEventListener("trix-attachment-add", event => {
+       console.log("trix attachment event fired");
+    });
+
+    new Tagify(tagsInput.current);
+
   }, []);
 
   const toggleEarlyAccess = () => {
@@ -154,6 +165,7 @@ const SellerListingsNew = ({ history }) => {
               <Loading />
             ) : (
               <select
+                multiple
                 name="category"
                 className="topcoat-text-input"
                 onChange={handleCategoryChange}
@@ -170,7 +182,7 @@ const SellerListingsNew = ({ history }) => {
           </div>
           <div className="game-tags">
             <label htmlFor="tags" className="form-label">Game Tags</label>
-            <input type="text" name="game[tags]" className="topcoat-text-input" />
+            <input type="text" ref={tagsInput} name="tags" className="topcoat-text-input" />
           </div>
         </div>
 

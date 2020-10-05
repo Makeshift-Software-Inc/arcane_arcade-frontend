@@ -13,6 +13,7 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "@tippyjs/react": "^4.2.0",
+    "@yaireo/tagify": "^3.19.5",
     "axios": "^0.20.0",
     "bulma": "^0.9.0",
     "intl-tel-input": "^17.0.5",
