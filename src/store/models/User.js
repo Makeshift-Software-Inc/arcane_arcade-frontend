@@ -20,6 +20,8 @@ const User = types
       return self.activation_state === "active";
     },
     isSeller() {
+      debugger;
+      const SELF = self;;
       return !!self.seller;
     },
   }))

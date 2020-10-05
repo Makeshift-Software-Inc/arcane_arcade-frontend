@@ -66,8 +66,10 @@ const AuthStore = types
 
       try {
         const response = yield Api.get("/logged_in");
-        const { user } = deserialize(response.data);
+
+        const { user } = deserialize(response.data.data);
         self.user = user;
+
         self.isLoggedIn = true;
         self.loading = false;
         return true;
