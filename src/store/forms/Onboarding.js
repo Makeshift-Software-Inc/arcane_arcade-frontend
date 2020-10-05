@@ -1,6 +1,5 @@
 import { types } from "mobx-state-tree";
 import Base from "./Base";
-import Errors from "./Errors";
 
 const Onboarding = types
   .model("Onboarding", {

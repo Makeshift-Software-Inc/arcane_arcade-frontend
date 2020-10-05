@@ -1,12 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { observer } from "mobx-react";
 
-
 import ReactPlayer from "react-player";
-import { Splide, SplideSlide } from '@splidejs/react-splide';
-import '@splidejs/splide/dist/css/themes/splide-default.min.css';
+import { Splide, SplideSlide } from "@splidejs/react-splide";
+import "@splidejs/splide/dist/css/themes/splide-default.min.css";
 
-import '@fortawesome/fontawesome-free/css/all.min.css';
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
@@ -14,15 +13,13 @@ import "tippy.js/dist/tippy.css";
 import Navbar from "../../../components/Navbar/Navbar";
 import Api from "../../../services/Api";
 
-import './GamesShow.scss'
-
-
+import "./GamesShow.scss";
 
 class GamesShow extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { game: {}}
+    this.state = { game: {} };
   }
 
   componentDidMount() {
@@ -31,9 +28,9 @@ class GamesShow extends React.Component {
 
     Api.get(path).then((response) => {
       this.setState({
-        game: response.data.data.attributes
+        game: response.data.data.attributes,
       });
-    })
+    });
   }
 
   splideSlides() {
@@ -54,9 +51,9 @@ class GamesShow extends React.Component {
             width="640px"
             height="640px"
             muted
-            />
+          />
         </SplideSlide>
-      )
+      );
 
       key += 1;
     });
@@ -68,7 +65,7 @@ class GamesShow extends React.Component {
         <SplideSlide key={key}>
           <img src={image} alt={imageAlt} />
         </SplideSlide>
-      )
+      );
 
       key += 1;
     });
@@ -100,7 +97,7 @@ class GamesShow extends React.Component {
   }
 
   render() {
-    const coverAlt = `${this.state.game.title} cover`
+    const coverAlt = `${this.state.game.title} cover`;
 
     return (
       <div className="App listings-show">
@@ -108,78 +105,75 @@ class GamesShow extends React.Component {
         <div className="container">
           <div className="row">
             <div className="splide-container">
-              <Splide className="splide-slider" hasSliderWrapper={true}
-                options= {{
-                  type:"loop",
-                  easing:"ease",
+              <Splide
+                className="splide-slider"
+                hasSliderWrapper={true}
+                options={{
+                  type: "loop",
+                  easing: "ease",
                   keyboard: true,
                   autoHeight: true,
-                  autoWidth: true
-                }}>
+                  autoWidth: true,
+                }}
+              >
                 {this.splideSlides()}
               </Splide>
             </div>
 
             <div className="game-info">
-              { this.state.game.images && (
+              {this.state.game.images && (
                 <img src={this.state.game.images[0]} alt={coverAlt} />
               )}
               <p>{this.state.game.description}</p>
             </div>
           </div>
-
-
-
         </div>
         <div className="info-section">
-
           <div className="pricing">
             <form>
               <div className="payment">
-                  <div className="crypto">
-                    <div className="bitcoin">
-                      <label class="topcoat-radio-button">
-                        <input type="radio" id="btc" name="payment_method" />
-                        <div class="topcoat-radio-button__checkmark"></div>
-                        <Tippy
-                          content={`${this.state.game.btc_amount} BTC`}
-                          interactive={true}
-                          interactiveBorder={20}
-                          delay={100}
-                          arrow={true}
-                          placement="auto"
-                          >
-                            <i class="fab fa-bitcoin"></i>
-                        </Tippy>
-                      </label>
-
-
-                    </div>
-                    <div className="monero">
-                      <label class="topcoat-radio-button">
-                        <input type="radio" id="xmr" name="payment_method" />
-                        <div class="topcoat-radio-button__checkmark"></div>
-                        <Tippy
-                          content={`${this.state.game.xmr_amount} XMR`}
-                          interactive={true}
-                          interactiveBorder={20}
-                          delay={100}
-                          arrow={true}
-                          placement="auto"
-                          >
-                          <i class="fab fa-monero"></i>
-                        </Tippy>
-                      </label>
-
-                    </div>
+                <div className="crypto">
+                  <div className="bitcoin">
+                    <label class="topcoat-radio-button">
+                      <input type="radio" id="btc" name="payment_method" />
+                      <div class="topcoat-radio-button__checkmark"></div>
+                      <Tippy
+                        content={`${this.state.game.btc_amount} BTC`}
+                        interactive={true}
+                        interactiveBorder={20}
+                        delay={100}
+                        arrow={true}
+                        placement="auto"
+                      >
+                        <i class="fab fa-bitcoin"></i>
+                      </Tippy>
+                    </label>
                   </div>
-
-                  <div className="fiat">
-                    <h3>
-                      {this.state.game.currency_symbol}
-                      {this.state.game.price / 100} {this.state.game.default_currency}
-                    </h3>
+                  <div className="monero">
+                    <label class="topcoat-radio-button">
+                      <input type="radio" id="xmr" name="payment_method" />
+                      <div class="topcoat-radio-button__checkmark"></div>
+                      <Tippy
+                        content={`${this.state.game.xmr_amount} XMR`}
+                        interactive={true}
+                        interactiveBorder={20}
+                        delay={100}
+                        arrow={true}
+                        placement="auto"
+                      >
+                        <i class="fab fa-monero"></i>
+                      </Tippy>
+                    </label>
                   </div>
+                </div>
+
+                <div className="fiat">
+                  <h3>
+                    {this.state.game.currency_symbol}
+                    {this.state.game.price / 100}{" "}
+                    {this.state.game.default_currency}
+                  </h3>
+                </div>
               </div>
 
               <div class="vl"></div>
@@ -201,22 +195,21 @@ class GamesShow extends React.Component {
                 </div>
               </div>
               <div className="payment-submit">
-                <button onClick={this.onFormSubmit.bind(this)} class="topcoat-button--large--cta" type="submit" >
+                <button
+                  onClick={this.onFormSubmit.bind(this)}
+                  class="topcoat-button--large--cta"
+                  type="submit"
+                >
                   Buy
                 </button>
               </div>
             </form>
-
           </div>
-          <p className="description">
-            {this.state.game.description}
-          </p>
+          <p className="description">{this.state.game.description}</p>
         </div>
-
-
       </div>
-    )
+    );
   }
-};
+}
 
 export default observer(GamesShow);

@@ -65,8 +65,7 @@ const Home = () => {
                 <img src={xcom} alt="civilizations 6 cover" />
               </div>
             </div>
-        </div>
-
+          </div>
         )}
       </div>
 

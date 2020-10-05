@@ -2,20 +2,20 @@ import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 
 import { observer } from "mobx-react";
-import { useStore } from "../../store";
+import { useStore } from "../../../store";
 
-import "../../magic.css";
+import "../../../magic.css";
 import "./Onboarding.scss";
 
-import Welcome from "../../components/Onboarding/Welcome";
-import AreYouPublisher from "../../components/Onboarding/AreYouPublisher";
-import SellWithUs from "../../components/Onboarding/SellWithUs";
-import CompanyName from "../../components/Onboarding/CompanyName";
-import StudioSize from "../../components/Onboarding/StudioSize";
-import Currency from "../../components/Onboarding/Currency";
-import Crypto from "../../components/Onboarding/Crypto";
+import Welcome from "../../../components/Onboarding/Welcome";
+import AreYouPublisher from "../../../components/Onboarding/AreYouPublisher";
+import SellWithUs from "../../../components/Onboarding/SellWithUs";
+import CompanyName from "../../../components/Onboarding/CompanyName";
+import StudioSize from "../../../components/Onboarding/StudioSize";
+import Currency from "../../../components/Onboarding/Currency";
+import Crypto from "../../../components/Onboarding/Crypto";
 
-import Loading from "../../components/Loading/Loading";
+import Loading from "../../../components/Loading/Loading";
 
 const STEPS = [
   { component: AreYouPublisher, props: ["isSeller"] },
@@ -44,7 +44,7 @@ const SHOW_STYLES = {
   transition: "all 1s",
 };
 
-const Onboarding = () => {
+const SellerOnboarding = () => {
   const [showQuestion, setShowQuestion] = useState(false);
   const [style, setStyle] = useState(HIDE_STYLES);
   const [redirect, setRedirect] = useState(false);
@@ -129,4 +129,4 @@ const Onboarding = () => {
   );
 };
 
-export default observer(Onboarding);
+export default observer(SellerOnboarding);
