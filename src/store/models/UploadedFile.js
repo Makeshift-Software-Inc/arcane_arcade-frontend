@@ -18,6 +18,8 @@ const UploadedFile = types
     source: types.frozen(),
     progress: 0,
     awsId: types.maybe(types.string),
+    awsUrl: types.maybe(types.string),
+    attachment: types.frozen(),
   })
   .views((self) => ({
     uploaded() {
@@ -37,8 +39,12 @@ const UploadedFile = types
   }))
   .actions((self) => ({
     afterCreate() {
+      console.log("CREATED");
       self.source = CancelToken.source();
-      self.upload();
+      // don't auto upload attachments
+      if (!self.attachment) {
+        self.upload();
+      }
     },
     setDragging(value) {
       self.isDragged = value;
@@ -47,6 +53,7 @@ const UploadedFile = types
       const params = {
         filename: self.name,
         type: self.type,
+        size: self.size,
       };
 
       // get direct to s3 upload params
@@ -60,6 +67,7 @@ const UploadedFile = types
     }),
     upload: flow(function* upload() {
       self.loading = true;
+
       const presignParams = yield self.presign();
 
       if (!presignParams) {
@@ -82,9 +90,12 @@ const UploadedFile = types
           onUploadProgress: self.onUploadProgress,
           cancelToken: self.source.token,
         });
+
         const splitedKeys = presignParams.fields.key.split("/");
 
         self.awsId = splitedKeys[splitedKeys.length - 1];
+
+        self.awsUrl = presignParams.full_url;
         self.loading = false;
         return true;
       } catch (e) {

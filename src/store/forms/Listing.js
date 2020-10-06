@@ -22,7 +22,7 @@ const ListingForm = types
       "EVERYONE"
     ),
     description: types.optional(types.string, ""),
-    selected_category: types.maybe(types.reference(Category)),
+    selected_categories: types.array(types.reference(Category)),
     supported_platforms: types.array(types.reference(SupportedPlatform)),
     tags: types.array(types.reference(Tag)),
     earlyAccess: false,
@@ -31,6 +31,7 @@ const ListingForm = types
     loading: false,
     system_requirements: types.array(SystemRequirements),
     files: types.array(UploadedFile),
+    attachments: types.array(UploadedFile),
     errors: types.optional(Errors, {}),
   })
   .views((self) => ({
@@ -93,10 +94,20 @@ const ListingForm = types
         );
       }
     },
-    selectCategory(title) {
-      self.selected_category = self.categoryOptions.find(
-        (category) => category.title === title
+    addCategory(category) {
+      self.selected_categories.push(category.id);
+      self.categoryOptions
+        .find((c) => c.id === category.id)
+        .update({ disabled: true });
+    },
+    removeCategory(index) {
+      const category = self.selected_categories[index];
+      self.selected_categories = self.selected_categories.filter(
+        (c) => c.id !== category.id
       );
+      self.categoryOptions
+        .find((c) => c.id === category.id)
+        .update({ disabled: false });
     },
     addFile(file) {
       // if there is a file with a same name, don't add it again
@@ -110,6 +121,35 @@ const ListingForm = types
         url: URL.createObjectURL(file),
       });
     },
+    addAttachment: flow(function* addAttachment(event) {
+      const {
+        attachment,
+        attachment: { file },
+      } = event;
+
+      const uploadedFile = UploadedFile.create({
+        name: file.name,
+        type: file.type,
+        size: file.size,
+        data: file,
+        url: URL.createObjectURL(file),
+        attachment,
+      });
+
+      self.attachments.push(uploadedFile);
+      try {
+        if (yield uploadedFile.upload()) {
+          return {
+            url: uploadedFile.awsUrl,
+            href: uploadedFile.awsUrl + "?content-disposition=attachment",
+          };
+        }
+        return false;
+      } catch (e) {
+        console.log(e);
+        return false;
+      }
+    }),
     reorderFiles(oldIndex, newIndex) {
       if (oldIndex === newIndex) return;
 
