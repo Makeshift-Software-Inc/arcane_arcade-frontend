@@ -4,6 +4,7 @@ import Errors from "./Errors";
 
 import SupportedPlatform from "../models/SupportedPlatform";
 import Category from "../models/Category";
+import Tag from "../models/Tag";
 import SystemRequirements from "../models/SystemRequirements";
 import UploadedFile from "../models/UploadedFile";
 
@@ -14,6 +15,7 @@ const ListingForm = types
   .model("ListingForm", {
     supportedPlatformOptions: types.array(SupportedPlatform),
     categoryOptions: types.array(Category),
+    tagsOptions: types.array(Tag),
     title: types.optional(types.string, ""),
     esrb: types.optional(
       types.enumeration(["EVERYONE", "E_TEN_PLUS", "TEEN", "MATURE", "ADULT"]),
@@ -22,6 +24,7 @@ const ListingForm = types
     description: types.optional(types.string, ""),
     selected_category: types.maybe(types.reference(Category)),
     supported_platforms: types.array(types.reference(SupportedPlatform)),
+    tags: types.array(types.reference(Tag)),
     earlyAccess: false,
     price: types.optional(types.string, ""),
     errors: types.optional(Errors, {}),
@@ -52,7 +55,8 @@ const ListingForm = types
       // already loaded
       if (
         self.supportedPlatformOptions.length > 0 &&
-        self.categoryOptions.length > 0
+        self.categoryOptions.length > 0 &&
+        self.tagsOptions.length > 0
       )
         return;
 
@@ -64,6 +68,7 @@ const ListingForm = types
           response.data.supported_platforms
         );
         self.categoryOptions = deserialize(response.data.categories);
+        self.tagsOptions = deserialize(response.data.tags);
         self.loading = false;
         return true;
       } catch (e) {
@@ -112,6 +117,15 @@ const ListingForm = types
       const [removed] = items.splice(oldIndex, 1);
       items.splice(newIndex, 0, removed);
       self.files = items;
+    },
+    addTag(tag) {
+      self.tags.push(tag);
+      self.tagsOptions.find((t) => t.id === tag.id).update({ disabled: true });
+    },
+    removeTag(index) {
+      const tag = self.tags[index];
+      self.tags = self.tags.filter((t) => t.id !== tag.id);
+      self.tagsOptions.find((t) => t.id === tag.id).update({ disabled: false });
     },
     validate: () => {
       // TODO: Validate here (check ./SignUp for details)
