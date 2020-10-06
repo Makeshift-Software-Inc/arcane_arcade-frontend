@@ -27,7 +27,9 @@ const AuthStore = types
         const response = yield Api.post("/users", {
           user: forms.signUp.keys(keysToSend),
         });
-        const { user } = deserialize(response.data);
+        localStorage.setItem('auth_token', response.data.token)
+
+        const user = response.data.user.data.attributes;
         self.user = user;
         // FIXME: are we sure we want users to be logged in immedietly after signup?
         self.isLoggedIn = true;
@@ -49,7 +51,10 @@ const AuthStore = types
         const response = yield Api.post("/login", {
           user: forms.login.keys(keysToSend),
         });
-        const { user } = deserialize(response.data);
+        localStorage.setItem('auth_token', response.data.token)
+
+
+        const user = response.data.user.data.attributes;
         self.user = user;
         self.isLoggedIn = true;
         return true;
@@ -68,9 +73,10 @@ const AuthStore = types
         const response = yield Api.get("/logged_in");
 
         let user = response.data.data.attributes;
-        user.seller = response.data.included[0].attributes
-        self.user = user;
+        if (response.data.included.length > 0)
+          user.seller = response.data.included[0].attributes
 
+        self.user = user;
         self.isLoggedIn = true;
         self.loading = false;
         return true;
@@ -134,7 +140,7 @@ const AuthStore = types
     }),
     logout: flow(function* logout() {
       try {
-        yield Api.delete("/logout");
+        localStorage.removeItem('auth_token')
         self.user = null;
         self.isLoggedIn = false;
         return true;

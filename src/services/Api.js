@@ -5,6 +5,7 @@ class Api {
     axios.create({
       baseURL: process.env.REACT_APP_API_URL + versionPath,
       withCredentials: true,
+      headers: { 'Authorization': localStorage.getItem('auth_token') }
     });
 
   static async get(path, params = {}) {
