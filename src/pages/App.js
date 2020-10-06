@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 
 import "react-toastify/dist/ReactToastify.css";
 
+import "../react-tags.css";
+
 import "../normalize.css";
 import "../topcoat-desktop-dark.css";
 import "bulma/bulma.sass";

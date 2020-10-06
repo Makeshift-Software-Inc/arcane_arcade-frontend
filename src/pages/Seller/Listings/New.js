@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useStore } from "../../../store";
 import { observer } from "mobx-react";
+import ReactTags from "react-tag-autocomplete";
 
 import Errors from "../../../components/Errors/Errors";
 
@@ -36,6 +37,10 @@ const SellerListingsNew = ({ history }) => {
         errors,
         images,
         videos,
+        tagsOptions,
+        tags,
+        addTag,
+        removeTag,
       },
     },
   } = useStore();
@@ -79,6 +84,7 @@ const SellerListingsNew = ({ history }) => {
       listing_videos_attributes: videos().map((video) => ({
         video: video.keys(),
       })),
+      listing_tags_attributes: tags.map((tag) => ({ tag_id: tag.id })),
     };
 
     if (await games.create(listing)) {
@@ -148,7 +154,26 @@ const SellerListingsNew = ({ history }) => {
           </label>
           <label>
             Game Tags
-            <input type="text" name="tags" className="topcoat-text-input" />
+            <ReactTags
+              tags={tags}
+              suggestions={tagsOptions.filter((tag) => !tag.disabled)}
+              onDelete={removeTag}
+              onAddition={addTag}
+              autoresize={false}
+              classNames={{
+                root: "react-tags",
+                rootFocused: "is-focused",
+                selected: "react-tags__selected",
+                selectedTag: "react-tags__selected-tag",
+                selectedTagName: "react-tags__selected-tag-name",
+                search: "react-tags__search",
+                searchWrapper: "react-tags__search-wrapper",
+                searchInput: "react-tags__search-input topcoat-text-input",
+                suggestions: "react-tags__suggestions",
+                suggestionActive: "is-active",
+                suggestionDisabled: "is-disabled",
+              }}
+            />
           </label>
         </div>
         <label>

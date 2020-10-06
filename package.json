@@ -30,6 +30,7 @@
     "react-scripts": "3.4.3",
     "react-slick": "^0.27.11",
     "react-sortable-hoc": "^1.11.0",
+    "react-tag-autocomplete": "^6.1.0",
     "react-toastify": "^6.0.8",
     "tippy.js": "^6.2.6"
   },
