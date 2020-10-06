@@ -3,7 +3,7 @@ import { useStore } from "../../../store";
 import { observer } from "mobx-react";
 import ReactTags from "react-tag-autocomplete";
 
-import Trix from "trix";
+import "trix/dist/trix.js";
 import "trix/dist/trix.css";
 
 import Errors from "../../../components/Errors/Errors";
@@ -22,8 +22,9 @@ const SellerListingsNew = ({ history }) => {
         load,
         loading,
         categoryOptions,
-        selected_category,
-        selectCategory,
+        selected_categories,
+        addCategory,
+        removeCategory,
         supportedPlatformOptions,
         supported_platforms,
         addSupportedPlatform,
@@ -38,6 +39,8 @@ const SellerListingsNew = ({ history }) => {
         system_requirements,
         files,
         addFile,
+        attachments,
+        addAttachment,
         reorderFiles,
         errors,
         images,
@@ -52,24 +55,32 @@ const SellerListingsNew = ({ history }) => {
 
   useEffect(() => {
     load();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    const trix = trixInput.current;
-    trixInput.current.addEventListener("trix-change", (event) => {
-      console.log("trix change event fired");
-      onChange(event); //calling custom event
+
+    trixInput.current.addEventListener("trix-change", onChange);
+
+    trixInput.current.addEventListener("trix-file-accept", (event) => {
+      const acceptedAttachments = ["image/png", "image/jpeg"];
+      if (!acceptedAttachments.includes(event.file.type)) {
+        event.preventDefault();
+        alert("You can only add images with jpeg or png format.");
+      }
+      const maxFileSize = 1024 * 1024 * 10; // 10MB
+      if (event.file.size > maxFileSize) {
+        event.preventDefault();
+        alert("Only support attachment files upto 10MB.");
+      }
     });
 
-    trixInput.current.addEventListener("trix-attachment-add", (event) => {
-      console.log("trix attachment event fired");
+    trixInput.current.addEventListener("trix-attachment-add", async (event) => {
+      const data = await addAttachment(event);
+      if (data) {
+        event.attachment.setAttributes(data);
+      }
     });
   }, []);
 
   const toggleEarlyAccess = () => {
     update({ earlyAccess: !earlyAccess });
-  };
-
-  const handleCategoryChange = (e) => {
-    selectCategory(e.target.value);
   };
 
   const handleSupportedPlatformChange = (e) => {
@@ -88,7 +99,7 @@ const SellerListingsNew = ({ history }) => {
       esrb,
       early_access: earlyAccess,
       price,
-      category_ids: selected_category ? [selected_category.id] : null,
+      category_ids: selected_categories.map((category) => category.id),
       supported_platforms_ids: supported_platforms.map(
         (platform) => platform.id
       ),
@@ -98,6 +109,9 @@ const SellerListingsNew = ({ history }) => {
       listing_videos_attributes: videos().map((video) => ({
         video: video.keys(),
       })),
+      listing_attachments_attributes: attachments.map((attachment) => ({
+        attachment: attachment.keys(),
+      })),
       listing_tags_attributes: tags.map((tag) => ({ tag_id: tag.id })),
     };
 
@@ -106,6 +120,16 @@ const SellerListingsNew = ({ history }) => {
       history.push({ pathname: "/seller/dashboard", state: { notification } });
     }
   };
+
+  const selectedCategoriesAsTags = selected_categories.map((category) => ({
+    ...category,
+    name: category.title,
+  }));
+
+  const categoriesOptionsAsTags = categoryOptions.map((category) => ({
+    ...category,
+    name: category.title,
+  }));
 
   return (
     <div className="App seller-listings-new">
@@ -138,7 +162,7 @@ const SellerListingsNew = ({ history }) => {
                 className="topcoat-text-input"
               >
                 <option value="EVERYONE">EVERYONE</option>
-                <option value="E10+">E_TEN_PLUS</option>
+                <option value="E_TEN_PLUS">E10+</option>
                 <option value="TEEN">TEEN</option>
                 <option value="MATURE">MATURE</option>
                 <option value="ADULT">ADULT</option>
@@ -162,20 +186,31 @@ const SellerListingsNew = ({ history }) => {
               {loading ? (
                 <Loading />
               ) : (
-                <select
-                  multiple
-                  name="category"
-                  className="topcoat-text-input"
-                  onChange={handleCategoryChange}
-                  value={selected_category && selected_category.title}
-                >
-                  <option></option>
-                  {categoryOptions.map((category) => (
-                    <option key={category.id} value={category.title}>
-                      {category.title}
-                    </option>
-                  ))}
-                </select>
+                <ReactTags
+                  tags={selectedCategoriesAsTags}
+                  suggestions={categoriesOptionsAsTags}
+                  onDelete={removeCategory}
+                  onAddition={addCategory}
+                  autoresize={false}
+                  placeholderText="Select Category"
+                  minQueryLength={0}
+                  maxSuggestionsLength={
+                    selectedCategoriesAsTags.length === 2 ? 0 : 100
+                  }
+                  classNames={{
+                    root: "react-tags",
+                    rootFocused: "is-focused",
+                    selected: "react-tags__selected",
+                    selectedTag: "react-tags__selected-tag",
+                    selectedTagName: "react-tags__selected-tag-name",
+                    search: "react-tags__search",
+                    searchWrapper: "react-tags__search-wrapper",
+                    searchInput: "react-tags__search-input topcoat-text-input",
+                    suggestions: "react-tags__suggestions",
+                    suggestionActive: "is-active",
+                    suggestionDisabled: "is-disabled",
+                  }}
+                />
               )}
             </div>
             <div className="game-tags">
@@ -208,7 +243,12 @@ const SellerListingsNew = ({ history }) => {
           <div className="field description-field">
             <h2>Game Description</h2>
             <div>
-              <input type="hidden" id="trix" name="description" />
+              <input
+                type="hidden"
+                id="trix"
+                value={description}
+                name="description"
+              />
               <trix-editor input="trix" name="description" ref={trixInput} />
             </div>
           </div>
@@ -280,7 +320,7 @@ const SellerListingsNew = ({ history }) => {
               <React.Fragment>
                 <h4>System Requirements</h4>
                 {system_requirements.map((systemRequirement) => (
-                  <div>
+                  <div key={systemRequirement.id}>
                     <div className="topcoat-tab-bar">
                       <label className="topcoat-tab-bar__item">
                         <input type="radio" name="tab-bar" />
@@ -305,7 +345,13 @@ const SellerListingsNew = ({ history }) => {
             <div className="early-access">
               <div>Early access</div>
               <label className="topcoat-checkbox">
-                <input type="checkbox" />
+                <input
+                  type="checkbox"
+                  onChange={toggleEarlyAccess}
+                  id="early-access"
+                  name="early-access"
+                  value={earlyAccess}
+                />
                 <div className="topcoat-checkbox__checkmark"></div>
               </label>
             </div>
