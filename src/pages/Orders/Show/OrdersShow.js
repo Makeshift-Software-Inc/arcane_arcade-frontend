@@ -22,9 +22,8 @@ class OrdersShow extends React.Component {
     const path = `/orders/${id}`;
 
     Api.get(path).then((response) => {
-      // This is unacceptable. I have to call data THREE TIMES?!
       this.setState({
-        order: response.data.data.data.attributes
+        order: response.data.data.attributes
       });
     })
   }

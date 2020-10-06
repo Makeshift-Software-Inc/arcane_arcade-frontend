@@ -92,7 +92,7 @@ class GamesShow extends React.Component {
     })
 
     if (response.status === 200)  {
-      this.props.history.push(`/buy/${response.data.data.id}`)
+      this.props.history.push(`/buy/${response.data.id}`)
     }
   }
 
