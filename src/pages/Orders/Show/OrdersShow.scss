@@ -1,0 +1,61 @@
+.App.orders-show {
+  background: linear-gradient(-45deg, #58595a, #58595a, #aaacb3, #91959f);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+  padding-bottom: 5vh;
+
+  .logo {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    img {
+      width: 150px;
+    }
+
+    h1 {
+      font-size: 23px;
+      margin-top: 3em;
+      letter-spacing: -0.3px;
+    }
+
+  }
+  .qr-code {
+    img {
+      margin: 0 auto;
+      display: flex;
+      width: 250px;
+    }
+  }
+
+  .order-text {
+    h3 {
+      margin: 2em 0 0.5em;
+      font-size: 25px;
+      color: aliceblue;
+      text-align: center;
+    }
+  }
+
+  .coin-address {
+    text-align: center;
+    color: aliceblue;
+    font-size: 30px;
+    letter-spacing: -0.3px;
+    margin-bottom: 0.5em
+  }
+
+  .expiry {
+    display: flex;
+    justify-content: center;
+
+    h2 {
+      font-size: 23px;
+      color: aliceblue;
+      span {
+        margin-left: 10px;
+      }
+    }
+  }
+
+}

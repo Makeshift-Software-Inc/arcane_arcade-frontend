@@ -27,8 +27,10 @@ const PopupContent = ({ title, price, images, videos, currencySymbol, defaultCur
 };
 
 const GameListing = ({ game }) => {
+
   const imageAlt = `${game.title} cover`;
   const listingShowLink = `/games/${game.slug}`
+
   return (
     <Tippy
       content={
