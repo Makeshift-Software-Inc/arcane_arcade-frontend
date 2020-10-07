@@ -42,7 +42,11 @@
     color: aliceblue;
     font-size: 30px;
     letter-spacing: -0.3px;
-    margin-bottom: 0.5em
+    margin-bottom: 0.5em;
+    width: 70vw;
+    word-break: break-all;
+    margin: 0 auto;
+
   }
 
   .expiry {
