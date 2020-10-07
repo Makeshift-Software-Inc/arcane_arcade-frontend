@@ -20,7 +20,20 @@ import xcom from "../../img/xcom.jpg";
 import { useStore } from "../../store";
 
 const Home = () => {
-  const { selectedGame } = useStore("games");
+  const { selectedGame, load } = useStore("games");
+
+
+  let searchQuery = '';
+
+  const setSearchQuery = (e) => {
+      searchQuery = e.target.value;
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    debugger
+  }
 
   return (
     <div className="App">
@@ -77,11 +90,14 @@ const Home = () => {
         <div id="navbarBasicExample" className="navbar-menu">
           <div className="navbar-start">
             <div className="navbar-item">
-              <input
-                type="search"
-                placeholder="enter search term or tag"
-                className="topcoat-search-input"
-              />
+              <form onSubmit={handleSubmit.bind(this)}>
+                <input
+                  onChange={setSearchQuery.bind(this)}
+                  type="search"
+                  placeholder="enter search term or tag"
+                  className="topcoat-search-input"
+                  />
+              </form>
             </div>
           </div>
 
