@@ -205,7 +205,7 @@ class GamesShow extends React.Component {
               </div>
             </form>
           </div>
-          <p className="description">{this.state.game.description}</p>
+          <div className="description" dangerouslySetInnerHTML={{__html: this.state.game.description}} />
         </div>
       </div>
     );
