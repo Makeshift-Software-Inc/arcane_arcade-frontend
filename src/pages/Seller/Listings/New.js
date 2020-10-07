@@ -131,6 +131,8 @@ const SellerListingsNew = ({ history }) => {
     name: category.title,
   }));
 
+  if (games.creating) return <Loading />;
+
   return (
     <div className="App seller-listings-new">
       <div className="container">
@@ -203,7 +205,9 @@ const SellerListingsNew = ({ history }) => {
                     selected: "react-tags__selected",
                     selectedTag: "react-tags__selected-tag",
                     selectedTagName: "react-tags__selected-tag-name",
-                    search: "react-tags__search",
+                    search: `react-tags__search ${
+                      selectedCategoriesAsTags.length === 2 ? "is-hidden" : ""
+                    }`,
                     searchWrapper: "react-tags__search-wrapper",
                     searchInput: "react-tags__search-input topcoat-text-input",
                     suggestions: "react-tags__suggestions",
@@ -376,7 +380,11 @@ const SellerListingsNew = ({ history }) => {
 
           <br />
 
-          <button type="submit" className="topcoat-button--large">
+          <button
+            type="submit"
+            disabled={games.creating}
+            className="topcoat-button--large"
+          >
             CREATE
           </button>
         </form>
