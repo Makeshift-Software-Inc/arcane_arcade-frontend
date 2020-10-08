@@ -104,13 +104,6 @@ class GamesShow extends React.Component {
       <div className="App listings-show">
         <Navbar />
 
-      <div className="return-to-store">
-        <Link to="/">
-          <i class="fas fa-caret-left"></i>
-          Return to Store
-        </Link>
-      </div>
-
         <div className="splide-container">
           <Splide
             className="splide-slider"
