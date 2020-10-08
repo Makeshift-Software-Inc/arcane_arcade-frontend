@@ -1,14 +1,17 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { observer } from "mobx-react";
 
 import ReactPlayer from "react-player";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
+
 import "@splidejs/splide/dist/css/themes/splide-default.min.css";
 
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
+import "trix/dist/trix.css";
 
 import Navbar from "../../../components/Navbar/Navbar";
 import Api from "../../../services/Api";
@@ -48,8 +51,6 @@ class GamesShow extends React.Component {
             thumbnail={this.state.game.images[0]}
             playing={false}
             controls
-            width="640px"
-            height="640px"
             muted
           />
         </SplideSlide>
@@ -102,31 +103,28 @@ class GamesShow extends React.Component {
     return (
       <div className="App listings-show">
         <Navbar />
-        <div className="container">
-          <div className="row">
-            <div className="splide-container">
-              <Splide
-                className="splide-slider"
-                hasSliderWrapper={true}
-                options={{
-                  type: "loop",
-                  easing: "ease",
-                  keyboard: true,
-                  autoHeight: true,
-                  autoWidth: true,
-                }}
-              >
-                {this.splideSlides()}
-              </Splide>
-            </div>
 
-            <div className="game-info">
-              {this.state.game.images && (
-                <img src={this.state.game.images[0]} alt={coverAlt} />
-              )}
-            </div>
-          </div>
+      <div className="return-to-store">
+        <Link to="/">
+          <i class="fas fa-caret-left"></i>
+          Return to Store
+        </Link>
+      </div>
+
+        <div className="splide-container">
+          <Splide
+            className="splide-slider"
+            options={{
+              type: "loop",
+              easing: "ease",
+              keyboard: true,
+              perPage: 1
+            }}
+            >
+            {this.splideSlides()}
+          </Splide>
         </div>
+
         <div className="info-section">
           <div className="pricing">
             <form>

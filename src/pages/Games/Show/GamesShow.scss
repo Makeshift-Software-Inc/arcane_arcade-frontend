@@ -49,6 +49,11 @@
       }
     }
 
+    .description {
+      width: 600px;
+      margin: 0 auto;
+    }
+
     .pricing {
       display: flex;
       justify-content: center;
@@ -121,25 +126,40 @@
   }
 
   .splide-container {
-    padding: 6rem 2em;
+    padding: 2em;
+    display: flex;
+    width: 100vw;
+    justify-content: center;
   }
 
   .splide {
-    max-width: 640px!important;
-    width: 606px !important;
-    height: 395px;
+;
 
     .splide__track {
-      height: 35vh;
-      width: 640px;
+      width: 71vw;
+      height: 640px
     }
 
     .splide__slide {
-      width: 640px !important;
+      width: 71vw !important;
     }
 
+
+    div[thumbnail] {
+      width: 71vw !important;
+      height: 600px !important;
+    }
     video {
-      height: auto !important;
+      height: 600px !important;
+      width: 71vw;
+      margin-bottom: 3em;
+    }
+    img {
+      width: 100%;
+      object-fit: contain;
+      height: 600px !important;
+
+      margin-bottom: 3em;
     }
   }
 }
