@@ -22,7 +22,10 @@ class GamesShow extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { game: {} };
+    this.state = {
+      game: {},
+      supported_platforms: []
+    };
   }
 
   componentDidMount() {
@@ -30,8 +33,16 @@ class GamesShow extends React.Component {
     const path = `/listings/${slug}`;
 
     Api.get(path).then((response) => {
+
+      let supportedPlatforms = []
+      response.data.included.forEach((item, i) => {
+        if (item.type === 'supported_platform')
+          supportedPlatforms.push(item.attributes.name)
+      });
+
       this.setState({
         game: response.data.data.attributes,
+        supported_platforms: supportedPlatforms
       });
     });
   }
@@ -123,66 +134,78 @@ class GamesShow extends React.Component {
             <form>
               <div className="payment">
                 <div className="crypto">
-                  <div className="bitcoin">
-                    <label className="topcoat-radio-button">
-                      <input type="radio" id="btc" name="payment_method" />
-                      <div className="topcoat-radio-button__checkmark"></div>
-                      <Tippy
-                        content={`${this.state.game.btc_amount} BTC`}
-                        interactive={true}
-                        interactiveBorder={20}
-                        delay={100}
-                        arrow={true}
-                        placement="auto"
-                      >
-                        <i className="fab fa-bitcoin"></i>
-                      </Tippy>
-                    </label>
-                  </div>
-                  <div className="monero">
-                    <label className="topcoat-radio-button">
-                      <input type="radio" id="xmr" name="payment_method" />
-                      <div className="topcoat-radio-button__checkmark"></div>
-                      <Tippy
-                        content={`${this.state.game.xmr_amount} XMR`}
-                        interactive={true}
-                        interactiveBorder={20}
-                        delay={100}
-                        arrow={true}
-                        placement="auto"
-                      >
-                        <i className="fab fa-monero"></i>
-                      </Tippy>
-                    </label>
-                  </div>
+                  {this.state.game.accepts_bitcoin &&
+                    <div className="bitcoin">
+                      <label className="topcoat-radio-button">
+                        <input type="radio" id="btc" name="payment_method" />
+                        <div className="topcoat-radio-button__checkmark"></div>
+                        <Tippy
+                          content={`${this.state.game.btc_amount} BTC`}
+                          interactive={true}
+                          interactiveBorder={20}
+                          delay={100}
+                          arrow={true}
+                          placement="auto"
+                          >
+                          <i className="fab fa-bitcoin"></i>
+                        </Tippy>
+                      </label>
+                    </div>
+                  }
+                  {this.state.game.accepts_monero &&
+                    <div className="monero">
+                      <label className="topcoat-radio-button">
+                        <input type="radio" id="xmr" name="payment_method" />
+                        <div className="topcoat-radio-button__checkmark"></div>
+                        <Tippy
+                          content={`${this.state.game.xmr_amount} XMR`}
+                          interactive={true}
+                          interactiveBorder={20}
+                          delay={100}
+                          arrow={true}
+                          placement="auto"
+                          >
+                          <i className="fab fa-monero"></i>
+                        </Tippy>
+                      </label>
+                    </div>
+                  }
                 </div>
 
                 <div className="fiat">
-                  <h3>
-                    {this.state.game.currency_symbol}
-                    {this.state.game.price / 100}{" "}
-                    {this.state.game.default_currency}
-                  </h3>
+                  {this.state.game.price &&
+                    <h3>
+                      {this.state.game.currency_symbol}
+                      {this.state.game.price / 100}{" "}
+                      {this.state.game.default_currency}
+                    </h3>
+                  }
                 </div>
               </div>
 
               <div className="vl"></div>
 
               <div className="platforms">
-                <div className="windows">
-                  <i className="fab fa-windows"></i>
-                  <h3>Windows</h3>
-                </div>
+                {this.state.supported_platforms.includes('WINDOWS') &&
+                  <div className="windows">
+                    <i className="fab fa-windows"></i>
+                    <h3>Windows</h3>
+                  </div>
+                }
 
-                <div className="mac">
-                  <i className="fab fa-apple"></i>
-                  <h3>Mac</h3>
-                </div>
+                {this.state.supported_platforms.includes('MAC') &&
+                  <div className="mac">
+                    <i className="fab fa-apple"></i>
+                    <h3>Mac</h3>
+                  </div>
+                }
 
-                <div className="linux">
-                  <i className="fab fa-linux"></i>
-                  <h3>Linux</h3>
-                </div>
+                {this.state.supported_platforms.includes('LINUX') &&
+                  <div className="linux">
+                    <i className="fab fa-linux"></i>
+                    <h3>Linux</h3>
+                  </div>
+                }
               </div>
               <div className="payment-submit">
                 <button

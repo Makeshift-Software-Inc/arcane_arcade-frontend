@@ -1,6 +1,7 @@
 import { types, getParent } from "mobx-state-tree";
 import BaseUpdate from "./BaseUpdate";
 import Seller from "./Seller";
+import SupportedPlatform from "./SupportedPlatform";
 
 const Game = types
   .model("Game", {
@@ -19,6 +20,7 @@ const Game = types
     default_currency: types.string,
     currency_symbol: types.string,
     seller: types.maybe(Seller),
+    supported_platforms: types.maybe(SupportedPlatform),
   })
   .actions((self) => ({
     play() {

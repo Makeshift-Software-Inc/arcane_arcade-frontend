@@ -27,7 +27,10 @@ const GamesStore = types
           response = yield Api.get(`/listings?q=${query}`);
         }
 
-        const games = deserialize(response.data);
+        const games = response.data.data.map((game) => {
+          return game.attributes
+        })
+        
         self.games = games;
         self.loading = false;
         return true;
