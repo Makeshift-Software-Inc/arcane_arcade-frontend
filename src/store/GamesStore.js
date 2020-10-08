@@ -10,6 +10,7 @@ const GamesStore = types
     games: types.array(Game),
     selectedGame: types.maybe(types.reference(Game)),
     loading: false,
+    creating: false,
   })
   .actions((self) => ({
     load: flow(function* load(query = null) {
@@ -37,11 +38,12 @@ const GamesStore = types
       }
     }),
     create: flow(function* create(listing) {
-      self.loading = true;
+      self.creating = true;
 
       try {
         const response = yield Api.post("/listings", { listing });
         console.log(response);
+        self.creating = false;
         return true;
       } catch (e) {
         console.log(e);
@@ -50,6 +52,7 @@ const GamesStore = types
         if (e.response && e.response.data) {
           forms.listing.errors.update(e.response.data);
         }
+        self.creating = false;
         return false;
       }
     }),
