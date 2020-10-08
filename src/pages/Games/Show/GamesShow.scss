@@ -1,4 +1,9 @@
 .App.listings-show {
+  strong {
+    color: aliceblue;
+    letter-spacing: 0.7px;
+  }
+
   .container {
     display: flex;
 
@@ -133,7 +138,6 @@
   }
 
   .splide {
-;
 
     .splide__track {
       width: 71vw;
