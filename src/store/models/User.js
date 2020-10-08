@@ -12,7 +12,7 @@ const User = types
     email: types.string,
     phone_number: types.string,
     activation_state: types.enumeration(["pending", "active"]),
-    seller: types.maybe(Seller),
+    seller: types.maybeNull(Seller),
     loadingSeller: false,
   })
   .views((self) => ({
@@ -20,7 +20,6 @@ const User = types
       return self.activation_state === "active";
     },
     isSeller() {
-      const SELF = self;;
       return !!self.seller;
     },
   }))
@@ -43,8 +42,7 @@ const User = types
 
       try {
         const response = yield Api.post("/sellers", { seller: seller });
-        self.seller = response.data.data.attributes;
-        console.log(response);
+        self.seller = deserialize(response.data);
         self.loadingSeller = false;
         return true;
       } catch (e) {

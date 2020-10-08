@@ -8,8 +8,6 @@ import "../normalize.css";
 import "../topcoat-desktop-dark.css";
 import "bulma/bulma.sass";
 
-
-
 import { ToastContainer } from "react-toastify";
 
 import { observer } from "mobx-react";
@@ -21,10 +19,11 @@ import Loading from "../components/Loading/Loading";
 import Routes from "./Routes";
 
 const App = () => {
-  const { auth } = useStore();
+  const { auth, forms } = useStore();
 
   useEffect(() => {
     auth.checkLoggedIn();
+    forms.listing.load();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

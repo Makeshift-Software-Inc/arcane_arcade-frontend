@@ -56,7 +56,9 @@ const SellerListingsNew = ({ history }) => {
   useEffect(() => {
     load();
 
-    trixInput.current.addEventListener("trix-change", onChange);
+    trixInput.current.addEventListener("trix-change", (event) =>
+      onChange(event)
+    );
 
     trixInput.current.addEventListener("trix-file-accept", (event) => {
       const acceptedAttachments = ["image/png", "image/jpeg"];
@@ -115,9 +117,14 @@ const SellerListingsNew = ({ history }) => {
       listing_tags_attributes: tags.map((tag) => ({ tag_id: tag.id })),
     };
 
-    if (await games.create(listing)) {
+    const id = await games.create(listing);
+
+    if (id) {
       const notification = "Listing created.";
-      history.push({ pathname: "/seller/dashboard", state: { notification } });
+      history.push({
+        pathname: `/sell-your-game/${id}/distribution/add`,
+        state: { notification },
+      });
     }
   };
 
@@ -324,7 +331,7 @@ const SellerListingsNew = ({ history }) => {
               <React.Fragment>
                 <h4>System Requirements</h4>
                 {system_requirements.map((systemRequirement) => (
-                  <div key={systemRequirement.id}>
+                  <div key={systemRequirement.name}>
                     <div className="topcoat-tab-bar">
                       <label className="topcoat-tab-bar__item">
                         <input type="radio" name="tab-bar" />

@@ -6633,6 +6633,11 @@ json5@^2.1.2:
   dependencies:
     minimist "^1.2.5"
 
+jsona@^1.8.0:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/jsona/-/jsona-1.8.0.tgz#3e4cdd7da5d5de7c329bd17d8f0616729486a6e2"
+  integrity sha512-/FFPxLf6b9D3eVr/gAbYaIHKEwsyTUxElYqJ0+3/Q+Sc7t+ObHQ6NvD7sP4ecQlvEBbbS7W19ibMmxBSdldXnw==
+
 jsonfile@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/jsonfile/-/jsonfile-4.0.0.tgz#8771aae0799b64076b76640fca058f9c10e33ecb"

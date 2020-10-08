@@ -17,6 +17,7 @@ import ContactUs from "./ContactUs/ContactUs";
 import SellerOnboarding from "./Seller/Onboarding/Onboarding";
 import SellerDashboard from "./Seller/Dashboard/Dashboard";
 import SellerListingsNew from "./Seller/Listings/New";
+import SellerListingsAddDistribution from "./Seller/Listings/Distribution";
 
 const Routes = (props) => {
   const {
@@ -94,6 +95,13 @@ const Routes = (props) => {
         exact
         path="/sell-your-game"
         component={SellerListingsNew}
+      />
+      <ProtectedRoute
+        asSeller
+        redirectTo={isLoggedIn ? "/seller/onboarding" : "/login"}
+        exact
+        path="/sell-your-game/:id/distribution/add"
+        component={SellerListingsAddDistribution}
       />
     </Switch>
   );
