@@ -79,20 +79,20 @@ class GamesShow extends React.Component {
     // TODO: IF NOT LOGGED IN, REDIRECT TO LOGIN. ACTIVATED USERS ONLY CAN
     //       CREATE ORDERS.
 
-    const coin_type = document
-                          .querySelector('input[name="payment_method"]:checked')
-                          .id;
+    const coin_type = document.querySelector(
+      'input[name="payment_method"]:checked'
+    ).id;
     const deposit_amount = this.state.game[`${coin_type}_amount`];
 
-    const response = await Api.post('/orders', {
+    const response = await Api.post("/orders", {
       coin_type: coin_type.toUpperCase(),
       coin_amount: deposit_amount,
       listing_id: this.state.game.id,
-      fiat_currency: this.state.game.default_currency
-    })
+      fiat_currency: this.state.game.default_currency,
+    });
 
-    if (response.status === 200)  {
-      this.props.history.push(`/buy/${response.data.id}`)
+    if (response.status === 200) {
+      this.props.history.push(`/buy/${response.data.id}`);
     }
   }
 
@@ -124,7 +124,6 @@ class GamesShow extends React.Component {
               {this.state.game.images && (
                 <img src={this.state.game.images[0]} alt={coverAlt} />
               )}
-              <p>{this.state.game.description}</p>
             </div>
           </div>
         </div>
@@ -205,7 +204,10 @@ class GamesShow extends React.Component {
               </div>
             </form>
           </div>
-          <div className="description" dangerouslySetInnerHTML={{__html: this.state.game.description}} />
+          <div
+            className="description"
+            dangerouslySetInnerHTML={{ __html: this.state.game.description }}
+          />
         </div>
       </div>
     );
