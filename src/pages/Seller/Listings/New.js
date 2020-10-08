@@ -115,6 +115,9 @@ const SellerListingsNew = ({ history }) => {
       listing_tags_attributes: tags.map((tag) => ({ tag_id: tag.id })),
     };
 
+    submitButton.current.disabled = true;
+    load();
+
     if (await games.create(listing)) {
       const notification = "Listing created.";
       history.push({ pathname: "/seller/dashboard", state: { notification } });
@@ -131,6 +134,7 @@ const SellerListingsNew = ({ history }) => {
     name: category.title,
   }));
 
+  const submitButton = React.createRef();
   return (
     <div className="App seller-listings-new">
       <div className="container">
@@ -376,7 +380,7 @@ const SellerListingsNew = ({ history }) => {
 
           <br />
 
-          <button type="submit" className="topcoat-button--large">
+          <button type="submit" ref={submitButton} className="topcoat-button--large">
             CREATE
           </button>
         </form>

@@ -39,8 +39,6 @@ class OrdersShow extends React.Component {
       const path = `/orders/${id}/payment_status`;
 
       Api.get(path).then((response) => {
-        console.log("ADDRESS ACTIVE: " + response.data.active)
-
         this.setState({
           paymentReceived: !response.data.active
         })
