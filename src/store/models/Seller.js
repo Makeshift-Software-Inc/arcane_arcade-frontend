@@ -17,6 +17,14 @@ const Seller = types
     loadingGames: false,
     selectedGame: types.maybe(types.reference(SellerGame)),
   })
+  .views((self) => ({
+    activeGames() {
+      self.games.filter((game) => game.active());
+    },
+    pendingGames() {
+      self.games.filter((game) => game.pending());
+    },
+  }))
   .actions((self) => ({
     loadGames: flow(function* loadGames() {
       if (self.gamesLoaded) return true;

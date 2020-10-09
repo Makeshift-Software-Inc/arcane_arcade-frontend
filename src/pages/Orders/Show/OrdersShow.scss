@@ -4,6 +4,30 @@
   animation: gradient 15s ease infinite;
   padding-bottom: 5vh;
 
+
+  .modal {
+    &.show-modal { display: flex; }
+    .modal-content {
+      width: 400px;
+    }
+  }
+
+  .panel-block {
+    background-color: whitesmoke;
+
+    .payment-success {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    i {
+      font-size: 75px;
+      color: green;
+      padding: 75px 0 85px;
+    }
+  }
+
   .logo {
     width: 100%;
     display: flex;

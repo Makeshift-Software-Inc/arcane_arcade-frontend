@@ -1,0 +1,32 @@
+.App.seller-dashboard{
+  canvas {
+    width: 100%;
+    height: 800px;
+  }
+
+  .post {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .chart-filters {
+    width: 100%;
+
+    .topcoat-button-bar__item {
+      width: 25vw;
+
+      button {
+        width: 100%;
+        padding: 1em;
+        font-size: 19px;
+        background-color: transparent;
+
+        &:hover {
+          cursor: pointer;
+          background-color: #C0B2A1;
+          color:whitesmoke;
+        }
+      }
+    }
+  }
+}

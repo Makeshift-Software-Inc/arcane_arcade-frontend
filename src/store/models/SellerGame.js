@@ -22,6 +22,12 @@ const SellerGame = types
     supported_platform_listings: types.array(SupportedPlatformListing),
   })
   .views((self) => ({
+    active() {
+      return self.status === "active";
+    },
+    pending() {
+      return self.status === "pending";
+    },
     distributionsSet() {
       return self.supported_platform_listings
         .filter((platform) => platform.supported_platform.name !== "PC")

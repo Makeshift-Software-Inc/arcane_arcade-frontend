@@ -62,7 +62,12 @@ const SellerListingsNew = ({ history }) => {
     );
 
     trixInput.current.addEventListener("trix-file-accept", (event) => {
-      const acceptedAttachments = ["image/png", "image/jpeg", "image/gif"];
+      const acceptedAttachments = [
+        "image/png",
+        "image/jpeg",
+        "image/gif",
+        "image/jpg",
+      ];
       if (!acceptedAttachments.includes(event.file.type)) {
         event.preventDefault();
         alert("You can only add images with jpeg or png format.");
