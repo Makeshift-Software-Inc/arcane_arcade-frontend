@@ -27,11 +27,7 @@ const GamesStore = types
           response = yield Api.get(`/listings?q=${query}`);
         }
 
-        const games = response.data.data.map((game) => {
-          return game.attributes
-        })
-        
-        self.games = games;
+        self.games = deserialize(response.data);
         self.loading = false;
         return true;
       } catch (e) {
@@ -40,14 +36,24 @@ const GamesStore = types
         return false;
       }
     }),
-    create: flow(function* create(listing) {
+    create: flow(function* create(data) {
       self.creating = true;
 
       try {
-        const response = yield Api.post("/listings", { listing });
-        console.log(response);
+        const response = yield Api.post("/listings", { listing: data });
+
+        const {
+          auth: {
+            user: { seller },
+          },
+        } = getRoot(self);
+
+        const game = deserialize(response.data);
+        console.log(game);
+
+        seller.addGame(game);
         self.creating = false;
-        return true;
+        return game.id;
       } catch (e) {
         console.log(e);
         const { forms } = getRoot(self);

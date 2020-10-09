@@ -24,8 +24,7 @@ const NotificationsStore = types
 
       try {
         const response = yield Api.get("/notifications");
-        const notifications = deserialize(response.data);
-        self.data = notifications;
+        self.data = deserialize(response.data);
         self.loading = false;
         return true;
       } catch (e) {

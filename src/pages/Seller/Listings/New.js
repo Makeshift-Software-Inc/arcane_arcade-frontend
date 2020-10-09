@@ -49,6 +49,7 @@ const SellerListingsNew = ({ history }) => {
         tags,
         addTag,
         removeTag,
+        allFilesUploaded,
       },
     },
   } = useStore();
@@ -56,10 +57,17 @@ const SellerListingsNew = ({ history }) => {
   useEffect(() => {
     load();
 
-    trixInput.current.addEventListener("trix-change", onChange);
+    trixInput.current.addEventListener("trix-change", (event) =>
+      onChange(event)
+    );
 
     trixInput.current.addEventListener("trix-file-accept", (event) => {
-      const acceptedAttachments = ["image/png", "image/jpeg", "image/gif", "image/jpg"];
+      const acceptedAttachments = [
+        "image/png",
+        "image/jpeg",
+        "image/gif",
+        "image/jpg",
+      ];
       if (!acceptedAttachments.includes(event.file.type)) {
         event.preventDefault();
         alert("You can only add images with jpeg or png format.");
@@ -93,6 +101,8 @@ const SellerListingsNew = ({ history }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!allFilesUploaded() || games.creating) return;
+
     const listing = {
       title,
       description,
@@ -115,9 +125,14 @@ const SellerListingsNew = ({ history }) => {
       listing_tags_attributes: tags.map((tag) => ({ tag_id: tag.id })),
     };
 
-    if (await games.create(listing)) {
+    const id = await games.create(listing);
+
+    if (id) {
       const notification = "Listing created.";
-      history.push({ pathname: "/seller/dashboard", state: { notification } });
+      history.push({
+        pathname: `/sell-your-game/${id}/distribution/add`,
+        state: { notification },
+      });
     }
   };
 
@@ -324,7 +339,7 @@ const SellerListingsNew = ({ history }) => {
               <React.Fragment>
                 <h4>System Requirements</h4>
                 {system_requirements.map((systemRequirement) => (
-                  <div key={systemRequirement.id}>
+                  <div key={systemRequirement.name}>
                     <div className="topcoat-tab-bar">
                       <label className="topcoat-tab-bar__item">
                         <input type="radio" name="tab-bar" />
@@ -382,11 +397,12 @@ const SellerListingsNew = ({ history }) => {
 
           <button
             type="submit"
-            disabled={games.creating}
+            disabled={!allFilesUploaded() || games.creating}
             className="topcoat-button--large"
           >
             CREATE
           </button>
+          {!allFilesUploaded() && <p>Some files are still not uploaded.</p>}
         </form>
       </div>
     </div>

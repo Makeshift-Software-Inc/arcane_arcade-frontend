@@ -20,7 +20,8 @@ const Game = types
     default_currency: types.string,
     currency_symbol: types.string,
     seller: types.maybe(Seller),
-    supported_platforms: types.maybe(SupportedPlatform),
+    status: types.enumeration(["pending", "active"]),
+    supported_platforms: types.array(types.reference(SupportedPlatform)),
   })
   .actions((self) => ({
     play() {
