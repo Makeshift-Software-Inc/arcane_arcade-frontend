@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import {Line} from 'chart.js'
 import 'chart.js/dist/Chart.min.css'
 
+import Api from "../../../services/Api";
+
 import "./Dashboard.scss";
 import Navbar from "../../../components/Navbar/Navbar";
 
@@ -14,11 +16,15 @@ class SellerDashboard extends React.Component {
 
     this.lineChartCtx = React.createRef();
 
-    this.state = { chartInterval: 'monthly' }
+    this.state = {
+      chartInterval: 'daily',
+      active_listings:  [],
+      pending_listings: []
+    }
   }
 
   componentDidMount() {
-    var lineChart = new Line(this.lineChartCtx.current, {
+    const lineChart = new Line(this.lineChartCtx.current, {
       data: {
         labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
         datasets: [
@@ -49,11 +55,26 @@ class SellerDashboard extends React.Component {
          legend: {
              labels: {
                  fontColor: 'red',
-                 fontSize: 16,
+                 fontSize: 18,
              }
          }
      }
     });
+
+    Api.get('/listings/seller_listings').then((response) => {
+      let activeListings = [];
+      let pendingListings = [];
+
+      response.data.data.forEach((listing, i) => {
+        if (listing.attributes.status === 'pending')
+          pendingListings.push(listing.attributes)
+
+        if (listing.attributes.status === 'active')
+          activeListings.push(listing.attributes)
+      });
+
+      debugger
+    })
   }
 
   render() {
@@ -84,6 +105,13 @@ class SellerDashboard extends React.Component {
               <div className="topcoat-button-bar__item">
                 <button className="topcoat-button-bar__button--large">Yearly</button>
               </div>
+            </div>
+          </div>
+
+          <div className="listings">
+            <div className="active">
+            </div>
+            <div className="pending">
             </div>
           </div>
       </div>

@@ -4,6 +4,46 @@
   animation: gradient 15s ease infinite;
   padding-bottom: 5vh;
 
+
+  .checkmark {
+    stroke: green;
+    stroke-dashoffset: 745.74853515625;
+    stroke-dasharray: 745.74853515625;
+    animation: dash 2s ease-out forwards infinite;
+  }
+
+  @keyframes dash {
+    0% {
+      stroke-dashoffset: 745.74853515625;
+    }
+    100% {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  .modal {
+    &.show-modal { display: flex; }
+    .modal-content {
+      width: 400px;
+    }
+  }
+
+  .panel-block {
+    background-color: whitesmoke;
+
+    .payment-success {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    i {
+      font-size: 75px;
+      color: green;
+      padding: 75px 0 85px;
+    }
+  }
+
   .logo {
     width: 100%;
     display: flex;

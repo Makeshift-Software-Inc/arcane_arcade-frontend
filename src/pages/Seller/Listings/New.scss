@@ -12,6 +12,10 @@
     }
     .react-tags {
       margin-top: 30px;
+
+      &__selected-tag {
+        background-color: black;
+      }
     }
 
     label.form-label {
