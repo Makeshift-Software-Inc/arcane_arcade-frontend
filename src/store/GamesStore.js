@@ -47,7 +47,9 @@ const GamesStore = types
             user: { seller },
           },
         } = getRoot(self);
+
         const game = deserialize(response.data);
+        console.log(game);
 
         seller.addGame(game);
         self.creating = false;

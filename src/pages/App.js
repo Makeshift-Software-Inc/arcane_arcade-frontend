@@ -25,7 +25,7 @@ const App = () => {
     auth.checkLoggedIn();
     forms.listing.load();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [auth.isLoggedIn]);
 
   if (auth.loading) return <Loading />;
 

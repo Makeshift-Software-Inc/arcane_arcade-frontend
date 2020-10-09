@@ -1,7 +1,6 @@
-import { types, getParent } from "mobx-state-tree";
+import { types } from "mobx-state-tree";
 import BaseUpdate from "./BaseUpdate";
-import Distribution from "./Distribution";
-import SupportedPlatform from "./SupportedPlatform";
+import SupportedPlatformListing from "./SupportedPlatformListing";
 
 const SellerGame = types
   .model("SellerGame", {
@@ -20,9 +19,15 @@ const SellerGame = types
     default_currency: types.string,
     currency_symbol: types.string,
     status: types.enumeration(["pending", "active"]),
-    distribution: types.maybeNull(Distribution),
-    supported_platforms: types.array(types.reference(SupportedPlatform)),
+    supported_platform_listings: types.array(SupportedPlatformListing),
   })
+  .views((self) => ({
+    distributionsSet() {
+      return self.supported_platform_listings
+        .filter((platform) => platform.supported_platform.name !== "PC")
+        .every((p) => p.distribution);
+    },
+  }))
   .actions((self) => ({}));
 
 export default types.compose(BaseUpdate, SellerGame);

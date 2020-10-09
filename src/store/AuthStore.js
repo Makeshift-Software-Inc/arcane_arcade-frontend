@@ -52,7 +52,7 @@ const AuthStore = types
         });
         localStorage.setItem("auth_token", response.data.token);
 
-        self.user = deserialize(response.data);
+        self.user = deserialize(response.data.user);
         self.isLoggedIn = true;
         return true;
       } catch (e) {

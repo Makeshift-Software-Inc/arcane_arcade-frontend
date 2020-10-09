@@ -20,11 +20,10 @@ const UploadedFile = types
     awsId: types.maybe(types.string),
     awsUrl: types.maybe(types.string),
     attachment: types.frozen(),
+    uploaded: false,
+    secure: false,
   })
   .views((self) => ({
-    uploaded() {
-      return self.progress === 100;
-    },
     keys() {
       return {
         id: self.awsId,
@@ -54,11 +53,15 @@ const UploadedFile = types
         filename: self.name,
         type: self.type,
         size: self.size,
+        storage: "cache",
       };
 
       // get direct to s3 upload params
       try {
-        const response = yield Api.get("/s3/params", { params });
+        const response = yield Api.get(
+          self.secure ? "/s3/secure/params" : "/s3/params",
+          { params }
+        );
         return response.data;
       } catch (e) {
         console.log("PRESIGN ERROR", e);
@@ -96,6 +99,7 @@ const UploadedFile = types
         self.awsId = splitedKeys[splitedKeys.length - 1];
 
         self.awsUrl = presignParams.full_url;
+        self.uploaded = true;
         self.loading = false;
         return true;
       } catch (e) {

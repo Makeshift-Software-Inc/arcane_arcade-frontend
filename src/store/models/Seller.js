@@ -25,6 +25,7 @@ const Seller = types
 
       try {
         const response = yield Api.get("/listings/seller_listings");
+        console.log(deserialize(response.data));
         self.games = deserialize(response.data);
         self.gamesLoaded = true;
         self.loadingGames = false;

@@ -49,6 +49,7 @@ const SellerListingsNew = ({ history }) => {
         tags,
         addTag,
         removeTag,
+        allFilesUploaded,
       },
     },
   } = useStore();
@@ -61,7 +62,7 @@ const SellerListingsNew = ({ history }) => {
     );
 
     trixInput.current.addEventListener("trix-file-accept", (event) => {
-      const acceptedAttachments = ["image/png", "image/jpeg"];
+      const acceptedAttachments = ["image/png", "image/jpeg", "image/gif"];
       if (!acceptedAttachments.includes(event.file.type)) {
         event.preventDefault();
         alert("You can only add images with jpeg or png format.");
@@ -95,6 +96,8 @@ const SellerListingsNew = ({ history }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!allFilesUploaded() || games.creating) return;
+
     const listing = {
       title,
       description,
@@ -389,11 +392,12 @@ const SellerListingsNew = ({ history }) => {
 
           <button
             type="submit"
-            disabled={games.creating}
+            disabled={!allFilesUploaded() || games.creating}
             className="topcoat-button--large"
           >
             CREATE
           </button>
+          {!allFilesUploaded() && <p>Some files are still not uploaded.</p>}
         </form>
       </div>
     </div>
