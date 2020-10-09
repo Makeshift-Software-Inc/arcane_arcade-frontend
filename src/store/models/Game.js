@@ -21,7 +21,7 @@ const Game = types
     currency_symbol: types.string,
     seller: types.maybe(Seller),
     status: types.enumeration(["pending", "active"]),
-    supported_platforms: types.maybe(SupportedPlatform),
+    supported_platforms: types.array(types.reference(SupportedPlatform)),
   })
   .actions((self) => ({
     play() {

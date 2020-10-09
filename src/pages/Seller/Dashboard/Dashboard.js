@@ -81,10 +81,10 @@ const SellerDashboard = () => {
 
       <div className="post">
         <Link to="/sell-your-game">
-          <button class="topcoat-button--large">Create Listing</button>
+          <button className="topcoat-button--large">Create Listing</button>
         </Link>
       </div>
-      <canvas id="lineChart" ref={this.lineChartCtx}></canvas>
+      <canvas id="lineChart" ref={lineChartCtx}></canvas>
       <div className="chart-filters">
         <div className="topcoat-button-bar">
           <div className="topcoat-button-bar__item">

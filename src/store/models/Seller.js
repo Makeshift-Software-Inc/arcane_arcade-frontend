@@ -19,10 +19,10 @@ const Seller = types
   })
   .views((self) => ({
     activeGames() {
-      self.games.filter((game) => game.active());
+      return self.games.filter((game) => game.active());
     },
     pendingGames() {
-      self.games.filter((game) => game.pending());
+      return self.games.filter((game) => game.pending());
     },
   }))
   .actions((self) => ({
