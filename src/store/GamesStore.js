@@ -27,7 +27,11 @@ const GamesStore = types
           response = yield Api.get(`/listings?q=${query}`);
         }
 
-        self.games = deserialize(response.data);
+        self.games = response.data.data.map((game) => {
+          return game.attributes
+        })
+        // THIS LINE CAUSES ERROR, AND GAMES NOT TOT LOAD
+        // self.games = deserialize(response.data);
         self.loading = false;
         return true;
       } catch (e) {

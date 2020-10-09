@@ -36,6 +36,7 @@ const SupportedPlatformListing = types
           `listings/${listing.id}/supported_platform_listings/${self.id}`,
           { supported_platform_listing }
         );
+        debugger
         console.log(deserialize(response.data));
         self.update(deserialize(response.data));
         self.creatingDistribution = false;

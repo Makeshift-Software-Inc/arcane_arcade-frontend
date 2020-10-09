@@ -96,6 +96,8 @@ const Routes = (props) => {
         path="/sell-your-game"
         component={SellerListingsNew}
       />
+
+    // Can we change this from :id to :slug?
       <ProtectedRoute
         asSeller
         redirectTo={isLoggedIn ? "/seller/onboarding" : "/login"}

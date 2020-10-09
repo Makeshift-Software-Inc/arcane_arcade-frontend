@@ -18,10 +18,11 @@ const SellerDashboard = () => {
     },
   } = useStore("auth");
 
+
   const lineChartCtx = React.createRef();
 
+
   useEffect(() => {
-    loadGames();
     new Line(lineChartCtx.current, {
       data: {
         labels: [
@@ -71,6 +72,10 @@ const SellerDashboard = () => {
         },
       },
     });
+
+    // THIS FUNCTION CAUSES LINE GRAPH NOT TO LAOD ON REFRESH
+    loadGames();
+
   }, []);
 
   if (loadingGames) return <Loading />;
