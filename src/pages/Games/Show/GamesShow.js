@@ -35,7 +35,7 @@ class GamesShow extends React.Component {
     Api.get(path).then((response) => {
 
       let supportedPlatforms = []
-      debugger
+
       response.data.included.forEach((item, i) => {
         if (item.type === 'supported_platform')
           supportedPlatforms.push(item.attributes.name)

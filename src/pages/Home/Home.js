@@ -32,7 +32,7 @@ const Home = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    debugger
+    
   }
 
   return (
