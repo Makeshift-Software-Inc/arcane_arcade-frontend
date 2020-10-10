@@ -1,7 +1,7 @@
 import { types, getParent } from "mobx-state-tree";
 import BaseUpdate from "./BaseUpdate";
 import Seller from "./Seller";
-import SupportedPlatform from "./SupportedPlatform";
+import SupportedPlatformListing from "./SupportedPlatformListing";
 
 const Game = types
   .model("Game", {
@@ -21,8 +21,20 @@ const Game = types
     currency_symbol: types.string,
     seller: types.maybe(Seller),
     status: types.enumeration(["pending", "active"]),
-    supported_platforms: types.array(types.reference(SupportedPlatform)),
+    supported_platform_listings: types.array(SupportedPlatformListing),
   })
+  .views((self) => ({
+    supportedPlatforms() {
+      return self.supported_platform_listings.map(
+        (platform) => platform.supported_platform
+      );
+    },
+    hasSupportedPlatform(name) {
+      return !!self
+        .supportedPlatforms()
+        .find((platform) => platform.name === name);
+    },
+  }))
   .actions((self) => ({
     play() {
       const { selectGame } = getParent(self, 2);

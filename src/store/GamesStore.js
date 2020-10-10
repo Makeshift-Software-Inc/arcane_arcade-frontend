@@ -11,11 +11,12 @@ const GamesStore = types
     selectedGame: types.maybe(types.reference(Game)),
     loading: false,
     creating: false,
+    gamesLoaded: false,
   })
   .actions((self) => ({
     load: flow(function* load(query = null) {
       // don't load again if games are loaded
-      if (self.games.length > 0) return;
+      if (self.gamesLoaded) return;
 
       self.loading = true;
 
@@ -29,10 +30,12 @@ const GamesStore = types
 
         self.games = deserialize(response.data);
         self.loading = false;
+        self.gamesLoaded = true;
         return true;
       } catch (e) {
         console.log(e);
         self.loading = false;
+        self.gamesLoaded = false;
         return false;
       }
     }),
@@ -62,6 +65,25 @@ const GamesStore = types
           forms.listing.errors.update(e.response.data);
         }
         self.creating = false;
+        return false;
+      }
+    }),
+    loadGame: flow(function* loadGame(slug) {
+      const existingGame = self.games.find((game) => game.slug === slug);
+
+      if (existingGame) {
+        self.selectedGame = existingGame;
+        return true;
+      }
+
+      try {
+        const response = yield Api.get(`/listings/${slug}`);
+        const game = Game.create(deserialize(response.data));
+        self.games.push(game);
+        self.selectedGame = game;
+        return true;
+      } catch (e) {
+        console.log(e);
         return false;
       }
     }),

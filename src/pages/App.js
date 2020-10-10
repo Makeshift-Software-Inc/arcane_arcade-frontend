@@ -22,10 +22,13 @@ const App = () => {
   const { auth, forms } = useStore();
 
   useEffect(() => {
-    auth.checkLoggedIn();
-    forms.listing.load();
+    const load = async () => {
+      await auth.checkLoggedIn();
+      await forms.listing.load();
+    };
+    load();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [auth.isLoggedIn]);
+  }, []);
 
   if (auth.loading) return <Loading />;
 
