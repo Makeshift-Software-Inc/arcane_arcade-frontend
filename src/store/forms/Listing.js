@@ -32,7 +32,6 @@ const ListingForm = types
     system_requirements: types.array(SystemRequirements),
     files: types.array(UploadedFile),
     attachments: types.array(UploadedFile),
-    errors: types.optional(Errors, {}),
   })
   .views((self) => ({
     allFilesUploaded() {

@@ -11,6 +11,9 @@ const Errors = types
         self[key] = data[key];
       });
     },
+    addFullMessageError(error) {
+      self.full_messages.push(error);
+    },
   }));
 
 export default Errors;

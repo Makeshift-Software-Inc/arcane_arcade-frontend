@@ -122,7 +122,7 @@ const SteamKeys = observer(({ steamKeys, add, remove }) => {
   );
 });
 
-const Installer = observer(({ addInstaller, installer }) => {
+const Installer = observer(({ platform }) => {
   const [canDrop, setCanDrop] = useState(false);
 
   const cancelDrop = (e) => {
@@ -142,31 +142,47 @@ const Installer = observer(({ addInstaller, installer }) => {
       for (let i = 0; i < e.dataTransfer.items.length; i++) {
         if (e.dataTransfer.items[i].kind === "file") {
           const file = e.dataTransfer.items[i].getAsFile();
-          addInstaller(file);
+          platform.distributionForm.addInstaller(file);
         }
       }
     } else {
       for (let i = 0; i < e.dataTransfer.files.length; i++) {
-        addInstaller(e.dataTransfer.files[i]);
+        platform.distributionForm.addInstaller(e.dataTransfer.files[i]);
       }
     }
   };
 
   return (
     <div className="uploader">
+      <br />
+      <br />
+      <h4>Installer for {platform.supported_platform.name}</h4>
       <div
         className="drop-placeholder"
         onDrop={handleDrop}
         onDragOver={allowDrop}
         onDragLeave={cancelDrop}
       >
-        {installer ? (
-          <h4>Installer added {installer.name}</h4>
+        {platform.distributionForm.installer ? (
+          <h4>
+            Installer for {platform.supported_platform.name} added{" "}
+            {platform.distributionForm.installer.name}
+          </h4>
         ) : (
-          <h4>Drop installer here</h4>
+          <h4>Drop installer for {platform.supported_platform.name} here</h4>
         )}
         {canDrop && <h1>Drop now</h1>}
       </div>
+      {platform.distributionForm.installer && (
+        <div className="progress">
+          <div
+            className="progress-bar"
+            style={{
+              width: `${platform.distributionForm.installer.progress}%`,
+            }}
+          />
+        </div>
+      )}
     </div>
   );
 });
@@ -193,55 +209,60 @@ const Console = observer(({ distribution, platformName, create }) => {
   );
 });
 
-const PC = observer(({ platformName, distribution, create }) => {
+const Installers = observer(({ platforms }) => {
+  return platforms.map((platform) => (
+    <Installer key={platform.id} platform={platform} />
+  ));
+});
+
+const PC = observer(({ platform, create }) => {
+  const childrens = platform.getChildrenPlatforms();
+
+  if (childrens.every((children) => children.distribution)) return null;
+
   const onChange = (e) => {
-    distribution.setMethod(e.target.value);
+    platform.distributionForm.setMethod(e.target.value);
   };
 
   return (
     <div className="platform">
-      {platformName}
+      {platform.supported_platform.name}
       <br />
-      <ChooseDistribution selected={distribution.method} onChange={onChange} />
-      {distribution.method === "steam_keys" ? (
+      <ChooseDistribution
+        selected={platform.distributionForm.method}
+        onChange={onChange}
+      />
+      {platform.distributionForm.method === "steam_keys" ? (
         <SteamKeys
-          steamKeys={distribution.steam_keys}
-          add={distribution.addKey}
-          remove={distribution.removeKey}
+          steamKeys={platform.distributionForm.steam_keys}
+          add={platform.distributionForm.addKey}
+          remove={platform.distributionForm.removeKey}
         />
       ) : (
-        <Installer
-          installer={distribution.installer}
-          addInstaller={distribution.addInstaller}
-        />
+        <Installers platforms={childrens} />
       )}
       <br />
       <br />
       <button
-        disabled={
-          distribution.installer && distribution.installer.uploaded
-            ? false
-            : true
-        }
+        disabled={platform.uploadingInstallers()}
         onClick={create}
         type="button"
         className="topcoat-button--large"
       >
         CREATE
       </button>
-      {distribution.installer && !distribution.installer.uploaded && (
-        <p>Installer is uploading.</p>
-      )}
-      {distribution.errors.full_messages.length > 0 && (
-        <Errors errors={distribution.errors.full_messages.toJSON()} />
+      {platform.uploadingInstallers() && <p>Installers are uploading</p>}
+      {platform.distributionForm.errors.full_messages.length > 0 && (
+        <Errors
+          errors={platform.distributionForm.errors.full_messages.toJSON()}
+        />
       )}
     </div>
   );
 });
 
 const Platform = observer(({ platform, redirect }) => {
-  if (platform.supported_platform.name === "PC" || platform.distribution)
-    return null;
+  if (platform.distribution) return null;
 
   if (platform.creatingDistribution) return <Loading />;
 
@@ -252,14 +273,8 @@ const Platform = observer(({ platform, redirect }) => {
     }
   };
 
-  if (["WINDOWS", "LINUX", "MAC"].includes(platform.supported_platform.name)) {
-    return (
-      <PC
-        distribution={platform.distributionForm}
-        platformName={platform.supported_platform.name}
-        create={create}
-      />
-    );
+  if (platform.supported_platform.name === "PC") {
+    return <PC platform={platform} create={create} />;
   }
 
   return (
@@ -287,8 +302,7 @@ const Distribution = ({ match, history }) => {
     load();
   }, []);
 
-  if (loadingGames || !selectedGame || selectedGame.creatingDistributions)
-    return <Loading />;
+  if (loadingGames || !selectedGame) return <Loading />;
 
   const redirect = () => {
     if (selectedGame.distributionsSet()) {
@@ -303,7 +317,7 @@ const Distribution = ({ match, history }) => {
     <div className="App add-distribution">
       <h2>Add distribution for {selectedGame.title}</h2>
 
-      {selectedGame.supported_platform_listings.map((platform) => (
+      {selectedGame.groupedSupportedPlatforms().map((platform) => (
         <Platform key={platform.id} platform={platform} redirect={redirect} />
       ))}
     </div>
