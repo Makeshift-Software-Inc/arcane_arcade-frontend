@@ -54,8 +54,11 @@ const Splides = ({ images, videos, gameTitle }) => {
   );
 };
 
-const GamesShow = ({ match }) => {
-  const { loadGame, selectedGame } = useStore("games");
+const GamesShow = ({ match, history }) => {
+  const {
+    games: { loadGame, selectedGame },
+    auth: { isLoggedIn },
+  } = useStore();
 
   const slug = match.params.slug;
 
@@ -70,8 +73,10 @@ const GamesShow = ({ match }) => {
   const onFormSubmit = async (e) => {
     e.preventDefault();
 
-    // TODO: IF NOT LOGGED IN, REDIRECT TO LOGIN. ACTIVATED USERS ONLY CAN
-    //       CREATE ORDERS.
+    if (!isLoggedIn) {
+      history.push("/login");
+      return;
+    }
 
     const coin_type = document.querySelector(
       'input[name="payment_method"]:checked'
