@@ -150,112 +150,115 @@ const SellerListingsNew = ({ history }) => {
 
   return (
     <div className="App seller-listings-new">
-      <div className="container">
+      <div className="form-container">
+
         <form onSubmit={handleSubmit}>
           <h1>Sell your game</h1>
 
-          <div className="field spacer">
-            <div className="title">
-              <label htmlFor="title" className="form-label">
-                {" "}
-                Game title{" "}
-              </label>
-              <input
-                type="text"
-                value={title}
-                onChange={onChange}
-                name="title"
-                className="topcoat-text-input"
-              />
-            </div>
-            <div className="esrb">
-              <label htmlFor="esrb" className="form-label">
-                Rated
-              </label>
-              <select
-                name="esrb"
-                value={esrb}
-                onChange={onChange}
-                className="topcoat-text-input"
-              >
-                <option value="EVERYONE">EVERYONE</option>
-                <option value="E_TEN_PLUS">E10+</option>
-                <option value="TEEN">TEEN</option>
-                <option value="MATURE">MATURE</option>
-                <option value="ADULT">ADULT</option>
-              </select>
-            </div>
-          </div>
-
-          <h3>Add photos and videos</h3>
-          <Uploader
-            accepts="image/*, video/*"
-            addFile={addFile}
-            files={files}
-            reorder={reorderFiles}
-          />
-
-          <div className="field spacer">
-            <div className="game-category">
-              <label htmlFor="category" className="form-label">
-                Game Category
-              </label>
-              {loading ? (
-                <Loading />
-              ) : (
-                <ReactTags
-                  tags={selectedCategoriesAsTags}
-                  suggestions={categoriesOptionsAsTags}
-                  onDelete={removeCategory}
-                  onAddition={addCategory}
-                  autoresize={false}
-                  placeholderText="Select Category"
-                  minQueryLength={0}
-                  maxSuggestionsLength={
-                    selectedCategoriesAsTags.length === 2 ? 0 : 100
-                  }
-                  classNames={{
-                    root: "react-tags",
-                    rootFocused: "is-focused",
-                    selected: "react-tags__selected",
-                    selectedTag: "react-tags__selected-tag",
-                    selectedTagName: "react-tags__selected-tag-name",
-                    search: `react-tags__search ${
-                      selectedCategoriesAsTags.length === 2 ? "is-hidden" : ""
-                    }`,
-                    searchWrapper: "react-tags__search-wrapper",
-                    searchInput: "react-tags__search-input topcoat-text-input",
-                    suggestions: "react-tags__suggestions",
-                    suggestionActive: "is-active",
-                    suggestionDisabled: "is-disabled",
-                  }}
+          <div className="columns">
+            <div className="column" style={{display: 'flex'}}>
+              <Uploader
+                accepts="image/*, video/*"
+                addFile={addFile}
+                files={files}
+                reorder={reorderFiles}
                 />
-              )}
+              <div className="form-column">
+                <div className="title">
+                  <label htmlFor="title" className="form-label">
+                    {" "}
+                    Game title{" "}
+                  </label>
+                  <input
+                    type="text"
+                    value={title}
+                    onChange={onChange}
+                    name="title"
+                    className="topcoat-text-input"
+                    />
+                </div>
+                <div className="esrb">
+                  <label htmlFor="esrb" className="form-label">
+                    Rated
+                  </label>
+                  <select
+                    name="esrb"
+                    value={esrb}
+                    onChange={onChange}
+                    className="topcoat-text-input"
+                    >
+                    <option value="EVERYONE">EVERYONE</option>
+                    <option value="E_TEN_PLUS">E10+</option>
+                    <option value="TEEN">TEEN</option>
+                    <option value="MATURE">MATURE</option>
+                    <option value="ADULT">ADULT</option>
+                  </select>
+                </div>
+                <div className="game-category">
+                  <label htmlFor="category" className="form-label">
+                    Game Category
+                  </label>
+                  {loading ? (
+                    <Loading />
+                  ) : (
+                    <ReactTags
+                      tags={selectedCategoriesAsTags}
+                      suggestions={categoriesOptionsAsTags}
+                      onDelete={removeCategory}
+                      onAddition={addCategory}
+                      autoresize={false}
+                      placeholderText="Select Category"
+                      minQueryLength={0}
+                      maxSuggestionsLength={
+                        selectedCategoriesAsTags.length === 2 ? 0 : 100
+                      }
+                      classNames={{
+                        root: "react-tags",
+                        rootFocused: "is-focused",
+                        selected: "react-tags__selected",
+                        selectedTag: "react-tags__selected-tag",
+                        selectedTagName: "react-tags__selected-tag-name",
+                        search: `react-tags__search ${
+                          selectedCategoriesAsTags.length === 2 ? "is-hidden" : ""
+                        }`,
+                        searchWrapper: "react-tags__search-wrapper",
+                        searchInput: "react-tags__search-input topcoat-text-input",
+                        suggestions: "react-tags__suggestions",
+                        suggestionActive: "is-active",
+                        suggestionDisabled: "is-disabled",
+                      }}
+                      />
+                  )}
+                </div>
+                <div className="game-tags">
+                  <label htmlFor="tags" className="form-label">
+                    Game Tags
+                  </label>
+                  <ReactTags
+                    tags={tags}
+                    suggestions={tagsOptions.filter((tag) => !tag.disabled)}
+                    onDelete={removeTag}
+                    onAddition={addTag}
+                    autoresize={false}
+                    classNames={{
+                      root: "react-tags",
+                      rootFocused: "is-focused",
+                      selected: "react-tags__selected",
+                      selectedTag: "react-tags__selected-tag",
+                      selectedTagName: "react-tags__selected-tag-name",
+                      search: "react-tags__search",
+                      searchWrapper: "react-tags__search-wrapper",
+                      searchInput: "react-tags__search-input topcoat-text-input",
+                      suggestions: "react-tags__suggestions",
+                      suggestionActive: "is-active",
+                      suggestionDisabled: "is-disabled",
+                    }}
+                    />
+                </div>
+              </div>
             </div>
-            <div className="game-tags">
-              <label htmlFor="tags" className="form-label">
-                Game Tags
-              </label>
-              <ReactTags
-                tags={tags}
-                suggestions={tagsOptions.filter((tag) => !tag.disabled)}
-                onDelete={removeTag}
-                onAddition={addTag}
-                autoresize={false}
-                classNames={{
-                  root: "react-tags",
-                  rootFocused: "is-focused",
-                  selected: "react-tags__selected",
-                  selectedTag: "react-tags__selected-tag",
-                  selectedTagName: "react-tags__selected-tag-name",
-                  search: "react-tags__search",
-                  searchWrapper: "react-tags__search-wrapper",
-                  searchInput: "react-tags__search-input topcoat-text-input",
-                  suggestions: "react-tags__suggestions",
-                  suggestionActive: "is-active",
-                  suggestionDisabled: "is-disabled",
-                }}
-              />
+
+            <div className="column">
             </div>
           </div>
 

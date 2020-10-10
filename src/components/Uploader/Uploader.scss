@@ -1,38 +1,71 @@
 .uploader {
-  display: flex;
-  flex-direction: row;
+  display: inline-block;
+  width: 40vw;
 
+  .drop-column {
+    width: 40vw;
+    padding: 3em 0 5em 0em;
+  }
+
+  .preview-column {
+    width: 77vw;
+  }
   .drop-placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: 2px dashed aliceblue;
+    height: 30vh;
+    border-radius: 16px;
+    padding: 24px 12px 64px;
     background-color: rgba(0, 0, 0, 0.3);
+
+    h4 {
+      font-size: 28px;
+      font-weight: 300;
+      letter-spacing: 0.7px;
+
+      a {
+        color: aliceblue;
+        text-decoration: underline;
+      }
+    }
   }
   .previews {
     background-color: rgba(0,0,0,0.1);
-    overflow-y: scroll;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    display: flex;
+    margin: auto;
+    padding: 1em;
+    text-align: center;
+    width: 100%;
+    white-space: nowrap;
+    overflow: auto;
   }
 
   .drop-placeholder,
   .previews {
-    border: 1px solid white;
-    flex: 1;
     display: flex;
-    flex-wrap: wrap;
     width: 100%;
     margin: auto;
-    padding: 24px 12px 64px;
-    max-width: 720px;
-    min-height: 332px;
     overflow-y: auto;
     text-align: center;
     width: 100%;
-    height: 30vh;
 
     .preview {
-      display: flex;
+      margin: 0 1em;
+      border: 1px dashed aliceblue;
+      display: inline-table;
       padding: 16px;
       position: relative;
       border-radius: 2px;
       flex-direction: column;
+
+      &:first-of-type {
+        margin-left: 0;
+      }
+
       .drag-handle {
         position: absolute;
         top: -10px;
@@ -46,7 +79,7 @@
       img,
       video,
       .loader-wrapper {
-        width: 100px;
+        width: 150px;
         height: 100px;
       }
       .progress {

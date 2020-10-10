@@ -40,23 +40,29 @@ const Uploader = ({ accepts, files, addFile, reorder }) => {
   };
 
   return (
+    // TODO: implement Browse
     <div className="uploader">
-      <div
-        className="drop-placeholder"
-        onDrop={handleDrop}
-        onDragOver={allowDrop}
-        onDragLeave={cancelDrop}
-      >
-        <h4>Drop files here</h4>
-        {canDrop && <h1>Drop now</h1>}
+      <div className="drop-column">
+        <div
+          className="drop-placeholder"
+          onDrop={handleDrop}
+          onDragOver={allowDrop}
+          onDragLeave={cancelDrop}
+          >
+          {!canDrop && <h4>Drag & Drop or <a>Browse</a></h4>}
+          {canDrop && <h1>Drop Now</h1>}
+        </div>
       </div>
-      <SortablePreviews
-        files={files}
-        onSortEnd={onSortEnd}
-        helperClass="SortableHelper"
-        axis="xy"
-        useDragHandle
-      />
+
+      <div className="preview-column">
+        <SortablePreviews
+          files={files}
+          onSortEnd={onSortEnd}
+          helperClass="SortableHelper"
+          axis="xy"
+          useDragHandle
+          />
+      </div>
     </div>
   );
 };

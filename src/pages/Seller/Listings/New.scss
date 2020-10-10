@@ -4,6 +4,16 @@
   display: flex;
   flex-direction: column;
 
+  .form-container {
+    width: 80vw;
+    margin: 0 auto;
+  }
+  .form-column {
+    width: 400px;
+    margin-left: 5em;
+    display: inline-block;
+  }
+
   form {
     h1 {
       margin: 2em 0;
@@ -19,26 +29,14 @@
     }
 
     label.form-label {
-      position: absolute;
+      position: relative;
+      top: 21px;
+      display: block;
       color: aliceblue;
-      font-size: 18px;
+      font-size: 21px;
+      font-weight: 300;
       text-transform: capitalize;
-      letter-spacing: 0.7px;
-      border-top: 1px solid gray;
-      border-left: 1px solid gray;
-      border-right: 1px solid gray;
-      padding: 0 0.7em;
-      font-size: 18px;
-      background: #79808f;
-      border-top-left-radius: 5px;
-      border-top-right-radius: 5px;
-    }
-
-    div.field.spacer {
-      display: flex;
-      width: 80vw;
-      justify-content: space-around;
-      margin-top: 4em;
+      vertical-align: bottom;
     }
 
     div.description-field {
@@ -86,10 +84,6 @@
       background-color: whitesmoke;
     }
 
-    .title,
-    .esrb {
-      display: inline-flex;
-    }
 
     .early-access {
       input[type="checkbox"] {
