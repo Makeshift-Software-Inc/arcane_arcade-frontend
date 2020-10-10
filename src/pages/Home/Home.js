@@ -22,18 +22,15 @@ import { useStore } from "../../store";
 const Home = () => {
   const { selectedGame, load } = useStore("games");
 
-
-  let searchQuery = '';
+  let searchQuery = "";
 
   const setSearchQuery = (e) => {
-      searchQuery = e.target.value;
-  }
+    searchQuery = e.target.value;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    
-  }
+  };
 
   return (
     <div className="App">
@@ -96,7 +93,7 @@ const Home = () => {
                   type="search"
                   placeholder="enter search term or tag"
                   className="topcoat-search-input"
-                  />
+                />
               </form>
             </div>
           </div>
