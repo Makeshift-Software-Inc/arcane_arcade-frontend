@@ -24,10 +24,20 @@ const UploadedFile = types
     secure: false,
   })
   .views((self) => ({
+    storage() {
+      if (self.secure) return "secure_cache";
+      return "cache";
+    },
+    attachmentType() {
+      if (self.attachment) return "attachment";
+      if (self.secure) return "installer";
+      if (self.type.startsWith("video/")) return "video";
+      return "image";
+    },
     keys() {
       return {
         id: self.awsId,
-        storage: "cache",
+        storage: self.storage(),
         metadata: {
           size: self.size,
           filename: self.name,
@@ -38,7 +48,6 @@ const UploadedFile = types
   }))
   .actions((self) => ({
     afterCreate() {
-      console.log("CREATED");
       self.source = CancelToken.source();
       // don't auto upload attachments
       if (!self.attachment) {
@@ -53,7 +62,8 @@ const UploadedFile = types
         filename: self.name,
         type: self.type,
         size: self.size,
-        storage: "cache",
+        storage: self.storage(),
+        attachment_type: self.attachmentType(),
       };
 
       // get direct to s3 upload params
@@ -72,6 +82,8 @@ const UploadedFile = types
       self.loading = true;
 
       const presignParams = yield self.presign();
+
+      console.log(presignParams);
 
       if (!presignParams) {
         self.loading = false;
@@ -99,6 +111,8 @@ const UploadedFile = types
         self.awsId = splitedKeys[splitedKeys.length - 1];
 
         self.awsUrl = presignParams.full_url;
+        console.log(self.awsUrl);
+        console.log("UPLOADED");
         self.uploaded = true;
         self.loading = false;
         return true;

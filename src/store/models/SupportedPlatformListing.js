@@ -15,8 +15,79 @@ const SupportedPlatformListing = types
     distributionForm: types.optional(DistributionForm, {}),
     creatingDistribution: false,
   })
+  .views((self) => ({
+    getChildrenPlatforms() {
+      const supportedPlatformListings = getParent(self);
+      return supportedPlatformListings.filter((platform) =>
+        ["WINDOWS", "MAC", "LINUX"].includes(platform.supported_platform.name)
+      );
+    },
+    uploadingInstallers() {
+      if (self.distributionForm.method === "installer") {
+        const platforms = self.getChildrenPlatforms();
+        const platformsWithInstallers = platforms.filter(
+          (platform) => platform.distributionForm.installer
+        );
+        if (platformsWithInstallers.length > 0) {
+          return !platformsWithInstallers.every(
+            (platform) => platform.distributionForm.installer.uploaded
+          );
+        }
+      }
+      return false;
+    },
+  }))
   .actions((self) => ({
+    createPCInstallers: flow(function* createPCInstallers() {
+      self.creatingDistribution = true;
+      const listing = getParent(self, 2);
+      const platforms = self.getChildrenPlatforms();
+
+      const data = {
+        listing: {
+          supported_platform_listings_attributes: [
+            ...platforms.map((platform) => ({
+              id: platform.id,
+              distribution_attributes: {
+                method: "installer",
+                installer_attributes: platform.distributionForm.installer && {
+                  installer: platform.distributionForm.installer.keys(),
+                },
+              },
+            })),
+          ],
+        },
+      };
+
+      try {
+        const response = yield Api.post(
+          `listings/${listing.id}/add_distributions`,
+          data
+        );
+        console.log(response.data);
+        console.log(deserialize(response.data));
+        listing.update({
+          supported_platform_listings: deserialize(response.data),
+        });
+        self.creatingDistribution = false;
+        return true;
+      } catch (e) {
+        console.log(e);
+        if (e.response && e.response.data) {
+          console.log(e.response.data);
+        }
+        self.creatingDistribution = false;
+        return false;
+      }
+    }),
     createDistribution: flow(function* createDistribution() {
+      if (
+        self.supported_platform.name === "PC" &&
+        self.distributionForm.method === "installer"
+      ) {
+        return yield self.createPCInstallers();
+      }
+
       self.creatingDistribution = true;
 
       const supported_platform_listing = {

@@ -1,5 +1,6 @@
 import { types } from "mobx-state-tree";
 import BaseUpdate from "./BaseUpdate";
+import SupportedPlatform from "./SupportedPlatform";
 import SupportedPlatformListing from "./SupportedPlatformListing";
 
 const SellerGame = types
@@ -19,6 +20,7 @@ const SellerGame = types
     default_currency: types.string,
     currency_symbol: types.string,
     status: types.enumeration(["pending", "active"]),
+    supported_platforms: types.array(types.reference(SupportedPlatform)),
     supported_platform_listings: types.array(SupportedPlatformListing),
   })
   .views((self) => ({
@@ -32,6 +34,13 @@ const SellerGame = types
       return self.supported_platform_listings
         .filter((platform) => platform.supported_platform.name !== "PC")
         .every((p) => p.distribution);
+    },
+    groupedSupportedPlatforms() {
+      return self.supported_platform_listings.filter((platform) =>
+        ["PC", "XB1", "PS4", "SWITCH"].includes(
+          platform.supported_platform.name
+        )
+      );
     },
   }))
   .actions((self) => ({}));
