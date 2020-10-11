@@ -32,6 +32,8 @@ const ListingForm = types
     system_requirements: types.array(SystemRequirements),
     files: types.array(UploadedFile),
     attachments: types.array(UploadedFile),
+    release_date: types.optional(types.string, ""),
+    preorderable: false,
   })
   .views((self) => ({
     allFilesUploaded() {
@@ -57,6 +59,10 @@ const ListingForm = types
       return self.supported_platforms.filter(
         (platform) => !doNotInclude.includes(platform.name)
       );
+    },
+    releaseDateInFuture() {
+      if (self.release_date.length === 0) return false;
+      return new Date(self.release_date) > new Date();
     },
   }))
   .actions((self) => ({
@@ -174,6 +180,20 @@ const ListingForm = types
       const tag = self.tags[index];
       self.tags = self.tags.filter((t) => t.id !== tag.id);
       self.tagsOptions.find((t) => t.id === tag.id).update({ disabled: false });
+    },
+    setReleaseDate(date) {
+      if (date) {
+        self.release_date = date.toUTCString();
+        if (!self.releaseDateInFuture()) {
+          self.preorderable = false;
+        }
+      } else {
+        self.release_date = "";
+        self.preorderable = false;
+      }
+    },
+    setPreorderable(value) {
+      self.preorderable = value;
     },
     validate: () => {
       // TODO: Validate here (check ./SignUp for details)

@@ -6,13 +6,22 @@ import "tippy.js/dist/tippy.css";
 
 import "./GameListing.scss";
 
-const PopupContent = ({ title, price, images, videos, currencySymbol, defaultCurrency, play }) => {
+const PopupContent = ({
+  title,
+  price,
+  images,
+  videos,
+  currencySymbol,
+  defaultCurrency,
+  play,
+}) => {
   return (
     <div className="popover">
       <div className="title">
         <h3>{title}</h3>
         <span className="price">
-          {currencySymbol}{price / 100} {defaultCurrency}
+          {currencySymbol}
+          {price} {defaultCurrency}
         </span>
       </div>
       {images[0] && <img src={images[0]} alt="" />}
@@ -27,9 +36,8 @@ const PopupContent = ({ title, price, images, videos, currencySymbol, defaultCur
 };
 
 const GameListing = ({ game }) => {
-
   const imageAlt = `${game.title} cover`;
-  const listingShowLink = `/games/${game.slug}`
+  const listingShowLink = `/games/${game.slug}`;
 
   return (
     <Tippy
@@ -51,11 +59,11 @@ const GameListing = ({ game }) => {
       placement="auto"
       key={game.id}
     >
-        <div className="game-listing" key={game.id}>
-          <Link to={listingShowLink}>
-            <img src={game.images[0]} alt={imageAlt} />
-          </Link>
-        </div>
+      <div className="game-listing" key={game.id}>
+        <Link to={listingShowLink}>
+          <img src={game.images[0]} alt={imageAlt} />
+        </Link>
+      </div>
     </Tippy>
   );
 };
