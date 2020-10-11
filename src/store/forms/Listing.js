@@ -115,6 +115,7 @@ const ListingForm = types
         .update({ disabled: true });
     },
     removeCategory(index) {
+      if (index < 0) return;
       const category = self.selected_categories[index];
       self.selected_categories = self.selected_categories.filter(
         (c) => c.id !== category.id
@@ -177,6 +178,7 @@ const ListingForm = types
       self.tagsOptions.find((t) => t.id === tag.id).update({ disabled: true });
     },
     removeTag(index) {
+      if (index < 0) return;
       const tag = self.tags[index];
       self.tags = self.tags.filter((t) => t.id !== tag.id);
       self.tagsOptions.find((t) => t.id === tag.id).update({ disabled: false });
