@@ -1,4 +1,4 @@
-version: 2.1
+version: 2
 
 defaults: &defaults
   working_directory: ~/repo
@@ -23,7 +23,7 @@ jobs:
       - save_cache:
           paths:
             - node_modules
-            - ~/.npm 
+            - ~/.npm
             - ~/.cache
           key: v1-deps-{{ checksum "package.json" }}
 
@@ -31,20 +31,8 @@ jobs:
           name: Lint
           command: yarn lint
 
-      # - run:
-      #     name: Build
-      #     command: yarn build
-
-      # Save public repo to a shared workspace
-      # This way can be used in future tests
-      # - persist_to_workspace:
-      #     root: ~/repo
-      #     paths:
-      #       - .next
-
-
 workflows:
   version: 2
   test:
     jobs:
-      - build:
+      - build
