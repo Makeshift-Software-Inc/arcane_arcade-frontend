@@ -14,7 +14,7 @@ import { useStore } from "../../../store";
 const SellerDashboard = () => {
   const {
     user: {
-      seller: { games, activeGames, pendingGames, loadingGames, loadGames },
+      seller: { activeGames, pendingGames, loadingGames, loadGames },
     },
   } = useStore("auth");
 
@@ -22,6 +22,8 @@ const SellerDashboard = () => {
 
   useEffect(() => {
     loadGames();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -76,6 +78,8 @@ const SellerDashboard = () => {
         },
       });
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loadingGames]);
 
   if (loadingGames) return <Loading />;

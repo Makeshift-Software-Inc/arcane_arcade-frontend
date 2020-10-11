@@ -131,7 +131,7 @@ const AuthStore = types
         return false;
       }
     }),
-    logout: flow(function* logout() {
+    logout() {
       try {
         localStorage.removeItem("auth_token");
         self.user = null;
@@ -141,7 +141,7 @@ const AuthStore = types
         console.log(e);
         return false;
       }
-    }),
+    },
   }));
 
 export default AuthStore;

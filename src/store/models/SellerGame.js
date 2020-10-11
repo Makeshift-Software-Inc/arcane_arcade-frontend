@@ -23,7 +23,6 @@ const SellerGame = types
     supported_platforms: types.array(types.reference(SupportedPlatform)),
     supported_platform_listings: types.array(SupportedPlatformListing),
     release_date: types.string,
-    preorderable: types.boolean,
   })
   .views((self) => ({
     active() {
