@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useStore } from "../../../store";
 import { observer } from "mobx-react";
 import ReactTags from "react-tag-autocomplete";
@@ -19,7 +19,9 @@ import Loading from "../../../components/Loading/Loading";
 import "./New.scss";
 
 const SellerListingsNew = ({ history }) => {
-  const trixInput = React.createRef();
+  const [waitList, setWaitList] = useState([]);
+
+  const trixInput = useRef(null);
 
   const {
     games,
@@ -68,7 +70,9 @@ const SellerListingsNew = ({ history }) => {
     load();
 
     trixInput.current.addEventListener("trix-change", (event) => {
-      onChange(event);
+      if (event.target.name) {
+        onChange(event);
+      }
     });
 
     trixInput.current.addEventListener("trix-file-accept", (event) => {
@@ -91,10 +95,12 @@ const SellerListingsNew = ({ history }) => {
 
     trixInput.current.addEventListener("trix-attachment-add", async (event) => {
       if (event.attachment.file) {
+        setWaitList([...waitList, event.attachment.id]);
         const data = await addAttachment(event);
         if (data) {
           event.attachment.setAttributes(data);
         }
+        setWaitList([...waitList.filter((id) => event.attachment.id !== id)]);
       }
     });
   }, []);
@@ -464,12 +470,14 @@ const SellerListingsNew = ({ history }) => {
 
           <button
             type="submit"
-            disabled={!allFilesUploaded() || games.creating}
+            disabled={!allFilesUploaded() || waitList.length !== 0}
             className="topcoat-button--large"
           >
             CREATE
           </button>
-          {!allFilesUploaded() && <p>Some files are still not uploaded.</p>}
+          {(!allFilesUploaded() || waitList.length !== 0) && (
+            <p>Some files are still not uploaded.</p>
+          )}
         </form>
       </div>
     </div>

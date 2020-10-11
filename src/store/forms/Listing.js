@@ -39,10 +39,12 @@ const ListingForm = types
     allFilesUploaded() {
       const filesUploaded = self.files.every((file) => file.uploaded);
       if (!filesUploaded) return false;
+
       const attachmentsUploaded = self.attachments.every(
         (file) => file.uploaded
       );
       if (!attachmentsUploaded) return false;
+
       return true;
     },
     images() {
