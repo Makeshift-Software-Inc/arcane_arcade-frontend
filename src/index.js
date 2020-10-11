@@ -10,13 +10,11 @@ import "./index.scss";
 import App from "./pages/App";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <StoreProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </StoreProvider>
-  </React.StrictMode>,
+  <StoreProvider>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </StoreProvider>
   document.getElementById("root")
 );
 
