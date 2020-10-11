@@ -260,16 +260,16 @@ const SellerListingsNew = ({ history }) => {
                 </div>
                 <div className="early-access">
                   <label className="form-label">Early Access</label>
-                  <label class="topcoat-switch">
+                  <label className="topcoat-switch">
                     <input
                       type="checkbox"
-                      class="topcoat-switch__input"
+                      className="topcoat-switch__input"
                       onChange={toggleEarlyAccess}
                       id="early-access"
                       name="early-access"
                       value={earlyAccess}
                     />
-                    <div class="topcoat-switch__toggle"></div>
+                  <div className="topcoat-switch__toggle"></div>
                 </label>
 
                 </div>
@@ -289,7 +289,7 @@ const SellerListingsNew = ({ history }) => {
                 arrow={true}
                 placement="auto"
               >
-                <i class="fas fa-question-circle"></i>
+                <i className="fas fa-question-circle"></i>
               </Tippy>
             </label>
             <div>
