@@ -178,7 +178,7 @@ const SellerListingsNew = ({ history }) => {
           <div className="columns">
             <div className="column" style={{ display: "flex" }}>
               <Uploader
-                accepts="image/*, video/*"
+                accept="image/*,video/*"
                 addFile={addFile}
                 files={files}
                 reorder={reorderFiles}
