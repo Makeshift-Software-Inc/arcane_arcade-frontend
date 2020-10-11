@@ -1,6 +1,5 @@
 import { types } from "mobx-state-tree";
 import BaseUpdate from "./BaseUpdate";
-import UploadedFile from "./UploadedFile";
 
 const Distribution = types
   .model("Distribution", {

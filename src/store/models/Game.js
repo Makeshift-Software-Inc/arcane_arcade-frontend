@@ -23,7 +23,6 @@ const Game = types
     status: types.enumeration(["pending", "active"]),
     supported_platform_listings: types.array(SupportedPlatformListing),
     release_date: types.string,
-    preorderable: types.boolean,
   })
   .views((self) => ({
     supportedPlatforms() {

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useStore } from "../../../store";
 import { observer } from "mobx-react";
-import { Redirect } from "react-router-dom";
 
 import "./Distribution.scss";
 
@@ -93,6 +92,7 @@ const SteamKeys = observer(({ steamKeys, add, remove }) => {
         {steamKeys.map((key) => (
           <p key={key} className="key">
             {key}
+            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
             <a href="#" className="delete" data-key={key} onClick={removeKey}>
               X
             </a>
@@ -300,6 +300,7 @@ const Distribution = ({ match, history }) => {
     };
 
     load();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (loadingGames || !selectedGame) return <Loading />;

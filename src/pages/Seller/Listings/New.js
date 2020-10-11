@@ -103,6 +103,7 @@ const SellerListingsNew = ({ history }) => {
         setWaitList([...waitList.filter((id) => event.attachment.id !== id)]);
       }
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const toggleEarlyAccess = () => {
@@ -297,9 +298,8 @@ const SellerListingsNew = ({ history }) => {
                       value={earlyAccess}
                     />
 
-                  <div className="topcoat-switch__toggle"></div>
-                </label>
-
+                    <div className="topcoat-switch__toggle"></div>
+                  </label>
                 </div>
               </div>
             </div>

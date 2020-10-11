@@ -57,7 +57,6 @@ const Uploader = ({ accept, files, addFile, reorder }) => {
   };
 
   return (
-    // TODO: implement Browse
     <div className="uploader">
       <div className="icons">
         <Tippy
@@ -92,6 +91,7 @@ const Uploader = ({ accept, files, addFile, reorder }) => {
           {!canDrop && (
             <h4>
               Drag & Drop or{" "}
+              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
               <a href="#" onClick={chooseFiles}>
                 Browse
               </a>
