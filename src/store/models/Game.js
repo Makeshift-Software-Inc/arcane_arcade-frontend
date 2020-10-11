@@ -9,7 +9,7 @@ const Game = types
     slug: types.string,
     title: types.string,
     description: types.string,
-    price: types.string,
+    price: types.number,
     images: types.array(types.string),
     videos: types.array(types.string),
     preorderable: types.boolean,
@@ -22,6 +22,8 @@ const Game = types
     seller: types.maybe(Seller),
     status: types.enumeration(["pending", "active"]),
     supported_platform_listings: types.array(SupportedPlatformListing),
+    release_date: types.string,
+    preorderable: types.boolean,
   })
   .views((self) => ({
     supportedPlatforms() {

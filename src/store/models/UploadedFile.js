@@ -83,8 +83,6 @@ const UploadedFile = types
 
       const presignParams = yield self.presign();
 
-      console.log(presignParams);
-
       if (!presignParams) {
         self.loading = false;
         return false;
@@ -111,8 +109,6 @@ const UploadedFile = types
         self.awsId = splitedKeys[splitedKeys.length - 1];
 
         self.awsUrl = presignParams.full_url;
-        console.log(self.awsUrl);
-        console.log("UPLOADED");
         self.uploaded = true;
         self.loading = false;
         return true;
@@ -126,8 +122,10 @@ const UploadedFile = types
       self.source.cancel("Upload canceled");
     },
     onUploadProgress(e) {
-      self.progress = Math.round(e.loaded / e.total) * 100;
-      console.log(self.progress);
+      self.progress = (e.loaded / e.total) * 100;
+      if (self.attachment) {
+        self.attachment.setUploadProgress(self.progress);
+      }
     },
   }));
 

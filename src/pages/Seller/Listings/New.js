@@ -1,7 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useStore } from "../../../store";
 import { observer } from "mobx-react";
 import ReactTags from "react-tag-autocomplete";
+
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
@@ -16,7 +19,9 @@ import Loading from "../../../components/Loading/Loading";
 import "./New.scss";
 
 const SellerListingsNew = ({ history }) => {
-  const trixInput = React.createRef();
+  const [waitList, setWaitList] = useState([]);
+
+  const trixInput = useRef(null);
 
   const {
     games,
@@ -53,6 +58,10 @@ const SellerListingsNew = ({ history }) => {
         addTag,
         removeTag,
         allFilesUploaded,
+        release_date,
+        setReleaseDate,
+        releaseDateInFuture,
+        preorderable,
       },
     },
   } = useStore();
@@ -60,9 +69,11 @@ const SellerListingsNew = ({ history }) => {
   useEffect(() => {
     load();
 
-    trixInput.current.addEventListener("trix-change", (event) =>
-      onChange(event)
-    );
+    trixInput.current.addEventListener("trix-change", (event) => {
+      if (event.target.name) {
+        onChange(event);
+      }
+    });
 
     trixInput.current.addEventListener("trix-file-accept", (event) => {
       const acceptedAttachments = [
@@ -83,15 +94,23 @@ const SellerListingsNew = ({ history }) => {
     });
 
     trixInput.current.addEventListener("trix-attachment-add", async (event) => {
-      const data = await addAttachment(event);
-      if (data) {
-        event.attachment.setAttributes(data);
+      if (event.attachment.file) {
+        setWaitList([...waitList, event.attachment.id]);
+        const data = await addAttachment(event);
+        if (data) {
+          event.attachment.setAttributes(data);
+        }
+        setWaitList([...waitList.filter((id) => event.attachment.id !== id)]);
       }
     });
   }, []);
 
   const toggleEarlyAccess = () => {
     update({ earlyAccess: !earlyAccess });
+  };
+
+  const togglePreorderable = () => {
+    update({ preorderable: !preorderable });
   };
 
   const handleSupportedPlatformChange = (e) => {
@@ -111,7 +130,9 @@ const SellerListingsNew = ({ history }) => {
       description,
       esrb,
       early_access: earlyAccess,
-      price,
+      price: price ? price * 100 : null,
+      release_date,
+      preorderable,
       category_ids: selected_categories.map((category) => category.id),
       supported_platforms_ids: supported_platforms.map(
         (platform) => platform.id
@@ -149,23 +170,25 @@ const SellerListingsNew = ({ history }) => {
     name: category.title,
   }));
 
+  const releaseDateAsDate =
+    release_date.length > 0 ? new Date(release_date) : null;
+
   if (games.creating) return <Loading />;
 
   return (
     <div className="App seller-listings-new">
       <div className="form-container">
-
         <form onSubmit={handleSubmit}>
           <h1>Sell your game</h1>
 
           <div className="columns">
-            <div className="column" style={{display: 'flex'}}>
+            <div className="column" style={{ display: "flex" }}>
               <Uploader
-                accepts="image/*, video/*"
+                accept="image/*,video/*"
                 addFile={addFile}
                 files={files}
                 reorder={reorderFiles}
-                />
+              />
               <div className="form-column">
                 <div className="title">
                   <label htmlFor="title" className="form-label">
@@ -177,7 +200,7 @@ const SellerListingsNew = ({ history }) => {
                     onChange={onChange}
                     name="title"
                     className="topcoat-text-input"
-                    />
+                  />
                 </div>
                 <div className="esrb">
                   <label htmlFor="esrb" className="form-label">
@@ -189,7 +212,7 @@ const SellerListingsNew = ({ history }) => {
                     value={esrb}
                     onChange={onChange}
                     className="topcoat-text-input"
-                    >
+                  >
                     <option value="EVERYONE">EVERYONE</option>
                     <option value="E_TEN_PLUS">E10+</option>
                     <option value="TEEN">TEEN</option>
@@ -222,15 +245,18 @@ const SellerListingsNew = ({ history }) => {
                         selectedTag: "react-tags__selected-tag",
                         selectedTagName: "react-tags__selected-tag-name",
                         search: `react-tags__search ${
-                          selectedCategoriesAsTags.length === 2 ? "is-hidden" : ""
+                          selectedCategoriesAsTags.length === 2
+                            ? "is-hidden"
+                            : ""
                         }`,
                         searchWrapper: "react-tags__search-wrapper",
-                        searchInput: "react-tags__search-input topcoat-text-input",
+                        searchInput:
+                          "react-tags__search-input topcoat-text-input",
                         suggestions: "react-tags__suggestions",
                         suggestionActive: "is-active",
                         suggestionDisabled: "is-disabled",
                       }}
-                      />
+                    />
                   )}
                 </div>
                 <div className="game-tags">
@@ -251,12 +277,13 @@ const SellerListingsNew = ({ history }) => {
                       selectedTagName: "react-tags__selected-tag-name",
                       search: "react-tags__search",
                       searchWrapper: "react-tags__search-wrapper",
-                      searchInput: "react-tags__search-input topcoat-text-input",
+                      searchInput:
+                        "react-tags__search-input topcoat-text-input",
                       suggestions: "react-tags__suggestions",
                       suggestionActive: "is-active",
                       suggestionDisabled: "is-disabled",
                     }}
-                    />
+                  />
                 </div>
                 <div className="early-access">
                   <label className="form-label">Early Access</label>
@@ -269,6 +296,7 @@ const SellerListingsNew = ({ history }) => {
                       name="early-access"
                       value={earlyAccess}
                     />
+
                   <div className="topcoat-switch__toggle"></div>
                 </label>
 
@@ -280,9 +308,10 @@ const SellerListingsNew = ({ history }) => {
           <div className="field description-field">
             <label className="form-label description">
               Game Description
-
               <Tippy
-                content={'You may want to add photos or .gifs for a more appealing synopsis. (700x295)'}
+                content={
+                  "You may want to add photos or .gifs for a more appealing synopsis. (700x295)"
+                }
                 interactive={true}
                 interactiveBorder={20}
                 delay={100}
@@ -332,7 +361,7 @@ const SellerListingsNew = ({ history }) => {
                         ></div>
                         {platform.name}
                       </label>
-                      {platform.children.length > 0 &&
+                      {platform.children.length > 0 && (
                         <div className="pc-platforms">
                           {checked &&
                             platform.children.map((children) => (
@@ -340,7 +369,7 @@ const SellerListingsNew = ({ history }) => {
                                 className="topcoat-checkbox"
                                 key={children.id}
                                 style={{ margin: 10 }}
-                                >
+                              >
                                 <input
                                   type="checkbox"
                                   name={children.name}
@@ -351,16 +380,16 @@ const SellerListingsNew = ({ history }) => {
                                       (p) => p.id === children.id
                                     )
                                   }
-                                  />
+                                />
                                 <div
                                   className="topcoat-checkbox__checkmark"
                                   style={{ marginRight: 10 }}
-                                  ></div>
+                                ></div>
                                 {children.name}
                               </label>
                             ))}
-                          </div>
-                      }
+                        </div>
+                      )}
                     </React.Fragment>
                   );
                 })
@@ -395,7 +424,6 @@ const SellerListingsNew = ({ history }) => {
             )}
           </div>
           <div>
-
             <div className="price">
               <label>
                 Price in USD
@@ -410,6 +438,32 @@ const SellerListingsNew = ({ history }) => {
             </div>
           </div>
 
+          <div>
+            <label>Release Date:</label>
+            <DatePicker
+              selected={releaseDateAsDate}
+              onChange={setReleaseDate}
+              showTimeSelect
+              dateFormat="Pp"
+            />
+          </div>
+          {releaseDateInFuture() && (
+            <div className="early-access">
+              <label className="form-label">Preorderable</label>
+              <label class="topcoat-switch">
+                <input
+                  type="checkbox"
+                  class="topcoat-switch__input"
+                  onChange={togglePreorderable}
+                  id="preorderable"
+                  name="preorderable"
+                  value={preorderable}
+                />
+                <div class="topcoat-switch__toggle"></div>
+              </label>
+            </div>
+          )}
+
           <br />
 
           <Errors errors={errors.full_messages.toJSON()} />
@@ -418,12 +472,14 @@ const SellerListingsNew = ({ history }) => {
 
           <button
             type="submit"
-            disabled={!allFilesUploaded() || games.creating}
+            disabled={!allFilesUploaded() || waitList.length !== 0}
             className="topcoat-button--large"
           >
             CREATE
           </button>
-          {!allFilesUploaded() && <p>Some files are still not uploaded.</p>}
+          {(!allFilesUploaded() || waitList.length !== 0) && (
+            <p>Some files are still not uploaded.</p>
+          )}
         </form>
       </div>
     </div>

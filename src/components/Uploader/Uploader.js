@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { observer } from "mobx-react";
 
 import Tippy from "@tippyjs/react";
@@ -7,8 +7,9 @@ import SortablePreviews from "./SortablePreviews";
 
 import "./Uploader.scss";
 
-const Uploader = ({ accepts, files, addFile, reorder }) => {
+const Uploader = ({ accept, files, addFile, reorder }) => {
   const [canDrop, setCanDrop] = useState(false);
+  const inputField = useRef(null);
 
   const handleDrop = (e) => {
     e.preventDefault();
@@ -39,6 +40,20 @@ const Uploader = ({ accepts, files, addFile, reorder }) => {
 
   const onSortEnd = ({ oldIndex, newIndex }) => {
     reorder(oldIndex, newIndex);
+  };
+
+  const chooseFiles = (e) => {
+    e.preventDefault();
+    inputField.current.click();
+  };
+
+  const handleFilesChange = (e) => {
+    if (e.target.files.length) {
+      const files = e.target.files;
+      for (let i = 0; i < files.length; i++) {
+        addFile(files[i]);
+      }
+    }
   };
 
   return (
@@ -73,10 +88,25 @@ const Uploader = ({ accepts, files, addFile, reorder }) => {
           onDrop={handleDrop}
           onDragOver={allowDrop}
           onDragLeave={cancelDrop}
-          >
-          {!canDrop && <h4>Drag & Drop or <a>Browse</a></h4>}
+        >
+          {!canDrop && (
+            <h4>
+              Drag & Drop or{" "}
+              <a href="#" onClick={chooseFiles}>
+                Browse
+              </a>
+            </h4>
+          )}
           {canDrop && <h1>Drop Now</h1>}
         </div>
+        <input
+          multiple
+          type="file"
+          className="is-hidden"
+          accept={accept}
+          ref={inputField}
+          onChange={handleFilesChange}
+        />
       </div>
 
       <div className="preview-column">
@@ -86,7 +116,7 @@ const Uploader = ({ accepts, files, addFile, reorder }) => {
           helperClass="SortableHelper"
           axis="xy"
           useDragHandle
-          />
+        />
       </div>
     </div>
   );

@@ -32,15 +32,19 @@ const ListingForm = types
     system_requirements: types.array(SystemRequirements),
     files: types.array(UploadedFile),
     attachments: types.array(UploadedFile),
+    release_date: types.optional(types.string, ""),
+    preorderable: false,
   })
   .views((self) => ({
     allFilesUploaded() {
       const filesUploaded = self.files.every((file) => file.uploaded);
       if (!filesUploaded) return false;
+
       const attachmentsUploaded = self.attachments.every(
         (file) => file.uploaded
       );
       if (!attachmentsUploaded) return false;
+
       return true;
     },
     images() {
@@ -57,6 +61,10 @@ const ListingForm = types
       return self.supported_platforms.filter(
         (platform) => !doNotInclude.includes(platform.name)
       );
+    },
+    releaseDateInFuture() {
+      if (self.release_date.length === 0) return false;
+      return new Date(self.release_date) > new Date();
     },
   }))
   .actions((self) => ({
@@ -109,6 +117,7 @@ const ListingForm = types
         .update({ disabled: true });
     },
     removeCategory(index) {
+      if (index < 0) return;
       const category = self.selected_categories[index];
       self.selected_categories = self.selected_categories.filter(
         (c) => c.id !== category.id
@@ -171,9 +180,24 @@ const ListingForm = types
       self.tagsOptions.find((t) => t.id === tag.id).update({ disabled: true });
     },
     removeTag(index) {
+      if (index < 0) return;
       const tag = self.tags[index];
       self.tags = self.tags.filter((t) => t.id !== tag.id);
       self.tagsOptions.find((t) => t.id === tag.id).update({ disabled: false });
+    },
+    setReleaseDate(date) {
+      if (date) {
+        self.release_date = date.toUTCString();
+        if (!self.releaseDateInFuture()) {
+          self.preorderable = false;
+        }
+      } else {
+        self.release_date = "";
+        self.preorderable = false;
+      }
+    },
+    setPreorderable(value) {
+      self.preorderable = value;
     },
     validate: () => {
       // TODO: Validate here (check ./SignUp for details)

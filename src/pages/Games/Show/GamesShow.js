@@ -164,7 +164,7 @@ const GamesShow = ({ match, history }) => {
                 {selectedGame.price && (
                   <h3>
                     {selectedGame.currency_symbol}
-                    {selectedGame.price / 100} {selectedGame.default_currency}
+                    {selectedGame.price} {selectedGame.default_currency}
                   </h3>
                 )}
               </div>
