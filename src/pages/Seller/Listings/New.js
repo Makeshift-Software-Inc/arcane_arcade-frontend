@@ -90,9 +90,11 @@ const SellerListingsNew = ({ history }) => {
     });
 
     trixInput.current.addEventListener("trix-attachment-add", async (event) => {
-      const data = await addAttachment(event);
-      if (data) {
-        event.attachment.setAttributes(data);
+      if (event.attachment.file) {
+        const data = await addAttachment(event);
+        if (data) {
+          event.attachment.setAttributes(data);
+        }
       }
     });
   }, []);
