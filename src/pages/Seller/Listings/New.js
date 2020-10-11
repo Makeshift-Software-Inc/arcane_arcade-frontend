@@ -182,7 +182,7 @@ const SellerListingsNew = ({ history }) => {
           <h1>Sell your game</h1>
 
           <div className="columns">
-            <div className="column" style={{ display: "flex" }}>
+            <div className="column flex">
               <Uploader
                 accept="image/*,video/*"
                 addFile={addFile}

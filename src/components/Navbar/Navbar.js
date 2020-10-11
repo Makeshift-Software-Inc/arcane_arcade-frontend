@@ -11,7 +11,7 @@ import { useStore } from "../../store";
 const Navbar = () => {
   const { isLoggedIn, user } = useStore("auth");
 
-  const isSeller = isLoggedIn && user.isSeller();
+  const isSeller = isLoggedIn && user && user.isSeller();
 
   return (
     <header className="nav">

@@ -27,7 +27,8 @@ const GamesStore = types
         } else {
           response = yield Api.get(`/listings?q=${query}`);
         }
-
+        debugger
+        
         self.games = deserialize(response.data);
         self.loading = false;
         self.gamesLoaded = true;
