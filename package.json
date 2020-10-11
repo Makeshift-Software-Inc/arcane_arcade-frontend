@@ -61,5 +61,7 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "eslint-config-airbnb": "^18.2.0"
+  }
 }
