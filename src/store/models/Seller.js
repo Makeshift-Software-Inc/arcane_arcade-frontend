@@ -1,12 +1,12 @@
-import { types, flow } from "mobx-state-tree";
-import BaseUpdate from "./BaseUpdate";
-import SellerGame from "./SellerGame";
+import { types, flow } from 'mobx-state-tree';
+import BaseUpdate from './BaseUpdate';
+import SellerGame from './SellerGame';
 
-import Api from "../../services/Api";
-import deserialize from "../../utils/deserialize";
+import Api from '../../services/Api';
+import deserialize from '../../utils/deserialize';
 
 const Seller = types
-  .model("Seller", {
+  .model('Seller', {
     id: types.identifier,
     accepted_crypto: types.array(types.string),
     business_name: types.string,
@@ -32,7 +32,7 @@ const Seller = types
       self.loadingGames = true;
 
       try {
-        const response = yield Api.get("/listings/seller_listings");
+        const response = yield Api.get('/listings/seller_listings');
         self.games = deserialize(response.data);
         self.gamesLoaded = true;
         self.loadingGames = false;

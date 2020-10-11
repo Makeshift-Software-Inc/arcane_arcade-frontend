@@ -1,12 +1,12 @@
-import { types, flow, getRoot } from "mobx-state-tree";
-import Game from "./models/Game";
+import { types, flow, getRoot } from 'mobx-state-tree';
+import Game from './models/Game';
 
-import Api from "../services/Api";
+import Api from '../services/Api';
 
-import deserialize from "../utils/deserialize";
+import deserialize from '../utils/deserialize';
 
 const GamesStore = types
-  .model("GamesStore", {
+  .model('GamesStore', {
     games: types.array(Game),
     selectedGame: types.maybe(types.reference(Game)),
     loading: false,
@@ -16,14 +16,14 @@ const GamesStore = types
   .actions((self) => ({
     load: flow(function* load(query = null) {
       // don't load again if games are loaded
-      if (self.gamesLoaded) return;
+      if (self.gamesLoaded) return true;
 
       self.loading = true;
 
       try {
         let response = {};
         if (!query) {
-          response = yield Api.get("/listings");
+          response = yield Api.get('/listings');
         } else {
           response = yield Api.get(`/listings?q=${query}`);
         }
@@ -43,7 +43,7 @@ const GamesStore = types
       self.creating = true;
 
       try {
-        const response = yield Api.post("/listings", { listing: data });
+        const response = yield Api.post('/listings', { listing: data });
 
         const {
           auth: {

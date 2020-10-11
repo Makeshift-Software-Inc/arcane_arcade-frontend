@@ -1,38 +1,38 @@
-import { types, flow } from "mobx-state-tree";
-import Base from "./Base";
-import Errors from "./Errors";
+import { types, flow } from 'mobx-state-tree';
+import Base from './Base';
+import Errors from './Errors';
 
-import SupportedPlatform from "../models/SupportedPlatform";
-import Category from "../models/Category";
-import Tag from "../models/Tag";
-import SystemRequirements from "../models/SystemRequirements";
-import UploadedFile from "../models/UploadedFile";
+import SupportedPlatform from '../models/SupportedPlatform';
+import Category from '../models/Category';
+import Tag from '../models/Tag';
+import SystemRequirements from '../models/SystemRequirements';
+import UploadedFile from '../models/UploadedFile';
 
-import Api from "../../services/Api";
-import deserialize from "../../utils/deserialize";
+import Api from '../../services/Api';
+import deserialize from '../../utils/deserialize';
 
 const ListingForm = types
-  .model("ListingForm", {
+  .model('ListingForm', {
     supportedPlatformOptions: types.array(SupportedPlatform),
     categoryOptions: types.array(Category),
     tagsOptions: types.array(Tag),
-    title: types.optional(types.string, ""),
+    title: types.optional(types.string, ''),
     esrb: types.optional(
-      types.enumeration(["EVERYONE", "E_TEN_PLUS", "TEEN", "MATURE", "ADULT"]),
-      "EVERYONE"
+      types.enumeration(['EVERYONE', 'E_TEN_PLUS', 'TEEN', 'MATURE', 'ADULT']),
+      'EVERYONE',
     ),
-    description: types.optional(types.string, ""),
+    description: types.optional(types.string, ''),
     selected_categories: types.array(types.reference(Category)),
     supported_platforms: types.array(types.reference(SupportedPlatform)),
     tags: types.array(types.reference(Tag)),
     earlyAccess: false,
-    price: types.optional(types.string, ""),
+    price: types.optional(types.string, ''),
     errors: types.optional(Errors, {}),
     loading: false,
     system_requirements: types.array(SystemRequirements),
     files: types.array(UploadedFile),
     attachments: types.array(UploadedFile),
-    release_date: types.optional(types.string, ""),
+    release_date: types.optional(types.string, ''),
     preorderable: false,
   })
   .views((self) => ({
@@ -41,25 +41,25 @@ const ListingForm = types
       if (!filesUploaded) return false;
 
       const attachmentsUploaded = self.attachments.every(
-        (file) => file.uploaded
+        (file) => file.uploaded,
       );
       if (!attachmentsUploaded) return false;
 
       return true;
     },
     images() {
-      return self.files.filter((file) => file.type.startsWith("image"));
+      return self.files.filter((file) => file.type.startsWith('image'));
     },
     videos() {
-      return self.files.filter((file) => file.type.startsWith("video"));
+      return self.files.filter((file) => file.type.startsWith('video'));
     },
     allowedSystemRequirementsFields() {
-      return ["WINDOWS", "MAC", "LINUX"];
+      return ['WINDOWS', 'MAC', 'LINUX'];
     },
     systemRequirementsFields() {
-      const doNotInclude = ["PC", "XB1", "SWITCH", "PS4"];
+      const doNotInclude = ['PC', 'XB1', 'SWITCH', 'PS4'];
       return self.supported_platforms.filter(
-        (platform) => !doNotInclude.includes(platform.name)
+        (platform) => !doNotInclude.includes(platform.name),
       );
     },
     releaseDateInFuture() {
@@ -71,18 +71,17 @@ const ListingForm = types
     load: flow(function* load() {
       // already loaded
       if (
-        self.supportedPlatformOptions.length > 0 &&
-        self.categoryOptions.length > 0 &&
-        self.tagsOptions.length > 0
-      )
-        return;
+        self.supportedPlatformOptions.length > 0
+        && self.categoryOptions.length > 0
+        && self.tagsOptions.length > 0
+      ) return true;
 
       self.loading = true;
 
       try {
-        const response = yield Api.get("/listings/new");
+        const response = yield Api.get('/listings/new');
         self.supportedPlatformOptions = deserialize(
-          response.data.supported_platforms
+          response.data.supported_platforms,
         );
         self.categoryOptions = deserialize(response.data.categories);
         self.tagsOptions = deserialize(response.data.tags);
@@ -97,16 +96,16 @@ const ListingForm = types
     addSupportedPlatform(id, name) {
       self.supported_platforms.push(id);
       if (self.allowedSystemRequirementsFields().includes(name)) {
-        self.system_requirements.push({ name, description: "" });
+        self.system_requirements.push({ name, description: '' });
       }
     },
     removeSupportedPlatform(id, name) {
       self.supported_platforms = self.supported_platforms.filter(
-        (platform) => id !== platform.id
+        (platform) => id !== platform.id,
       );
       if (self.allowedSystemRequirementsFields().includes(name)) {
         self.system_requirements = self.system_requirements.filter(
-          (systemRequirement) => systemRequirement.name !== name
+          (systemRequirement) => systemRequirement.name !== name,
         );
       }
     },
@@ -120,7 +119,7 @@ const ListingForm = types
       if (index < 0) return;
       const category = self.selected_categories[index];
       self.selected_categories = self.selected_categories.filter(
-        (c) => c.id !== category.id
+        (c) => c.id !== category.id,
       );
       self.categoryOptions
         .find((c) => c.id === category.id)
@@ -158,7 +157,7 @@ const ListingForm = types
         if (yield uploadedFile.upload()) {
           return {
             url: uploadedFile.awsUrl,
-            href: uploadedFile.awsUrl + "?content-disposition=attachment",
+            href: `${uploadedFile.awsUrl}?content-disposition=attachment`,
           };
         }
         return false;
@@ -192,17 +191,14 @@ const ListingForm = types
           self.preorderable = false;
         }
       } else {
-        self.release_date = "";
+        self.release_date = '';
         self.preorderable = false;
       }
     },
     setPreorderable(value) {
       self.preorderable = value;
     },
-    validate: () => {
-      // TODO: Validate here (check ./SignUp for details)
-      return true;
-    },
+    validate: () => true,
   }));
 
 export default types.compose(Base, ListingForm);

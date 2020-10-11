@@ -1,7 +1,7 @@
-import { types } from "mobx-state-tree";
+import { types } from 'mobx-state-tree';
 
 const Errors = types
-  .model("Errors", {
+  .model('Errors', {
     errors: types.frozen(),
     full_messages: types.array(types.string),
   })

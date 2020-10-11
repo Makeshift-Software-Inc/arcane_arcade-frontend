@@ -1,12 +1,12 @@
-import { types, flow, getRoot } from "mobx-state-tree";
-import Api from "../services/Api";
+import { types, flow, getRoot } from 'mobx-state-tree';
+import Api from '../services/Api';
 
-import deserialize from "../utils/deserialize";
+import deserialize from '../utils/deserialize';
 
-import Notification from "./models/Notification";
+import Notification from './models/Notification';
 
 const NotificationsStore = types
-  .model("NotificationsStore", {
+  .model('NotificationsStore', {
     data: types.array(Notification),
     loading: false,
   })
@@ -23,7 +23,7 @@ const NotificationsStore = types
       self.loading = true;
 
       try {
-        const response = yield Api.get("/notifications");
+        const response = yield Api.get('/notifications');
         self.data = deserialize(response.data);
         self.loading = false;
         return true;

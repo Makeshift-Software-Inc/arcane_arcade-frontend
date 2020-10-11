@@ -1,10 +1,10 @@
-import { types } from "mobx-state-tree";
-import BaseUpdate from "./BaseUpdate";
-import SupportedPlatform from "./SupportedPlatform";
-import SupportedPlatformListing from "./SupportedPlatformListing";
+import { types } from 'mobx-state-tree';
+import BaseUpdate from './BaseUpdate';
+import SupportedPlatform from './SupportedPlatform';
+import SupportedPlatformListing from './SupportedPlatformListing';
 
 const SellerGame = types
-  .model("SellerGame", {
+  .model('SellerGame', {
     id: types.identifier,
     slug: types.string,
     title: types.string,
@@ -19,31 +19,29 @@ const SellerGame = types
     xmr_amount: types.number,
     default_currency: types.string,
     currency_symbol: types.string,
-    status: types.enumeration(["pending", "active"]),
+    status: types.enumeration(['pending', 'active']),
     supported_platforms: types.array(types.reference(SupportedPlatform)),
     supported_platform_listings: types.array(SupportedPlatformListing),
     release_date: types.string,
   })
   .views((self) => ({
     active() {
-      return self.status === "active";
+      return self.status === 'active';
     },
     pending() {
-      return self.status === "pending";
+      return self.status === 'pending';
     },
     distributionsSet() {
       return self.supported_platform_listings
-        .filter((platform) => platform.supported_platform.name !== "PC")
+        .filter((platform) => platform.supported_platform.name !== 'PC')
         .every((p) => p.distribution);
     },
     groupedSupportedPlatforms() {
-      return self.supported_platform_listings.filter((platform) =>
-        ["PC", "XB1", "PS4", "SWITCH"].includes(
-          platform.supported_platform.name
-        )
-      );
+      return self.supported_platform_listings.filter((platform) => ['PC', 'XB1', 'PS4', 'SWITCH'].includes(
+        platform.supported_platform.name,
+      ));
     },
   }))
-  .actions((self) => ({}));
+  .actions(() => ({}));
 
 export default types.compose(BaseUpdate, SellerGame);

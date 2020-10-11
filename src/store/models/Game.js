@@ -1,10 +1,10 @@
-import { types, getParent } from "mobx-state-tree";
-import BaseUpdate from "./BaseUpdate";
-import Seller from "./Seller";
-import SupportedPlatformListing from "./SupportedPlatformListing";
+import { types, getParent } from 'mobx-state-tree';
+import BaseUpdate from './BaseUpdate';
+import Seller from './Seller';
+import SupportedPlatformListing from './SupportedPlatformListing';
 
 const Game = types
-  .model("Game", {
+  .model('Game', {
     id: types.identifier,
     slug: types.string,
     title: types.string,
@@ -20,14 +20,14 @@ const Game = types
     default_currency: types.string,
     currency_symbol: types.string,
     seller: types.maybe(Seller),
-    status: types.enumeration(["pending", "active"]),
+    status: types.enumeration(['pending', 'active']),
     supported_platform_listings: types.array(SupportedPlatformListing),
     release_date: types.string,
   })
   .views((self) => ({
     supportedPlatforms() {
       return self.supported_platform_listings.map(
-        (platform) => platform.supported_platform
+        (platform) => platform.supported_platform,
       );
     },
     hasSupportedPlatform(name) {
