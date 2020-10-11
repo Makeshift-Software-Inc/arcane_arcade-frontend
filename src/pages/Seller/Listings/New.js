@@ -3,6 +3,9 @@ import { useStore } from "../../../store";
 import { observer } from "mobx-react";
 import ReactTags from "react-tag-autocomplete";
 
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css";
+
 import "trix/dist/trix.js";
 import "trix/dist/trix.css";
 
@@ -166,8 +169,7 @@ const SellerListingsNew = ({ history }) => {
               <div className="form-column">
                 <div className="title">
                   <label htmlFor="title" className="form-label">
-                    {" "}
-                    Game title{" "}
+                    Game Title
                   </label>
                   <input
                     type="text"
@@ -179,8 +181,9 @@ const SellerListingsNew = ({ history }) => {
                 </div>
                 <div className="esrb">
                   <label htmlFor="esrb" className="form-label">
-                    Rated
+                    ESRB
                   </label>
+
                   <select
                     name="esrb"
                     value={esrb}
@@ -255,15 +258,40 @@ const SellerListingsNew = ({ history }) => {
                     }}
                     />
                 </div>
-              </div>
-            </div>
+                <div className="early-access">
+                  <label className="form-label">Early Access</label>
+                  <label class="topcoat-switch">
+                    <input
+                      type="checkbox"
+                      class="topcoat-switch__input"
+                      onChange={toggleEarlyAccess}
+                      id="early-access"
+                      name="early-access"
+                      value={earlyAccess}
+                    />
+                    <div class="topcoat-switch__toggle"></div>
+                </label>
 
-            <div className="column">
+                </div>
+              </div>
             </div>
           </div>
 
           <div className="field description-field">
-            <h2>Game Description</h2>
+            <label className="form-label description">
+              Game Description
+
+              <Tippy
+                content={'You may want to add photos or .gifs for a more appealing synopsis. (700x295)'}
+                interactive={true}
+                interactiveBorder={20}
+                delay={100}
+                arrow={true}
+                placement="auto"
+              >
+                <i class="fas fa-question-circle"></i>
+              </Tippy>
+            </label>
             <div>
               <input
                 type="hidden"
@@ -304,32 +332,35 @@ const SellerListingsNew = ({ history }) => {
                         ></div>
                         {platform.name}
                       </label>
-                      {checked &&
-                        platform.children.length > 0 &&
-                        platform.children.map((children) => (
-                          <label
-                            className="topcoat-checkbox"
-                            key={children.id}
-                            style={{ margin: 10 }}
-                          >
-                            <input
-                              type="checkbox"
-                              name={children.name}
-                              data-id={children.id}
-                              onChange={handleSupportedPlatformChange}
-                              checked={
-                                !!supported_platforms.find(
-                                  (p) => p.id === children.id
-                                )
-                              }
-                            />
-                            <div
-                              className="topcoat-checkbox__checkmark"
-                              style={{ marginRight: 10 }}
-                            ></div>
-                            {children.name}
-                          </label>
-                        ))}
+                      {platform.children.length > 0 &&
+                        <div className="pc-platforms">
+                          {checked &&
+                            platform.children.map((children) => (
+                              <label
+                                className="topcoat-checkbox"
+                                key={children.id}
+                                style={{ margin: 10 }}
+                                >
+                                <input
+                                  type="checkbox"
+                                  name={children.name}
+                                  data-id={children.id}
+                                  onChange={handleSupportedPlatformChange}
+                                  checked={
+                                    !!supported_platforms.find(
+                                      (p) => p.id === children.id
+                                    )
+                                  }
+                                  />
+                                <div
+                                  className="topcoat-checkbox__checkmark"
+                                  style={{ marginRight: 10 }}
+                                  ></div>
+                                {children.name}
+                              </label>
+                            ))}
+                          </div>
+                      }
                     </React.Fragment>
                   );
                 })
@@ -364,19 +395,6 @@ const SellerListingsNew = ({ history }) => {
             )}
           </div>
           <div>
-            <div className="early-access">
-              <div>Early access</div>
-              <label className="topcoat-checkbox">
-                <input
-                  type="checkbox"
-                  onChange={toggleEarlyAccess}
-                  id="early-access"
-                  name="early-access"
-                  value={earlyAccess}
-                />
-                <div className="topcoat-checkbox__checkmark"></div>
-              </label>
-            </div>
 
             <div className="price">
               <label>

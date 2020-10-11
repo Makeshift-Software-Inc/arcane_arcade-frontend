@@ -12,9 +12,22 @@
     width: 400px;
     margin-left: 5em;
     display: inline-block;
+    .title {
+      margin: 1.35em 0 0em;
+    }
   }
 
   form {
+    .topcoat-switch {
+      margin-top: 25px;
+    }
+    .topcoat-switch__toggle {
+      &:before { content: "YES"}
+      &:after { content: "NO"}
+      &:before, &:after {
+        z-index: 9;
+      }
+    }
     h1 {
       margin: 2em 0;
       font-size: 32px;
@@ -35,8 +48,34 @@
       color: aliceblue;
       font-size: 21px;
       font-weight: 300;
-      text-transform: capitalize;
       vertical-align: bottom;
+
+      &.description {
+        top: -15px;
+        font-size: 25px;
+
+        i {
+          margin-left: 15px;
+        }
+        [data-tippy-root] {
+          font-weight: 900;
+          font-size: 21px;
+        }
+      }
+    }
+
+
+    input, select {
+      background-color: white;
+      color: #777777;
+      &[type=text] {
+        padding-left: 10px !important;
+      }
+    }
+
+    .pc-platforms {
+      display: grid;
+      margin-left: 40px;
     }
 
     div.description-field {

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { observer } from "mobx-react";
 
+import Tippy from "@tippyjs/react";
+
 import SortablePreviews from "./SortablePreviews";
 
 import "./Uploader.scss";
@@ -42,6 +44,29 @@ const Uploader = ({ accepts, files, addFile, reorder }) => {
   return (
     // TODO: implement Browse
     <div className="uploader">
+      <div className="icons">
+        <Tippy
+          content={`High Resolution Image (.png, .jpeg, .gif 1024x720, 1920x1080)`}
+          interactive={true}
+          interactiveBorder={20}
+          delay={100}
+          arrow={true}
+          placement="auto"
+        >
+          <i class="far fa-image"></i>
+        </Tippy>
+        <Tippy
+          content={`Videos (.mp4, .webm) 16:9`}
+          interactive={true}
+          interactiveBorder={20}
+          delay={100}
+          arrow={true}
+          placement="auto"
+        >
+          <i class="far fa-file-video"></i>
+        </Tippy>
+      </div>
+
       <div className="drop-column">
         <div
           className="drop-placeholder"

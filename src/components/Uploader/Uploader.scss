@@ -2,13 +2,29 @@
   display: inline-block;
   width: 40vw;
 
+  .icons {
+    display: flex;
+    justify-content: center;
+
+    .fa-image {
+      font-size: 55px;
+    }
+
+    .fa-file-video {
+      margin-left: 100px;
+      font-size: 43px;
+      position: relative;
+      top: 5px;
+    }
+  }
+
   .drop-column {
     width: 40vw;
-    padding: 3em 0 5em 0em;
+    padding: 2em 0 0;
   }
 
   .preview-column {
-    width: 77vw;
+    width: 80vw;
   }
   .drop-placeholder {
     display: flex;
