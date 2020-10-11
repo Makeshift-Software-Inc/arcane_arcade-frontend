@@ -53,7 +53,7 @@ const Uploader = ({ accepts, files, addFile, reorder }) => {
           arrow={true}
           placement="auto"
         >
-          <i class="far fa-image"></i>
+          <i className="far fa-image"></i>
         </Tippy>
         <Tippy
           content={`Videos (.mp4, .webm) 16:9`}
@@ -63,7 +63,7 @@ const Uploader = ({ accepts, files, addFile, reorder }) => {
           arrow={true}
           placement="auto"
         >
-          <i class="far fa-file-video"></i>
+          <i className="far fa-file-video"></i>
         </Tippy>
       </div>
 
