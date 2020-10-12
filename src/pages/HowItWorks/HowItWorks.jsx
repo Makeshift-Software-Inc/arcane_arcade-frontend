@@ -20,7 +20,9 @@ import gameTypeImg from "./../../img/GameType.svg";
 import postGameImg from "./../../img/PostGame.svg";
 import profitImg from "./../../img/profit.svg";
 
+//lines
 import line from "./../../img/Line.svg";
+import straightLine from "./../../img/Straight_Dotted_Line.svg";
 
 
 const HowItWorks = () => {
@@ -97,6 +99,7 @@ const HowItWorks = () => {
         <div className="flex flex-column list-container">
 
           <img src={line} alt="line" className="line-img" />
+          <img src={straightLine} alt="straight-line" className="straight-line-img" />
 
           <div className="flex flex-column list"> 
           {

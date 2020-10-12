@@ -2,6 +2,7 @@
   font-family: 'Montserrat';
   
   .page-container {
+    padding: 0 5px;
     .list-container {
       max-width: 955px;
       width: 100%;
@@ -12,15 +13,37 @@
         width: 100%;
         justify-content: space-between;
       }
+      .straight-line-img {
+        display: none;
+      }
+
+      @media only screen and (max-width: 667px) {
+
+        margin-top: 0;
+
+        .image-and-text {
+          flex-direction: column;
+          margin-bottom: 0;
+        }
+
+        .straight-line-img {
+          display: block;
+        }
+
+        .line-img {
+          display: none;
+        }
+
+        .page-buttons {
+          margine-bottom: 0;
+        }
+      }
 
       .list {
         width: 100%;
         margin-top: -1315px;
       }
 
-      img {
-   
-      }
     }
 
 
