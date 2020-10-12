@@ -1,5 +1,5 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-[![<ORG_NAME>](https://circleci.com/gh/Makeshift-Software-Inc/arcane_arcade-frontend/.svg?style=svg)](<LINK>)
+[![Makeshift-Software-Inc](https://circleci.com/gh/Makeshift-Software-Inc/arcane_arcade-frontend/.svg?style=svg)](<LINK>)
 
 ## Set API Route
 Create a `.env.local` in this project's root directory.
