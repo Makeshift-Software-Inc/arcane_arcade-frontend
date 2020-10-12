@@ -7,9 +7,6 @@ import { observer } from 'mobx-react';
 
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 
-import Glide from '@glidejs/glide'
-import '@glidejs/glide/dist/css/glide.core.min.css'
-
 import './Home.scss';
 
 import Navbar from '../../components/Navbar/Navbar';
@@ -27,7 +24,9 @@ import { useStore } from '../../store';
 
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const { selectedGame, games, load, loading } = useStore('games');
+  const {
+    selectedGame, games, load, loading,
+  } = useStore('games');
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
@@ -43,7 +42,6 @@ const Home = () => {
   }, []);
 
   if (loading) return <Loading />;
-
 
   return (
     <div className="App">
@@ -91,7 +89,7 @@ const Home = () => {
                     height: 450,
                     clones: 0,
                     lazyLoad: true,
-                    waitForTransition: true
+                    waitForTransition: true,
                   }}
                 >
                   <SplideSlide>
@@ -134,7 +132,6 @@ const Home = () => {
                 </div>
               </div>
 
-
             </div>
           </div>
         )}
@@ -152,9 +149,9 @@ const Home = () => {
             width: 1000,
             height: 250,
             rewind: false,
-            gap    : '0.1rem',
+            gap: '0.1rem',
             keyboard: false,
-            lazyLoad: true
+            lazyLoad: true,
           }}
         >
           {games.map((game) => {
@@ -169,7 +166,7 @@ const Home = () => {
                   </Link>
                 </div>
               </SplideSlide>
-            )
+            );
           })}
         </Splide>
       </div>
