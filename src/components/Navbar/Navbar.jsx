@@ -4,8 +4,6 @@ import { observer } from 'mobx-react';
 
 import './Navbar.scss';
 
-import logo from '../../img/temp-logo.png';
-
 import { useStore } from '../../store';
 
 const Navbar = () => {
@@ -14,31 +12,56 @@ const Navbar = () => {
   const isSeller = isLoggedIn && user && user.isSeller();
 
   return (
-    <header className="nav">
-      <div className="left links">
-        {isSeller ? (
-          <Link to="/seller/dashboard">Dashboard</Link>
-        ) : (
-          <Link to="/seller/onboarding">Sell With Us</Link>
-        )}
-        {isLoggedIn ? (
-          <Link to="/my-library">My Library</Link>
-        ) : (
-          <Link to="/login">Login</Link>
-        )}
-      </div>
-      <div className="center">
-        <Link to="/">
-          <h3>Arcane Arcade</h3>
-          <img src={logo} className="App-logo" alt="logo" />
+    <nav
+      className="navbar arcane-nav"
+      role="navigation"
+      aria-label="main navigation"
+    >
+      <div className="navbar-brand">
+        <Link class="navbar-item" to="/">
+          <div className="logo-placeholder">Logo</div>
         </Link>
       </div>
-      <div className="right links">
-        <Link to="/how-it-works">How It Works</Link>
-        <Link to="/contact-us">Contact Us</Link>
-        {isLoggedIn && <Link to="/logout">Logout</Link>}
+
+      <div id="navbarBasicExample" className="navbar-menu">
+        <div className="navbar-start">
+          {isSeller ? (
+            <Link to="/seller/dashboard" className="navbar-item">
+              Dashboard
+            </Link>
+          ) : (
+            <Link to="/seller/onboarding" className="navbar-item">
+              Sell With Us
+            </Link>
+          )}
+
+          {isLoggedIn ? (
+            <Link to="/my-library" className="navbar-item">
+              My Library
+            </Link>
+          ) : (
+            <Link to="/login" className="navbar-item">
+              Login
+            </Link>
+          )}
+        </div>
+
+        <div className="navbar-end">
+          <Link to="/how-it-works" className="navbar-item">
+            How It Works
+          </Link>
+          <Link to="/contact-us" className="navbar-item">
+            Contact Us
+          </Link>
+
+          {isLoggedIn && (
+            <Link to="/logout" className="navbar-item">
+              Logout
+            </Link>
+          )}
+        </div>
       </div>
-    </header>
+    </nav>
   );
 };
 

@@ -4,14 +4,15 @@ import ReactPlayer from 'react-player';
 
 import { observer } from 'mobx-react';
 
+import { Splide, SplideSlide } from '@splidejs/react-splide';
+
 import './Home.scss';
-import '../../slider.css';
 
 import Navbar from '../../components/Navbar/Navbar';
 
 import GamesListings from './GamesListings';
 
-import bastion from '../../img/bastion.jpeg';
+import hades from '../../img/hades.png';
 import fire_emblem from '../../img/fire_emblem.png';
 import kingdomCome from '../../img/kingdom_come.jpeg';
 import greedfall from '../../img/greedfall.jpg';
@@ -38,6 +39,15 @@ const Home = () => {
       <div className="slider-container">
         {selectedGame && (
           <div>
+            <div className="tabs">
+              <div className="tab">
+                <a className="selected">Discover</a>
+              </div>
+              <div className="tab">
+                <a>Explore</a>
+              </div>
+            </div>
+
             <ReactPlayer
               url={selectedGame.videos[0]}
               playing
@@ -50,28 +60,63 @@ const Home = () => {
           </div>
         )}
         {!selectedGame && (
-          <div className="slider">
-            <a href="#slide-1">1</a>
-            <a href="#slide-2">2</a>
-            <a href="#slide-3">3</a>
-            <a href="#slide-4">4</a>
-            <a href="#slide-5">5</a>
+          <div className="flex">
+            <div className="row">
+              <div className="tabs">
+                <div className="tab">
+                  <a className="selected">Discover</a>
+                </div>
+                <div className="tab">
+                  <a>Explore</a>
+                </div>
+              </div>
+              <div className="slider">
+                <Splide
+                  className="splide-slider"
+                  options={{
+                    type: 'loop',
+                    easing: 'ease',
+                    width: 600,
+                    height: 450,
+                    keyboard: true,
+                    perPage: 1,
+                  }}
+                >
+                  <SplideSlide>
+                    <img
+                      src={kingdomCome}
+                      alt="kingdom come deliverance cover"
+                    />
+                  </SplideSlide>
+                  <SplideSlide>
+                    <img src={fire_emblem} alt="civilizations 6 cover" />
+                  </SplideSlide>
+                  <SplideSlide>
+                    <img src={hades} alt="hades cover" />
+                  </SplideSlide>
+                  <SplideSlide>
+                    <img src={greedfall} alt="greedfall 6 cover" />
+                  </SplideSlide>
+                  <SplideSlide>
+                    <img src={xcom} alt="civilizations 6 cover" />
+                  </SplideSlide>
+                </Splide>
+              </div>
+              <div className="slider-info">
+                <h1>Kingdom Come: Deliverance</h1>
 
-            <div className="slides">
-              <div id="slide-1">
-                <img src={kingdomCome} alt="kingdom come deliverance cover" />
-              </div>
-              <div id="slide-2">
-                <img src={fire_emblem} alt="civilizations 6 cover" />
-              </div>
-              <div id="slide-3">
-                <img src={bastion} alt="bastion cover" />
-              </div>
-              <div id="slide-4">
-                <img src={greedfall} alt="greedfall 6 cover" />
-              </div>
-              <div id="slide-5">
-                <img src={xcom} alt="civilizations 6 cover" />
+                <p>
+                  From its inception, Kingdom Come: Deliverance was billed as a
+                  game steeped in realism. From period-accurate food and weapon
+                  damage to characters drawn from history, Warhorse Studios did
+                  its homework. With the game’s release last week, we finally
+                  got to play in their (as promised) realistic version of 15th
+                  century Bohemia.
+                </p>
+
+                <div className="platform-icons">
+                  <i className="fab fa-windows" />
+                </div>
               </div>
             </div>
           </div>
