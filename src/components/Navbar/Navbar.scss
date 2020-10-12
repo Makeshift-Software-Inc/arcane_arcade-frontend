@@ -1,34 +1,26 @@
-header.nav {
-  justify-content: space-evenly;
-  width: 100%;
-  height: 145px;
-  display: flex;
+.arcane-nav {
+  height: 78px;
+  background-color: #2A2A2A;
 
-
-  .links {
-    margin-top: 60px;
-    margin-left: 72px;
-
-    &.left, &.right { display: flex; }
-
-    a {
-      color: #C0B2A1;
-      font-weight: 600;
-      width: 125px;
-      text-align: center;
+  .navbar-item {
+    &:hover {
+      background-color: #2A2A2A;
     }
   }
 
-  .center {
-    h3 {
-      color: #C0B2A1;
-      margin: 1em 0 0;
-      font-family: system-ui;
-    }
-    .App-logo {
-      width: 100px;
-    }
-
+  a {
+    font-family: "Montserrat";
+    color: #E4E4E4;
+    letter-spacing: -0.3px;
+    font-weight: 300;
   }
 
+  .logo-placeholder {
+    background-color: #463AF3;
+    width: 87px;
+    height: 39px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
