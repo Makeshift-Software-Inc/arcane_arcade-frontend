@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 import ReactPlayer from 'react-player';
 
@@ -9,6 +10,7 @@ import { Splide, SplideSlide } from '@splidejs/react-splide';
 import './Home.scss';
 
 import Navbar from '../../components/Navbar/Navbar';
+import Loading from '../../components/Loading/Loading';
 
 import GamesListings from './GamesListings';
 
@@ -22,7 +24,9 @@ import { useStore } from '../../store';
 
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const { selectedGame } = useStore('games');
+  const {
+    selectedGame, games, load, loading,
+  } = useStore('games');
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
@@ -31,6 +35,13 @@ const Home = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
   };
+
+  useEffect(() => {
+    load();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  if (loading) return <Loading />;
 
   return (
     <div className="App">
@@ -74,12 +85,11 @@ const Home = () => {
                 <Splide
                   className="splide-slider"
                   options={{
-                    type: 'loop',
-                    easing: 'ease',
                     width: 600,
                     height: 450,
-                    keyboard: true,
-                    perPage: 1,
+                    clones: 0,
+                    lazyLoad: true,
+                    waitForTransition: true,
                   }}
                 >
                   <SplideSlide>
@@ -122,23 +132,43 @@ const Home = () => {
                 </div>
               </div>
 
-              <div className="new-releases">
-                <Splide
-                  className="splide-slider"
-                  options={{
-                    type: 'loop',
-                    easing: 'ease',
-                    width: 900,
-                    height: 200,
-                    keyboard: true,
-                    perPage: 4,
-                    perMove: 1,
-                  }}
-                />
-              </div>
             </div>
           </div>
         )}
+      </div>
+
+      <div className="new-releases">
+        <h1>New Releases</h1>
+        <Splide
+          className="new release-slider"
+          options={{
+            type: 'loop',
+            clones: 0,
+            perPage: 4,
+            perMove: 1,
+            width: 1000,
+            height: 250,
+            rewind: false,
+            gap: '0.1rem',
+            keyboard: false,
+            lazyLoad: true,
+          }}
+        >
+          {games.map((game) => {
+            const imageAlt = `${game.title} cover`;
+            const listingShowLink = `/games/${game.slug}`;
+
+            return (
+              <SplideSlide key={game.id}>
+                <div className="game-listing" key={game.id}>
+                  <Link to={listingShowLink}>
+                    <img src={game.images[0]} alt={imageAlt} />
+                  </Link>
+                </div>
+              </SplideSlide>
+            );
+          })}
+        </Splide>
       </div>
 
       <nav
