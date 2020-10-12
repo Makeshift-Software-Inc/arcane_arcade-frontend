@@ -1,22 +1,23 @@
-import React, { useEffect, useState, useRef } from "react";
-import { useStore } from "../../../store";
-import { observer } from "mobx-react";
-import ReactTags from "react-tag-autocomplete";
+import React, { useEffect, useState, useRef } from 'react';
+import { observer } from 'mobx-react';
+import ReactTags from 'react-tag-autocomplete';
 
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
-import Tippy from "@tippyjs/react";
-import "tippy.js/dist/tippy.css";
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css';
 
-import "trix/dist/trix.js";
-import "trix/dist/trix.css";
+import 'trix/dist/trix';
+import 'trix/dist/trix.css';
 
-import Errors from "../../../components/Errors/Errors";
+import { useStore } from '../../../store';
 
-import Uploader from "../../../components/Uploader/Uploader";
-import Loading from "../../../components/Loading/Loading";
-import "./New.scss";
+import Errors from '../../../components/Errors/Errors';
+
+import Uploader from '../../../components/Uploader/Uploader';
+import Loading from '../../../components/Loading/Loading';
+import './New.scss';
 
 const SellerListingsNew = ({ history }) => {
   const [waitList, setWaitList] = useState([]);
@@ -69,31 +70,33 @@ const SellerListingsNew = ({ history }) => {
   useEffect(() => {
     load();
 
-    trixInput.current.addEventListener("trix-change", (event) => {
+    trixInput.current.addEventListener('trix-change', (event) => {
       if (event.target.name) {
         onChange(event);
       }
     });
 
-    trixInput.current.addEventListener("trix-file-accept", (event) => {
+    trixInput.current.addEventListener('trix-file-accept', (event) => {
       const acceptedAttachments = [
-        "image/png",
-        "image/jpeg",
-        "image/gif",
-        "image/jpg",
+        'image/png',
+        'image/jpeg',
+        'image/gif',
+        'image/jpg',
       ];
       if (!acceptedAttachments.includes(event.file.type)) {
         event.preventDefault();
-        alert("You can only add images with jpeg or png format.");
+        // eslint-disable-next-line no-alert
+        alert('You can only add images with jpeg or png format.');
       }
       const maxFileSize = 1024 * 1024 * 10; // 10MB
       if (event.file.size > maxFileSize) {
         event.preventDefault();
-        alert("Only support attachment files upto 10MB.");
+        // eslint-disable-next-line no-alert
+        alert('Only support attachment files upto 10MB.');
       }
     });
 
-    trixInput.current.addEventListener("trix-attachment-add", async (event) => {
+    trixInput.current.addEventListener('trix-attachment-add', async (event) => {
       if (event.attachment.file) {
         setWaitList([...waitList, event.attachment.id]);
         const data = await addAttachment(event);
@@ -136,7 +139,7 @@ const SellerListingsNew = ({ history }) => {
       preorderable,
       category_ids: selected_categories.map((category) => category.id),
       supported_platforms_ids: supported_platforms.map(
-        (platform) => platform.id
+        (platform) => platform.id,
       ),
       listing_images_attributes: images().map((image) => ({
         image: image.keys(),
@@ -153,7 +156,7 @@ const SellerListingsNew = ({ history }) => {
     const id = await games.create(listing);
 
     if (id) {
-      const notification = "Listing created.";
+      const notification = 'Listing created.';
       history.push({
         pathname: `/sell-your-game/${id}/distribution/add`,
         state: { notification },
@@ -171,8 +174,7 @@ const SellerListingsNew = ({ history }) => {
     name: category.title,
   }));
 
-  const releaseDateAsDate =
-    release_date.length > 0 ? new Date(release_date) : null;
+  const releaseDateAsDate = release_date.length > 0 ? new Date(release_date) : null;
 
   if (games.creating) return <Loading />;
 
@@ -240,22 +242,22 @@ const SellerListingsNew = ({ history }) => {
                         selectedCategoriesAsTags.length === 2 ? 0 : 100
                       }
                       classNames={{
-                        root: "react-tags",
-                        rootFocused: "is-focused",
-                        selected: "react-tags__selected",
-                        selectedTag: "react-tags__selected-tag",
-                        selectedTagName: "react-tags__selected-tag-name",
+                        root: 'react-tags',
+                        rootFocused: 'is-focused',
+                        selected: 'react-tags__selected',
+                        selectedTag: 'react-tags__selected-tag',
+                        selectedTagName: 'react-tags__selected-tag-name',
                         search: `react-tags__search ${
                           selectedCategoriesAsTags.length === 2
-                            ? "is-hidden"
-                            : ""
+                            ? 'is-hidden'
+                            : ''
                         }`,
-                        searchWrapper: "react-tags__search-wrapper",
+                        searchWrapper: 'react-tags__search-wrapper',
                         searchInput:
-                          "react-tags__search-input topcoat-text-input",
-                        suggestions: "react-tags__suggestions",
-                        suggestionActive: "is-active",
-                        suggestionDisabled: "is-disabled",
+                          'react-tags__search-input topcoat-text-input',
+                        suggestions: 'react-tags__suggestions',
+                        suggestionActive: 'is-active',
+                        suggestionDisabled: 'is-disabled',
                       }}
                     />
                   )}
@@ -271,18 +273,18 @@ const SellerListingsNew = ({ history }) => {
                     onAddition={addTag}
                     autoresize={false}
                     classNames={{
-                      root: "react-tags",
-                      rootFocused: "is-focused",
-                      selected: "react-tags__selected",
-                      selectedTag: "react-tags__selected-tag",
-                      selectedTagName: "react-tags__selected-tag-name",
-                      search: "react-tags__search",
-                      searchWrapper: "react-tags__search-wrapper",
+                      root: 'react-tags',
+                      rootFocused: 'is-focused',
+                      selected: 'react-tags__selected',
+                      selectedTag: 'react-tags__selected-tag',
+                      selectedTagName: 'react-tags__selected-tag-name',
+                      search: 'react-tags__search',
+                      searchWrapper: 'react-tags__search-wrapper',
                       searchInput:
-                        "react-tags__search-input topcoat-text-input",
-                      suggestions: "react-tags__suggestions",
-                      suggestionActive: "is-active",
-                      suggestionDisabled: "is-disabled",
+                        'react-tags__search-input topcoat-text-input',
+                      suggestions: 'react-tags__suggestions',
+                      suggestionActive: 'is-active',
+                      suggestionDisabled: 'is-disabled',
                     }}
                   />
                 </div>
@@ -298,7 +300,7 @@ const SellerListingsNew = ({ history }) => {
                       value={earlyAccess}
                     />
 
-                    <div className="topcoat-switch__toggle"></div>
+                    <div className="topcoat-switch__toggle" />
                   </label>
                 </div>
               </div>
@@ -309,16 +311,14 @@ const SellerListingsNew = ({ history }) => {
             <label className="form-label description">
               Game Description
               <Tippy
-                content={
-                  "You may want to add photos or .gifs for a more appealing synopsis. (700x295)"
-                }
-                interactive={true}
+                content="You may want to add photos or .gifs for a more appealing synopsis. (700x295)"
+                interactive
                 interactiveBorder={20}
                 delay={100}
-                arrow={true}
+                arrow
                 placement="auto"
               >
-                <i className="fas fa-question-circle"></i>
+                <i className="fas fa-question-circle" />
               </Tippy>
             </label>
             <div>
@@ -337,13 +337,13 @@ const SellerListingsNew = ({ history }) => {
               <label className="form-label" htmlFor="price">
                 Price in USD
               </label>
-                <input
-                  type="number"
-                  className="topcoat-text-input"
-                  value={price}
-                  onChange={onChange}
-                  name="price"
-                  />
+              <input
+                type="number"
+                className="topcoat-text-input"
+                value={price}
+                onChange={onChange}
+                name="price"
+              />
             </div>
 
             <div>
@@ -353,7 +353,7 @@ const SellerListingsNew = ({ history }) => {
                 onChange={setReleaseDate}
                 showTimeSelect
                 dateFormat="Pp"
-                />
+              />
             </div>
           </div>
 
@@ -365,7 +365,7 @@ const SellerListingsNew = ({ history }) => {
               ) : (
                 supportedPlatformOptions.map((platform) => {
                   const checked = !!supported_platforms.find(
-                    (p) => p.id === platform.id
+                    (p) => p.id === platform.id,
                   );
                   return (
                     <React.Fragment key={platform.id}>
@@ -383,13 +383,13 @@ const SellerListingsNew = ({ history }) => {
                         <div
                           className="topcoat-checkbox__checkmark"
                           style={{ marginRight: 10 }}
-                        ></div>
+                        />
                         {platform.name}
                       </label>
                       {platform.children.length > 0 && (
                         <div className="pc-platforms">
-                          {checked &&
-                            platform.children.map((children) => (
+                          {checked
+                            && platform.children.map((children) => (
                               <label
                                 className="topcoat-checkbox"
                                 key={children.id}
@@ -402,14 +402,14 @@ const SellerListingsNew = ({ history }) => {
                                   onChange={handleSupportedPlatformChange}
                                   checked={
                                     !!supported_platforms.find(
-                                      (p) => p.id === children.id
+                                      (p) => p.id === children.id,
                                     )
                                   }
                                 />
                                 <div
                                   className="topcoat-checkbox__checkmark"
                                   style={{ marginRight: 10 }}
-                                ></div>
+                                />
                                 {children.name}
                               </label>
                             ))}
@@ -422,7 +422,6 @@ const SellerListingsNew = ({ history }) => {
             </div>
           </div>
 
-
           <div className="system-requirements">
             {system_requirements.length > 0 && (
               <React.Fragment>
@@ -432,7 +431,10 @@ const SellerListingsNew = ({ history }) => {
                     <div className="topcoat-tab-bar">
                       <label className="topcoat-tab-bar__item">
                         <input type="radio" name="tab-bar" />
-                        <button className="topcoat-tab-bar__button">
+                        <button
+                          type="button"
+                          className="topcoat-tab-bar__button"
+                        >
                           {systemRequirement.name}
                         </button>
                       </label>
@@ -449,22 +451,20 @@ const SellerListingsNew = ({ history }) => {
               </React.Fragment>
             )}
           </div>
-          <div>
-          </div>
 
           {releaseDateInFuture() && (
             <div className="early-access">
               <label className="form-label">Preorderable</label>
-              <label class="topcoat-switch">
+              <label className="topcoat-switch">
                 <input
                   type="checkbox"
-                  class="topcoat-switch__input"
+                  className="topcoat-switch__input"
                   onChange={togglePreorderable}
                   id="preorderable"
                   name="preorderable"
                   value={preorderable}
                 />
-                <div class="topcoat-switch__toggle"></div>
+                <div className="topcoat-switch__toggle" />
               </label>
             </div>
           )}

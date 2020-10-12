@@ -4,8 +4,6 @@ import { observer } from 'mobx-react';
 
 import './Navbar.scss';
 
-import logo from '../../img/temp-logo.png';
-
 import { useStore } from '../../store';
 
 const Navbar = () => {
@@ -14,17 +12,19 @@ const Navbar = () => {
   const isSeller = isLoggedIn && user && user.isSeller();
 
   return (
-    <nav class="navbar arcane-nav" role="navigation" aria-label="main navigation">
-      <div class="navbar-brand">
+    <nav
+      className="navbar arcane-nav"
+      role="navigation"
+      aria-label="main navigation"
+    >
+      <div className="navbar-brand">
         <Link class="navbar-item" to="/">
-          <div className="logo-placeholder">
-            Logo
-          </div>
+          <div className="logo-placeholder">Logo</div>
         </Link>
       </div>
 
-      <div id="navbarBasicExample" class="navbar-menu">
-        <div class="navbar-start">
+      <div id="navbarBasicExample" className="navbar-menu">
+        <div className="navbar-start">
           {isSeller ? (
             <Link to="/seller/dashboard" className="navbar-item">
               Dashboard
@@ -36,14 +36,17 @@ const Navbar = () => {
           )}
 
           {isLoggedIn ? (
-            <Link to="/my-library" className="navbar-item">My Library</Link>
+            <Link to="/my-library" className="navbar-item">
+              My Library
+            </Link>
           ) : (
-            <Link to="/login" className="navbar-item">Login</Link>
+            <Link to="/login" className="navbar-item">
+              Login
+            </Link>
           )}
         </div>
 
-
-        <div class="navbar-end">
+        <div className="navbar-end">
           <Link to="/how-it-works" className="navbar-item">
             How It Works
           </Link>
@@ -51,16 +54,14 @@ const Navbar = () => {
             Contact Us
           </Link>
 
-          {isLoggedIn &&
+          {isLoggedIn && (
             <Link to="/logout" className="navbar-item">
               Logout
             </Link>
-          }
-
+          )}
         </div>
       </div>
     </nav>
-
   );
 };
 
