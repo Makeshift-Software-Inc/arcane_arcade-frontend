@@ -93,6 +93,7 @@ const GamesShow = ({ match, history }) => {
     }
   };
 
+  debugger;
   return (
     <div className="App listings-show">
       <Navbar />

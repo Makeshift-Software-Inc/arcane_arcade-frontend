@@ -17,6 +17,8 @@ const Game = types
     esrb: types.string,
     btc_amount: types.number,
     xmr_amount: types.number,
+    accepts_bitcoin: types.boolean,
+    accepts_monero: types.boolean,
     default_currency: types.string,
     currency_symbol: types.string,
     seller: types.maybe(Seller),
