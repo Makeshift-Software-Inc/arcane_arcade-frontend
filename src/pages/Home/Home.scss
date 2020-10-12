@@ -22,12 +22,13 @@
     }
     a {
       color: #525252;
-      letter-spacing: 0;
-      font-family: "Montserrat";
       font-size: 18px;
-      text-decoration: none;
+      letter-spacing: 0;
       border-bottom: none;
+      text-decoration: none;
+      font-family: "Montserrat";
       &.selected {
+        font-weight: 500;
         color: #E4E4E4;
         border-bottom: 4px #2D2785 solid;
       }
