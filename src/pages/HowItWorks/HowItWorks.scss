@@ -5,11 +5,21 @@
     .list-container {
       max-width: 955px;
       width: 100%;
+      margin-top : 200px;
       border-bottom: 2px solid #FFFFFF;
 
       .image-and-text {
         width: 100%;
         justify-content: space-between;
+      }
+
+      .list {
+        width: 100%;
+        margin-top: -1315px;
+      }
+
+      img {
+   
       }
     }
 

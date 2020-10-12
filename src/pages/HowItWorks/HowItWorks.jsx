@@ -20,8 +20,7 @@ import gameTypeImg from "./../../img/GameType.svg";
 import postGameImg from "./../../img/PostGame.svg";
 import profitImg from "./../../img/profit.svg";
 
-
-
+import line from "./../../img/Line.svg";
 
 
 const HowItWorks = () => {
@@ -96,6 +95,10 @@ const HowItWorks = () => {
         </div>
 
         <div className="flex flex-column list-container">
+
+          <img src={line} alt="line" className="line-img" />
+
+          <div className="flex flex-column list"> 
           {
             buyer && <HowItWorksList data={buyerData} />
           }
@@ -103,6 +106,7 @@ const HowItWorks = () => {
           {
             seller && <HowItWorksList data={sellerData} />
           }
+          </div>
         </div>
 
         {
