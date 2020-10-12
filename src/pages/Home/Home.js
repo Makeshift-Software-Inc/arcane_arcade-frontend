@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import ReactPlayer from "react-player";
 
@@ -21,12 +21,11 @@ import xcom from "../../img/xcom.jpg";
 import { useStore } from "../../store";
 
 const Home = () => {
-  const { selectedGame, load } = useStore("games");
+  const [searchQuery, setSearchQuery] = useState("");
+  const { selectedGame } = useStore("games");
 
-  let searchQuery = "";
-
-  const setSearchQuery = (e) => {
-    searchQuery = e.target.value;
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
   };
 
   const handleSubmit = (e) => {
@@ -120,9 +119,10 @@ const Home = () => {
         <div id="navbarBasicExample" className="navbar-menu">
           <div className="navbar-start">
             <div className="navbar-item">
-              <form onSubmit={handleSubmit.bind(this)}>
+              <form onSubmit={handleSubmit}>
                 <input
-                  onChange={setSearchQuery.bind(this)}
+                  onChange={handleSearchChange}
+                  value={searchQuery}
                   type="search"
                   placeholder="enter search term or tag"
                   className="topcoat-search-input"

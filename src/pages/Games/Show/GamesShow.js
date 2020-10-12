@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
 import { observer } from "mobx-react";
 
 import ReactPlayer from "react-player";
@@ -64,11 +63,10 @@ const GamesShow = ({ match, history }) => {
 
   useEffect(() => {
     loadGame(slug);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug]);
 
   if (!selectedGame) return <Loading />;
-
-  const coverAlt = `${selectedGame.title} cover`;
 
   const onFormSubmit = async (e) => {
     e.preventDefault();
