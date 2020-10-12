@@ -106,23 +106,44 @@ const Home = () => {
             <div className="slider-info">
               <h1>Kingdom Come: Deliverance</h1>
 
-            <p>
-              From its inception, Kingdom Come: Deliverance was billed as a
-              game steeped in realism. From period-accurate food and weapon damage
-              to characters drawn from history, Warhorse Studios did its homework.
-              With the game’s release last week, we finally got to play in their
-              (as promised) realistic version of 15th century Bohemia.
-            </p>
+              <p>
+                From its inception, Kingdom Come: Deliverance was billed as a
+                game steeped in realism. From period-accurate food and weapon damage
+                to characters drawn from history, Warhorse Studios did its homework.
+                With the game’s release last week, we finally got to play in their
+                (as promised) realistic version of 15th century Bohemia.
+              </p>
 
-            <div className="platform-icons">
-              <i className="fab fa-windows"></i>
+              <div className="platform-icons">
+                <a>Learn More ⟶</a>
+                <div className="icons">
+                  <i className="fab fa-windows"></i>
+                </div>
+              </div>
+            </div>
 
+            <div className="new-releases">
+              <Splide
+                className="splide-slider"
+                options={{
+                  type: "loop",
+                  easing: "ease",
+                  width: 900,
+                  height: 200,
+                  keyboard: true,
+                  perPage: 4,
+                  perMove: 1
+                }}
+                >
+
+              </Splide>
             </div>
-            </div>
+
           </div>
           </div>
         )}
       </div>
+
 
       <nav
         className="navbar browse-listings"

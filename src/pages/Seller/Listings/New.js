@@ -332,6 +332,31 @@ const SellerListingsNew = ({ history }) => {
             </div>
           </div>
 
+          <div className="form-row">
+            <div className="price">
+              <label className="form-label" htmlFor="price">
+                Price in USD
+              </label>
+                <input
+                  type="number"
+                  className="topcoat-text-input"
+                  value={price}
+                  onChange={onChange}
+                  name="price"
+                  />
+            </div>
+
+            <div>
+              <label className="form-label">Release Date:</label>
+              <DatePicker
+                selected={releaseDateAsDate}
+                onChange={setReleaseDate}
+                showTimeSelect
+                dateFormat="Pp"
+                />
+            </div>
+          </div>
+
           <div>
             <h4>Platforms Supported</h4>
             <div className="flex-column">
@@ -397,6 +422,7 @@ const SellerListingsNew = ({ history }) => {
             </div>
           </div>
 
+
           <div className="system-requirements">
             {system_requirements.length > 0 && (
               <React.Fragment>
@@ -424,29 +450,8 @@ const SellerListingsNew = ({ history }) => {
             )}
           </div>
           <div>
-            <div className="price">
-              <label>
-                Price in USD
-                <input
-                  type="number"
-                  className="topcoat-text-input"
-                  value={price}
-                  onChange={onChange}
-                  name="price"
-                />
-              </label>
-            </div>
           </div>
 
-          <div>
-            <label>Release Date:</label>
-            <DatePicker
-              selected={releaseDateAsDate}
-              onChange={setReleaseDate}
-              showTimeSelect
-              dateFormat="Pp"
-            />
-          </div>
           {releaseDateInFuture() && (
             <div className="early-access">
               <label className="form-label">Preorderable</label>
