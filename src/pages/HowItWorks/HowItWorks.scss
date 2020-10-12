@@ -5,11 +5,47 @@
     .list-container {
       max-width: 955px;
       width: 100%;
+      border-bottom: 2px solid #FFFFFF;
 
       .image-and-text {
         width: 100%;
         justify-content: space-between;
       }
+    }
+
+
+    .button-sell {
+      width: 304px;
+      height: 116px;
+      border-radius: 15px;
+      background-color: #463af3;
+      font-family: Montserrat;
+      font-size: 35px;
+      font-weight: bold;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.23;
+      letter-spacing: normal;
+      text-align: left;
+      color: #e4e4e4;
+      border: none;
+      margin-top: 44px;
+      margin-bottom: 90px;
+    }
+
+    .seller-msg {
+      width: 100%;
+      max-width: 1590px;
+      font-family: 'OpenSans';
+      font-size: 28px;
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: normal;
+      text-align: center;
+      color: #ffffff;
+      margin-top: 53px;
+      line-height: 1.79;
+      letter-spacing: 0.42px;
     }
 
     .title {
@@ -26,23 +62,29 @@
     .page-buttons {
       max-width: 430px;
       margin-bottom: 179px;
+      width: 100%;
+      justify-content: space-around;
 
       .button {
         background-color: transparent;
         text-decoration: none;
         border-radius: 0;
+        font-size: 26px;
+        padding-bottom: 0;
       }
 
       .button:hover,
       .button:active,
-      .button:focus {
+      .button:focus,
+      .button.active {
         color: #E4E4E4;
         border: none;
         background-color: transparent;
       }
 
       .button:active,
-      .button:focus {
+      .button:focus,
+      .button.active {
         border: none;
         box-shadow: none;
         background-color: transparent;

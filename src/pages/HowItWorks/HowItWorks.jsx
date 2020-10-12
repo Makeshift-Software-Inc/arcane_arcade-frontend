@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import './HowItWorks.scss';
 
@@ -25,6 +25,7 @@ import profitImg from "./../../img/profit.svg";
 
 
 const HowItWorks = () => {
+
   const [buyer, setBuyer]   = useState(true);
   const [seller, setSeller] = useState(false);
 
@@ -102,21 +103,22 @@ const HowItWorks = () => {
           {
             seller && <HowItWorksList data={sellerData} />
           }
-
-          {
-            seller &&
-            <div>
-              <h2>
-                We track the price of the cryptocurrency at the time of purchase, 
-                so every sale is accountable and taxable for your company. 
-                We generate monthly and quarterly reports in your currency of choice, to report your earnings.
-              </h2>
-
-              <button>Sell With Us</button>
-            </div>
-          }
-           
         </div>
+
+        {
+          seller &&
+          <div className="seller-msg">
+            <h2>
+              We track the price of the cryptocurrency at the time of purchase, 
+              so every sale is accountable and taxable for your company. 
+              We generate monthly and quarterly reports in your currency of choice, to report your earnings.
+            </h2>
+
+            <button className="button button-sell">Sell With Us</button>
+          </div>
+        }
+           
+
       </div>
     </div>
   );
