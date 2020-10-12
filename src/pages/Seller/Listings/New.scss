@@ -12,9 +12,15 @@
     width: 400px;
     margin-left: 5em;
     display: inline-block;
+    text-align: left;
     .title {
       margin: 1.35em 0 0em;
     }
+  }
+  .form-row {
+    display: flex;
+    justify-content: space-around;
+    padding: 0em 0 4em;
   }
 
   form {
@@ -101,7 +107,7 @@
       }
     }
 
-    input[type="text"] {
+    input[type="text"], input[type="number"] {
       margin-top: 22px;
     }
 

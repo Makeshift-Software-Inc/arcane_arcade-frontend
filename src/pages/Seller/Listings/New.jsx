@@ -332,6 +332,31 @@ const SellerListingsNew = ({ history }) => {
             </div>
           </div>
 
+          <div className="form-row">
+            <div className="price">
+              <label className="form-label" htmlFor="price">
+                Price in USD
+              </label>
+              <input
+                type="number"
+                className="topcoat-text-input"
+                value={price}
+                onChange={onChange}
+                name="price"
+              />
+            </div>
+
+            <div>
+              <label className="form-label">Release Date:</label>
+              <DatePicker
+                selected={releaseDateAsDate}
+                onChange={setReleaseDate}
+                showTimeSelect
+                dateFormat="Pp"
+              />
+            </div>
+          </div>
+
           <div>
             <h4>Platforms Supported</h4>
             <div className="flex-column">
@@ -399,14 +424,17 @@ const SellerListingsNew = ({ history }) => {
 
           <div className="system-requirements">
             {system_requirements.length > 0 && (
-              <>
+              <React.Fragment>
                 <h4>System Requirements</h4>
                 {system_requirements.map((systemRequirement) => (
                   <div key={systemRequirement.name}>
                     <div className="topcoat-tab-bar">
                       <label className="topcoat-tab-bar__item">
                         <input type="radio" name="tab-bar" />
-                        <button type="button" className="topcoat-tab-bar__button">
+                        <button
+                          type="button"
+                          className="topcoat-tab-bar__button"
+                        >
                           {systemRequirement.name}
                         </button>
                       </label>
@@ -420,33 +448,10 @@ const SellerListingsNew = ({ history }) => {
                     />
                   </div>
                 ))}
-              </>
+              </React.Fragment>
             )}
           </div>
-          <div>
-            <div className="price">
-              <label>
-                Price in USD
-                <input
-                  type="number"
-                  className="topcoat-text-input"
-                  value={price}
-                  onChange={onChange}
-                  name="price"
-                />
-              </label>
-            </div>
-          </div>
 
-          <div>
-            <label>Release Date:</label>
-            <DatePicker
-              selected={releaseDateAsDate}
-              onChange={setReleaseDate}
-              showTimeSelect
-              dateFormat="Pp"
-            />
-          </div>
           {releaseDateInFuture() && (
             <div className="early-access">
               <label className="form-label">Preorderable</label>

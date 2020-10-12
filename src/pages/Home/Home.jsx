@@ -115,8 +115,26 @@ const Home = () => {
                 </p>
 
                 <div className="platform-icons">
-                  <i className="fab fa-windows" />
+                  <a>Learn More ⟶</a>
+                  <div className="icons">
+                    <i className="fab fa-windows" />
+                  </div>
                 </div>
+              </div>
+
+              <div className="new-releases">
+                <Splide
+                  className="splide-slider"
+                  options={{
+                    type: 'loop',
+                    easing: 'ease',
+                    width: 900,
+                    height: 200,
+                    keyboard: true,
+                    perPage: 4,
+                    perMove: 1,
+                  }}
+                />
               </div>
             </div>
           </div>
@@ -126,7 +144,7 @@ const Home = () => {
       <nav
         className="navbar browse-listings"
         role="navigation"
-        aria-label="main navigation"
+        ariaLabel="main-navigation"
       >
         <div id="navbarBasicExample" className="navbar-menu">
           <div className="navbar-start">
