@@ -67,9 +67,6 @@ const HowItWorks = () => {
     }
   ];
 
-
-  
-
   return (
 
     <div className="App how-it-works ">

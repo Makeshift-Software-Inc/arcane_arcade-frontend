@@ -18,7 +18,7 @@ const Navbar = () => {
       aria-label="main navigation"
     >
       <div className="navbar-brand">
-        <Link class="navbar-item" to="/">
+        <Link className="navbar-item" to="/">
           <div className="logo-placeholder">Logo</div>
         </Link>
       </div>
