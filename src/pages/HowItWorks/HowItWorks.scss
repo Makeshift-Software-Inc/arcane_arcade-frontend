@@ -1,0 +1,83 @@
+.App.how-it-works {
+  font-family: 'Montserrat';
+  
+  .page-container {
+    .list-container {
+      max-width: 955px;
+      width: 100%;
+
+      .image-and-text {
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
+
+    .title {
+      width: 278px;
+      height: 50px;
+      margin-top: 41px;
+      margin-bottom: 50px;
+      font: normal normal medium 41px/50px Montserrat;
+      letter-spacing: 0px;
+      color: #FFFFFF;
+      opacity: 1;
+    }
+
+    .page-buttons {
+      max-width: 430px;
+      margin-bottom: 179px;
+
+      .button {
+        background-color: transparent;
+        text-decoration: none;
+        border-radius: 0;
+      }
+
+      .button:hover,
+      .button:active,
+      .button:focus {
+        color: #E4E4E4;
+        border: none;
+        background-color: transparent;
+      }
+
+      .button:active,
+      .button:focus {
+        border: none;
+        box-shadow: none;
+        background-color: transparent;
+        box-shadow: 0 2px 0  #463AF3;
+      }
+
+    }
+
+    .image-and-text {
+      margin-bottom: 106px;
+
+      .image-div {
+        .image {
+          width: 400px;
+          height: 230px;
+        }
+      }
+
+      .text-div {
+        width: 400px;
+        height: 230px;
+        color: #E4E4E4;
+        text-align: left;
+        justify-content: flex-start;
+
+        .text {
+          letter-spacing: 0px;
+          font-size: 25px;
+        }
+      }
+
+    }
+
+    
+
+  }
+
+}

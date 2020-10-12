@@ -5,12 +5,12 @@ const TextAndImg = ({
 }) => {
 
   return (
-    <div className="flex flex-row">
+    <div className="flex flex-row justify-between image-and-text">
       <div className="image-div">
-        <img src={image} alt="div-img" />
+        <img src={image} alt="div-img" className="image" />
       </div>
-      <div className="text-div">
-        <p>{text}</p>
+      <div className="text-div flex align-center justify-flex-start">
+        <p  className="text" >{text}</p>
       </div>
     </div>
   )

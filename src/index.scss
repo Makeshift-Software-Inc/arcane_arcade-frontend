@@ -57,3 +57,15 @@ code {
   display: flex;
   flex-direction: column;
 }
+
+.align-center {
+  align-items: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-flex-start {
+  justify-content: flex-start;
+}
