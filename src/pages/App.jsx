@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import '../react-tags.css';
 
 import '../normalize.css';
-import '../topcoat-desktop-dark.css';
+// import '../topcoat-desktop-dark.css';
 import 'bulma/bulma.sass';
 
 import { ToastContainer } from 'react-toastify';

@@ -1,0 +1,66 @@
+.onboarding-modal {
+  background-color: white;
+  padding: 10px 30px;
+  border-radius: 10px;
+  min-width: 400px;
+  .onboarding-modal-header {
+    margin-bottom: 0.7rem;
+    .close-wrapper {
+      cursor: pointer;
+    }
+    .modal-title {
+      font-weight: 400;
+    }
+  }
+  .question {
+    font-weight: bold;
+    margin: 0.2rem 0 1rem 0;
+  }
+  .current-step {
+    font-size: 0.7rem;
+  }
+  .option-label {
+    padding: 0 30px 0 10px;
+  }
+  .toggler-options {
+    button {
+      margin-right: 20px;
+      &:last-child {
+        margin-right: 0px;
+      }
+    }
+  }
+  .coin-icon {
+    img {
+      width: 50px;
+    }
+  }
+  .select-options {
+    border-radius: 5px;
+    background-color: white;
+    padding: 5px 10px;
+    border: 1px solid lightgray;
+    &:focus {
+      border: 1px solid lightgray;
+      outline: none;
+    }
+  }
+  input[type='text'] {
+    width: 100%;
+    min-width: 400px;
+    border: 1px solid lightgray;
+    font-size: 1rem;
+    font-weight: 400;
+    padding: 5px 10px;
+    border-radius: 5px;
+    &:focus {
+      border: 1px solid lightgray;
+      outline: none;
+    }
+  }
+  button[type='submit'] {
+    margin: 1rem 0 0.5rem 0;
+    width: 200px;
+    border-radius: 5px;
+  }
+}

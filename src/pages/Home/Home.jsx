@@ -142,9 +142,9 @@ const Home = () => {
       </div>
 
       <nav
-        className="navbar browse-listings"
+        className="browse-listings"
         role="navigation"
-        ariaLabel="main-navigation"
+        aria-label="main-navigation"
       >
         <div id="navbarBasicExample" className="navbar-menu">
           <div className="navbar-start">

@@ -1,15 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
+
+import Modal from '../Modals/Modal';
+import OnboardingModalContent from '../Onboarding/Modal';
 
 import './Navbar.scss';
 
 import { useStore } from '../../store';
 
 const Navbar = () => {
+  const [showOnboardingModal, setShowOnboardingModal] = useState(false);
   const { isLoggedIn, user } = useStore('auth');
 
   const isSeller = isLoggedIn && user && user.isSeller();
+
+  const handleShowOnboardingModal = (e) => {
+    e.preventDefault();
+    setShowOnboardingModal(true);
+  };
+
+  const closeOnboardingModal = () => {
+    setShowOnboardingModal(false);
+  };
 
   return (
     <nav
@@ -18,7 +31,7 @@ const Navbar = () => {
       aria-label="main navigation"
     >
       <div className="navbar-brand">
-        <Link class="navbar-item" to="/">
+        <Link className="navbar-item" to="/">
           <div className="logo-placeholder">Logo</div>
         </Link>
       </div>
@@ -30,9 +43,20 @@ const Navbar = () => {
               Dashboard
             </Link>
           ) : (
-            <Link to="/seller/onboarding" className="navbar-item">
-              Sell With Us
-            </Link>
+            <React.Fragment>
+              <a
+                onClick={handleShowOnboardingModal}
+                href="#"
+                className="navbar-item"
+              >
+                Sell With Us
+              </a>
+              {showOnboardingModal && (
+                <Modal>
+                  <OnboardingModalContent close={closeOnboardingModal} />
+                </Modal>
+              )}
+            </React.Fragment>
           )}
 
           {isLoggedIn ? (

@@ -4,8 +4,8 @@ import Base from './Base';
 const Onboarding = types
   .model('Onboarding', {
     currentStep: types.optional(types.integer, 0),
-    isSeller: types.optional(types.boolean, false),
-    sellWithUs: types.optional(types.boolean, false),
+    isSeller: types.optional(types.boolean, true),
+    sellWithUs: types.optional(types.boolean, true),
     companyName: types.optional(types.string, ''),
     studioSize: types.optional(
       types.enumeration(['INDIE', 'MIDSIZE', 'AAA']),
@@ -31,6 +31,9 @@ const Onboarding = types
   .actions((self) => ({
     nextStep() {
       self.currentStep += 1;
+    },
+    previousStep() {
+      self.currentStep -= 1;
     },
     reset() {
       self.currentStep = 0;
