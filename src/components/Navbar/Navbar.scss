@@ -3,7 +3,7 @@
   background-color: #2A2A2A;
 
   .navbar-item {
-    &:hover {
+    &:hover, &:focus {
       background-color: #2A2A2A;
     }
   }
