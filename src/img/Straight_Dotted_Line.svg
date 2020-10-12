@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="12" height="1231" viewBox="0 0 12 1231">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #fff;
+        stroke-width: 2px;
+        stroke-dasharray: 4 4;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <g id="Straight_Dotted_Line" transform="translate(-320 -510)">
+    <line id="Ligne_212" data-name="Ligne 212" class="cls-1" y2="1221" transform="translate(326.5 515.5)"/>
+    <circle id="Ellipse_14" data-name="Ellipse 14" class="cls-2" cx="6" cy="6" r="6" transform="translate(320 510)"/>
+    <circle id="Ellipse_15" data-name="Ellipse 15" class="cls-2" cx="6" cy="6" r="6" transform="translate(320 1729)"/>
+  </g>
+</svg>
