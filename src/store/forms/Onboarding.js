@@ -1,30 +1,30 @@
-import { types } from "mobx-state-tree";
-import Base from "./Base";
+import { types } from 'mobx-state-tree';
+import Base from './Base';
 
 const Onboarding = types
-  .model("Onboarding", {
+  .model('Onboarding', {
     currentStep: types.optional(types.integer, 0),
     isSeller: types.optional(types.boolean, false),
     sellWithUs: types.optional(types.boolean, false),
-    companyName: types.optional(types.string, ""),
+    companyName: types.optional(types.string, ''),
     studioSize: types.optional(
-      types.enumeration(["INDIE", "MIDSIZE", "AAA"]),
-      "INDIE"
+      types.enumeration(['INDIE', 'MIDSIZE', 'AAA']),
+      'INDIE',
     ),
     fiatCurrency: types.optional(
       types.enumeration([
-        "USD",
-        "EUR",
-        "JPY",
-        "GBP",
-        "AUD",
-        "CAD",
-        "CHF",
-        "CNY",
-        "SEK",
-        "NZD",
+        'USD',
+        'EUR',
+        'JPY',
+        'GBP',
+        'AUD',
+        'CAD',
+        'CHF',
+        'CNY',
+        'SEK',
+        'NZD',
       ]),
-      "USD"
+      'USD',
     ),
     acceptedCrypto: types.array(types.string),
   })
@@ -42,12 +42,10 @@ const Onboarding = types
     },
     removeCrypto(name) {
       self.acceptedCrypto = self.acceptedCrypto.filter(
-        (crypto) => crypto === name
+        (crypto) => crypto === name,
       );
     },
-    validate: () => {
-      return true;
-    },
+    validate: () => true,
   }));
 
 export default types.compose(Base, Onboarding);

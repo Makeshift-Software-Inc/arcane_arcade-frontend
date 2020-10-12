@@ -1,10 +1,10 @@
-import { types, flow } from "mobx-state-tree";
-import BaseUpdate from "./BaseUpdate";
+import { types, flow } from 'mobx-state-tree';
+import BaseUpdate from './BaseUpdate';
 
-import Api from "../../services/Api";
+import Api from '../../services/Api';
 
 const Notification = types
-  .model("Notification", {
+  .model('Notification', {
     id: types.identifier,
     seen: types.boolean,
     destination_path: types.maybe(types.string),

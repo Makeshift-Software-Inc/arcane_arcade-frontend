@@ -1,25 +1,25 @@
-import React from "react";
-import { Switch, Route } from "react-router-dom";
-import { observer } from "mobx-react";
-import { useStore } from "../store";
+import React from 'react';
+import { Switch, Route } from 'react-router-dom';
+import { observer } from 'mobx-react';
+import { useStore } from '../store';
 
-import ProtectedRoute from "./routes/Protected";
+import ProtectedRoute from './routes/Protected';
 
-import Home from "./Home/Home";
-import Login from "./Login/Login";
-import SignUp from "./SignUp/SignUp";
-import TwoFactorAuth from "./TwoFactorAuth/TwoFactorAuth";
-import GamesShow from "./Games/Show/GamesShow";
-import OrdersShow from "./Orders/Show/OrdersShow";
-import Logout from "./Logout/Logout";
-import HowItWorks from "./HowItWorks/HowItWorks";
-import ContactUs from "./ContactUs/ContactUs";
-import SellerOnboarding from "./Seller/Onboarding/Onboarding";
-import SellerDashboard from "./Seller/Dashboard/Dashboard";
-import SellerListingsNew from "./Seller/Listings/New";
-import SellerListingsAddDistribution from "./Seller/Listings/Distribution";
+import Home from './Home/Home';
+import Login from './Login/Login';
+import SignUp from './SignUp/SignUp';
+import TwoFactorAuth from './TwoFactorAuth/TwoFactorAuth';
+import GamesShow from './Games/Show/GamesShow';
+import OrdersShow from './Orders/Show/OrdersShow';
+import Logout from './Logout/Logout';
+import HowItWorks from './HowItWorks/HowItWorks';
+import ContactUs from './ContactUs/ContactUs';
+import SellerOnboarding from './Seller/Onboarding/Onboarding';
+import SellerDashboard from './Seller/Dashboard/Dashboard';
+import SellerListingsNew from './Seller/Listings/New';
+import SellerListingsAddDistribution from './Seller/Listings/Distribution';
 
-const Routes = (props) => {
+const Routes = () => {
   const {
     auth,
     auth: { isLoggedIn },
@@ -70,28 +70,28 @@ const Routes = (props) => {
       />
       <ProtectedRoute
         asActiveUser
-        redirectTo={isLoggedIn ? "/authorize" : "/login"}
+        redirectTo={isLoggedIn ? '/authorize' : '/login'}
         exact
         path="/seller/onboarding"
         component={SellerOnboarding}
       />
       <ProtectedRoute
         asActiveUser
-        redirectTo={isLoggedIn ? "/authorize" : "/login"}
+        redirectTo={isLoggedIn ? '/authorize' : '/login'}
         exact
         path="/buy/:id"
         component={OrdersShow}
       />
       <ProtectedRoute
         asSeller
-        redirectTo={isLoggedIn ? "/seller/onboarding" : "/login"}
+        redirectTo={isLoggedIn ? '/seller/onboarding' : '/login'}
         exact
         path="/seller/dashboard"
         component={SellerDashboard}
       />
       <ProtectedRoute
         asSeller
-        redirectTo={isLoggedIn ? "/seller/onboarding" : "/login"}
+        redirectTo={isLoggedIn ? '/seller/onboarding' : '/login'}
         exact
         path="/sell-your-game"
         component={SellerListingsNew}
@@ -99,7 +99,7 @@ const Routes = (props) => {
       {/* Can we change this from :id to :slug? */}
       <ProtectedRoute
         asSeller
-        redirectTo={isLoggedIn ? "/seller/onboarding" : "/login"}
+        redirectTo={isLoggedIn ? '/seller/onboarding' : '/login'}
         exact
         path="/sell-your-game/:id/distribution/add"
         component={SellerListingsAddDistribution}

@@ -1,13 +1,13 @@
-import { types, flow } from "mobx-state-tree";
-import BaseUpdate from "./BaseUpdate";
+import { types, flow } from 'mobx-state-tree';
+import axios from 'axios';
+import BaseUpdate from './BaseUpdate';
 
-import Api from "../../services/Api";
-import axios from "axios";
+import Api from '../../services/Api';
 
-const CancelToken = axios.CancelToken;
+const { CancelToken } = axios;
 
 const UploadedFile = types
-  .model("UploadedFile", {
+  .model('UploadedFile', {
     name: types.string,
     type: types.string,
     size: types.number,
@@ -25,14 +25,14 @@ const UploadedFile = types
   })
   .views((self) => ({
     storage() {
-      if (self.secure) return "secure_cache";
-      return "cache";
+      if (self.secure) return 'secure_cache';
+      return 'cache';
     },
     attachmentType() {
-      if (self.attachment) return "attachment";
-      if (self.secure) return "installer";
-      if (self.type.startsWith("video/")) return "video";
-      return "image";
+      if (self.attachment) return 'attachment';
+      if (self.secure) return 'installer';
+      if (self.type.startsWith('video/')) return 'video';
+      return 'image';
     },
     keys() {
       return {
@@ -69,12 +69,12 @@ const UploadedFile = types
       // get direct to s3 upload params
       try {
         const response = yield Api.get(
-          self.secure ? "/s3/secure/params" : "/s3/params",
-          { params }
+          self.secure ? '/s3/secure/params' : '/s3/params',
+          { params },
         );
         return response.data;
       } catch (e) {
-        console.log("PRESIGN ERROR", e);
+        console.log('PRESIGN ERROR', e);
         return false;
       }
     }),
@@ -93,18 +93,18 @@ const UploadedFile = types
         data.append(field, presignParams.fields[field]);
       });
 
-      data.append("file", self.data);
+      data.append('file', self.data);
 
       try {
         yield axios({
-          method: "post",
+          method: 'post',
           url: presignParams.url,
           data,
           onUploadProgress: self.onUploadProgress,
           cancelToken: self.source.token,
         });
 
-        const splitedKeys = presignParams.fields.key.split("/");
+        const splitedKeys = presignParams.fields.key.split('/');
 
         self.awsId = splitedKeys[splitedKeys.length - 1];
 
@@ -113,13 +113,13 @@ const UploadedFile = types
         self.loading = false;
         return true;
       } catch (e) {
-        console.log("UPLOAD ERROR", e);
+        console.log('UPLOAD ERROR', e);
         self.loading = false;
         return false;
       }
     }),
     cancelUpload() {
-      self.source.cancel("Upload canceled");
+      self.source.cancel('Upload canceled');
     },
     onUploadProgress(e) {
       self.progress = (e.loaded / e.total) * 100;

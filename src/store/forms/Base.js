@@ -1,4 +1,4 @@
-import { types } from "mobx-state-tree";
+import { types } from 'mobx-state-tree';
 
 const Base = types
   .model()
@@ -13,11 +13,11 @@ const Base = types
   }))
   .actions((self) => ({
     onChange: (event) => {
-      if (self.hasOwnProperty(event.target.name)) {
+      if (Object.prototype.hasOwnProperty.call(self, event.target.name)) {
         self[event.target.name] = event.target.value;
       } else {
         throw new Error(
-          `There is no ${event.target.name} field in ${self.$treenode.type.name} form model.`
+          `There is no ${event.target.name} field in ${self.$treenode.type.name} form model.`,
         );
       }
     },

@@ -1,13 +1,12 @@
-import * as serviceWorker from "./serviceWorker";
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-import React from "react";
-import ReactDOM from "react-dom";
+import { BrowserRouter } from 'react-router-dom';
+import * as serviceWorker from './serviceWorker';
+import { StoreProvider } from './store';
 
-import { BrowserRouter } from "react-router-dom";
-import { StoreProvider } from "./store";
-
-import "./index.scss";
-import App from "./pages/App";
+import './index.scss';
+import App from './pages/App';
 
 ReactDOM.render(
   <StoreProvider>
@@ -15,7 +14,7 @@ ReactDOM.render(
       <App />
     </BrowserRouter>
   </StoreProvider>,
-  document.getElementById("root")
+  document.getElementById('root'),
 );
 
 // If you want your app to work offline and load faster, you can change

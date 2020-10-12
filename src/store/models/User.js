@@ -1,23 +1,23 @@
-import { types, flow, getRoot } from "mobx-state-tree";
-import BaseUpdate from "./BaseUpdate";
-import Seller from "./Seller";
+import { types, flow, getRoot } from 'mobx-state-tree';
+import BaseUpdate from './BaseUpdate';
+import Seller from './Seller';
 
-import Api from "../../services/Api";
-import deserialize from "../../utils/deserialize";
+import Api from '../../services/Api';
+import deserialize from '../../utils/deserialize';
 
 const User = types
-  .model("User", {
+  .model('User', {
     id: types.identifier,
     username: types.string,
     email: types.string,
     phone_number: types.string,
-    activation_state: types.enumeration(["pending", "active"]),
+    activation_state: types.enumeration(['pending', 'active']),
     seller: types.maybeNull(Seller),
     loadingSeller: false,
   })
   .views((self) => ({
     activated() {
-      return self.activation_state === "active";
+      return self.activation_state === 'active';
     },
     isSeller() {
       return !!self.seller;
@@ -29,7 +29,9 @@ const User = types
 
       const {
         forms: {
-          onboarding: { acceptedCrypto, fiatCurrency, companyName, studioSize },
+          onboarding: {
+            acceptedCrypto, fiatCurrency, companyName, studioSize,
+          },
         },
       } = getRoot(self);
 
@@ -41,7 +43,7 @@ const User = types
       };
 
       try {
-        const response = yield Api.post("/sellers", { seller: seller });
+        const response = yield Api.post('/sellers', { seller });
         self.seller = deserialize(response.data);
         self.loadingSeller = false;
         return true;

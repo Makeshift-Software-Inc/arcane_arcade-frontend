@@ -1,14 +1,14 @@
-import { types, flow, getParent } from "mobx-state-tree";
-import BaseUpdate from "./BaseUpdate";
-import SupportedPlatform from "./SupportedPlatform";
-import Distribution from "./Distribution";
-import DistributionForm from "../forms/Distribution";
+import { types, flow, getParent } from 'mobx-state-tree';
+import BaseUpdate from './BaseUpdate';
+import SupportedPlatform from './SupportedPlatform';
+import Distribution from './Distribution';
+import DistributionForm from '../forms/Distribution';
 
-import Api from "../../services/Api";
-import deserialize from "../../utils/deserialize";
+import Api from '../../services/Api';
+import deserialize from '../../utils/deserialize';
 
 const SupportedPlatformListing = types
-  .model("SupportedPlatformListing", {
+  .model('SupportedPlatformListing', {
     id: types.identifier,
     supported_platform: types.reference(SupportedPlatform),
     distribution: types.maybeNull(Distribution),
@@ -18,19 +18,17 @@ const SupportedPlatformListing = types
   .views((self) => ({
     getChildrenPlatforms() {
       const supportedPlatformListings = getParent(self);
-      return supportedPlatformListings.filter((platform) =>
-        ["WINDOWS", "MAC", "LINUX"].includes(platform.supported_platform.name)
-      );
+      return supportedPlatformListings.filter((platform) => ['WINDOWS', 'MAC', 'LINUX'].includes(platform.supported_platform.name));
     },
     uploadingInstallers() {
-      if (self.distributionForm.method === "installer") {
+      if (self.distributionForm.method === 'installer') {
         const platforms = self.getChildrenPlatforms();
         const platformsWithInstallers = platforms.filter(
-          (platform) => platform.distributionForm.installer
+          (platform) => platform.distributionForm.installer,
         );
         if (platformsWithInstallers.length > 0) {
           return !platformsWithInstallers.every(
-            (platform) => platform.distributionForm.installer.uploaded
+            (platform) => platform.distributionForm.installer.uploaded,
           );
         }
       }
@@ -49,7 +47,7 @@ const SupportedPlatformListing = types
             ...platforms.map((platform) => ({
               id: platform.id,
               distribution_attributes: {
-                method: "installer",
+                method: 'installer',
                 installer_attributes: platform.distributionForm.installer && {
                   installer: platform.distributionForm.installer.keys(),
                 },
@@ -62,7 +60,7 @@ const SupportedPlatformListing = types
       try {
         const response = yield Api.post(
           `listings/${listing.id}/add_distributions`,
-          data
+          data,
         );
         console.log(response.data);
         console.log(deserialize(response.data));
@@ -82,8 +80,8 @@ const SupportedPlatformListing = types
     }),
     createDistribution: flow(function* createDistribution() {
       if (
-        self.supported_platform.name === "PC" &&
-        self.distributionForm.method === "installer"
+        self.supported_platform.name === 'PC'
+        && self.distributionForm.method === 'installer'
       ) {
         return yield self.createPCInstallers();
       }
@@ -105,7 +103,7 @@ const SupportedPlatformListing = types
       try {
         const response = yield Api.put(
           `listings/${listing.id}/supported_platform_listings/${self.id}`,
-          { supported_platform_listing }
+          { supported_platform_listing },
         );
 
         console.log(deserialize(response.data));

@@ -1,22 +1,22 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react';
 
-import "react-toastify/dist/ReactToastify.css";
+import 'react-toastify/dist/ReactToastify.css';
 
-import "../react-tags.css";
+import '../react-tags.css';
 
-import "../normalize.css";
-import "../topcoat-desktop-dark.css";
-import "bulma/bulma.sass";
+import '../normalize.css';
+import '../topcoat-desktop-dark.css';
+import 'bulma/bulma.sass';
 
-import { ToastContainer } from "react-toastify";
+import { ToastContainer } from 'react-toastify';
 
-import { observer } from "mobx-react";
+import { observer } from 'mobx-react';
 
-import { useStore } from "../store";
+import { useStore } from '../store';
 
-import Notifications from "../components/Notifications/Notifications";
-import Loading from "../components/Loading/Loading";
-import Routes from "./Routes";
+import Notifications from '../components/Notifications/Notifications';
+import Loading from '../components/Loading/Loading';
+import Routes from './Routes';
 
 const App = () => {
   const { auth, forms } = useStore();
@@ -33,11 +33,11 @@ const App = () => {
   if (auth.loading) return <Loading />;
 
   return (
-    <React.Fragment>
+    <>
       <ToastContainer />
       {auth.isLoggedIn && <Notifications />}
       <Routes />
-    </React.Fragment>
+    </>
   );
 };
 

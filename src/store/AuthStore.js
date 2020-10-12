@@ -1,33 +1,33 @@
-import { types, flow, getRoot } from "mobx-state-tree";
-import User from "./models/User";
-import Api from "../services/Api";
+import { types, flow, getRoot } from 'mobx-state-tree';
+import User from './models/User';
+import Api from '../services/Api';
 
-import deserialize from "../utils/deserialize";
+import deserialize from '../utils/deserialize';
 
 const AuthStore = types
-  .model("Auth", {
+  .model('Auth', {
     user: types.maybeNull(User),
     isLoggedIn: types.optional(types.boolean, false),
     loading: true,
   })
-  .views((self) => ({}))
+  .views(() => ({}))
   .actions((self) => ({
     signUp: flow(function* signUp() {
       const { forms } = getRoot(self);
 
       const keysToSend = [
-        "username",
-        "password",
-        "password_confirmation",
-        "email",
-        "phone_number",
+        'username',
+        'password',
+        'password_confirmation',
+        'email',
+        'phone_number',
       ];
 
       try {
-        const response = yield Api.post("/users", {
+        const response = yield Api.post('/users', {
           user: forms.signUp.keys(keysToSend),
         });
-        localStorage.setItem("auth_token", response.data.token);
+        localStorage.setItem('auth_token', response.data.token);
 
         self.user = deserialize(response.data);
         // FIXME: are we sure we want users to be logged in immedietly after signup?
@@ -44,13 +44,13 @@ const AuthStore = types
     login: flow(function* login() {
       const { forms } = getRoot(self);
 
-      const keysToSend = ["username", "password"];
+      const keysToSend = ['username', 'password'];
 
       try {
-        const response = yield Api.post("/login", {
+        const response = yield Api.post('/login', {
           user: forms.login.keys(keysToSend),
         });
-        localStorage.setItem("auth_token", response.data.token);
+        localStorage.setItem('auth_token', response.data.token);
 
         self.user = deserialize(response.data.user);
         self.isLoggedIn = true;
@@ -67,7 +67,7 @@ const AuthStore = types
       self.loading = true;
 
       try {
-        const response = yield Api.get("/logged_in");
+        const response = yield Api.get('/logged_in');
 
         self.user = deserialize(response.data);
         self.isLoggedIn = true;
@@ -89,12 +89,12 @@ const AuthStore = types
         return false;
       }
 
-      const keysToSend = ["delivery_method"];
+      const keysToSend = ['delivery_method'];
 
       self.loading = true;
 
       try {
-        yield Api.post("/send_auth_token", {
+        yield Api.post('/send_auth_token', {
           auth: forms.two_factor_auth.keys(keysToSend),
         });
 
@@ -117,10 +117,10 @@ const AuthStore = types
       const { forms } = getRoot(self);
 
       try {
-        yield Api.post("/authorize", {
+        yield Api.post('/authorize', {
           auth: { code },
         });
-        self.user.update({ activation_state: "active" });
+        self.user.update({ activation_state: 'active' });
         self.loading = false;
         return true;
       } catch (e) {
@@ -133,7 +133,7 @@ const AuthStore = types
     }),
     logout() {
       try {
-        localStorage.removeItem("auth_token");
+        localStorage.removeItem('auth_token');
         self.user = null;
         self.isLoggedIn = false;
         return true;
