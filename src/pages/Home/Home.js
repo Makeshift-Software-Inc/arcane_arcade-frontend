@@ -37,18 +37,21 @@ const Home = () => {
     <div className="App">
       <Navbar />
 
-      <div className="tabs">
-        <div className="tab">
-          <a className="selected">Discover</a>
-        </div>
-        <div className="tab">
-          <a>Explore</a>
-        </div>
-      </div>
+
 
       <div className="slider-container">
         {selectedGame && (
+
           <div>
+            <div className="tabs">
+              <div className="tab">
+                <a className="selected">Discover</a>
+              </div>
+              <div className="tab">
+                <a>Explore</a>
+              </div>
+            </div>
+
             <ReactPlayer
               url={selectedGame.videos[0]}
               playing={true}
@@ -61,7 +64,16 @@ const Home = () => {
           </div>
         )}
         {!selectedGame && (
-          <div className="row">
+          <div className="flex">
+            <div className="row">
+            <div className="tabs">
+              <div className="tab">
+                <a className="selected">Discover</a>
+              </div>
+              <div className="tab">
+                <a>Explore</a>
+              </div>
+            </div>
             <div className="slider">
               <Splide
                 className="splide-slider"
@@ -104,9 +116,10 @@ const Home = () => {
 
             <div className="platform-icons">
               <i className="fab fa-windows"></i>
-              
+
             </div>
             </div>
+          </div>
           </div>
         )}
       </div>
