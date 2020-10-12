@@ -14,13 +14,11 @@ const Navbar = () => {
   return (
     <nav class="navbar arcane-nav" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
-        <a class="navbar-item" href="https://bulma.io">
-          <Link to="/">
-            <div className="logo-placeholder">
-              Logo
-            </div>
-          </Link>
-        </a>
+        <Link class="navbar-item" to="/">
+          <div className="logo-placeholder">
+            Logo
+          </div>
+        </Link>
       </div>
 
       <div id="navbarBasicExample" class="navbar-menu">
