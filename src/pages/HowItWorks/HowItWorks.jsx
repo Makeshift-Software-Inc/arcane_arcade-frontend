@@ -116,6 +116,7 @@ const HowItWorks = () => {
         {
           seller &&
           <div className="seller-msg">
+            <hr/>
             <h2>
               We track the price of the cryptocurrency at the time of purchase, 
               so every sale is accountable and taxable for your company. 

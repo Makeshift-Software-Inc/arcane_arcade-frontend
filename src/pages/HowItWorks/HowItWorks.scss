@@ -2,12 +2,14 @@
   font-family: 'Montserrat';
   
   .page-container {
-    padding: 0 5px;
+
+    padding: 0;
     .list-container {
+      padding: 0 25px;
       max-width: 955px;
       width: 100%;
       margin-top : 200px;
-      border-bottom: 2px solid #FFFFFF;
+
 
       .image-and-text {
         width: 100%;
@@ -29,6 +31,23 @@
         .image-and-text {
           flex-direction: column;
           margin-bottom: 93px;
+
+           .text-div {
+
+              .text {
+                font-size: 21px;
+              }
+            
+            padding-right: 50px;
+            padding-left : 15px;
+            align-items: flex-start;
+            width: auto;
+            height: auto;
+          }
+        }
+
+        .image-and-text:last-child {
+          margin-bottom: 103px;
         }
 
         .straight-line-img {
@@ -45,16 +64,7 @@
         .list {
           margin-top: -1460px;
         }
-      }
 
-
-      .text-div {
-        font-size: 21px;
-        padding-right: 50px;
-        padding-left : 15px;
-        align-items: flex-start;
-        width: auto;
-        height: auto;
       }
 
     }
@@ -80,6 +90,7 @@
     }
 
     .seller-msg {
+      padding: 0 25px; 
       width: 100%;
       max-width: 1590px;
       font-family: 'OpenSans';
@@ -89,9 +100,9 @@
       font-style: normal;
       text-align: center;
       color: #ffffff;
-      margin-top: 53px;
       line-height: 1.79;
       letter-spacing: 0.42px;
+
     }
 
     .title {
@@ -134,7 +145,7 @@
         border: none;
         box-shadow: none;
         background-color: transparent;
-        box-shadow: 0 2px 0  #463AF3;
+        border-bottom: 2px solid #463AF3;
       }
 
     }
@@ -168,7 +179,7 @@
       .page-buttons {
         margine-bottom: 0;
         max-width: none;
-        box-shadow: 0 1px 0  #463AF3, 0 -1px 0  #463AF3;
+         border: 1px solid #463AF3;
 
         .button {
           width: 100%;
@@ -180,6 +191,22 @@
           background-color: #463AF3;
         }
       }
+
+      .seller-msg {
+        font-size: 14px;
+      }
+
+
+      .button-sell {
+        padding: 13px 125px;
+        width: 100%; 
+        height: 40px;
+        background-color: #463AF3;
+        box-shadow: 0px 3px 6px #FFFFFF1A;
+        border-radius: 15px;
+        font-size: 12px
+      }
+
 
 
 
