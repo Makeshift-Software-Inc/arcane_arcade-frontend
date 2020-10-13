@@ -12,18 +12,19 @@ import Loading from '../../../components/Loading/Loading';
 import './Dashboard.scss';
 import Navbar from '../../../components/Navbar/Navbar';
 
+import btcIcon from '../../../img/bitcoin.png';
+import xmrIcon from '../../../img/monero.png';
+
 import { useStore } from '../../../store';
 
 const SellerDashboard = () => {
   const {
     user: {
       seller: {
-        activeGames, pendingGames, loadingGames, loadGames,
+        activeGames, pendingGames, loadingGames, loadGames, accepted_crypto,
       },
     },
   } = useStore('auth');
-
-  const lineChartCtx = React.createRef();
 
   useEffect(() => {
     loadGames();
@@ -31,6 +32,7 @@ const SellerDashboard = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const lineChartCtx = React.createRef();
   useEffect(() => {
     if (!loadingGames) {
       // eslint-disable-next-line no-new
@@ -95,6 +97,23 @@ const SellerDashboard = () => {
   const dashboardRef = createRef();
   const dashboardContent = createRef();
 
+  const bitcoinWalletAddress = createRef();
+  const moneroWalletAddress = createRef();
+
+  const modalRef = createRef();
+
+  let bitcoinAddress = '';
+  let moneroAddress = '';
+
+  const setMoneroAddress = (e) => {
+    debugger;
+    moneroAddress = e.target.value;
+  };
+
+  const setBitcoinAddress = (e) => {
+    bitcoinAddress = e.target.value;
+  };
+
   const switchPanels = (e) => {
     e.preventDefault();
 
@@ -122,6 +141,18 @@ const SellerDashboard = () => {
         myGames.classList.remove('is-hidden');
       }
     }
+  };
+
+  const acceptsBTC = () => accepted_crypto.includes('BTC');
+
+  const acceptsXMR = () => accepted_crypto.includes('XMR');
+
+  const closeModal = () => {
+    modalRef.current.classList.add('is-hidden');
+  };
+
+  const openModal = () => {
+    modalRef.current.classList.remove('is-hidden');
   };
 
   return (
@@ -152,6 +183,87 @@ const SellerDashboard = () => {
       </div>
 
       <div className="dashboard" ref={dashboardContent}>
+        <div className="manage-payments">
+          <button className="topcoat-button--large" onClick={openModal}>
+            Manage Payments
+          </button>
+        </div>
+
+        <div className="modal is-hidden" ref={modalRef}>
+          <div className="modal-background" />
+          <div className="modal-content">
+            <nav className="panel">
+              <p className="panel-heading">
+                Coin Wallets
+              </p>
+              <div className="panel-block">
+                <div className="coins">
+                  <div className="bitcoin">
+                    <div className="left">
+                      <div className="btcIcon">
+                        <img src={btcIcon} />
+                      </div>
+                      <div className="accepting">
+                        <label className="topcoat-checkbox">
+                          <input type="checkbox" />
+                          <div className="topcoat-checkbox__checkmark" />
+                        </label>
+                      </div>
+                    </div>
+
+                    <div className="right">
+                      <input
+                        type="text"
+                        value={bitcoinAddress}
+                        ref={bitcoinWalletAddress}
+                        onChange={setBitcoinAddress}
+                        className="topcoat-text-input--large"
+                        placeholder="Insert your Bitcoin address"
+                      />
+                    </div>
+
+                  </div>
+                  <div className="monero">
+                    <div className="left">
+                      <div className="xmrIcon">
+                        <img src={xmrIcon} />
+                      </div>
+                      <div className="accepting">
+                        <label className="topcoat-checkbox">
+                          <input type="checkbox" />
+                          <div className="topcoat-checkbox__checkmark" />
+                        </label>
+                      </div>
+                    </div>
+                    <div className="right">
+                      <input
+                        type="text"
+                        value={moneroAddress}
+                        ref={moneroWalletAddress}
+                        onChange={setMoneroAddress}
+                        className="topcoat-text-input--large"
+                        placeholder="Insert your Monero address"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <div className="panel-block">
+
+                <div className="save-wallets">
+                  <button className="topcoat-button--large--cta">Save</button>
+                </div>
+              </div>
+
+            </nav>
+          </div>
+          <button
+            onClick={closeModal}
+            className="modal-close is-large"
+            aria-label="close"
+          />
+        </div>
 
         <canvas id="lineChart" ref={lineChartCtx} />
         <div className="chart-filters">

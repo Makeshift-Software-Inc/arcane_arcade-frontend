@@ -4,6 +4,7 @@
     height: 800px;
   }
 
+
   .links {
     margin: 70px 0;
 
@@ -55,6 +56,13 @@
     width: 1100px;
     display: block;
 
+    h1 {
+      font-family: "Montserrat";
+      font-size:22px;
+      letter-spacing: 0px;
+      margin: 0 auto 2em;
+    }
+
     .active, .pending {
       width: 50%;
       vertical-align: top;
@@ -88,6 +96,77 @@
         background-color: #463AF3;
 
         .actions {
+
+        }
+      }
+    }
+  }
+
+  .dashboard {
+    .manage-payments {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .modal {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+
+      .panel-block {
+        background-color: white;
+        display: flex;
+        justify-content: center;
+        padding: 1em;
+
+        .accepting {
+          display: flex;
+          justify-content: center;
+        }
+
+        .coins {
+          display: flex;
+          justify-content: center;
+        }
+
+        .btcIcon, .xmrIcon {
+          img {
+            width: 55px;
+          }
+        }
+
+        .bitcoin, .monero {
+          padding: 1em;
+
+          .left, .right {
+            display: inline-block;
+
+          }
+          .right {
+            margin-left: 2em;
+            vertical-align: top;
+            margin-top: 1.5em;
+
+            input {
+              background-color: whitesmoke;
+              color: #a2a2a2;
+            }
+          }
+        }
+
+        .topcoat-switch__input:checked + .topcoat-switch__toggle {
+          margin-left: 1.85rem;
+        }
+
+        .topcoat-switch__toggle {
+          margin-left: -2.5rem;
+
+          &:before, &:after  {
+            z-index: 9;
+          }
+
 
         }
       }
