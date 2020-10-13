@@ -14,7 +14,6 @@ import OrdersShow from './Orders/Show/OrdersShow';
 import Logout from './Logout/Logout';
 import HowItWorks from './HowItWorks/HowItWorks';
 import ContactUs from './ContactUs/ContactUs';
-import SellerOnboarding from './Seller/Onboarding/Onboarding';
 import SellerDashboard from './Seller/Dashboard/Dashboard';
 import SellerListingsNew from './Seller/Listings/New';
 import SellerListingsAddDistribution from './Seller/Listings/Distribution';
@@ -67,13 +66,6 @@ const Routes = () => {
         exact
         path="/authorize"
         component={TwoFactorAuth}
-      />
-      <ProtectedRoute
-        asActiveUser
-        redirectTo={isLoggedIn ? '/authorize' : '/login'}
-        exact
-        path="/seller/onboarding"
-        component={SellerOnboarding}
       />
       <ProtectedRoute
         asActiveUser

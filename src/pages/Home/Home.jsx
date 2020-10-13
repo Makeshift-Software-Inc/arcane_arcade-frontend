@@ -83,49 +83,14 @@ const Home = () => {
       <Navbar />
 
       <div className="slider-container">
-        {
-        selectedGame && (
-        <div>
-          <div className="tabs">
-            <div className="tab">
-              <a
-                role="link"
-                tabIndex={0}
-                className="selected"
-                ref={discoverRef}
-                onClick={switchPanels}
-                onKeyDown={switchPanels}
-              >
-                Discover
-              </a>
-            </div>
-            <div className="tab">
-              <a
-                role="link"
-                ref={exploreRef}
-                onClick={switchPanels}
-                onKeyDown={switchPanels}
-                tabIndex={0}
-              >
-                Explore
-              </a>
-            </div>
-          </div>
-
-          <ReactPlayer url={selectedGame.videos[0]} playing="playing" width="75vw" height="50vh" autoPlay="autoPlay" controls="controls" muted="muted" />
-        </div>
-        )
-      }
-        {
-        !selectedGame && (
-        <div className="flex">
-          <div className="row">
+        {selectedGame && (
+          <div>
             <div className="tabs">
               <div className="tab">
                 <a
-                  className="selected"
                   role="link"
                   tabIndex={0}
+                  className="selected"
                   ref={discoverRef}
                   onClick={switchPanels}
                   onKeyDown={switchPanels}
@@ -136,67 +101,108 @@ const Home = () => {
               <div className="tab">
                 <a
                   role="link"
-                  tabIndex={0}
                   ref={exploreRef}
                   onClick={switchPanels}
                   onKeyDown={switchPanels}
+                  tabIndex={0}
                 >
                   Explore
                 </a>
               </div>
             </div>
-            <div className="slider">
-              <Splide
-                className="splide-slider"
-                options={{
-                  width: 600,
-                  height: 450,
-                  clones: 0,
-                  lazyLoad: true,
-                  waitForTransition: true,
-                }}
-              >
-                <SplideSlide>
-                  <img src={kingdomCome} alt="kingdom come deliverance cover" />
-                </SplideSlide>
-                <SplideSlide>
-                  <img src={fire_emblem} alt="civilizations 6 cover" />
-                </SplideSlide>
-                <SplideSlide>
-                  <img src={hades} alt="hades cover" />
-                </SplideSlide>
-                <SplideSlide>
-                  <img src={greedfall} alt="greedfall 6 cover" />
-                </SplideSlide>
-                <SplideSlide>
-                  <img src={xcom} alt="civilizations 6 cover" />
-                </SplideSlide>
-              </Splide>
-            </div>
-            <div className="slider-info">
-              <h1>Kingdom Come: Deliverance</h1>
 
-              <p>
-                From its inception, Kingdom Come: Deliverance was billed as a
-                game steeped in realism. From period-accurate food and weapon
-                damage to characters drawn from history, Warhorse Studios did
-                its homework. With the game’s release last week, we finally got
-                to play in their (as promised) realistic version of
-                15th century Bohemia.
-              </p>
+            <ReactPlayer
+              url={selectedGame.videos[0]}
+              playing="playing"
+              width="75vw"
+              height="50vh"
+              autoPlay="autoPlay"
+              controls="controls"
+              muted="muted"
+            />
+          </div>
+        )}
+        {!selectedGame && (
+          <div className="flex">
+            <div className="row">
+              <div className="tabs">
+                <div className="tab">
+                  <a
+                    className="selected"
+                    role="link"
+                    tabIndex={0}
+                    ref={discoverRef}
+                    onClick={switchPanels}
+                    onKeyDown={switchPanels}
+                  >
+                    Discover
+                  </a>
+                </div>
+                <div className="tab">
+                  <a
+                    role="link"
+                    tabIndex={0}
+                    ref={exploreRef}
+                    onClick={switchPanels}
+                    onKeyDown={switchPanels}
+                  >
+                    Explore
+                  </a>
+                </div>
+              </div>
+              <div className="slider">
+                <Splide
+                  className="splide-slider"
+                  options={{
+                    width: 600,
+                    height: 450,
+                    clones: 0,
+                    lazyLoad: true,
+                    waitForTransition: true,
+                  }}
+                >
+                  <SplideSlide>
+                    <img
+                      src={kingdomCome}
+                      alt="kingdom come deliverance cover"
+                    />
+                  </SplideSlide>
+                  <SplideSlide>
+                    <img src={fire_emblem} alt="civilizations 6 cover" />
+                  </SplideSlide>
+                  <SplideSlide>
+                    <img src={hades} alt="hades cover" />
+                  </SplideSlide>
+                  <SplideSlide>
+                    <img src={greedfall} alt="greedfall 6 cover" />
+                  </SplideSlide>
+                  <SplideSlide>
+                    <img src={xcom} alt="civilizations 6 cover" />
+                  </SplideSlide>
+                </Splide>
+              </div>
+              <div className="slider-info">
+                <h1>Kingdom Come: Deliverance</h1>
 
-              <div className="platform-icons">
-                <a>Learn More ⟶</a>
-                <div className="icons">
-                  <i className="fab fa-windows" />
+                <p>
+                  From its inception, Kingdom Come: Deliverance was billed as a
+                  game steeped in realism. From period-accurate food and weapon
+                  damage to characters drawn from history, Warhorse Studios did
+                  its homework. With the game’s release last week, we finally
+                  got to play in their (as promised) realistic version of 15th
+                  century Bohemia.
+                </p>
+
+                <div className="platform-icons">
+                  <a>Learn More ⟶</a>
+                  <div className="icons">
+                    <i className="fab fa-windows" />
+                  </div>
                 </div>
               </div>
             </div>
-
           </div>
-        </div>
-        )
-      }
+        )}
       </div>
 
       <div className="discover" ref={discoverContent}>
@@ -217,23 +223,21 @@ const Home = () => {
               lazyLoad: true,
             }}
           >
-            {
-              games.map((game) => {
-                const imageAlt = `${game.title} cover`;
-                const listingShowLink = `/games/${game.slug}`;
+            {games.map((game) => {
+              const imageAlt = `${game.title} cover`;
+              const listingShowLink = `/games/${game.slug}`;
 
-                return (
-                  <SplideSlide key={game.id}>
-                    <div className="game-listing" key={game.id}>
-                      <Link to={listingShowLink}>
-                        <img src={game.images[0]} alt={imageAlt} />
-                      </Link>
-                      <div className="magic foolishIn info" />
-                    </div>
-                  </SplideSlide>
-                );
-              })
-            }
+              return (
+                <SplideSlide key={game.id}>
+                  <div className="game-listing" key={game.id}>
+                    <Link to={listingShowLink}>
+                      <img src={game.images[0]} alt={imageAlt} />
+                    </Link>
+                    <div className="magic foolishIn info" />
+                  </div>
+                </SplideSlide>
+              );
+            })}
           </Splide>
         </div>
 
@@ -249,9 +253,12 @@ const Home = () => {
       </div>
 
       <div className="explore is-hidden" ref={exploreContent}>
-        <nav className="navbar browse-listings" role="navigation" aria-label="main-navigation">
+        <nav
+          className="navbar browse-listings"
+          role="navigation"
+          aria-label="main-navigation"
+        >
           <div id="navbarBasicExample" className="navbar-menu">
-
             <div className="navbar-start">
               <div className="navbar-item">
                 <label htmlFor="sort-by">Sort By</label>
@@ -280,7 +287,13 @@ const Home = () => {
             <div className="navbar-end">
               <div className="navbar-item">
                 <form onSubmit={handleSubmit}>
-                  <input onChange={handleSearchChange} value={searchQuery} type="search" placeholder="enter search term or tag" className="topcoat-search-input" />
+                  <input
+                    onChange={handleSearchChange}
+                    value={searchQuery}
+                    type="search"
+                    placeholder="enter search term or tag"
+                    className="topcoat-search-input"
+                  />
                 </form>
               </div>
             </div>
@@ -306,7 +319,6 @@ const Home = () => {
           </div>
         </div>
       </div>
-
     </div>
   );
 };
