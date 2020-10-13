@@ -33,15 +33,16 @@ const HowItWorks = () => {
   const buyerData = [
     {
       img: gamesPickImg,
-      text: "1. Browse our catalog & select a game to buy"
+      text: `1. Browse our catalog \n& select a game to buy`
     },
     {
       img: platformImg,
       text: "2. Choose the desired Platform",
     },
     {
-      text: "3. Select the cryptocurrency to pay in",
       img: paymentImg,
+      text: "3. Select the cryptocurrency to pay in"
+
     },
     {
       img: qrImg,

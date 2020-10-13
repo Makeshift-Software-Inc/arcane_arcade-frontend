@@ -17,31 +17,44 @@
         display: none;
       }
 
+      .list {
+        width: 100%;
+        margin-top: -1340px;
+      }
+
       @media only screen and (max-width: 667px) {
 
         margin-top: 0;
 
         .image-and-text {
           flex-direction: column;
-          margin-bottom: 0;
+          margin-bottom: 93px;
         }
 
         .straight-line-img {
           display: block;
+          align-self: flex-end;
+          margin-right: 30px;
+          margin-top: 120px;
         }
 
         .line-img {
           display: none;
         }
 
-        .page-buttons {
-          margine-bottom: 0;
+        .list {
+          margin-top: -1460px;
         }
       }
 
-      .list {
-        width: 100%;
-        margin-top: -1315px;
+
+      .text-div {
+        font-size: 21px;
+        padding-right: 50px;
+        padding-left : 15px;
+        align-items: flex-start;
+        width: auto;
+        height: auto;
       }
 
     }
@@ -137,8 +150,8 @@
       }
 
       .text-div {
-        width: 400px;
-        height: 230px;
+        max-width: 400px;
+        max-height: 230px;
         color: #E4E4E4;
         text-align: left;
         justify-content: flex-start;
@@ -148,6 +161,29 @@
           font-size: 25px;
         }
       }
+
+    }
+
+    @media only screen and (max-width: 667px) {
+      .page-buttons {
+        margine-bottom: 0;
+        max-width: none;
+        box-shadow: 0 1px 0  #463AF3, 0 -1px 0  #463AF3;
+
+        .button {
+          width: 100%;
+          color: #FFFFFF;
+
+        }
+
+        .button.active {
+          background-color: #463AF3;
+        }
+      }
+
+
+
+      
 
     }
 

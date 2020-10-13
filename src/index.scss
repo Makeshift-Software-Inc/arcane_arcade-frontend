@@ -58,6 +58,14 @@ code {
   flex-direction: column;
 }
 
+.flex-row-reverse {
+  flex-direction: row-reverse;
+}
+
+.flex-column-reverse {
+  flex-direction: column-reverse;
+}
+
 .align-center {
   align-items: center;
 }
