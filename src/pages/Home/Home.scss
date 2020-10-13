@@ -27,6 +27,11 @@
       border-bottom: none;
       text-decoration: none;
       font-family: "Montserrat";
+
+      &:focus {
+        border: none;
+      }
+
       &.selected {
         font-weight: 500;
         color: #E4E4E4;

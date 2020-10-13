@@ -31,7 +31,7 @@ class OrdersShow extends React.Component {
       });
     });
 
-    Api.get(path).then((response) => {
+    Api.get(`${path}/payment_status`).then((response) => {
       this.setState({
         paymentReceived: !response.data.active,
       });
