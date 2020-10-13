@@ -1,0 +1,14 @@
+.onboarding-modal {
+  .onboarding-modal-header {
+    margin-bottom: 32px;
+    .close-wrapper {
+      cursor: pointer;
+    }
+    .modal-title {
+      font-weight: bold;
+      line-height: 1.5;
+      opacity: 0.5;
+      font-size: 20px;
+    }
+  }
+}

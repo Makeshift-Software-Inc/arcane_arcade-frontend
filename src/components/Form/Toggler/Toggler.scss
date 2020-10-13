@@ -1,0 +1,29 @@
+$blue-color: #463af3;
+$white-color: #ffffff;
+
+.arcane-toggler {
+  button {
+    width: 162px;
+    height: 48px;
+    margin-right: 32px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.5;
+    color: $white-color;
+    border-radius: 8px;
+    border: solid 1px $blue-color;
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.3);
+    background-color: $blue-color;
+    &.is-outlined {
+      color: $blue-color;
+      box-shadow: none;
+      background-color: $white-color;
+      &:hover {
+        background-color: $blue-color;
+      }
+    }
+    &:last-child {
+      margin-right: 0px;
+    }
+  }
+}

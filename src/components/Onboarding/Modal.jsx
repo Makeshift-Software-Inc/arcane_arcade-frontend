@@ -1,249 +1,26 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-
+import { useHistory } from 'react-router-dom';
 import './Modal.scss';
 
-import btcIcon from '../../img/bitcoin.png';
-import xmrIcon from '../../img/monero.png';
+import { toast } from 'react-toastify';
 
 import { useStore } from '../../store';
 
-const Step = ({ number }) => (
-  <small className="current-step align-self-start">
-    STEP
-    {number}
-    {' '}
-    OF 6
-  </small>
-);
+import Errors from '../Errors/Errors';
+import Loading from '../Loading/Loading';
 
-const Question = ({ text }) => (
-  <p className="question align-self-start">{text}</p>
-);
+import Step from './Step/Step';
+import Submit from './Submit/Submit';
 
-const Submit = () => (
-  <button type="submit" className="button is-link is-small">
-    NEXT
-  </button>
-);
+import Header from './Header';
 
-const Input = ({
-  type, name, value, onChange, placeholder,
-}) => (
-  <input
-    type={type}
-    name={name}
-    value={value}
-    onChange={onChange}
-    placeholder={placeholder}
-  />
-);
-
-const YesNoOptions = ({ name, isTrue, toggle }) => (
-  <div className="options flex-row">
-    <div>
-      <input
-        type="radio"
-        name={name}
-        id="option-true"
-        checked={isTrue}
-        value
-        onChange={toggle}
-      />
-      <label className="option-label" htmlFor="option-true">
-        Yes
-      </label>
-    </div>
-    <div>
-      <input
-        type="radio"
-        name={name}
-        id="option-false"
-        checked={!isTrue}
-        value={false}
-        onChange={toggle}
-      />
-      <label className="option-label" htmlFor="option-false">
-        No
-      </label>
-    </div>
-  </div>
-);
-
-const Toggler = ({ options, selected, onChange }) => {
-  const handleClick = (e) => {
-    onChange(e.target.name);
-  };
-
-  return (
-    <div className="toggler-options">
-      {options.map((option) => (
-        <button
-          key={option}
-          className={`button is-link ${
-            selected !== option ? 'is-outlined' : ''
-          }`}
-          name={option}
-          onClick={handleClick}
-          type="button"
-        >
-          {option}
-        </button>
-      ))}
-    </div>
-  );
-};
-
-const Select = ({ value, onChange, options }) => (
-  <select className="select-options" value={value} onChange={onChange}>
-    {options.map((option) => (
-      <option key={option.value} value={option.value}>
-        {option.text}
-      </option>
-    ))}
-  </select>
-);
-
-const AreYouPublisher = ({ update, isSeller }) => {
-  const toggle = () => {
-    update({ isSeller: !isSeller });
-  };
-
-  return (
-    <React.Fragment>
-      <Question text="Are you a game developer or publisher?" />
-
-      <YesNoOptions name="isSeller" isTrue={isSeller} toggle={toggle} />
-    </React.Fragment>
-  );
-};
-
-const SellWithUs = ({ update, sellWithUs }) => {
-  const toggle = () => {
-    update({ sellWithUs: !sellWithUs });
-  };
-
-  return (
-    <React.Fragment>
-      <Question text="Are you interested in selling your game(s) on Arcane Arcade?" />
-
-      <YesNoOptions name="sellWithUs" isTrue={sellWithUs} toggle={toggle} />
-    </React.Fragment>
-  );
-};
-
-const CompanyName = ({ update, companyName }) => {
-  const handleChange = (e) => update({ companyName: e.target.value });
-
-  return (
-    <React.Fragment>
-      <Question text="What is the name of your company?" />
-
-      <Input
-        type="text"
-        name="companyName"
-        value={companyName}
-        onChange={handleChange}
-        placeholder="Enter your company name"
-      />
-    </React.Fragment>
-  );
-};
-
-const StudioSize = ({ update, studioSize }) => {
-  const handleChange = (value) => {
-    update({ studioSize: value });
-  };
-  return (
-    <React.Fragment>
-      <Question text="Which best describes the size of your game company?" />
-      <Toggler
-        options={['INDIE', 'MIDSIZE', 'AAA']}
-        selected={studioSize}
-        onChange={handleChange}
-      />
-    </React.Fragment>
-  );
-};
-
-const Currency = ({ update, fiatCurrency }) => {
-  const onChange = (e) => {
-    update({ fiatCurrency: e.target.value });
-  };
-
-  const currencies = [
-    { value: 'USD', text: 'USD - US Dollar' },
-    { value: 'EUR', text: 'EUR - Euro' },
-    { value: 'JPY', text: 'JPY - Japanese Yen' },
-    { value: 'GBP', text: 'GBP - British Pound' },
-    { value: 'AUD', text: 'AUD - Australian Dollar' },
-    { value: 'CAD', text: 'CAD - Canadian Dollar' },
-    { value: 'CHF', text: 'CHF - Swiss Franc' },
-    { value: 'CNY', text: 'CNY - Chinese Yuan' },
-    { value: 'SEK', text: 'SEK - Swedish Krona' },
-    { value: 'NZD', text: 'NZD - New Zealand Dollar' },
-  ];
-
-  return (
-    <React.Fragment>
-      <Question text="Which fiat currency will you be pricing in?" />
-      <Select options={currencies} value={fiatCurrency} onChange={onChange} />
-    </React.Fragment>
-  );
-};
-
-const Crypto = observer(({ update, acceptedCrypto }) => {
-  console.log(acceptedCrypto.toJSON());
-
-  const handleChange = (e) => {
-    if (e.target.checked) {
-      update({ acceptedCrypto: [...acceptedCrypto, e.target.value] });
-    } else {
-      update({
-        acceptedCrypto: acceptedCrypto.filter(
-          (name) => name !== e.target.value,
-        ),
-      });
-    }
-  };
-
-  const checked = (name) => !!acceptedCrypto.find((crypto) => crypto === name);
-
-  const btcChecked = checked('BTC');
-  const xmrChecked = checked('XMR');
-
-  return (
-    <React.Fragment>
-      <Question text="Which cryptocurrency would you like to be paid in?" />
-      <div className="flex-row">
-        <div className="coin-icon flex-column">
-          <img src={btcIcon} alt="bitcoin" />
-          <input
-            type="checkbox"
-            id="bitcoin"
-            onChange={handleChange}
-            checked={btcChecked}
-            name="accepted_crypto"
-            className="switch"
-            value="BTC"
-          />
-        </div>
-        <div className="coin-icon flex-column">
-          <img src={xmrIcon} alt="monero" />
-          <input
-            type="checkbox"
-            onChange={handleChange}
-            id="monero"
-            checked={xmrChecked}
-            name="accepted_crypto"
-            value="XMR"
-            className="switch"
-          />
-        </div>
-      </div>
-    </React.Fragment>
-  );
-});
+import Crypto from './Steps/Crypto/Crypto';
+import AreYouPublisher from './Steps/AreYouPublisher/AreYouPublisher';
+import SellWithUs from './Steps/SellWithUs/SellWithUs';
+import CompanyName from './Steps/CompanyName/CompanyName';
+import StudioSize from './Steps/StudioSize/StudioSize';
+import Currency from './Steps/Currency/Currency';
 
 const STEPS = [
   { component: AreYouPublisher, props: ['isSeller'] },
@@ -255,20 +32,61 @@ const STEPS = [
 ];
 
 const OnboardingModalContent = ({ close }) => {
+  const history = useHistory();
+
+  // this are for transitions only
+  // const [fadeIn, setFadeIn] = useState(false);
+  // const [fadeOut, setFadeOut] = useState(false);
+
+  // useEffect(() => {
+  //   setFadeIn(true);
+  // }, []);
+
   const {
     forms: {
       onboarding,
-      onboarding: { update, nextStep, previousStep },
+      onboarding: {
+        errors, update, currentStep, nextStep, previousStep,
+      },
     },
+    auth: { user },
   } = useStore();
 
-  const next = (e) => {
+  const next = async (e) => {
     e.preventDefault();
-    console.log('NEXT');
-    nextStep();
+
+    if (currentStep === 0 && !onboarding.isSeller) {
+      onboarding.reset();
+      close();
+      return;
+    }
+
+    if (currentStep === 1 && !onboarding.sellWithUs) {
+      onboarding.reset();
+      close();
+      return;
+    }
+
+    if (currentStep === 5) {
+      if (nextStep()) {
+        if (await user.createSeller()) {
+          history.push('/seller/dashboard');
+          toast('Your seller account has been created.');
+        }
+      }
+    } else {
+      nextStep();
+    }
   };
 
-  const currentStep = 5;
+  // if we need transitions
+  // const previousStepWithTransition = () => {
+  //   setFadeOut(true);
+  //   setTimeout(() => {
+  //     previousStep();
+  //     setFadeOut(false);
+  //   }, 200);
+  // };
 
   const back = currentStep > 0 ? previousStep : null;
 
@@ -283,31 +101,29 @@ const OnboardingModalContent = ({ close }) => {
   );
 
   return (
-    <div className="onboarding-modal">
-      <div className="onboarding-modal-header flex-row align-center justify-between">
-        <span className="back-wrapper">
-          {back && (
-            // eslint-disable-next-line
-            <span onClick={back}>Back</span>
-          )}
-        </span>
-        <span className="modal-title">Sell With Us</span>
-        <span className="close-wrapper">
-          {close && (
-            // eslint-disable-next-line
-            <span onClick={close}>X</span>
-          )}
-        </span>
-      </div>
-      <div className="onboarding-model-body">
-        <form onSubmit={next} className="flex-column align-center">
-          <Step number={currentStep + 1} />
+    // if we need transitions uncomment this line
+    // <div className={`onboarding-modal ${fadeIn ? 'fade-in' : ''} ${fadeOut ? 'fade-out' : ''}`}>
+    <div
+      className={`onboarding-modal ${currentStep === 0 ? 'small-modal' : ''}`}
+    >
+      {user.loadingSeller ? (
+        <Loading />
+      ) : (
+        <React.Fragment>
+          <Header back={back} close={close} />
+          <div className="onboarding-modal-body">
+            <form onSubmit={next} className="flex-column align-center">
+              <Step number={currentStep + 1} />
 
-          <Component {...defaultProps} {...componentProps} />
+              <Component {...defaultProps} {...componentProps} />
 
-          <Submit />
-        </form>
-      </div>
+              <Errors errors={errors.full_messages.toJSON()} />
+
+              <Submit finish={currentStep === 5} />
+            </form>
+          </div>
+        </React.Fragment>
+      )}
     </div>
   );
 };

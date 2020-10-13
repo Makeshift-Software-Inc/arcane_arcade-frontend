@@ -1,0 +1,33 @@
+.arcane-switch {
+  width: 34px;
+  input[type='checkbox'] {
+    display: none;
+  }
+  .switch-line {
+    width: 34px;
+    height: 14px;
+    background-color: white;
+    border: solid 2px #e3e5e6;
+    border-radius: 7px;
+    position: relative;
+    &:before {
+      content: '';
+      border-radius: 50%;
+      background-color: #c6cacc;
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      left: -5px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    &.checked {
+      background-color: #99dda9;
+      &:before {
+        left: unset;
+        right: -5px;
+        background-color: #01aa28;
+      }
+    }
+  }
+}

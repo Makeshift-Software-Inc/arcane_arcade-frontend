@@ -1,5 +1,6 @@
 import { types } from 'mobx-state-tree';
 import Base from './Base';
+import Errors from './Errors';
 
 const Onboarding = types
   .model('Onboarding', {
@@ -27,18 +28,25 @@ const Onboarding = types
       'USD',
     ),
     acceptedCrypto: types.array(types.string),
+    errors: types.optional(Errors, {}),
   })
   .actions((self) => ({
     nextStep() {
-      self.currentStep += 1;
+      const valid = self.validate();
+      if (!valid) return false;
+
+      if (self.currentStep < 5) {
+        self.currentStep += 1;
+      }
+      return true;
     },
     previousStep() {
       self.currentStep -= 1;
     },
     reset() {
       self.currentStep = 0;
-      self.isSeller = false;
-      self.sellWithUs = false;
+      self.isSeller = true;
+      self.sellWithUs = true;
     },
     addCrypto(name) {
       self.acceptedCrypto.push(name);
@@ -48,7 +56,45 @@ const Onboarding = types
         (crypto) => crypto === name,
       );
     },
-    validate: () => true,
+    validate: () => {
+      self.errors = {};
+      switch (self.currentStep) {
+        case 2:
+          if (self.companyName.trim().length === 0) {
+            self.errors.update({
+              full_messages: ["Company name can't be blank"],
+            });
+            return false;
+          }
+          return true;
+        case 3:
+          if (!self.studioSize || self.studioSize.length === 0) {
+            self.errors.update({
+              full_messages: ['Please choose a studio size.'],
+            });
+            return false;
+          }
+          return true;
+        case 4:
+          if (!self.fiatCurrency || self.fiatCurrency.length === 0) {
+            self.errors.update({
+              full_messages: ['Please choose a currency.'],
+            });
+            return false;
+          }
+          return true;
+        case 5:
+          if (self.acceptedCrypto.length === 0) {
+            self.errors.update({
+              full_messages: ['Please choose at least one crypto currency.'],
+            });
+            return false;
+          }
+          return true;
+        default:
+          return true;
+      }
+    },
   }));
 
 export default types.compose(Base, Onboarding);

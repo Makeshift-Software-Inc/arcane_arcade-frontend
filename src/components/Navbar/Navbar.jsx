@@ -24,6 +24,37 @@ const Navbar = () => {
     setShowOnboardingModal(false);
   };
 
+  const renderNonSellerLinks = () => {
+    if (isSeller) {
+      return (
+        <Link to="/seller/dashboard" className="navbar-item">
+          Dashboard
+        </Link>
+      );
+    }
+
+    if (!isLoggedIn) {
+      return (
+        <Link to="/login" className="navbar-item">
+          Sell With Us
+        </Link>
+      );
+    }
+
+    return (
+      <React.Fragment>
+        <a onClick={handleShowOnboardingModal} href="#" className="navbar-item">
+          Sell With Us
+        </a>
+        {showOnboardingModal && (
+          <Modal>
+            <OnboardingModalContent close={closeOnboardingModal} />
+          </Modal>
+        )}
+      </React.Fragment>
+    );
+  };
+
   return (
     <nav
       className="navbar arcane-nav"
@@ -38,26 +69,7 @@ const Navbar = () => {
 
       <div id="navbarBasicExample" className="navbar-menu">
         <div className="navbar-start">
-          {isSeller ? (
-            <Link to="/seller/dashboard" className="navbar-item">
-              Dashboard
-            </Link>
-          ) : (
-            <React.Fragment>
-              <a
-                onClick={handleShowOnboardingModal}
-                href="#"
-                className="navbar-item"
-              >
-                Sell With Us
-              </a>
-              {showOnboardingModal && (
-                <Modal>
-                  <OnboardingModalContent close={closeOnboardingModal} />
-                </Modal>
-              )}
-            </React.Fragment>
-          )}
+          {renderNonSellerLinks()}
 
           {isLoggedIn ? (
             <Link to="/my-library" className="navbar-item">
