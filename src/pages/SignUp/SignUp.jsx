@@ -29,9 +29,10 @@ const SignUpPage = ({ history }) => {
   } = useStore();
 
   const onSubmit = async (e) => {
+    const countryCode = document.querySelector('.iti__selected-dial-code').innerHTML;
     e.preventDefault();
     if (signUp.validate()) {
-      if (await authStore.signUp()) {
+      if (await authStore.signUp(countryCode)) {
         history.push('/authorize');
       }
     }
