@@ -22,15 +22,76 @@
     }
     a {
       color: #525252;
-      letter-spacing: 0;
-      font-family: "Montserrat";
       font-size: 18px;
-      text-decoration: none;
+      letter-spacing: 0;
       border-bottom: none;
+      text-decoration: none;
+      font-family: "Montserrat";
       &.selected {
+        font-weight: 500;
         color: #E4E4E4;
         border-bottom: 4px #2D2785 solid;
       }
+    }
+  }
+
+  .new-releases {
+    width: 1050px;
+    display: block;
+    margin: 0 auto;
+
+    .game-listing {
+      max-width: 200px;
+      max-height: 200px;
+      height: 200px;
+      width: 200px;
+      margin: 0;
+
+      img {
+        max-width: 200px;
+        max-height: 200px;
+        height: 200px;
+        width: 200px;
+        margin: 0;
+      }
+
+    }
+
+    .splide {
+      margin: 0 auto;
+    }
+
+    h1 {
+      margin: 1em 0em 0.7em 1.5em;
+      font-size: 21px;
+      font-family: "Montserrat";
+      letter-spacing: 0.4px;
+      text-align: left;
+      font-weight: 400;
+      text-rendering: geometricPrecision;
+    }
+  }
+
+  .promotions {
+    width: 1105px;
+    display: block;
+    margin: 0 auto;
+
+    h1 {
+      margin: 1em 0em 0.7em 1.9em;
+      font-size: 24px;
+      font-family: "Montserrat";
+      letter-spacing: 0.4px;
+      text-align: left;
+      font-weight: 400;
+      text-rendering: geometricPrecision;
+    }
+
+    .game-list {
+      background-color: transparent;
+      width: 1105px;
+      margin: 0 auto;
+      padding: 0;
     }
   }
 
@@ -66,9 +127,9 @@
         font-family: "Montserrat";
         text-align: left;
         padding: 1em;
-        color: aliceblue;
         font-size: 15px;
-        font-weight: 600;
+        color: aliceblue;
+        line-height: 1.4;
         letter-spacing: 0px;
         height: 190px;
         text-overflow: ellipsis;
@@ -81,7 +142,7 @@
         justify-content: space-between;
 
         a {
-          color: white; 
+          color: white;
         }
 
         i {
@@ -103,22 +164,39 @@
   }
 
   .browse-listings {
-    margin-top: 5vh;
     height: 6vh;
+    width: 1050px;
+    margin: 0 auto;
+    margin-top: 5vh ;
     background-color: rgba(0, 0, 0, 0.5);
 
     label {
       padding-right: 1vw;
-      color: aliceblue;
+      color: rgba(#E4E4E4, 0.5);
     }
     input[type=search] {
+      padding: 0.3em 2.5em;
       text-align: center;
       color: aliceblue;
+      margin-right: 1em;
+    }
+
+    select {
+      background-color: transparent;
+      color: aliceblue;
+      border: none;
+
+      option {
+        background-color: #2A2A2A;
+        border-color: #2A2A2A;
+      }
     }
   }
 
   .games {
     display: flex;
+    width: 1050px;
+    margin: 0 auto;
   }
 
   .game-list {
@@ -163,7 +241,7 @@
     min-height: 40vh;
     width: 25vw;
     border-left: 3px solid #2F2D32;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(#2A2A2A, 0.4);
 
     .card {
       background-color: rgba(0,0,0,0.2);
