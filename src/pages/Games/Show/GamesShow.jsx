@@ -105,9 +105,9 @@ const GamesShow = ({ match, history }) => {
         <Splide
           className="splide-slider"
           options={{
-            type: 'loop',
-            easing: 'ease',
-            keyboard: true,
+            clones: 0,
+            lazyLoad: true,
+            waitForTransition: true,
             perPage: 1,
           }}
         >
