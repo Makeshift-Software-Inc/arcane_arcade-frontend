@@ -4,6 +4,7 @@ import Login from './forms/Login';
 import TwoFactorAuth from './forms/TwoFactorAuth';
 import Onboarding from './forms/Onboarding';
 import Listing from './forms/Listing';
+import CoinWallet from './forms/CoinWallet';
 
 const FormsStore = types
   .model('Forms', {
@@ -12,6 +13,7 @@ const FormsStore = types
     two_factor_auth: types.optional(TwoFactorAuth, {}),
     onboarding: types.optional(Onboarding, {}),
     listing: types.optional(Listing, {}),
+    coin_wallet: types.optional(CoinWallet, {}),
   })
   .actions(() => ({}));
 

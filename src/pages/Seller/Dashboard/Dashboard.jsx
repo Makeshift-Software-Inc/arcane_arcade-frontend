@@ -1,4 +1,4 @@
-import React, { useEffect, createRef } from 'react';
+import React, { useEffect, useState, createRef } from 'react';
 import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
 
@@ -8,6 +8,8 @@ import 'tippy.js/dist/tippy.css';
 import { Line } from 'chart.js';
 import 'chart.js/dist/Chart.min.css';
 
+import CoinWallets from './CoinWallets/CoinWallets';
+
 import Loading from '../../../components/Loading/Loading';
 import './Dashboard.scss';
 import Navbar from '../../../components/Navbar/Navbar';
@@ -15,6 +17,8 @@ import Navbar from '../../../components/Navbar/Navbar';
 import { useStore } from '../../../store';
 
 const SellerDashboard = () => {
+  const [showCointWalletsModal, setShowCoinWalletsModal] = useState(false);
+
   const {
     user: {
       seller: {
@@ -23,14 +27,21 @@ const SellerDashboard = () => {
     },
   } = useStore('auth');
 
-  const lineChartCtx = React.createRef();
-
   useEffect(() => {
     loadGames();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const closeCoinWalletsModal = () => {
+    setShowCoinWalletsModal(false);
+  };
+
+  const openCoinWalletsModal = () => {
+    setShowCoinWalletsModal(true);
+  };
+
+  const lineChartCtx = React.createRef();
   useEffect(() => {
     if (!loadingGames) {
       // eslint-disable-next-line no-new
@@ -153,6 +164,15 @@ const SellerDashboard = () => {
       </div>
 
       <div className="dashboard" ref={dashboardContent}>
+        <div className="manage-payments">
+          <button
+            type="button"
+            className="topcoat-button--large"
+            onClick={openCoinWalletsModal}
+          >
+            Manage Payments
+          </button>
+        </div>
         <canvas id="lineChart" ref={lineChartCtx} />
         <div className="chart-filters">
           <div className="topcoat-button-bar">
@@ -330,6 +350,7 @@ const SellerDashboard = () => {
           </div>
         </div>
       </div>
+      {showCointWalletsModal && <CoinWallets close={closeCoinWalletsModal} />}
     </div>
   );
 };

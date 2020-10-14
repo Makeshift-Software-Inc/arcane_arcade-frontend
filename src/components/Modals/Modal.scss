@@ -1,0 +1,11 @@
+$main-color: #000000;
+
+.arcane-modal {
+  .modal-content {
+    background-color: white;
+    padding: 20px 40px 40px;
+    border-radius: 10px;
+    color: $main-color;
+    font-family: Montserrat;
+  }
+}

@@ -1,0 +1,21 @@
+$blue-color: #463af3;
+$green-color: #048b23;
+
+.submit-button {
+  margin: 40px 0 0;
+  width: 327px;
+  height: 48px;
+  border-radius: 8px;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2);
+  background-color: $blue-color;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 1.25;
+  letter-spacing: 0.6px;
+  &.is-green {
+    background-color: $green-color;
+    &:hover {
+      background-color: $green-color;
+    }
+  }
+}
