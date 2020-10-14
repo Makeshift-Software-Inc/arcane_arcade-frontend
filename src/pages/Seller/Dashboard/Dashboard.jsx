@@ -1,11 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, createRef } from 'react';
 import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
 
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css';
+
 import { Line } from 'chart.js';
-import Loading from '../../../components/Loading/Loading';
 import 'chart.js/dist/Chart.min.css';
 
+import Loading from '../../../components/Loading/Loading';
 import './Dashboard.scss';
 import Navbar from '../../../components/Navbar/Navbar';
 
@@ -87,60 +90,220 @@ const SellerDashboard = () => {
 
   if (loadingGames) return <Loading />;
 
+  const myGamesRef = createRef();
+  const myGamesContent = createRef();
+  const dashboardRef = createRef();
+  const dashboardContent = createRef();
+
+  const switchPanels = (e) => {
+    e.preventDefault();
+
+    const { target } = e;
+
+    let sibling;
+
+    if (target === dashboardRef.current) {
+      sibling = target.previousSibling;
+    } else {
+      sibling = target.nextSibling;
+    }
+
+    if (!target.classList.contains('selected')) {
+      sibling.classList.remove('selected');
+      target.classList.add('selected');
+
+      const dashboard = dashboardContent.current;
+      const myGames = myGamesContent.current;
+      if (dashboard.classList.contains('is-hidden')) {
+        dashboard.classList.remove('is-hidden');
+        myGames.classList.add('is-hidden');
+      } else {
+        dashboard.classList.add('is-hidden');
+        myGames.classList.remove('is-hidden');
+      }
+    }
+  };
+
   return (
     <div className="App seller-dashboard">
       <Navbar />
 
-      <div className="post">
-        <Link to="/sell-your-game">
-          <button type="button" className="topcoat-button--large">Create Listing</button>
-        </Link>
+      <div className="links">
+        <a
+          ref={myGamesRef}
+          role="link"
+          tabIndex={0}
+          onKeyDown={switchPanels}
+          onClick={switchPanels}
+
+        >
+          My Game(s)
+        </a>
+        <a
+          role="link"
+          tabIndex={0}
+          ref={dashboardRef}
+          onClick={switchPanels}
+          onKeyDown={switchPanels}
+          className="selected"
+        >
+          Dashboard
+        </a>
       </div>
-      <canvas id="lineChart" ref={lineChartCtx} />
-      <div className="chart-filters">
-        <div className="topcoat-button-bar">
-          <div className="topcoat-button-bar__item">
-            <button type="button" className="topcoat-button-bar__button--large">Daily</button>
-          </div>
-          <div className="topcoat-button-bar__item">
-            <button type="button" className="topcoat-button-bar__button--large">
-              Weekly
-            </button>
-          </div>
-          <div className="topcoat-button-bar__item">
-            <button type="button" className="topcoat-button-bar__button--large">
-              Monthly
-            </button>
-          </div>
-          <div className="topcoat-button-bar__item">
-            <button type="button" className="topcoat-button-bar__button--large">
-              Yearly
-            </button>
+
+      <div className="dashboard" ref={dashboardContent}>
+
+        <canvas id="lineChart" ref={lineChartCtx} />
+        <div className="chart-filters">
+          <div className="topcoat-button-bar">
+            <div className="topcoat-button-bar__item">
+              <button type="button" className="topcoat-button-bar__button--large">Daily</button>
+            </div>
+            <div className="topcoat-button-bar__item">
+              <button type="button" className="topcoat-button-bar__button--large">
+                Weekly
+              </button>
+            </div>
+            <div className="topcoat-button-bar__item">
+              <button type="button" className="topcoat-button-bar__button--large">
+                Monthly
+              </button>
+            </div>
+            <div className="topcoat-button-bar__item">
+              <button type="button" className="topcoat-button-bar__button--large">
+                Yearly
+              </button>
+            </div>
           </div>
         </div>
       </div>
-      <div className="listings">
-        <div className="active">
-          {activeGames().map((game) => (
-            <Link
-              key={game.id}
-              to={`/sell-your-game/${game.id}/distribution/add`}
-            >
-              {game.title}
-            </Link>
-          ))}
+
+      <div className="my-games is-hidden" ref={myGamesContent}>
+        <div className="post">
+          <Link to="/sell-your-game">
+            <button type="button" className="topcoat-button--large--cta">Post a New Game</button>
+          </Link>
         </div>
-        <div className="pending">
-          {pendingGames().map((game) => (
-            <Link
-              key={game.id}
-              to={`/sell-your-game/${game.id}/distribution/add`}
-            >
-              {game.title}
-            </Link>
-          ))}
+        <div className="listings">
+
+          <div className="active">
+            <h1>Active Listings</h1>
+
+            {activeGames().map((game) => (
+              <Tippy
+                content={(
+                  <div className="info">
+                    <p>{game.title}</p>
+
+                    <div className="actions">
+                      <div className="topcoat-button-bar">
+
+                        <div className="topcoat-button-bar__item">
+                          <Link
+                            key={game.id}
+                            to={`/games/${game.slug}`}
+                          >
+                            <button type="button" className="topcoat-button-bar__button">View</button>
+                          </Link>
+                        </div>
+
+                        <div className="topcoat-button-bar__item">
+                          <Link
+                            key={game.id}
+                            to={`/games/${game.slug}/edit`}
+                          >
+                            <button type="button" className="topcoat-button-bar__button">Edit</button>
+                          </Link>
+                        </div>
+
+                        <div className="topcoat-button-bar__item">
+                          <Link
+                            key={game.id}
+                            to={`/sell-your-game/${game.id}/distribution/add`}
+                          >
+                            <button type="button" className="topcoat-button-bar__button">Manage</button>
+                          </Link>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+)}
+                interactive
+                interactiveBorder={20}
+                delay={100}
+                arrow
+                placement="auto"
+                key={game.id}
+              >
+
+                <div className="game-listing">
+                  <img src={game.images[0]} alt={`${game.title} cover`} />
+                </div>
+              </Tippy>
+            ))}
+          </div>
+
+          <div className="pending">
+            <h1>Pending Listings</h1>
+
+            {pendingGames().map((game) => (
+              <Tippy
+                content={(
+                  <div className="info">
+                    <p>{game.title}</p>
+
+                    <div className="actions">
+                      <div className="topcoat-button-bar">
+
+                        <div className="topcoat-button-bar__item">
+                          <Link
+                            key={game.id}
+                            to={`/games/${game.slug}`}
+                          >
+                            <button type="button" className="topcoat-button-bar__button">View</button>
+                          </Link>
+                        </div>
+
+                        <div className="topcoat-button-bar__item">
+                          <Link
+                            key={game.id}
+                            to={`/games/${game.slug}/edit`}
+                          >
+                            <button type="button" className="topcoat-button-bar__button">Edit</button>
+                          </Link>
+                        </div>
+
+                        <div className="topcoat-button-bar__item">
+                          <Link
+                            key={game.id}
+                            to={`/sell-your-game/${game.id}/distribution/add`}
+                          >
+                            <button type="button" className="topcoat-button-bar__button">Manage</button>
+                          </Link>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+)}
+                interactive
+                interactiveBorder={20}
+                delay={100}
+                arrow
+                placement="auto"
+                key={game.id}
+              >
+
+                <div className="game-listing">
+                  <img src={game.images[0]} alt={`${game.title} cover`} />
+                </div>
+              </Tippy>
+            ))}
+          </div>
         </div>
       </div>
+
     </div>
   );
 };

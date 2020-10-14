@@ -1,15 +1,59 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
+
+import Modal from '../Modals/Modal';
+import OnboardingModalContent from '../Onboarding/Modal';
 
 import './Navbar.scss';
 
 import { useStore } from '../../store';
 
 const Navbar = () => {
+  const [showOnboardingModal, setShowOnboardingModal] = useState(false);
   const { isLoggedIn, user } = useStore('auth');
 
   const isSeller = isLoggedIn && user && user.isSeller();
+
+  const handleShowOnboardingModal = (e) => {
+    e.preventDefault();
+    setShowOnboardingModal(true);
+  };
+
+  const closeOnboardingModal = () => {
+    setShowOnboardingModal(false);
+  };
+
+  const renderNonSellerLinks = () => {
+    if (isSeller) {
+      return (
+        <Link to="/seller/dashboard" className="navbar-item">
+          Dashboard
+        </Link>
+      );
+    }
+
+    if (!isLoggedIn) {
+      return (
+        <Link to="/login" className="navbar-item">
+          Sell With Us
+        </Link>
+      );
+    }
+
+    return (
+      <React.Fragment>
+        <a onClick={handleShowOnboardingModal} href="#" className="navbar-item">
+          Sell With Us
+        </a>
+        {showOnboardingModal && (
+          <Modal>
+            <OnboardingModalContent close={closeOnboardingModal} />
+          </Modal>
+        )}
+      </React.Fragment>
+    );
+  };
 
   return (
     <nav
@@ -25,15 +69,7 @@ const Navbar = () => {
 
       <div id="navbarBasicExample" className="navbar-menu">
         <div className="navbar-start">
-          {isSeller ? (
-            <Link to="/seller/dashboard" className="navbar-item">
-              Dashboard
-            </Link>
-          ) : (
-            <Link to="/seller/onboarding" className="navbar-item">
-              Sell With Us
-            </Link>
-          )}
+          {renderNonSellerLinks()}
 
           {isLoggedIn ? (
             <Link to="/my-library" className="navbar-item">

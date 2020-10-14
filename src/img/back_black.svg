@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="42.11" height="42.11" viewBox="0 0 42.11 42.11">
+  <defs>
+    <style>
+      .cls-1, .cls-3 {
+        fill: #000000;
+      }
+
+      .cls-2 {
+        clip-path: url(#clip-path);
+      }
+
+      .cls-3 {
+        fill-rule: evenodd;
+      }
+    </style>
+    <clipPath id="clip-path">
+      <path id="Tracé_1088" data-name="Tracé 1088" class="cls-1" d="M480,40h42.11V82.11H480Z"/>
+    </clipPath>
+  </defs>
+  <g id="Groupe_291" data-name="Groupe 291" class="cls-2" transform="translate(-480 -40)">
+    <path id="Tracé_1087" data-name="Tracé 1087" class="cls-3" d="M503.79,55.474,502.317,54,496,60.316l6.316,6.316,1.474-1.474-4.843-4.843Z" transform="translate(0.844 0.738)"/>
+  </g>
+</svg>

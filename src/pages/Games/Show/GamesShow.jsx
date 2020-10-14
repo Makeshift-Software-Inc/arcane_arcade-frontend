@@ -72,24 +72,28 @@ const GamesShow = ({ match, history }) => {
       return;
     }
 
-    const coin_type = document.querySelector(
+    const selectedPayment = document.querySelector(
       'input[name="payment_method"]:checked',
-    ).id;
+    );
+
+    if (!selectedPayment) return;
+
+    const coin_type = selectedPayment.id;
     // eslint-disable-next-line
-    const deposit_amount = this.state.game[`${coin_type}_amount`];
+    const deposit_amount = selectedGame[`${coin_type}_amount`];
 
     const response = await Api.post('/orders', {
       coin_type: coin_type.toUpperCase(),
       coin_amount: deposit_amount,
       // eslint-disable-next-line
-      listing_id: this.state.game.id,
+      listing_id: selectedGame.id,
       // eslint-disable-next-line
-      fiat_currency: this.state.game.default_currency,
+      fiat_currency: selectedGame.default_currency,
     });
 
     if (response.status === 200) {
       // eslint-disable-next-line
-      this.props.history.push(`/buy/${response.data.id}`);
+      history.push(`/buy/${response.data.id}`);
     }
   };
 

@@ -1,0 +1,32 @@
+$gray-color: #c4c4c4;
+
+.arcane-input {
+  width: 100%;
+  min-width: 400px;
+  height: 48px;
+  border-radius: 8px;
+  border: solid 1px $gray-color;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+  padding: 15px;
+  &:focus {
+    border: solid 1px $gray-color;
+    outline: none;
+  }
+  &::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: $gray-color;
+    opacity: 1;
+  }
+
+  &:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: $gray-color;
+  }
+
+  &::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: $gray-color;
+  }
+}

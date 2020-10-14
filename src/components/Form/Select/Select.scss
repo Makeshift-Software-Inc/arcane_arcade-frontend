@@ -1,0 +1,19 @@
+$dark-gray-color: #121212;
+
+.arcane-select {
+  background-color: white;
+  width: 210px;
+  height: 48px;
+  border-radius: 8px;
+  border: solid 1px $dark-gray-color;
+  color: $dark-gray-color;
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+  padding: 15px;
+  &:focus {
+    border: solid 1px $dark-gray-color;
+    outline: none;
+  }
+}

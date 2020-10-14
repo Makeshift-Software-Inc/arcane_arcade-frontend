@@ -1,0 +1,15 @@
+<svg id="monero" xmlns="http://www.w3.org/2000/svg" width="97.29" height="97.288" viewBox="0 0 97.29 97.288">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #f60;
+      }
+
+      .cls-2 {
+        fill: #4c4c4c;
+      }
+    </style>
+  </defs>
+  <path id="Tracé_1084" data-name="Tracé 1084" class="cls-1" d="M48.644,0A48.679,48.679,0,0,0,2.477,64.009H17.026V23.081L48.645,54.7,80.263,23.081V64.009H94.812A48.675,48.675,0,0,0,48.644,0"/>
+  <path id="Tracé_1085" data-name="Tracé 1085" class="cls-2" d="M52.919,140.55l-13.8-13.8V152.5h-20.5a48.655,48.655,0,0,0,83.132,0h-20.5V126.75l-13.8,13.8-7.27,7.27-7.269-7.269h0Z" transform="translate(-11.545 -78.58)"/>
+</svg>
