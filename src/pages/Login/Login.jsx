@@ -6,6 +6,10 @@ import { useStore } from '../../store';
 
 import Navbar from '../../components/Navbar/Navbar';
 import Errors from '../../components/Errors/Errors';
+import Input from '../../components/Form/Input/Input';
+import Submit from '../../components/Form/Submit/Submit'
+
+import background from './../../img/auth-bckg.jpg';
 
 import './Login.scss';
 
@@ -28,59 +32,62 @@ const LoginPage = ({ history }) => {
 
   return (
     <div className="App">
-      <Navbar />
+ 
+      <div className="flex flex-column justify-center align-center login-page">
 
-      <h1> Login </h1>
-      <div className="login-form">
-        <form onSubmit={onSubmit}>
-          <div className="field">
-            <label className="label" htmlFor="username">
-              Username
-            </label>
-            <input
-              id="username"
-              className={`topcoat-text-input--large ${
-                login.errors.errors
-                && hasError('username')
-                  ? 'error'
-                  : ''
-              }`}
-              type="text"
-              name="username"
-              value={login.username}
-              onChange={login.onChange}
-            />
+        
+        <div className="login-form flex flex-column ">
+          <Link className="logo flex" to="/">
+            Logo
+          </Link>
+          <div className="sign-up-link">
+            <h1> Sign In </h1>
+            <span>Don&apos;t have an account? </span>  
+            <Link to="/sign-up">Sign up</Link>
           </div>
+          <form onSubmit={onSubmit} className="flex-flex-column">
+          <Input 
+            label={'Username'}
+            type="text"
+            name="username"
+            value={login.username}
+            onChange={login.onChange}
+          />
+          
+          <Input 
+            label={'Password'}
+            type="password"
+            name="password"
+            value={login.password}
+            onChange={login.onChange}
+          />
 
-          <div className="field">
-            <label className="label" htmlFor="password">
-              Password
-            </label>
-            <input
-              id="password"
-              className={`topcoat-text-input--large ${
-                login.errors.errors
-                && hasError('password')
-                  ? 'error'
-                  : ''
-              }`}
-              type="password"
-              name="password"
-              value={login.password}
-              onChange={login.onChange}
+          <div className="remember-forgot-div flex-row justify-between">
+
+          <div>
+            <Input 
+              className={'checkbox'}
+              type="checkbox"
+              name="remember"
+
             />
-          </div>
+            <span>Remember Me</span>
+            </div>
 
-          <Errors errors={login.errors.full_messages.toJSON()} />
+            <Link className="forgot-password flex" to="/">
+              Forgot Your Password
+            </Link>
 
-          <button type="submit" className="topcoat-button--large">
-            Log In
-          </button>
-        </form>
-      </div>
+          </div> 
 
-      <div className="sign-up-link">
-        <Link to="/sign-up">Don&apos;t have an account? Sign up</Link>
+          
+
+            <Errors errors={login.errors.full_messages.toJSON()} />
+
+            <Submit text={'LOG IN'}/>
+    
+          </form>
+        </div>
       </div>
     </div>
   );
