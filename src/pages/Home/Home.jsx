@@ -87,6 +87,7 @@ const Home = () => {
           <div>
             <div className="tabs">
               <div className="tab">
+                {/* eslint-disable-next-line */}
                 <a
                   role="link"
                   tabIndex={0}
@@ -99,6 +100,7 @@ const Home = () => {
                 </a>
               </div>
               <div className="tab">
+                {/* eslint-disable-next-line */}
                 <a
                   role="link"
                   ref={exploreRef}
@@ -127,6 +129,7 @@ const Home = () => {
             <div className="row">
               <div className="tabs">
                 <div className="tab">
+                  {/* eslint-disable-next-line */}
                   <a
                     className="selected"
                     role="link"
@@ -139,6 +142,7 @@ const Home = () => {
                   </a>
                 </div>
                 <div className="tab">
+                  {/* eslint-disable-next-line */}
                   <a
                     role="link"
                     tabIndex={0}
@@ -194,6 +198,7 @@ const Home = () => {
                 </p>
 
                 <div className="platform-icons">
+                  {/* eslint-disable-next-line */}
                   <a>Learn More ⟶</a>
                   <div className="icons">
                     <i className="fab fa-windows" />

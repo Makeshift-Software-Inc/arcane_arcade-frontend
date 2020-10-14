@@ -129,16 +129,17 @@ const SellerDashboard = () => {
       <Navbar />
 
       <div className="links">
+        {/* eslint-disable-next-line */}
         <a
           ref={myGamesRef}
           role="link"
           tabIndex={0}
           onKeyDown={switchPanels}
           onClick={switchPanels}
-
         >
           My Game(s)
         </a>
+        {/* eslint-disable-next-line */}
         <a
           role="link"
           tabIndex={0}
@@ -152,25 +153,38 @@ const SellerDashboard = () => {
       </div>
 
       <div className="dashboard" ref={dashboardContent}>
-
         <canvas id="lineChart" ref={lineChartCtx} />
         <div className="chart-filters">
           <div className="topcoat-button-bar">
             <div className="topcoat-button-bar__item">
-              <button type="button" className="topcoat-button-bar__button--large">Daily</button>
+              <button
+                type="button"
+                className="topcoat-button-bar__button--large"
+              >
+                Daily
+              </button>
             </div>
             <div className="topcoat-button-bar__item">
-              <button type="button" className="topcoat-button-bar__button--large">
+              <button
+                type="button"
+                className="topcoat-button-bar__button--large"
+              >
                 Weekly
               </button>
             </div>
             <div className="topcoat-button-bar__item">
-              <button type="button" className="topcoat-button-bar__button--large">
+              <button
+                type="button"
+                className="topcoat-button-bar__button--large"
+              >
                 Monthly
               </button>
             </div>
             <div className="topcoat-button-bar__item">
-              <button type="button" className="topcoat-button-bar__button--large">
+              <button
+                type="button"
+                className="topcoat-button-bar__button--large"
+              >
                 Yearly
               </button>
             </div>
@@ -181,11 +195,12 @@ const SellerDashboard = () => {
       <div className="my-games is-hidden" ref={myGamesContent}>
         <div className="post">
           <Link to="/sell-your-game">
-            <button type="button" className="topcoat-button--large--cta">Post a New Game</button>
+            <button type="button" className="topcoat-button--large--cta">
+              Post a New Game
+            </button>
           </Link>
         </div>
         <div className="listings">
-
           <div className="active">
             <h1>Active Listings</h1>
 
@@ -197,22 +212,25 @@ const SellerDashboard = () => {
 
                     <div className="actions">
                       <div className="topcoat-button-bar">
-
                         <div className="topcoat-button-bar__item">
-                          <Link
-                            key={game.id}
-                            to={`/games/${game.slug}`}
-                          >
-                            <button type="button" className="topcoat-button-bar__button">View</button>
+                          <Link key={game.id} to={`/games/${game.slug}`}>
+                            <button
+                              type="button"
+                              className="topcoat-button-bar__button"
+                            >
+                              View
+                            </button>
                           </Link>
                         </div>
 
                         <div className="topcoat-button-bar__item">
-                          <Link
-                            key={game.id}
-                            to={`/games/${game.slug}/edit`}
-                          >
-                            <button type="button" className="topcoat-button-bar__button">Edit</button>
+                          <Link key={game.id} to={`/games/${game.slug}/edit`}>
+                            <button
+                              type="button"
+                              className="topcoat-button-bar__button"
+                            >
+                              Edit
+                            </button>
                           </Link>
                         </div>
 
@@ -221,14 +239,18 @@ const SellerDashboard = () => {
                             key={game.id}
                             to={`/sell-your-game/${game.id}/distribution/add`}
                           >
-                            <button type="button" className="topcoat-button-bar__button">Manage</button>
+                            <button
+                              type="button"
+                              className="topcoat-button-bar__button"
+                            >
+                              Manage
+                            </button>
                           </Link>
                         </div>
                       </div>
-
                     </div>
                   </div>
-)}
+                )}
                 interactive
                 interactiveBorder={20}
                 delay={100}
@@ -236,7 +258,6 @@ const SellerDashboard = () => {
                 placement="auto"
                 key={game.id}
               >
-
                 <div className="game-listing">
                   <img src={game.images[0]} alt={`${game.title} cover`} />
                 </div>
@@ -255,22 +276,25 @@ const SellerDashboard = () => {
 
                     <div className="actions">
                       <div className="topcoat-button-bar">
-
                         <div className="topcoat-button-bar__item">
-                          <Link
-                            key={game.id}
-                            to={`/games/${game.slug}`}
-                          >
-                            <button type="button" className="topcoat-button-bar__button">View</button>
+                          <Link key={game.id} to={`/games/${game.slug}`}>
+                            <button
+                              type="button"
+                              className="topcoat-button-bar__button"
+                            >
+                              View
+                            </button>
                           </Link>
                         </div>
 
                         <div className="topcoat-button-bar__item">
-                          <Link
-                            key={game.id}
-                            to={`/games/${game.slug}/edit`}
-                          >
-                            <button type="button" className="topcoat-button-bar__button">Edit</button>
+                          <Link key={game.id} to={`/games/${game.slug}/edit`}>
+                            <button
+                              type="button"
+                              className="topcoat-button-bar__button"
+                            >
+                              Edit
+                            </button>
                           </Link>
                         </div>
 
@@ -279,14 +303,18 @@ const SellerDashboard = () => {
                             key={game.id}
                             to={`/sell-your-game/${game.id}/distribution/add`}
                           >
-                            <button type="button" className="topcoat-button-bar__button">Manage</button>
+                            <button
+                              type="button"
+                              className="topcoat-button-bar__button"
+                            >
+                              Manage
+                            </button>
                           </Link>
                         </div>
                       </div>
-
                     </div>
                   </div>
-)}
+                )}
                 interactive
                 interactiveBorder={20}
                 delay={100}
@@ -294,7 +322,6 @@ const SellerDashboard = () => {
                 placement="auto"
                 key={game.id}
               >
-
                 <div className="game-listing">
                   <img src={game.images[0]} alt={`${game.title} cover`} />
                 </div>
@@ -303,7 +330,6 @@ const SellerDashboard = () => {
           </div>
         </div>
       </div>
-
     </div>
   );
 };
