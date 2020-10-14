@@ -11,9 +11,9 @@ import Errors from '../Errors/Errors';
 import Loading from '../Loading/Loading';
 
 import Step from './Step/Step';
-import Submit from './Submit/Submit';
+import Submit from '../Form/Submit/Submit';
 
-import Header from './Header';
+import Header from '../Modals/Header/Header';
 
 import Crypto from './Steps/Crypto/Crypto';
 import AreYouPublisher from './Steps/AreYouPublisher/AreYouPublisher';
@@ -110,7 +110,7 @@ const OnboardingModalContent = ({ close }) => {
         <Loading />
       ) : (
         <React.Fragment>
-          <Header back={back} close={close} />
+          <Header back={back} close={close} title="Sell With Us" />
           <div className="onboarding-modal-body">
             <form onSubmit={next} className="flex-column align-center">
               <Step number={currentStep + 1} />
@@ -119,7 +119,10 @@ const OnboardingModalContent = ({ close }) => {
 
               <Errors errors={errors.full_messages.toJSON()} />
 
-              <Submit finish={currentStep === 5} />
+              <Submit
+                green={currentStep === 5}
+                text={currentStep === 5 ? 'FINISH' : 'NEXT'}
+              />
             </form>
           </div>
         </React.Fragment>

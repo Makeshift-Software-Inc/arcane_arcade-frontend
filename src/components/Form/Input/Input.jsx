@@ -6,11 +6,11 @@ const Input = ({
   type, name, value, onChange, placeholder,
 }) => (
   <input
-    type={type}
+    type={type || 'text'}
     name={name}
     value={value}
     onChange={onChange}
-    placeholder={placeholder}
+    placeholder={placeholder || ''}
     className="arcane-input"
   />
 );

@@ -1,11 +1,11 @@
 import React from 'react';
 
-import backIcon from '../../img/back_black.svg';
-import closeIcon from '../../img/close.svg';
+import backIcon from '../../../img/back_black.svg';
+import closeIcon from '../../../img/close.svg';
 
 import './Header.scss';
 
-const Header = ({ back, close }) => {
+const Header = ({ back, close, title }) => {
   const goBack = (e) => {
     e.preventDefault();
     back();
@@ -17,7 +17,7 @@ const Header = ({ back, close }) => {
   };
 
   return (
-    <div className="onboarding-modal-header flex-row align-center justify-between">
+    <div className="modal-header flex-row align-center justify-between">
       <span className="back-wrapper">
         {back && (
           <a href="#" onClick={goBack} className="flex-row">
@@ -25,7 +25,7 @@ const Header = ({ back, close }) => {
           </a>
         )}
       </span>
-      <span className="modal-title">Sell With Us</span>
+      <span className="modal-title">{title}</span>
       <span className="close-wrapper">
         {close && (
           <a href="#" onClick={closeModal} className="flex-row">

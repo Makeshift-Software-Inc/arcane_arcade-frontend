@@ -1,0 +1,23 @@
+$main-color: #000000;
+
+.coin-wallets-modal {
+  min-width: 700px;
+  color: $main-color;
+  .crypto-coins-switch {
+    align-self: stretch;
+    justify-content: space-around;
+    .coin-icon {
+      margin-right: 0;
+    }
+  }
+  .destination-addresses {
+    margin-top: 20px;
+    .address-wrapper {
+      width: 300px;
+      input[type='text'] {
+        max-width: 300px;
+        min-width: unset;
+      }
+    }
+  }
+}

@@ -5,8 +5,7 @@ import { observer } from 'mobx-react';
 import Question from '../../Question/Question';
 import Switch from '../../../Form/Switch/Switch';
 
-import btcIcon from '../../../../img/bitcoin.svg';
-import xmrIcon from '../../../../img/monero.svg';
+import Coins from '../../../Form/Coins/Coins';
 
 import './Crypto.scss';
 
@@ -29,26 +28,11 @@ const Crypto = ({ update, acceptedCrypto }) => {
   return (
     <React.Fragment>
       <Question text="Which cryptocurrency would you like to be paid in?" />
-      <div className="flex-row">
-        <div className="coin-icon flex-column align-center">
-          <img src={btcIcon} alt="bitcoin" />
-          <Switch
-            value="BTC"
-            name="accepted_crypto"
-            checked={btcChecked}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="coin-icon flex-column align-center">
-          <img src={xmrIcon} alt="monero" />
-          <Switch
-            value="XMR"
-            name="accepted_crypto"
-            checked={xmrChecked}
-            onChange={handleChange}
-          />
-        </div>
-      </div>
+      <Coins
+        onChange={handleChange}
+        btcChecked={btcChecked}
+        xmrChecked={xmrChecked}
+      />
     </React.Fragment>
   );
 };

@@ -82,6 +82,18 @@ code {
   align-self: flex-start;
 }
 
+.align-self-stretch {
+  align-self: stretch;
+}
+
+.justify-around {
+  justify-content: space-around;
+}
+
+.justify-self-stretch {
+  justify-self: stretch;
+}
+
 .modal-content {
   width: auto !important;
 }

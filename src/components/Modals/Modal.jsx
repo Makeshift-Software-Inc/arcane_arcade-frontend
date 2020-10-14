@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 
+import './Modal.scss';
+
 const Modal = ({ close, children }) => {
   useEffect(() => {
     document.body.classList.add('no-scroll');
@@ -9,7 +11,7 @@ const Modal = ({ close, children }) => {
   }, []);
 
   return (
-    <div className="modal is-active">
+    <div className="modal is-active arcane-modal">
       <div className="modal-background" />
       <div className="modal-content">{children}</div>
       {close && (

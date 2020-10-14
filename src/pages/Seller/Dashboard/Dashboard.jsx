@@ -1,4 +1,4 @@
-import React, { useEffect, createRef } from 'react';
+import React, { useEffect, useState, createRef } from 'react';
 import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
 
@@ -7,6 +7,8 @@ import 'tippy.js/dist/tippy.css';
 
 import { Line } from 'chart.js';
 import 'chart.js/dist/Chart.min.css';
+
+import CoinWallets from './CoinWallets/CoinWallets';
 
 import Loading from '../../../components/Loading/Loading';
 import './Dashboard.scss';
@@ -18,10 +20,16 @@ import xmrIcon from '../../../img/monero.png';
 import { useStore } from '../../../store';
 
 const SellerDashboard = () => {
+  const [showCointWalletsModal, setShowCoinWalletsModal] = useState(false);
+
   const {
     user: {
       seller: {
-        activeGames, pendingGames, loadingGames, loadGames, accepted_crypto,
+        activeGames,
+        pendingGames,
+        loadingGames,
+        loadGames,
+        accepted_crypto,
       },
     },
   } = useStore('auth');
@@ -31,6 +39,14 @@ const SellerDashboard = () => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const closeCoinWalletsModal = () => {
+    setShowCoinWalletsModal(false);
+  };
+
+  const openCoinWalletsModal = () => {
+    setShowCoinWalletsModal(true);
+  };
 
   const lineChartCtx = React.createRef();
   useEffect(() => {
@@ -166,7 +182,6 @@ const SellerDashboard = () => {
           tabIndex={0}
           onKeyDown={switchPanels}
           onClick={switchPanels}
-
         >
           My Game(s)
         </a>
@@ -184,7 +199,10 @@ const SellerDashboard = () => {
 
       <div className="dashboard" ref={dashboardContent}>
         <div className="manage-payments">
-          <button className="topcoat-button--large" onClick={openModal}>
+          <button
+            className="topcoat-button--large"
+            onClick={openCoinWalletsModal}
+          >
             Manage Payments
           </button>
         </div>
@@ -193,9 +211,7 @@ const SellerDashboard = () => {
           <div className="modal-background" />
           <div className="modal-content">
             <nav className="panel">
-              <p className="panel-heading">
-                Coin Wallets
-              </p>
+              <p className="panel-heading">Coin Wallets</p>
               <div className="panel-block">
                 <div className="coins">
                   <div className="bitcoin">
@@ -221,7 +237,6 @@ const SellerDashboard = () => {
                         placeholder="Insert your Bitcoin address"
                       />
                     </div>
-
                   </div>
                   <div className="monero">
                     <div className="left">
@@ -247,15 +262,12 @@ const SellerDashboard = () => {
                     </div>
                   </div>
                 </div>
-
               </div>
               <div className="panel-block">
-
                 <div className="save-wallets">
                   <button className="topcoat-button--large--cta">Save</button>
                 </div>
               </div>
-
             </nav>
           </div>
           <button
@@ -269,20 +281,34 @@ const SellerDashboard = () => {
         <div className="chart-filters">
           <div className="topcoat-button-bar">
             <div className="topcoat-button-bar__item">
-              <button type="button" className="topcoat-button-bar__button--large">Daily</button>
+              <button
+                type="button"
+                className="topcoat-button-bar__button--large"
+              >
+                Daily
+              </button>
             </div>
             <div className="topcoat-button-bar__item">
-              <button type="button" className="topcoat-button-bar__button--large">
+              <button
+                type="button"
+                className="topcoat-button-bar__button--large"
+              >
                 Weekly
               </button>
             </div>
             <div className="topcoat-button-bar__item">
-              <button type="button" className="topcoat-button-bar__button--large">
+              <button
+                type="button"
+                className="topcoat-button-bar__button--large"
+              >
                 Monthly
               </button>
             </div>
             <div className="topcoat-button-bar__item">
-              <button type="button" className="topcoat-button-bar__button--large">
+              <button
+                type="button"
+                className="topcoat-button-bar__button--large"
+              >
                 Yearly
               </button>
             </div>
@@ -293,11 +319,12 @@ const SellerDashboard = () => {
       <div className="my-games is-hidden" ref={myGamesContent}>
         <div className="post">
           <Link to="/sell-your-game">
-            <button type="button" className="topcoat-button--large--cta">Post a New Game</button>
+            <button type="button" className="topcoat-button--large--cta">
+              Post a New Game
+            </button>
           </Link>
         </div>
         <div className="listings">
-
           <div className="active">
             <h1>Active Listings</h1>
 
@@ -309,22 +336,25 @@ const SellerDashboard = () => {
 
                     <div className="actions">
                       <div className="topcoat-button-bar">
-
                         <div className="topcoat-button-bar__item">
-                          <Link
-                            key={game.id}
-                            to={`/games/${game.slug}`}
-                          >
-                            <button type="button" className="topcoat-button-bar__button">View</button>
+                          <Link key={game.id} to={`/games/${game.slug}`}>
+                            <button
+                              type="button"
+                              className="topcoat-button-bar__button"
+                            >
+                              View
+                            </button>
                           </Link>
                         </div>
 
                         <div className="topcoat-button-bar__item">
-                          <Link
-                            key={game.id}
-                            to={`/games/${game.slug}/edit`}
-                          >
-                            <button type="button" className="topcoat-button-bar__button">Edit</button>
+                          <Link key={game.id} to={`/games/${game.slug}/edit`}>
+                            <button
+                              type="button"
+                              className="topcoat-button-bar__button"
+                            >
+                              Edit
+                            </button>
                           </Link>
                         </div>
 
@@ -333,14 +363,18 @@ const SellerDashboard = () => {
                             key={game.id}
                             to={`/sell-your-game/${game.id}/distribution/add`}
                           >
-                            <button type="button" className="topcoat-button-bar__button">Manage</button>
+                            <button
+                              type="button"
+                              className="topcoat-button-bar__button"
+                            >
+                              Manage
+                            </button>
                           </Link>
                         </div>
                       </div>
-
                     </div>
                   </div>
-)}
+                )}
                 interactive
                 interactiveBorder={20}
                 delay={100}
@@ -348,7 +382,6 @@ const SellerDashboard = () => {
                 placement="auto"
                 key={game.id}
               >
-
                 <div className="game-listing">
                   <img src={game.images[0]} alt={`${game.title} cover`} />
                 </div>
@@ -367,22 +400,25 @@ const SellerDashboard = () => {
 
                     <div className="actions">
                       <div className="topcoat-button-bar">
-
                         <div className="topcoat-button-bar__item">
-                          <Link
-                            key={game.id}
-                            to={`/games/${game.slug}`}
-                          >
-                            <button type="button" className="topcoat-button-bar__button">View</button>
+                          <Link key={game.id} to={`/games/${game.slug}`}>
+                            <button
+                              type="button"
+                              className="topcoat-button-bar__button"
+                            >
+                              View
+                            </button>
                           </Link>
                         </div>
 
                         <div className="topcoat-button-bar__item">
-                          <Link
-                            key={game.id}
-                            to={`/games/${game.slug}/edit`}
-                          >
-                            <button type="button" className="topcoat-button-bar__button">Edit</button>
+                          <Link key={game.id} to={`/games/${game.slug}/edit`}>
+                            <button
+                              type="button"
+                              className="topcoat-button-bar__button"
+                            >
+                              Edit
+                            </button>
                           </Link>
                         </div>
 
@@ -391,14 +427,18 @@ const SellerDashboard = () => {
                             key={game.id}
                             to={`/sell-your-game/${game.id}/distribution/add`}
                           >
-                            <button type="button" className="topcoat-button-bar__button">Manage</button>
+                            <button
+                              type="button"
+                              className="topcoat-button-bar__button"
+                            >
+                              Manage
+                            </button>
                           </Link>
                         </div>
                       </div>
-
                     </div>
                   </div>
-)}
+                )}
                 interactive
                 interactiveBorder={20}
                 delay={100}
@@ -406,7 +446,6 @@ const SellerDashboard = () => {
                 placement="auto"
                 key={game.id}
               >
-
                 <div className="game-listing">
                   <img src={game.images[0]} alt={`${game.title} cover`} />
                 </div>
@@ -415,7 +454,7 @@ const SellerDashboard = () => {
           </div>
         </div>
       </div>
-
+      {showCointWalletsModal && <CoinWallets close={closeCoinWalletsModal} />}
     </div>
   );
 };
