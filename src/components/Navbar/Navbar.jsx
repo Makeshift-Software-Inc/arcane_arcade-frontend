@@ -24,7 +24,7 @@ const Navbar = () => {
     setShowOnboardingModal(false);
   };
 
-  const renderNonSellerLinks = () => {
+  const renderSellerLinks = () => {
     if (isSeller) {
       return (
         <Link to="/seller/dashboard" className="navbar-item">
@@ -43,6 +43,7 @@ const Navbar = () => {
 
     return (
       <React.Fragment>
+        {/* eslint-disable-next-line */}
         <a onClick={handleShowOnboardingModal} href="#" className="navbar-item">
           Sell With Us
         </a>
@@ -69,7 +70,7 @@ const Navbar = () => {
 
       <div id="navbarBasicExample" className="navbar-menu">
         <div className="navbar-start">
-          {renderNonSellerLinks()}
+          {renderSellerLinks()}
 
           {isLoggedIn ? (
             <Link to="/my-library" className="navbar-item">

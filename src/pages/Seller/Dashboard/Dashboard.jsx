@@ -176,6 +176,7 @@ const SellerDashboard = () => {
       <Navbar />
 
       <div className="links">
+        {/* eslint-disable-next-line */}
         <a
           ref={myGamesRef}
           role="link"
@@ -185,6 +186,7 @@ const SellerDashboard = () => {
         >
           My Game(s)
         </a>
+        {/* eslint-disable-next-line */}
         <a
           role="link"
           tabIndex={0}
@@ -206,77 +208,6 @@ const SellerDashboard = () => {
             Manage Payments
           </button>
         </div>
-
-        <div className="modal is-hidden" ref={modalRef}>
-          <div className="modal-background" />
-          <div className="modal-content">
-            <nav className="panel">
-              <p className="panel-heading">Coin Wallets</p>
-              <div className="panel-block">
-                <div className="coins">
-                  <div className="bitcoin">
-                    <div className="left">
-                      <div className="btcIcon">
-                        <img src={btcIcon} />
-                      </div>
-                      <div className="accepting">
-                        <label className="topcoat-checkbox">
-                          <input type="checkbox" />
-                          <div className="topcoat-checkbox__checkmark" />
-                        </label>
-                      </div>
-                    </div>
-
-                    <div className="right">
-                      <input
-                        type="text"
-                        value={bitcoinAddress}
-                        ref={bitcoinWalletAddress}
-                        onChange={setBitcoinAddress}
-                        className="topcoat-text-input--large"
-                        placeholder="Insert your Bitcoin address"
-                      />
-                    </div>
-                  </div>
-                  <div className="monero">
-                    <div className="left">
-                      <div className="xmrIcon">
-                        <img src={xmrIcon} />
-                      </div>
-                      <div className="accepting">
-                        <label className="topcoat-checkbox">
-                          <input type="checkbox" />
-                          <div className="topcoat-checkbox__checkmark" />
-                        </label>
-                      </div>
-                    </div>
-                    <div className="right">
-                      <input
-                        type="text"
-                        value={moneroAddress}
-                        ref={moneroWalletAddress}
-                        onChange={setMoneroAddress}
-                        className="topcoat-text-input--large"
-                        placeholder="Insert your Monero address"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="panel-block">
-                <div className="save-wallets">
-                  <button className="topcoat-button--large--cta">Save</button>
-                </div>
-              </div>
-            </nav>
-          </div>
-          <button
-            onClick={closeModal}
-            className="modal-close is-large"
-            aria-label="close"
-          />
-        </div>
-
         <canvas id="lineChart" ref={lineChartCtx} />
         <div className="chart-filters">
           <div className="topcoat-button-bar">
@@ -330,7 +261,7 @@ const SellerDashboard = () => {
 
             {activeGames().map((game) => (
               <Tippy
-                content={(
+                content={
                   <div className="info">
                     <p>{game.title}</p>
 
@@ -374,7 +305,7 @@ const SellerDashboard = () => {
                       </div>
                     </div>
                   </div>
-                )}
+                }
                 interactive
                 interactiveBorder={20}
                 delay={100}
@@ -394,7 +325,7 @@ const SellerDashboard = () => {
 
             {pendingGames().map((game) => (
               <Tippy
-                content={(
+                content={
                   <div className="info">
                     <p>{game.title}</p>
 
@@ -438,7 +369,7 @@ const SellerDashboard = () => {
                       </div>
                     </div>
                   </div>
-                )}
+                }
                 interactive
                 interactiveBorder={20}
                 delay={100}

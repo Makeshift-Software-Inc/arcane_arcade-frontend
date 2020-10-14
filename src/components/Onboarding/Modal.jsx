@@ -101,8 +101,6 @@ const OnboardingModalContent = ({ close }) => {
   );
 
   return (
-    // if we need transitions uncomment this line
-    // <div className={`onboarding-modal ${fadeIn ? 'fade-in' : ''} ${fadeOut ? 'fade-out' : ''}`}>
     <div
       className={`onboarding-modal ${currentStep === 0 ? 'small-modal' : ''}`}
     >

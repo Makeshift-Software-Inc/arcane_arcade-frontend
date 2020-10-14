@@ -20,6 +20,7 @@ const Header = ({ back, close, title }) => {
     <div className="modal-header flex-row align-center justify-between">
       <span className="back-wrapper">
         {back && (
+          // eslint-disable-next-line
           <a href="#" onClick={goBack} className="flex-row">
             <img src={backIcon} alt="Back" />
           </a>
@@ -28,6 +29,7 @@ const Header = ({ back, close, title }) => {
       <span className="modal-title">{title}</span>
       <span className="close-wrapper">
         {close && (
+          // eslint-disable-next-line
           <a href="#" onClick={closeModal} className="flex-row">
             <img src={closeIcon} alt="Close" />
           </a>
