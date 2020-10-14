@@ -1,6 +1,6 @@
 .App.how-it-works {
   font-family: 'Montserrat';
-  
+
   .page-container {
 
     padding: 0;
@@ -37,7 +37,7 @@
               .text {
                 font-size: 21px;
               }
-            
+
             padding-right: 50px;
             padding-left : 15px;
             align-items: flex-start;
@@ -90,7 +90,7 @@
     }
 
     .seller-msg {
-      padding: 0 25px; 
+      padding: 0 25px;
       width: 100%;
       max-width: 1590px;
       font-family: 'OpenSans';
@@ -103,6 +103,10 @@
       line-height: 1.79;
       letter-spacing: 0.42px;
 
+      h2 {
+        letter-spacing: -0.5px;
+        text-rendering: geometricPrecision;
+      }
     }
 
     .title {
@@ -199,7 +203,7 @@
 
       .button-sell {
         padding: 13px 125px;
-        width: 100%; 
+        width: 100%;
         height: 40px;
         background-color: #463AF3;
         box-shadow: 0px 3px 6px #FFFFFF1A;
@@ -210,11 +214,11 @@
 
 
 
-      
+
 
     }
 
-    
+
 
   }
 
