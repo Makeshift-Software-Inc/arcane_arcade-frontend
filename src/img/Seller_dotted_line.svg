@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="691.75" height="1424.129" viewBox="0 0 691.75 1424.129">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #fff;
+        stroke-width: 2px;
+        stroke-dasharray: 4 4;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <g id="Seller_dotted_line" transform="translate(-604.23 -668.871)">
+    <path id="Tracé_1967" data-name="Tracé 1967" class="cls-1" d="M-20428.992,680.743s189.725,165.61,263.379,85.26c66.734-43.523,240.826-176.993,345.281-26.114,211.813,559.995-597.5,161.816-608.66,456.433s591.424-87.345,573.611,390.59-710.549-85.4-609.322,292.385,598.162-47.027,598.162,207.571" transform="translate(21080)"/>
+    <circle id="Ellipse_63" data-name="Ellipse 63" class="cls-2" cx="6" cy="6" r="6" transform="translate(645 673)"/>
+    <circle id="Ellipse_64" data-name="Ellipse 64" class="cls-2" cx="6" cy="6" r="6" transform="translate(1208 2081)"/>
+  </g>
+</svg>

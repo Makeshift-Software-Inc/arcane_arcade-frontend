@@ -54,6 +54,14 @@ code {
   flex-direction: column;
 }
 
+.flex-row-reverse {
+  flex-direction: row-reverse;
+}
+
+.flex-column-reverse {
+  flex-direction: column-reverse;
+}
+
 .no-scroll {
   max-height: 100vh;
   overflow: hidden;
@@ -67,6 +75,9 @@ code {
   justify-content: space-between;
 }
 
+.justify-flex-start {
+  justify-content: flex-start;
+}
 .align-self-start {
   align-self: flex-start;
 }

@@ -1,0 +1,225 @@
+.App.how-it-works {
+  font-family: 'Montserrat';
+
+  .page-container {
+
+    padding: 0;
+    .list-container {
+      padding: 0 25px;
+      max-width: 955px;
+      width: 100%;
+      margin-top : 200px;
+
+
+      .image-and-text {
+        width: 100%;
+        justify-content: space-between;
+      }
+      .straight-line-img {
+        display: none;
+      }
+
+      .list {
+        width: 100%;
+        margin-top: -1340px;
+      }
+
+      @media only screen and (max-width: 667px) {
+
+        margin-top: 0;
+
+        .image-and-text {
+          flex-direction: column;
+          margin-bottom: 93px;
+
+           .text-div {
+
+              .text {
+                font-size: 21px;
+              }
+
+            padding-right: 50px;
+            padding-left : 15px;
+            align-items: flex-start;
+            width: auto;
+            height: auto;
+          }
+        }
+
+        .image-and-text:last-child {
+          margin-bottom: 103px;
+        }
+
+        .straight-line-img {
+          display: block;
+          align-self: flex-end;
+          margin-right: 30px;
+          margin-top: 120px;
+        }
+
+        .line-img {
+          display: none;
+        }
+
+        .list {
+          margin-top: -1460px;
+        }
+
+      }
+
+    }
+
+
+    .button-sell {
+      width: 304px;
+      height: 116px;
+      border-radius: 15px;
+      background-color: #463af3;
+      font-family: Montserrat;
+      font-size: 35px;
+      font-weight: bold;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.23;
+      letter-spacing: normal;
+      text-align: left;
+      color: #e4e4e4;
+      border: none;
+      margin-top: 44px;
+      margin-bottom: 90px;
+    }
+
+    .seller-msg {
+      padding: 0 25px;
+      width: 100%;
+      max-width: 1590px;
+      font-family: 'OpenSans';
+      font-size: 28px;
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: normal;
+      text-align: center;
+      color: #ffffff;
+      line-height: 1.79;
+      letter-spacing: 0.42px;
+
+      h2 {
+        letter-spacing: -0.5px;
+        text-rendering: geometricPrecision;
+      }
+    }
+
+    .title {
+      width: 278px;
+      height: 50px;
+      margin-top: 41px;
+      margin-bottom: 50px;
+      font: normal normal medium 41px/50px Montserrat;
+      letter-spacing: 0px;
+      color: #FFFFFF;
+      opacity: 1;
+    }
+
+    .page-buttons {
+      max-width: 430px;
+      margin-bottom: 179px;
+      width: 100%;
+      justify-content: space-around;
+
+      .button {
+        background-color: transparent;
+        text-decoration: none;
+        border-radius: 0;
+        font-size: 26px;
+        padding-bottom: 0;
+      }
+
+      .button:hover,
+      .button:active,
+      .button:focus,
+      .button.active {
+        color: #E4E4E4;
+        border: none;
+        background-color: transparent;
+      }
+
+      .button:active,
+      .button:focus,
+      .button.active {
+        border: none;
+        box-shadow: none;
+        background-color: transparent;
+        border-bottom: 2px solid #463AF3;
+      }
+
+    }
+
+    .image-and-text {
+      margin-bottom: 106px;
+
+      .image-div {
+        .image {
+          width: 400px;
+          height: 230px;
+        }
+      }
+
+      .text-div {
+        max-width: 400px;
+        max-height: 230px;
+        color: #E4E4E4;
+        text-align: left;
+        justify-content: flex-start;
+
+        .text {
+          letter-spacing: 0px;
+          font-size: 25px;
+        }
+      }
+
+    }
+
+    @media only screen and (max-width: 667px) {
+      .page-buttons {
+        margine-bottom: 0;
+        max-width: none;
+         border: 1px solid #463AF3;
+
+        .button {
+          width: 100%;
+          color: #FFFFFF;
+
+        }
+
+        .button.active {
+          background-color: #463AF3;
+        }
+      }
+
+      .seller-msg {
+        font-size: 14px;
+      }
+
+
+      .button-sell {
+        padding: 13px 125px;
+        width: 100%;
+        height: 40px;
+        background-color: #463AF3;
+        box-shadow: 0px 3px 6px #FFFFFF1A;
+        border-radius: 15px;
+        font-size: 12px
+      }
+
+
+
+
+
+
+    }
+
+
+
+  }
+
+}

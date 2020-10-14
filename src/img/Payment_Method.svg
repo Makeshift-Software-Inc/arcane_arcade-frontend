@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="418.177" height="248.699" viewBox="0 0 418.177 248.699">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #463af3;
+      }
+
+      .cls-2 {
+        fill: #f7931a;
+      }
+
+      .cls-3, .cls-5 {
+        fill: #fff;
+      }
+
+      .cls-4 {
+        fill: #f60;
+      }
+
+      .cls-5 {
+        font-size: 33px;
+        font-family: Montserrat-Bold, Montserrat;
+        font-weight: 700;
+      }
+
+      .cls-6 {
+        filter: url(#Rectangle_1626);
+      }
+    </style>
+    <filter id="Rectangle_1626" x="0" y="0" width="418.177" height="248.699" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Groupe_417" data-name="Groupe 417" transform="translate(-459.189 -1096)">
+    <g class="cls-6" transform="matrix(1, 0, 0, 1, 459.19, 1096)">
+      <rect id="Rectangle_1626-2" data-name="Rectangle 1626" class="cls-1" width="400.177" height="230.699" rx="20" transform="translate(9 6)"/>
+    </g>
+    <g id="Groupe_319" data-name="Groupe 319" transform="translate(525.877 1171)">
+      <g id="bitcoin" transform="translate(0)">
+        <path id="Tracé_1082" data-name="Tracé 1082" class="cls-2" d="M89.991,56.732A45.666,45.666,0,1,1,56.725,1.366,45.672,45.672,0,0,1,89.991,56.732Z" transform="translate(-0.004 0.001)"/>
+        <path id="Tracé_1083" data-name="Tracé 1083" class="cls-3" d="M59.165,34.406c.908-6.079-3.72-9.346-10.048-11.526l2.053-8.234L46.156,13.4l-2,8.017c-1.316-.328-2.67-.638-4.014-.945l2.013-8.07L37.147,11.15l-2.054,8.231c-1.091-.248-2.161-.494-3.2-.752L31.9,18.6l-6.912-1.726-1.333,5.353s3.719.852,3.64.905a2.666,2.666,0,0,1,2.335,2.915l-2.338,9.38a4.151,4.151,0,0,1,.521.167l-.528-.131L24,48.607a1.824,1.824,0,0,1-2.3,1.191c.05.073-3.643-.909-3.643-.909l-2.488,5.739L22.1,56.253c1.213.3,2.4.622,3.572.922L23.6,65.505,28.6,66.754l2.056-8.24c1.366.371,2.694.714,3.993,1.036l-2.047,8.2L37.616,69l2.074-8.313c8.547,1.617,14.975.965,17.677-6.764,2.18-6.224-.107-9.814-4.6-12.157,3.275-.758,5.742-2.912,6.4-7.362ZM47.712,50.465c-1.55,6.224-12.029,2.861-15.428,2.016l2.752-11.034c3.4.848,14.291,2.527,12.677,9.018Zm1.549-16.148C47.848,39.978,39.125,37.1,36.294,36.4l2.5-10.007C41.621,27.094,50.734,28.41,49.261,34.316Z" transform="translate(6.653 4.768)"/>
+      </g>
+      <g id="monero" transform="translate(193.369 0.747)">
+        <path id="Tracé_1084" data-name="Tracé 1084" class="cls-4" d="M45.542,0A45.574,45.574,0,0,0,2.319,59.927H15.94V21.609l29.6,29.6,29.6-29.6V59.927H88.765A45.571,45.571,0,0,0,45.542,0" transform="translate(0)"/>
+        <path id="Tracé_1085" data-name="Tracé 1085" class="cls-3" d="M50.732,139.67,37.813,126.75v24.111H18.623a45.552,45.552,0,0,0,77.83,0H77.264V126.75L64.345,139.669l-6.806,6.806-6.806-6.806h0Z" transform="translate(-11.997 -81.652)"/>
+      </g>
+      <text id="OR" class="cls-5" transform="translate(113.759 56.621)"><tspan x="0" y="0">OR</tspan></text>
+    </g>
+  </g>
+</svg>
