@@ -3,7 +3,6 @@ import React from 'react';
 import { observer } from 'mobx-react';
 
 import Question from '../../Question/Question';
-import Switch from '../../../Form/Switch/Switch';
 
 import Coins from '../../../Form/Coins/Coins';
 

@@ -14,9 +14,6 @@ import Loading from '../../../components/Loading/Loading';
 import './Dashboard.scss';
 import Navbar from '../../../components/Navbar/Navbar';
 
-import btcIcon from '../../../img/bitcoin.png';
-import xmrIcon from '../../../img/monero.png';
-
 import { useStore } from '../../../store';
 
 const SellerDashboard = () => {
@@ -25,11 +22,7 @@ const SellerDashboard = () => {
   const {
     user: {
       seller: {
-        activeGames,
-        pendingGames,
-        loadingGames,
-        loadGames,
-        accepted_crypto,
+        activeGames, pendingGames, loadingGames, loadGames,
       },
     },
   } = useStore('auth');
@@ -113,23 +106,6 @@ const SellerDashboard = () => {
   const dashboardRef = createRef();
   const dashboardContent = createRef();
 
-  const bitcoinWalletAddress = createRef();
-  const moneroWalletAddress = createRef();
-
-  const modalRef = createRef();
-
-  let bitcoinAddress = '';
-  let moneroAddress = '';
-
-  const setMoneroAddress = (e) => {
-    debugger;
-    moneroAddress = e.target.value;
-  };
-
-  const setBitcoinAddress = (e) => {
-    bitcoinAddress = e.target.value;
-  };
-
   const switchPanels = (e) => {
     e.preventDefault();
 
@@ -157,18 +133,6 @@ const SellerDashboard = () => {
         myGames.classList.remove('is-hidden');
       }
     }
-  };
-
-  const acceptsBTC = () => accepted_crypto.includes('BTC');
-
-  const acceptsXMR = () => accepted_crypto.includes('XMR');
-
-  const closeModal = () => {
-    modalRef.current.classList.add('is-hidden');
-  };
-
-  const openModal = () => {
-    modalRef.current.classList.remove('is-hidden');
   };
 
   return (
@@ -202,6 +166,7 @@ const SellerDashboard = () => {
       <div className="dashboard" ref={dashboardContent}>
         <div className="manage-payments">
           <button
+            type="button"
             className="topcoat-button--large"
             onClick={openCoinWalletsModal}
           >
@@ -261,7 +226,7 @@ const SellerDashboard = () => {
 
             {activeGames().map((game) => (
               <Tippy
-                content={
+                content={(
                   <div className="info">
                     <p>{game.title}</p>
 
@@ -305,7 +270,7 @@ const SellerDashboard = () => {
                       </div>
                     </div>
                   </div>
-                }
+                )}
                 interactive
                 interactiveBorder={20}
                 delay={100}
@@ -325,7 +290,7 @@ const SellerDashboard = () => {
 
             {pendingGames().map((game) => (
               <Tippy
-                content={
+                content={(
                   <div className="info">
                     <p>{game.title}</p>
 
@@ -369,7 +334,7 @@ const SellerDashboard = () => {
                       </div>
                     </div>
                   </div>
-                }
+                )}
                 interactive
                 interactiveBorder={20}
                 delay={100}

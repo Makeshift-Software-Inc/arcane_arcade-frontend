@@ -13,7 +13,7 @@ const CoinWallet = types
   })
   .actions((self) => ({
     prepare() {
-      if (self.prepared) return true;
+      if (self.prepared) return;
 
       const {
         auth: {
@@ -47,14 +47,9 @@ const CoinWallet = types
             `${currency} address can't be blank.`,
           );
         } else if (
-          !WAValidator.validate(
-            self.destination_addresses[currency],
-            currency,
-          )
+          !WAValidator.validate(self.destination_addresses[currency], currency)
         ) {
-          self.errors.addFullMessageError(
-            `${currency} address is not valid.`,
-          );
+          self.errors.addFullMessageError(`${currency} address is not valid.`);
         }
       });
       if (self.errors.full_messages.length > 0) {

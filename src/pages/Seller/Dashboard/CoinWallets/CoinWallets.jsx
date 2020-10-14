@@ -23,7 +23,6 @@ const CoinWallets = ({ close }) => {
         prepare,
         accepted_crypto,
         destination_addresses,
-        onChange,
         validate,
         errors,
         reset,
