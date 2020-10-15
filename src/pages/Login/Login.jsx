@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
 
@@ -10,6 +10,7 @@ import Input from '../../components/Form/Input/Input';
 import Submit from '../../components/Form/Submit/Submit'
 
 import background from './../../img/auth-bckg.jpg';
+import eyeIcon from './../../img/Show-Hide_icon.svg';
 
 import './Login.scss';
 
@@ -18,6 +19,8 @@ const LoginPage = ({ history }) => {
     auth: authStore,
     forms: { login },
   } = useStore();
+
+  const [seePassword, setseePassword] = useState(false);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -46,35 +49,45 @@ const LoginPage = ({ history }) => {
             <Link to="/sign-up">Sign up</Link>
           </div>
           <form onSubmit={onSubmit} className="flex-flex-column">
-          <Input 
-            label={'Username'}
-            type="text"
-            name="username"
-            value={login.username}
-            onChange={login.onChange}
-          />
+
+          <div className="input-container">
+            <p className="form-text label">Username</p>
+            <Input 
+              type="text"
+              name="username"
+              value={login.username}
+              onChange={login.onChange}
+            />
+          </div>
           
-          <Input 
-            label={'Password'}
-            type="password"
-            name="password"
-            value={login.password}
-            onChange={login.onChange}
-          />
+          <div className="input-container">
+            <p className="form-text label">Password</p>
+            <div className="flex-row align-center input-div">
+              <Input 
+                type={seePassword ? "text" : "password"}
+                name="password"
+                value={login.password}
+                onChange={login.onChange}
+              />
+              <a href="#" className="eye-icon-button" onClick={() => setseePassword(!seePassword)}>
+                <img src={eyeIcon} alt="eye-icon" />
+              </a>
+            </div>
+          </div>
 
           <div className="remember-forgot-div flex-row justify-between">
 
-          <div>
-            <Input 
-              className={'checkbox'}
-              type="checkbox"
-              name="remember"
+            <div className="flex-row align-center">
+              <Input 
+                className={'checkbox'}
+                type="checkbox"
+                name="remember"
 
-            />
-            <span>Remember Me</span>
+              />
+              <span className="form-text">Remember Me</span>
             </div>
 
-            <Link className="forgot-password flex" to="/">
+            <Link className="form-text flex" to="/">
               Forgot Your Password
             </Link>
 
