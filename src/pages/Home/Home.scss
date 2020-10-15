@@ -13,6 +13,10 @@
     margin: 0 auto;
     padding: 3em 0;
 
+    @media (max-width:600px) {
+      justify-content: center;
+    }
+
     .tab {
       &:first-of-type {
         margin-left: 0;
@@ -44,6 +48,16 @@
     width: 1050px;
     display: block;
     margin: 0 auto;
+
+    @media (max-width:800px) {
+      width:100vw
+    }
+
+  .splide__slide {
+    display: flex;
+    justify-content: center;
+  }
+
 
     .game-listing {
       max-width: 200px;
@@ -81,6 +95,11 @@
     display: block;
     margin: 0 auto;
 
+    @media (max-width:800px) {
+      width:100vw
+    }
+
+
     h1 {
       margin: 1em 0em 0.7em 1.9em;
       font-size: 24px;
@@ -96,6 +115,11 @@
       width: 1105px;
       margin: 0 auto;
       padding: 0;
+
+      @media (max-width:800px) {
+        width:100vw;
+      }
+
     }
   }
 
@@ -117,6 +141,15 @@
       position: relative;
       top: -4px;
       padding: 1em;
+
+      @media (max-width:1069px) {
+    		width: 600px
+    	}
+
+      @media (max-width:600px) {
+    		width: 100vw
+    	}
+
 
       h1 {
         margin: 1em;
@@ -156,9 +189,22 @@
       }
     }
 
-    .splide__slide img {
-      width: 600px;
-      height: 400px;
+    .splide__slide {
+
+      img {
+        width: 600px;
+        height: 400px;
+
+        @media (max-width:600px) {
+      		width: 100vw;
+          height: 400px;
+      	}
+
+        @media (max-width:530px) {
+      		width: 100vw;
+          height: 350px;
+      	}
+      }
     }
 
     video,
@@ -201,6 +247,12 @@
     display: flex;
     width: 1050px;
     margin: 0 auto;
+
+    @media (max-width:800px) {
+      width:100vw
+    }
+
+;
   }
 
   .game-list {
