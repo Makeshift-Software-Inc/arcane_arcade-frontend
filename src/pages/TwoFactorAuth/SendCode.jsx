@@ -2,11 +2,11 @@ import React from 'react';
 
 const SendCode = ({ selected, onChange, send }) => (
   <div className="send-code">
-    <h1>Activate Your Account</h1>
 
     <p>
-      We&apos;ve generated a 7-digit code to verify your account. Which method
-      would you like to use to receive:
+      We&apos;ve generated a 7-digit code to verify your account. 
+      <br/>
+      Which method would you like to use to receive:
     </p>
 
     <div className="delivery-options">
@@ -44,7 +44,7 @@ const SendCode = ({ selected, onChange, send }) => (
         className="topcoat-button--large--cta"
         disabled={!selected}
       >
-        Send
+        SEND
       </button>
     </div>
   </div>

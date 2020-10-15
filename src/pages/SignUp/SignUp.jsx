@@ -81,7 +81,7 @@ const SignUpPage = ({ history }) => {
               <p className="form-text label">Email</p>
               <Input 
                 type="email"
-                name="username"
+                name="email"
                 value={signUp.email}
                 onChange={signUp.onChange}
               />
