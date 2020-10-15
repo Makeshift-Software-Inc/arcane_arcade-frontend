@@ -4,7 +4,6 @@ import { observer } from 'mobx-react';
 
 import { useStore } from '../../store';
 
-import Navbar from '../../components/Navbar/Navbar';
 import Errors from '../../components/Errors/Errors';
 import Input from '../../components/Form/Input/Input';
 import Submit from '../../components/Form/Submit/Submit'
@@ -34,7 +33,7 @@ const LoginPage = ({ history }) => {
   const hasError = (name) => Object.prototype.hasOwnProperty.call(login.errors.errors, name);
 
   return (
-    <div className="App">
+    <div className="App login">
  
       <div className="flex flex-column justify-center align-center login-page">
 
@@ -45,55 +44,53 @@ const LoginPage = ({ history }) => {
           </Link>
           <div className="sign-up-link">
             <h1> Sign In </h1>
-            <span>Don&apos;t have an account? </span>  
-            <Link to="/sign-up">Sign up</Link>
+            <span>Already have an account? </span>  
+            <Link to="/login">Sign In</Link>
           </div>
           <form onSubmit={onSubmit} className="flex-flex-column">
 
-          <div className="input-container">
-            <p className="form-text label">Username</p>
-            <Input 
-              type="text"
-              name="username"
-              value={login.username}
-              onChange={login.onChange}
-            />
-          </div>
-          
-          <div className="input-container">
-            <p className="form-text label">Password</p>
-            <div className="flex-row align-center input-div">
+            <div className="input-container">
+              <p className="form-text label">Username</p>
               <Input 
-                type={seePassword ? "text" : "password"}
-                name="password"
-                value={login.password}
+                type="text"
+                name="username"
+                value={login.username}
                 onChange={login.onChange}
               />
-              <a href="#" className="eye-icon-button" onClick={() => setseePassword(!seePassword)}>
-                <img src={eyeIcon} alt="eye-icon" />
-              </a>
             </div>
-          </div>
-
-          <div className="remember-forgot-div flex-row justify-between">
-
-            <div className="flex-row align-center">
-              <Input 
-                className={'checkbox'}
-                type="checkbox"
-                name="remember"
-
-              />
-              <span className="form-text">Remember Me</span>
+            
+            <div className="input-container">
+              <p className="form-text label">Password</p>
+              <div className="flex-row align-center input-div">
+                <Input 
+                  type={seePassword ? "text" : "password"}
+                  name="password"
+                  value={login.password}
+                  onChange={login.onChange}
+                />
+                <a href="#" className="eye-icon-button" onClick={() => setseePassword(!seePassword)}>
+                  <img src={eyeIcon} alt="eye-icon" />
+                </a>
+              </div>
             </div>
 
-            <Link className="form-text flex" to="/">
-              Forgot Your Password
-            </Link>
+            <div className="remember-forgot-div flex-row justify-between">
 
-          </div> 
+              <div className="flex-row align-center">
+                <Input 
+                  className={'checkbox'}
+                  type="checkbox"
+                  name="remember"
 
-          
+                />
+                <span className="form-text">Remember Me</span>
+              </div>
+
+              <Link className="form-text flex" to="/">
+                Forgot Your Password
+              </Link>
+
+            </div> 
 
             <Errors errors={login.errors.full_messages.toJSON()} />
 

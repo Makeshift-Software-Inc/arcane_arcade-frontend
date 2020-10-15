@@ -1,4 +1,4 @@
-.App {
+.App.login {
   font-style:  Montserrat;
   h1, p, span {
     text-align: center;
@@ -42,6 +42,7 @@
 
 
   .login-form {
+    padding: 30px 0;
     z-index: 999;
     width: 100%;
     max-width: 844px;
@@ -49,7 +50,6 @@
     background-color: #2A2A2A;
     form {
       max-width: 475px;
-      margin-bottom: 33px;
       text-align: center;
       color: #FFFFFF;
 

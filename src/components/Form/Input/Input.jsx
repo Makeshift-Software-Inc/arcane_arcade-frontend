@@ -3,7 +3,7 @@ import React from 'react';
 import './Input.scss';
 
 const Input = ({
-  type, name, value, onChange, placeholder, label, labelClass, className
+  type, name, value, onChange, placeholder, label, labelClass, className, ref
 }) => (
   <>
     {label && <p className="label">{label}</p>}
