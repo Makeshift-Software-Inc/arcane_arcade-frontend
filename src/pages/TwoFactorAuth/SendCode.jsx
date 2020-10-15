@@ -9,10 +9,11 @@ const SendCode = ({ selected, onChange, send }) => (
       Which method would you like to use to receive:
     </p>
 
-    <div className="delivery-options">
-      <label className="topcoat-radio-button">
+    <div className="delivery-options flex-row">
+      <label className="topcoat-radio-button flex-row">
+        Email
         <input
-          type="radio"
+          type="checkbox"
           id="email"
           value="email"
           name="delivery_method"
@@ -20,12 +21,11 @@ const SendCode = ({ selected, onChange, send }) => (
           onChange={onChange}
         />
         <div className="topcoat-radio-button__checkmark" />
-        Email
       </label>
 
-      <label className="topcoat-radio-button">
+      <label className="topcoat-radio-button flex-row">
         <input
-          type="radio"
+          type="checkbox"
           id="sms"
           value="sms"
           name="delivery_method"
