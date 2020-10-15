@@ -43,12 +43,16 @@ const CoinWallets = ({ close }) => {
     e.preventDefault();
     if (validate()) {
       const destinationAddresses = {};
-      destinationAddresses.BTC = destination_addresses.BTC.trim().length > 0
+      if (destinationAddresses.BTC) {
+        destinationAddresses.BTC = destination_addresses.BTC.trim().length > 0
         ? destination_addresses.BTC
         : null;
-      destinationAddresses.XMR = destination_addresses.XMR.trim().length > 0
+      }
+      if (destinationAddresses.XMR) {
+        destinationAddresses.XMR = destination_addresses.XMR.trim().length > 0
         ? destination_addresses.XMR
         : null;
+      }
 
       const seller = {
         accepted_crypto: accepted_crypto.toJSON(),
@@ -100,7 +104,7 @@ const CoinWallets = ({ close }) => {
                   {btcChecked && (
                     <Input
                       onChange={handleAddressChange}
-                      value={destination_addresses.BTC}
+                      value={destination_addresses.BTC || ''}
                       name="BTC"
                       placeholder="Enter your Bitcoin address"
                     />
@@ -110,7 +114,7 @@ const CoinWallets = ({ close }) => {
                   {xmrChecked && (
                     <Input
                       onChange={handleAddressChange}
-                      value={destination_addresses.XMR}
+                      value={destination_addresses.XMR || ''}
                       name="XMR"
                       placeholder="Enter your Monero address"
                     />
