@@ -97,3 +97,17 @@ code {
 .modal-content {
   width: auto !important;
 }
+
+.loader-wrapper {
+  background-color: #121212;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+button {
+  background-color: #463AF3;
+  color: aliceblue;
+  border: none;
+}

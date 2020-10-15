@@ -43,16 +43,14 @@ const CoinWallets = ({ close }) => {
     e.preventDefault();
     if (validate()) {
       const destinationAddresses = {};
-      if (destinationAddresses.BTC) {
-        destinationAddresses.BTC = destination_addresses.BTC.trim().length > 0
-        ? destination_addresses.BTC
-        : null;
-      }
-      if (destinationAddresses.XMR) {
-        destinationAddresses.XMR = destination_addresses.XMR.trim().length > 0
-        ? destination_addresses.XMR
-        : null;
-      }
+      destinationAddresses.BTC =
+         destination_addresses.BTC && destination_addresses.BTC.trim().length > 0
+           ? destination_addresses.BTC
+           : null;
+       destinationAddresses.XMR =
+         destination_addresses.XMR && destination_addresses.XMR.trim().length > 0
+           ? destination_addresses.XMR
+           : null;
 
       const seller = {
         accepted_crypto: accepted_crypto.toJSON(),
