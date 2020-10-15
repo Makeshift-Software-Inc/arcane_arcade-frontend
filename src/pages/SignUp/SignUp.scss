@@ -10,11 +10,7 @@
   }
 
   .sign-up-page {
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    bottom: 0px;
-    left: 0px;
+
     background-image: url("./../../img/auth-bckg.jpg");
     background-size: cover;
   }
@@ -42,12 +38,13 @@
 
 
   .login-form {
-    padding: 30px 0;
+    padding: 30px 25px;
     z-index: 999;
     width: 100%;
     max-width: 844px;
     background-color: #2A2A2A;
     form {
+      width: 100%;
       max-width: 475px;
       text-align: center;
       color: #FFFFFF;
@@ -76,6 +73,7 @@
         border: none;
         background-color: #FFFFFF !important;
         color: black !important;
+        min-width: 0;
       }
 
       .eye-icon-button {
@@ -111,6 +109,8 @@
 
   .submit-button {
     width: 100%; 
+    background-color: #463AF3;
+    border-radius: 8px;
   }
 
   .terms-div p {
@@ -125,6 +125,17 @@
 
     a {
       color: #463AF3;
+    }
+  }
+
+  @media only screen and (max-width: 667px) {
+    .login-form {
+      height: 100%;
+      padding: 65px 25px 108px 25px;
+
+      form {
+        height: 100%;
+      }
     }
   }
 }

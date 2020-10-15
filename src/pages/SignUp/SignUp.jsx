@@ -51,19 +51,19 @@ const SignUpPage = ({ history }) => {
   const hasError = (name) => Object.prototype.hasOwnProperty.call(signUp.errors.errors, name);
 
   return (
-     <div className="App sign-up">
+     <div className="App sign-up flex-row">
  
-      <div className="flex flex-column justify-center align-center sign-up-page">
+      <div className="flex-row align-center justify-center flex-grow sign-up-page">
 
         
-        <div className="login-form flex flex-column ">
+        <div className="login-form flex flex-column flex-grow">
           <Link className="logo flex" to="/">
             Logo
           </Link>
           <div className="sign-up-link">
-            <h1> Sign Up </h1>
-            <span>Don&apos;t have an account? </span>  
-            <Link to="/sign-up">Sign up</Link>
+            <h1> Sign In </h1>
+            <span>Already have an account? </span>  
+            <Link to="/login">Sign In</Link>
           </div>
           <form onSubmit={onSubmit} className="flex-flex-column">
 

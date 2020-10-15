@@ -33,22 +33,24 @@ const LoginPage = ({ history }) => {
   const hasError = (name) => Object.prototype.hasOwnProperty.call(login.errors.errors, name);
 
   return (
-    <div className="App login">
+    <div className="App login flex-row">
  
-      <div className="flex flex-column justify-center align-center login-page">
+      <div className="flex-row align-center justify-center flex-grow login-page">
 
         
-        <div className="login-form flex flex-column ">
+        <div className="login-form flex flex-column flex-grow">
           <Link className="logo flex" to="/">
             Logo
           </Link>
-          <div className="sign-up-link">
-            <h1> Sign In </h1>
-            <span>Already have an account? </span>  
-            <Link to="/login">Sign In</Link>
-          </div>
-          <form onSubmit={onSubmit} className="flex-flex-column">
 
+          <div className="sign-up-link">
+            <h1> Sign Up </h1>
+            <span>Don&apos;t have an account? </span>  
+            <Link to="/sign-up">Sign up</Link>
+          </div>
+
+          <form onSubmit={onSubmit} className="flex-column justify-between">
+            <div>
             <div className="input-container">
               <p className="form-text label">Username</p>
               <Input 
@@ -93,6 +95,8 @@ const LoginPage = ({ history }) => {
             </div> 
 
             <Errors errors={login.errors.full_messages.toJSON()} />
+
+            </div>
 
             <Submit text={'LOG IN'}/>
     
