@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
 
 import ReactPlayer from 'react-player';
@@ -16,40 +16,41 @@ import { useStore } from '../../../store';
 
 import Navbar from '../../../components/Navbar/Navbar';
 import Loading from '../../../components/Loading/Loading';
+import BuyModal from './Buy/Modal';
 
 import Api from '../../../services/Api';
 
 import './GamesShow.scss';
 
-const Images = ({ images, gameTitle }) => images.map((image) => (
-  <SplideSlide key={image}>
-    <img src={image} alt={`${gameTitle} cover`} />
-  </SplideSlide>
-));
+const Images = ({ images, gameTitle }) =>
+  images.map((image) => (
+    <SplideSlide key={image}>
+      <img src={image} alt={`${gameTitle} cover`} />
+    </SplideSlide>
+  ));
 
-const Videos = ({ videos, thumbnail }) => videos.map((video) => (
-  <SplideSlide key={video}>
-    <ReactPlayer
-      url={video}
-      thumbnail={thumbnail}
-      playing={false}
-      controls
-      muted
-    />
-  </SplideSlide>
-));
+const Videos = ({ videos, thumbnail }) =>
+  videos.map((video) => (
+    <SplideSlide key={video}>
+      <ReactPlayer
+        url={video}
+        thumbnail={thumbnail}
+        playing={false}
+        controls
+        muted
+      />
+    </SplideSlide>
+  ));
 
 const Splides = ({ images, videos, gameTitle }) => (
   <>
-    <Videos
-      videos={videos}
-      thumbnail={images.length > 0 ? images[0] : null}
-    />
+    <Videos videos={videos} thumbnail={images.length > 0 ? images[0] : null} />
     <Images images={images} gameTitle={gameTitle} />
   </>
 );
 
 const GamesShow = ({ match, history }) => {
+  const [showBuyModal, setShowBuyModal] = useState(false);
   const {
     games: { loadGame, selectedGame },
     auth: { isLoggedIn },
@@ -64,37 +65,12 @@ const GamesShow = ({ match, history }) => {
 
   if (!selectedGame) return <Loading />;
 
-  const onFormSubmit = async (e) => {
-    e.preventDefault();
+  const openBuyModal = () => {
+    setShowBuyModal(true);
+  };
 
-    if (!isLoggedIn) {
-      history.push('/login');
-      return;
-    }
-
-    const selectedPayment = document.querySelector(
-      'input[name="payment_method"]:checked',
-    );
-
-    if (!selectedPayment) return;
-
-    const coin_type = selectedPayment.id;
-    // eslint-disable-next-line
-    const deposit_amount = selectedGame[`${coin_type}_amount`];
-
-    const response = await Api.post('/orders', {
-      coin_type: coin_type.toUpperCase(),
-      coin_amount: deposit_amount,
-      // eslint-disable-next-line
-      listing_id: selectedGame.id,
-      // eslint-disable-next-line
-      fiat_currency: selectedGame.default_currency,
-    });
-
-    if (response.status === 200) {
-      // eslint-disable-next-line
-      history.push(`/buy/${response.data.id}`);
-    }
+  const closeBuyModal = () => {
+    setShowBuyModal(false);
   };
 
   return (
@@ -166,9 +142,7 @@ const GamesShow = ({ match, history }) => {
                 {selectedGame.price && (
                   <h3>
                     {selectedGame.currency_symbol}
-                    {selectedGame.price}
-                    {' '}
-                    {selectedGame.default_currency}
+                    {selectedGame.price} {selectedGame.default_currency}
                   </h3>
                 )}
               </div>
@@ -199,12 +173,8 @@ const GamesShow = ({ match, history }) => {
               )}
             </div>
             <div className="payment-submit">
-              <button
-                onClick={onFormSubmit}
-                className="topcoat-button--large--cta"
-                type="submit"
-              >
-                Buy
+              <button onClick={openBuyModal} className="button" type="button">
+                BUY NOW
               </button>
             </div>
           </form>
@@ -215,6 +185,7 @@ const GamesShow = ({ match, history }) => {
           dangerouslySetInnerHTML={{ __html: selectedGame.description }}
         />
       </div>
+      {showBuyModal && <BuyModal close={closeBuyModal} />}
     </div>
   );
 };

@@ -29,7 +29,12 @@ const Game = types
   .views((self) => ({
     supportedPlatforms() {
       return self.supported_platform_listings.map(
-        (platform) => platform.supported_platform,
+        (platform) => platform.supported_platform
+      );
+    },
+    supportedPlatformsToBuy() {
+      return self.supported_platform_listings.filter(
+        (platform) => platform.distribution
       );
     },
     hasSupportedPlatform(name) {

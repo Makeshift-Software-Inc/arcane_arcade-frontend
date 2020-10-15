@@ -5,7 +5,7 @@ import closeIcon from '../../../img/close.svg';
 
 import './Header.scss';
 
-const Header = ({ back, close, title }) => {
+const Header = ({ back, close, title, black }) => {
   const goBack = (e) => {
     e.preventDefault();
     back();
@@ -26,7 +26,7 @@ const Header = ({ back, close, title }) => {
           </a>
         )}
       </span>
-      <span className="modal-title">{title}</span>
+      <span className={`modal-title ${black ? 'is-black' : ''}`}>{title}</span>
       <span className="close-wrapper">
         {close && (
           // eslint-disable-next-line
