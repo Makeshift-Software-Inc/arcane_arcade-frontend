@@ -164,15 +164,15 @@ const Home = () => {
                     lazyLoad: true,
                     waitForTransition: true,
                     breakpoints: {
-                  		590: {
-                  			width: 550,
-                        height: 450
-                  		},
+                      590: {
+                        width: 550,
+                        height: 450,
+                      },
                       530: {
                         width: 480,
-                        height: 400
-                      }
-                    }
+                        height: 400,
+                      },
+                    },
                   }}
                 >
                   <SplideSlide>
@@ -237,9 +237,9 @@ const Home = () => {
               breakpoints: {
                 800: {
                   width: 600,
-                  perPage: 2
+                  perPage: 2,
                 },
-              }
+              },
             }}
           >
             {games.map((game) => {
