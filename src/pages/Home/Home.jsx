@@ -163,6 +163,16 @@ const Home = () => {
                     clones: 0,
                     lazyLoad: true,
                     waitForTransition: true,
+                    breakpoints: {
+                      590: {
+                        width: 550,
+                        height: 450,
+                      },
+                      530: {
+                        width: 480,
+                        height: 400,
+                      },
+                    },
                   }}
                 >
                   <SplideSlide>
@@ -216,16 +226,20 @@ const Home = () => {
           <Splide
             className="new release-slider"
             options={{
-              type: 'loop',
               clones: 0,
               perPage: 4,
               perMove: 1,
               width: 1000,
               height: 250,
               rewind: false,
-              gap: '0.1rem',
               keyboard: false,
               lazyLoad: true,
+              breakpoints: {
+                800: {
+                  width: 600,
+                  perPage: 2,
+                },
+              },
             }}
           >
             {games.map((game) => {

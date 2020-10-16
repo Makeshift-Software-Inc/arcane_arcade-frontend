@@ -1,18 +1,31 @@
 import React from 'react';
 
+import checkSlider from '../../img/Checkmark_icon.svg';
+
 const SendCode = ({ selected, onChange, send }) => (
   <div className="send-code">
-    <h1>Activate Your Account</h1>
 
     <p>
-      We&apos;ve generated a 7-digit code to verify your account. Which method
-      would you like to use to receive:
+      We&apos;ve generated a 7-digit code to verify your account.
+      <br />
+      Which method would you like to use to receive:
     </p>
 
-    <div className="delivery-options">
-      <label className="topcoat-radio-button">
+    <div className="delivery-options flex-row">
+
+      <label className="topcoat-radio-button flex-row topcoat-email-label">
+        <span className={`email-span ${selected === 'email' ? 'active' : ''}`}>Email</span>
+        {
+            selected === 'sms'
+            && (
+            <a>
+              <img src={checkSlider} alt="email-checked" className="email-checkbox" />
+            </a>
+            )
+          }
+
         <input
-          type="radio"
+          type="checkbox"
           id="email"
           value="email"
           name="delivery_method"
@@ -20,12 +33,21 @@ const SendCode = ({ selected, onChange, send }) => (
           onChange={onChange}
         />
         <div className="topcoat-radio-button__checkmark" />
-        Email
       </label>
 
-      <label className="topcoat-radio-button">
+      <label className="topcoat-radio-button flex-row topcoat-sms-label">
+
+        {
+            selected === 'email'
+            && (
+            <a>
+              <img src={checkSlider} alt="sms-checked" className="sms-checkbox" />
+            </a>
+            )
+          }
+
         <input
-          type="radio"
+          type="checkbox"
           id="sms"
           value="sms"
           name="delivery_method"
@@ -33,7 +55,7 @@ const SendCode = ({ selected, onChange, send }) => (
           onChange={onChange}
         />
         <div className="topcoat-radio-button__checkmark" />
-        SMS
+        <span className={`sms-span ${selected === 'sms' ? 'active' : ''}`}>SMS</span>
       </label>
     </div>
 
@@ -44,7 +66,7 @@ const SendCode = ({ selected, onChange, send }) => (
         className="topcoat-button--large--cta"
         disabled={!selected}
       >
-        Send
+        SEND
       </button>
     </div>
   </div>

@@ -62,6 +62,10 @@ code {
   flex-direction: column-reverse;
 }
 
+.flex-grow {
+  flex-grow: 1;
+}
+
 .no-scroll {
   max-height: 100vh;
   overflow: hidden;
@@ -73,6 +77,10 @@ code {
 
 .justify-between {
   justify-content: space-between;
+}
+
+.justify-center {
+  justify-content: center;
 }
 
 .justify-flex-start {
@@ -96,4 +104,18 @@ code {
 
 .modal-content {
   width: auto !important;
+}
+
+.loader-wrapper {
+  background-color: #121212;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+button {
+  background-color: #463AF3;
+  color: aliceblue;
+  border: none;
 }

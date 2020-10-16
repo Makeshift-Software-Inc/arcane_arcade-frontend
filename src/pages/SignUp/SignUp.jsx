@@ -1,4 +1,6 @@
-import React, { useEffect, createRef } from 'react';
+import React, { useEffect, createRef, useState } from 'react';
+
+import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
 
 import 'intl-tel-input/build/css/intlTelInput.css';
@@ -7,8 +9,12 @@ import intlTelInput from 'intl-tel-input';
 
 import { useStore } from '../../store';
 
-import Navbar from '../../components/Navbar/Navbar';
 import Errors from '../../components/Errors/Errors';
+
+import Input from '../../components/Form/Input/Input';
+import Submit from '../../components/Form/Submit/Submit';
+
+import eyeIcon from '../../img/Show-Hide_icon.svg';
 
 import './SignUp.scss';
 
@@ -28,6 +34,8 @@ const SignUpPage = ({ history }) => {
     forms: { signUp },
   } = useStore();
 
+  const [seePassword, setseePassword] = useState(false);
+
   const onSubmit = async (e) => {
     const countryCode = document.querySelector('.iti__selected-dial-code').innerHTML;
     e.preventDefault();
@@ -38,113 +46,102 @@ const SignUpPage = ({ history }) => {
     }
   };
 
-  const hasError = (name) => Object.prototype.hasOwnProperty.call(signUp.errors.errors, name);
-
   return (
-    <div className="App sign-up">
-      <Navbar />
+    <div className="App sign-up flex-row">
 
-      <h1>Sign Up</h1>
-      <form className="normal-signup" onSubmit={onSubmit}>
-        <div className="field">
-          <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            id="username"
-            className={`topcoat-text-input ${
-              signUp.errors.errors
-              && hasError('username')
-                ? 'error'
-                : ''
-            }`}
-            name="username"
-            placeholder="Username"
-            value={signUp.username}
-            onChange={signUp.onChange}
-          />
-        </div>
+      <div className="flex-row align-center justify-center flex-grow sign-up-page">
 
-        <div className="password-fields">
-          <div className="field">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              className={`topcoat-text-input ${
-                signUp.errors.errors
-                && hasError('password')
-                  ? 'error'
-                  : ''
-              }`}
-              name="password"
-              placeholder="Password"
-              value={signUp.password}
-              onChange={signUp.onChange}
-            />
+        <div className="login-form flex flex-column flex-grow">
+          <Link className="logo flex" to="/">
+            Logo
+          </Link>
+          <div className="sign-up-link">
+            <h1> Sign Up </h1>
+            <span>Already have an account? </span>
+            <Link to="/login">Sign In</Link>
           </div>
+          <form onSubmit={onSubmit} className="flex-flex-column">
 
-          <div className="field">
-            <input
-              type="password"
-              id="password_confirmation"
-              className={`topcoat-text-input ${
-                signUp.errors.errors
-                && hasError('password_confirmation')
-                  ? 'error'
-                  : ''
-              }`}
-              name="password_confirmation"
-              placeholder="Confirm Password"
-              value={signUp.password_confirmation}
-              onChange={signUp.onChange}
-            />
-          </div>
+            <div className="input-container">
+              <p className="form-text label">Username</p>
+              <Input
+                type="text"
+                name="username"
+                value={signUp.username}
+                onChange={signUp.onChange}
+              />
+            </div>
+
+            <div className="input-container">
+              <p className="form-text label">Email</p>
+              <Input
+                type="email"
+                name="email"
+                value={signUp.email}
+                onChange={signUp.onChange}
+              />
+            </div>
+
+            <div className="input-container">
+              <p className="form-text label">Password</p>
+              <div className="flex-row align-center input-div">
+                <Input
+                  type={seePassword ? 'text' : 'password'}
+                  name="password"
+                  value={signUp.password}
+                  onChange={signUp.onChange}
+                />
+                <a href="#" className="eye-icon-button" onClick={() => setseePassword(!seePassword)}>
+                  <img src={eyeIcon} alt="eye-icon" />
+                </a>
+              </div>
+            </div>
+
+            <div className="input-container">
+              <p className="form-text label">Confirm Password</p>
+              <div className="flex-row align-center input-div">
+                <Input
+                  type={seePassword ? 'text' : 'password'}
+                  name="password_confirmation"
+                  value={signUp.password_confirmation}
+                  onChange={signUp.onChange}
+                />
+                <a href="#" className="eye-icon-button" onClick={() => setseePassword(!seePassword)}>
+                  <img src={eyeIcon} alt="eye-icon" />
+                </a>
+              </div>
+            </div>
+
+            <div className="input-container">
+              <p className="form-text label">Phone Number</p>
+              <input
+                type="tel"
+                id="phone_number"
+                className="arcane-input"
+                maxLength="16"
+                name="phone_number"
+                placeholder="Phone Number"
+                ref={phoneNumberRef}
+                value={signUp.phone_number}
+                onChange={signUp.onChange}
+              />
+            </div>
+
+            <div className="terms-div flex-column justify-center">
+              <p>
+                By continuing, you agree to accept our
+                <br />
+                Privacy Policy & Terms of Service.
+              </p>
+            </div>
+
+            <Errors errors={signUp.errors.full_messages.toJSON()} />
+
+            <Submit text="SIGN UP" />
+
+          </form>
         </div>
-
-        <div className="field">
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            className={`topcoat-text-input ${
-              signUp.errors.errors
-              && hasError('email')
-                ? 'error'
-                : ''
-            }`}
-            name="email"
-            placeholder="Email"
-            value={signUp.email}
-            onChange={signUp.onChange}
-          />
-        </div>
-
-        <div className="field phone">
-          <label htmlFor="phone_number">Phone Number</label>
-          <input
-            type="tel"
-            id="phone_number"
-            className={`topcoat-text-input ${
-              signUp.errors.errors
-              && hasError('phone_number')
-                ? 'error'
-                : ''
-            }`}
-            maxLength="16"
-            name="phone_number"
-            placeholder="Phone Number"
-            ref={phoneNumberRef}
-            value={signUp.phone_number}
-            onChange={signUp.onChange}
-          />
-        </div>
-
-        <Errors errors={signUp.errors.full_messages.toJSON()} />
-
-        <button type="submit" className="topcoat-button--large continue">
-          Sign Up
-        </button>
-      </form>
+      </div>
     </div>
   );
 };

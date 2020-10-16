@@ -1,44 +1,131 @@
-.App {
-  h1 {
+.App.login {
+  font-style:  Montserrat;
+  h1, p, span {
     text-align: center;
-    color: aliceblue;
-    letter-spacing: 0.7px;
-    margin: 5em 0;
+    color: #FFFFFF;
   }
 
-  .login-form form {
-    width: 40vw;
-    padding: 1em;
-    margin: 0 auto;
-    text-align: center;
-    border-radius: 4px;
-    border: 1px solid #333434;
-    background-color: rgba(0, 0, 0, 0.1);
+  h1 {
+    font-size: 24px;
+  }
 
-    div.field {
-      label {
-        color: aliceblue;
-        font-size: 18px;
-        letter-spacing: 0.7px;
+  .login-page {
+    height: 100vh;
+    background-image: url("./../../img/auth-bckg.jpg");
+    background-size: cover;
+  }
+
+  .login-page::before {
+    content: "";
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background-color: rgba(0,0,0,0.8);
+  }
+
+  .logo {
+    font-style: Segoe UI;
+    width: 143px;
+    height: 64px;
+    color: #E4E4E4;
+    font-size: 33px;
+    font-weight: normal;
+    background-color: #463AF3;
+    margin-bottom: 40px;
+  }
+
+
+  .login-form {
+    padding: 30px 25px;
+    z-index: 999;
+    width: 100%;
+    max-width: 844px;
+    background-color: #2A2A2A;
+    form {
+      max-width: 475px;
+      width: 100%;
+      text-align: center;
+      color: #FFFFFF;
+
+      .form-text {
+        text-align: left;
+        font-size: 12px;
+        font-weight: normal;
+        letter-spacing: 0px;
+        color: white;
       }
 
-      &:first-child {
-        margin-top: 5vh;
+      .label {
+        margin-bottom: 8px;
       }
-      &:last-of-type {
-        margin-bottom: 4.5vh;
+
+      .input-div {
+        background-color: #FFFFFF;
+        border-radius: 8px;
+        border: 1px solid #c4c4c4;
+      }
+
+      .arcane-input,
+      .arcane-input:active
+      .arcane-input:focus-within {
+        border: none;
+        background-color: #FFFFFF !important;
+        color: black !important;
+        min-width: 0;
+      }
+
+      .eye-icon-button {
+        padding: 10px 30px;
+      }
+
+      .input-container {
+        margin-bottom: 20px;
+      }
+
+      /* Change the white to any color ;) */
+      .arcane-input:-webkit-autofill,
+      .arcane-input:-webkit-autofill:hover, 
+      .arcane-input:-webkit-autofill:focus, 
+      .arcane-input:-webkit-autofill:active  {
+        -webkit-box-shadow: 0 0 0 30px white inset !important;
+      }
+
+      .arcane-input.checkbox {
+        width: 18px;
+        height: 18px;
+        margin-bottom: 0;
+        margin-right: 18px;
       }
     }
   }
 
-  .sign-up-link {
+  .submit-button {
     width: 100%;
-    margin: 1.7em 0;
+    background-color: #463AF3;
+    border-radius: 8px;
+  }
+
+
+  .sign-up-link {
     text-align: center;
+    margin-bottom: 25px;
+    font-size: 13px;
 
     a {
-      color: antiquewhite;
-      letter-spacing: 0.4px;
+      color: #463AF3;
+    }
+  }
+
+  @media only screen and (max-width: 667px) {
+    .login-form {
+      height: 100%;
+      padding: 65px 25px 108px 25px;
+
+      form {
+        height: 100%;
+      }
     }
   }
 }

@@ -47,11 +47,11 @@ class OrdersShow extends React.Component {
       const address = this.state.order.escrow_address;
       const path = `/orders/${id}/payment_status`;
 
+      this.twoMinutes = 120;
       Api.get(path).then((response) => {
         this.setState({
           paymentReceived: !response.data.active,
         });
-        this.twoMinutes = 120;
       });
     }
   }
