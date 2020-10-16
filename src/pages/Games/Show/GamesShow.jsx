@@ -18,29 +18,25 @@ import Navbar from '../../../components/Navbar/Navbar';
 import Loading from '../../../components/Loading/Loading';
 import BuyModal from './Buy/Modal';
 
-import Api from '../../../services/Api';
-
 import './GamesShow.scss';
 
-const Images = ({ images, gameTitle }) =>
-  images.map((image) => (
-    <SplideSlide key={image}>
-      <img src={image} alt={`${gameTitle} cover`} />
-    </SplideSlide>
-  ));
+const Images = ({ images, gameTitle }) => images.map((image) => (
+  <SplideSlide key={image}>
+    <img src={image} alt={`${gameTitle} cover`} />
+  </SplideSlide>
+));
 
-const Videos = ({ videos, thumbnail }) =>
-  videos.map((video) => (
-    <SplideSlide key={video}>
-      <ReactPlayer
-        url={video}
-        thumbnail={thumbnail}
-        playing={false}
-        controls
-        muted
-      />
-    </SplideSlide>
-  ));
+const Videos = ({ videos, thumbnail }) => videos.map((video) => (
+  <SplideSlide key={video}>
+    <ReactPlayer
+      url={video}
+      thumbnail={thumbnail}
+      playing={false}
+      controls
+      muted
+    />
+  </SplideSlide>
+));
 
 const Splides = ({ images, videos, gameTitle }) => (
   <>
@@ -49,11 +45,10 @@ const Splides = ({ images, videos, gameTitle }) => (
   </>
 );
 
-const GamesShow = ({ match, history }) => {
+const GamesShow = ({ match }) => {
   const [showBuyModal, setShowBuyModal] = useState(false);
   const {
     games: { loadGame, selectedGame },
-    auth: { isLoggedIn },
   } = useStore();
 
   const { slug } = match.params;
@@ -142,7 +137,9 @@ const GamesShow = ({ match, history }) => {
                 {selectedGame.price && (
                   <h3>
                     {selectedGame.currency_symbol}
-                    {selectedGame.price} {selectedGame.default_currency}
+                    {selectedGame.price}
+                    {' '}
+                    {selectedGame.default_currency}
                   </h3>
                 )}
               </div>

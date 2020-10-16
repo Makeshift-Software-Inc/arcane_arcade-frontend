@@ -32,7 +32,9 @@ const User = types
 
       const {
         forms: {
-          onboarding: { acceptedCrypto, fiatCurrency, companyName, studioSize },
+          onboarding: {
+            acceptedCrypto, fiatCurrency, companyName, studioSize,
+          },
         },
       } = getRoot(self);
 

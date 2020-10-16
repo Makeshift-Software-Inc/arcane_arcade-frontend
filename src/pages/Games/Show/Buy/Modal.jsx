@@ -33,7 +33,6 @@ const STEPS = [
 const BuyModal = ({ close }) => {
   const {
     auth: { user },
-    games: { selectedGame },
     forms: {
       buy,
       buy: {
@@ -50,7 +49,7 @@ const BuyModal = ({ close }) => {
 
   useEffect(() => {
     prepare();
-  }, []);
+  }, [prepare]);
 
   const next = async (e) => {
     e.preventDefault();
@@ -71,15 +70,15 @@ const BuyModal = ({ close }) => {
   const componentProps = STEPS[currentStep].props.reduce(
     (object, prop) => ({
       ...object,
-      [prop]: buy[prop].hasOwnProperty('toJSON')
+      [prop]: Object.prototype.hasOwnProperty.call(buy[prop], 'toJSON')
         ? buy[prop].toJSON()
         : buy[prop],
     }),
-    {}
+    {},
   );
 
   const Component = STEPS[currentStep].component;
-  const title = STEPS[currentStep].title;
+  const { title } = STEPS[currentStep];
 
   const goBack = currentStep > 0 ? previousStep : null;
 

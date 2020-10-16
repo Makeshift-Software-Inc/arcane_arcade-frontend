@@ -43,10 +43,12 @@ const CoinWallets = ({ close }) => {
     e.preventDefault();
     if (validate()) {
       const destinationAddresses = {};
+      // eslint-disable-next-line
       destinationAddresses.BTC =
         destination_addresses.BTC && destination_addresses.BTC.trim().length > 0
           ? destination_addresses.BTC
           : null;
+      // eslint-disable-next-line
       destinationAddresses.XMR =
         destination_addresses.XMR && destination_addresses.XMR.trim().length > 0
           ? destination_addresses.XMR

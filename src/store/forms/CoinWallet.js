@@ -45,16 +45,16 @@ const CoinWallet = types
         if (self.destination_addresses[currency]) {
           if (self.destination_addresses[currency].trim().length === 0) {
             self.errors.addFullMessageError(
-              `${currency} address can't be blank.`
+              `${currency} address can't be blank.`,
             );
           } else if (
             !WAValidator.validate(
               self.destination_addresses[currency],
-              currency
+              currency,
             )
           ) {
             self.errors.addFullMessageError(
-              `${currency} address is not valid.`
+              `${currency} address is not valid.`,
             );
           }
         }

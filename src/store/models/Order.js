@@ -1,12 +1,12 @@
-import { types, flow } from 'mobx-state-tree';
+import { types } from 'mobx-state-tree';
 import BaseUpdate from './BaseUpdate';
 
-import Api from '../../services/Api';
+// import Api from '../../services/Api';
 
 const Order = types
   .model('Order', {
     id: types.identifier,
   })
-  .actions((self) => ({}));
+  .actions(() => ({}));
 
 export default types.compose(BaseUpdate, Order);

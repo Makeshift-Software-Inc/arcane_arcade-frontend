@@ -15,7 +15,7 @@ const Buy = types
   })
   .actions((self) => ({
     prepare() {
-      if (self.prepared) return true;
+      if (self.prepared) return;
       const {
         games: { selectedGame },
       } = getRoot(self);
@@ -54,7 +54,7 @@ const Buy = types
           }
           if (!self.supportedPlatforms.includes(self.platform)) {
             self.errors.addFullMessageError(
-              `${self.platform} is not supported by this game.`
+              `${self.platform} is not supported by this game.`,
             );
             return false;
           }
@@ -66,7 +66,7 @@ const Buy = types
           }
           if (!self.paymentOptions.includes(self.payment_method)) {
             self.errors.addFullMessageError(
-              `${self.payment_method} is not supported by this seller.`
+              `${self.payment_method} is not supported by this seller.`,
             );
             return false;
           }

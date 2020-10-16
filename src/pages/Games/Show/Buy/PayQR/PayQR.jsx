@@ -1,7 +1,5 @@
 import React from 'react';
 
-const PayQR = (props) => {
-  return <div>Pay</div>;
-};
+const PayQR = () => <div>Pay</div>;
 
 export default PayQR;
