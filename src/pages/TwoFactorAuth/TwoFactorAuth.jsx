@@ -2,7 +2,6 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { Link } from 'react-router-dom';
 
-import Navbar from '../../components/Navbar/Navbar';
 import Loading from '../../components/Loading/Loading';
 import Errors from '../../components/Errors/Errors';
 

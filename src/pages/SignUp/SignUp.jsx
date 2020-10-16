@@ -9,14 +9,12 @@ import intlTelInput from 'intl-tel-input';
 
 import { useStore } from '../../store';
 
-import Navbar from '../../components/Navbar/Navbar';
 import Errors from '../../components/Errors/Errors';
 
 import Input from '../../components/Form/Input/Input';
-import Submit from '../../components/Form/Submit/Submit'
+import Submit from '../../components/Form/Submit/Submit';
 
-import background from './../../img/auth-bckg.jpg';
-import eyeIcon from './../../img/Show-Hide_icon.svg';
+import eyeIcon from '../../img/Show-Hide_icon.svg';
 
 import './SignUp.scss';
 
@@ -48,28 +46,25 @@ const SignUpPage = ({ history }) => {
     }
   };
 
-  const hasError = (name) => Object.prototype.hasOwnProperty.call(signUp.errors.errors, name);
-
   return (
-     <div className="App sign-up flex-row">
- 
+    <div className="App sign-up flex-row">
+
       <div className="flex-row align-center justify-center flex-grow sign-up-page">
 
-        
         <div className="login-form flex flex-column flex-grow">
           <Link className="logo flex" to="/">
             Logo
           </Link>
           <div className="sign-up-link">
-            <h1> Sign In </h1>
-            <span>Already have an account? </span>  
+            <h1> Sign Up </h1>
+            <span>Already have an account? </span>
             <Link to="/login">Sign In</Link>
           </div>
           <form onSubmit={onSubmit} className="flex-flex-column">
 
             <div className="input-container">
               <p className="form-text label">Username</p>
-              <Input 
+              <Input
                 type="text"
                 name="username"
                 value={signUp.username}
@@ -77,9 +72,9 @@ const SignUpPage = ({ history }) => {
               />
             </div>
 
-             <div className="input-container">
+            <div className="input-container">
               <p className="form-text label">Email</p>
-              <Input 
+              <Input
                 type="email"
                 name="email"
                 value={signUp.email}
@@ -87,12 +82,11 @@ const SignUpPage = ({ history }) => {
               />
             </div>
 
-            
             <div className="input-container">
               <p className="form-text label">Password</p>
               <div className="flex-row align-center input-div">
-                <Input 
-                  type={seePassword ? "text" : "password"}
+                <Input
+                  type={seePassword ? 'text' : 'password'}
                   name="password"
                   value={signUp.password}
                   onChange={signUp.onChange}
@@ -106,8 +100,8 @@ const SignUpPage = ({ history }) => {
             <div className="input-container">
               <p className="form-text label">Confirm Password</p>
               <div className="flex-row align-center input-div">
-                <Input 
-                  type={seePassword ? "text" : "password"}
+                <Input
+                  type={seePassword ? 'text' : 'password'}
                   name="password_confirmation"
                   value={signUp.password_confirmation}
                   onChange={signUp.onChange}
@@ -123,7 +117,7 @@ const SignUpPage = ({ history }) => {
               <input
                 type="tel"
                 id="phone_number"
-                className={'arcane-input'}
+                className="arcane-input"
                 maxLength="16"
                 name="phone_number"
                 placeholder="Phone Number"
@@ -135,16 +129,16 @@ const SignUpPage = ({ history }) => {
 
             <div className="terms-div flex-column justify-center">
               <p>
-                By continuing, you agree to accept our 
-                <br/>
+                By continuing, you agree to accept our
+                <br />
                 Privacy Policy & Terms of Service.
               </p>
-            </div> 
+            </div>
 
             <Errors errors={signUp.errors.full_messages.toJSON()} />
 
-            <Submit text={'SIGN UP'}/>
-    
+            <Submit text="SIGN UP" />
+
           </form>
         </div>
       </div>
