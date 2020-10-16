@@ -51,6 +51,7 @@ const CoinWallet = types
             !WAValidator.validate(
               self.destination_addresses[currency],
               currency,
+              'both'
             )
           ) {
             self.errors.addFullMessageError(

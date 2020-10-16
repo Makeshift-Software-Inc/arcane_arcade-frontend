@@ -6,6 +6,7 @@ import Modal from '../Modals/Modal';
 import OnboardingModalContent from '../Onboarding/Modal';
 
 import './Navbar.scss';
+import logo from '../../img/logo.png'
 
 import { useStore } from '../../store';
 
@@ -64,7 +65,9 @@ const Navbar = () => {
     >
       <div className="navbar-brand">
         <Link className="navbar-item" to="/">
-          <div className="logo-placeholder">Logo</div>
+          <div className="logo">
+            <img src={logo} />
+          </div>
         </Link>
       </div>
 
