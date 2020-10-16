@@ -49,7 +49,6 @@ const Seller = types
     addDestinationAddresses: flow(function* addDestinationAddresses(seller) {
       self.addingDestinationAddresses = true;
 
-      debugger
       try {
         const response = yield Api.put('/sellers/destination_addresses', {
           seller,
