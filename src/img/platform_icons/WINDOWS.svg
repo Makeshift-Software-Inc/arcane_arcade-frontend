@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="26" height="24.375" viewBox="0 0 26 24.375">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <g id="windows" transform="translate(0 -16)">
+    <g id="Groupe_10" data-name="Groupe 10" transform="translate(0 17.828)">
+      <g id="Groupe_9" data-name="Groupe 9" transform="translate(0 0)">
+        <path id="Tracé_19" data-name="Tracé 19" class="cls-1" d="M0,53.422v8.125H11.375V52Z" transform="translate(0 -52)"/>
+      </g>
+    </g>
+    <g id="Groupe_12" data-name="Groupe 12" transform="translate(13 16)">
+      <g id="Groupe_11" data-name="Groupe 11" transform="translate(0 0)">
+        <path id="Tracé_20" data-name="Tracé 20" class="cls-1" d="M256,17.625v9.75h13V16Z" transform="translate(-256 -16)"/>
+      </g>
+    </g>
+    <g id="Groupe_14" data-name="Groupe 14" transform="translate(13 29)">
+      <g id="Groupe_13" data-name="Groupe 13" transform="translate(0 0)">
+        <path id="Tracé_21" data-name="Tracé 21" class="cls-1" d="M256,272v9.75l13,1.625V272Z" transform="translate(-256 -272)"/>
+      </g>
+    </g>
+    <g id="Groupe_16" data-name="Groupe 16" transform="translate(0 29)">
+      <g id="Groupe_15" data-name="Groupe 15" transform="translate(0 0)">
+        <path id="Tracé_22" data-name="Tracé 22" class="cls-1" d="M0,272v8.125l11.375,1.422V272Z" transform="translate(0 -272)"/>
+      </g>
+    </g>
+  </g>
+</svg>

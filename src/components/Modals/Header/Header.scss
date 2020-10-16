@@ -9,6 +9,9 @@
       line-height: 1.5;
       opacity: 0.5;
       font-size: 20px;
+      &.is-black {
+        opacity: 1;
+      }
     }
   }
 }

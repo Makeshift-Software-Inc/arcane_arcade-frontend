@@ -32,6 +32,11 @@ const Game = types
         (platform) => platform.supported_platform,
       );
     },
+    supportedPlatformsToBuy() {
+      return self.supported_platform_listings.filter(
+        (platform) => platform.distribution,
+      );
+    },
     hasSupportedPlatform(name) {
       return !!self
         .supportedPlatforms()
