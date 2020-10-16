@@ -35,7 +35,7 @@ const TwoFactorAuth = ({ history }) => {
     if (!two_factor_auth.codeSent) {
       return (
         <SendCode
-          selected={two_factor_auth.delivery_method}
+          selected={two_factor_auth.delivery_method || 'email'}
           onChange={two_factor_auth.onChange}
           send={sendAuthCode}
         />
@@ -48,7 +48,7 @@ const TwoFactorAuth = ({ history }) => {
   return (
     <div className="App two-factor flex-row">
       <div className="flex-row align-center justify-center flex-grow two-factor-page">
-        <div className="flex flex-column flex-grow two-factor-form">
+        <div className="flex-column flex-grow two-factor-form align-center justify-between">
 
           <Link className="logo flex" to="/">
             Logo

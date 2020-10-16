@@ -17,6 +17,7 @@
   }
 
   .two-factor-form {
+    text-align: center;
     z-index: 999;
     max-width: 844px;
     padding: 30px 25px;
@@ -44,8 +45,6 @@
   }
 
   .send-code {
-    width: 30vw;
-    margin: 0 auto;
     font-size: 20px;
     letter-spacing: 0px;
     color: #FFFFFF;
@@ -56,7 +55,7 @@
       padding: 2em 0;
 
       .topcoat-radio-button {
-        margin: 0 1em;
+        margin: 0;
         font-size: 19px;
       }
     }
@@ -76,8 +75,51 @@
     }
   }
 
+  .sms-checkbox {
+    transform: rotate(180deg);
+  }
+
+  .sms-checkbox,
+  .email-checkbox {
+    height: 20px;
+  }
+
+  .topcoat-email-label {
+    margin-right: -5px; 
+  }
+
+  .topcoat-sms-label {
+    margin-left: -5px; 
+  }
+
+  input[type="checkbox"] {
+    visibility: hidden;
+  }
+
+  .sms-span {
+    margin-left: 24px;
+  }
+
+  .email-span {
+    margin-right: 24px;
+  }
+
+  .topcoat-radio-button span {
+    opacity: 1;
+  }
+
+  .topcoat-radio-button span.active {
+    opacity: 0.5;
+  }
+
   .code {
     display: flex;
     justify-content: center;
+  }
+
+  @media only screen and (max-width: 667px) {
+    .two-factor-form {
+      height: 100%;
+    }
   }
 }
