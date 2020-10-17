@@ -7,6 +7,11 @@
     }
     p {
       line-height: 1.5;
+
+      &.address {
+        max-width: 510px;
+        overflow-wrap: break-word;
+      }
     }
     .expires-in-countdown {
       margin-left: 10px;
