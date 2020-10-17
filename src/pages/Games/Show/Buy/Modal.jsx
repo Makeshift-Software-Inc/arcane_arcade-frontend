@@ -81,7 +81,7 @@ const BuyModal = ({ close }) => {
   const { title } = STEPS[currentStep];
 
   const goBack = currentStep > 0 ? previousStep : null;
-  
+
   return (
     <Modal>
       <Header title={title} black close={close} back={goBack} />
