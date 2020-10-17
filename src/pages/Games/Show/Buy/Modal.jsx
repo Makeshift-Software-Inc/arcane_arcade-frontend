@@ -12,7 +12,6 @@ import Loading from '../../../../components/Loading/Loading';
 
 import Platform from './Platform/Platform';
 import PaymentMethod from './PaymentMethod/PaymentMethod';
-import PayQR from './PayQR/PayQR';
 
 import './Modal.scss';
 
@@ -27,7 +26,6 @@ const STEPS = [
     title: 'Choose Payment Method',
     props: ['payment_method', 'paymentOptions'],
   },
-  { component: PayQR, props: [] },
 ];
 
 const BuyModal = ({ close }) => {
@@ -37,7 +35,9 @@ const BuyModal = ({ close }) => {
     },
     forms: {
       buy,
-      buy: { prepare, update, currentStep, nextStep, previousStep, errors },
+      buy: {
+        prepare, update, currentStep, nextStep, previousStep, errors,
+      },
     },
   } = useStore();
 
@@ -50,9 +50,7 @@ const BuyModal = ({ close }) => {
     if (currentStep === 1) {
       if (nextStep()) {
         if (await createOrder()) {
-          console.log('ORDER CREATED');
-          // history.push('/seller/dashboard');
-          // toast('Your seller account has been created.');
+          close();
         }
       }
     } else {
@@ -68,7 +66,7 @@ const BuyModal = ({ close }) => {
         ? buy[prop].toJSON()
         : buy[prop],
     }),
-    {}
+    {},
   );
 
   const Component = STEPS[currentStep].component;
@@ -78,18 +76,20 @@ const BuyModal = ({ close }) => {
 
   return (
     <Modal>
-      <Header title={title} black close={close} back={goBack} />
       <div className="buy-modal">
         {creatingOrder ? (
-          <Loading />
+          <Loading text="Creating your order, please wait..." small white />
         ) : (
-          <form onSubmit={next} className="flex-column align-center">
-            <Component {...defaultProps} {...componentProps} />
+          <React.Fragment>
+            <Header title={title} black close={close} back={goBack} />
+            <form onSubmit={next} className="flex-column align-center">
+              <Component {...defaultProps} {...componentProps} />
 
-            <Errors errors={errors.full_messages.toJSON()} />
+              <Errors errors={errors.full_messages.toJSON()} />
 
-            <Submit text={currentStep === 0 ? 'NEXT' : 'PAY'} />
-          </form>
+              <Submit text={currentStep === 0 ? 'NEXT' : 'PAY'} />
+            </form>
+          </React.Fragment>
         )}
       </div>
     </Modal>

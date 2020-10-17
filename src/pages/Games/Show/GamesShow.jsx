@@ -17,6 +17,7 @@ import { useStore } from '../../../store';
 import Navbar from '../../../components/Navbar/Navbar';
 import Loading from '../../../components/Loading/Loading';
 import BuyModal from './Buy/Modal';
+import OrderDetailsModal from '../../MyLibrary/Modal/Modal';
 
 import './GamesShow.scss';
 
@@ -183,6 +184,7 @@ const GamesShow = ({ match }) => {
         />
       </div>
       {showBuyModal && <BuyModal close={closeBuyModal} />}
+      <OrderDetailsModal />
     </div>
   );
 };

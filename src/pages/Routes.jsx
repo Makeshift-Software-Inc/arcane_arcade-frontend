@@ -10,7 +10,6 @@ import Login from './Login/Login';
 import SignUp from './SignUp/SignUp';
 import TwoFactorAuth from './TwoFactorAuth/TwoFactorAuth';
 import GamesShow from './Games/Show/GamesShow';
-import OrdersShow from './Orders/Show/OrdersShow';
 import Logout from './Logout/Logout';
 import HowItWorks from './HowItWorks/HowItWorks';
 import ContactUs from './ContactUs/ContactUs';
@@ -74,20 +73,6 @@ const Routes = () => {
         exact
         path="/my-library"
         component={MyLibrary}
-      />
-      <ProtectedRoute
-        asActiveUser
-        redirectTo={isLoggedIn ? '/authorize' : '/login'}
-        exact
-        path="/my-library/:tab/:orderId"
-        component={MyLibrary}
-      />
-      <ProtectedRoute
-        asActiveUser
-        redirectTo={isLoggedIn ? '/authorize' : '/login'}
-        exact
-        path="/buy/:id"
-        component={OrdersShow}
       />
       <ProtectedRoute
         asSeller

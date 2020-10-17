@@ -6,7 +6,7 @@ const Order = ({ order, detailsText, onClick }) => {
   const handleClick = (e) => {
     e.preventDefault();
     onClick(order);
-  }
+  };
 
   return (
     <div className="arcane-order">

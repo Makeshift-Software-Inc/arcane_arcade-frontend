@@ -12,23 +12,24 @@ import OrderDetailsModal from './Modal/Modal';
 
 import './MyLibrary.scss';
 
-const NoOrdersYet = () => <p>You still don't have any orders.</p>;
+const NoOrdersYet = () => <p>You still don&apos;t have any orders.</p>;
 
-const MyLibrary = ({ match }) => {
-  console.log(match.params);
-
-  const { tab, orderId } = match.params;
-
-  const [activeTab, setActiveTab] = useState(tab ? tab : 'completed_orders');
-  // const [detailsForOrder, setDetailsForOrder] = useState(orderId ? orderId : null);
+const MyLibrary = () => {
+  const [activeTab, setActiveTab] = useState('completed_orders');
 
   const {
-    user: { loadOrders, loadingOrders, completedOrders, activeOrders, setSelectedOrder },
+    user: {
+      loadOrders,
+      loadingOrders,
+      completedOrders,
+      activeOrders,
+      setSelectedOrder,
+    },
   } = useStore('auth');
 
   useEffect(() => {
     loadOrders();
-  }, []);
+  }, [loadOrders]);
 
   if (loadingOrders) return <Loading />;
 
@@ -37,19 +38,28 @@ const MyLibrary = ({ match }) => {
     { name: 'active_orders', text: 'My Orders' },
   ];
 
-  const orders =
-    activeTab === 'completed_orders' ? completedOrders() : activeOrders();
+  const orders = activeTab === 'completed_orders' ? completedOrders() : activeOrders();
 
   const handleOrderClick = (order) => {
-    setSelectedOrder(order.id)
-  }
+    setSelectedOrder(order.id);
+  };
+
+  const detailsText = activeTab === 'completed_orders' ? 'Order Details' : 'Countinue Order';
 
   return (
     <div className="App my-library">
       <Navbar />
       <div className="my-library-content flex-column">
         <Tabs options={options} active={activeTab} onChange={setActiveTab} />
-        {orders.length === 0 ? <NoOrdersYet /> : <Orders onClick={handleOrderClick} detailsText="Countinue Order" orders={orders} />}
+        {orders.length === 0 ? (
+          <NoOrdersYet />
+        ) : (
+          <Orders
+            onClick={handleOrderClick}
+            detailsText={detailsText}
+            orders={orders}
+          />
+        )}
       </div>
       <OrderDetailsModal />
     </div>

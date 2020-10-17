@@ -88,7 +88,7 @@ const CoinWallets = ({ close }) => {
   return (
     <Modal>
       {addingDestinationAddresses ? (
-        <Loading />
+        <Loading small white />
       ) : (
         <React.Fragment>
           <Header close={close} title="Coin Wallets" />

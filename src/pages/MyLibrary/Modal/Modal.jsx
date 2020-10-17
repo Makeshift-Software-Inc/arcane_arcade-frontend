@@ -12,23 +12,25 @@ import ActiveOrder from './Active';
 import './Modal.scss';
 
 const OrderDetailsModal = () => {
-  const { user: { selectedOrder, setSelectedOrder } } = useStore("auth");
+  const {
+    user: { selectedOrder, setSelectedOrder },
+  } = useStore('auth');
 
   if (!selectedOrder) return null;
 
   const close = () => setSelectedOrder(undefined);
 
   return (
-    <Modal blue>
-      <Header close={close} closeWhite />
+    <Modal blue={selectedOrder.active()}>
+      <Header close={close} closeWhite={selectedOrder.active()} />
       <div className="order-details-modal">
-        { selectedOrder.completed() ? (
+        {selectedOrder.completed() ? (
           <CompletedOrder order={selectedOrder} />
         ) : (
           <ActiveOrder order={selectedOrder} />
-        ) }
+        )}
       </div>
     </Modal>
-  )
-}
+  );
+};
 export default observer(OrderDetailsModal);

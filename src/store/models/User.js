@@ -40,7 +40,9 @@ const User = types
 
       const {
         forms: {
-          onboarding: { acceptedCrypto, fiatCurrency, companyName, studioSize },
+          onboarding: {
+            acceptedCrypto, fiatCurrency, companyName, studioSize,
+          },
         },
       } = getRoot(self);
 
@@ -83,6 +85,7 @@ const User = types
         return true;
       } catch (e) {
         console.log(e);
+        console.log(e.response.data);
         self.creatingOrder = false;
         return false;
       }
@@ -103,7 +106,7 @@ const User = types
     }),
     setSelectedOrder(id) {
       self.selectedOrder = id;
-    }
+    },
   }));
 
 export default types.compose(BaseUpdate, User);

@@ -1,3 +1,61 @@
 .order-details-modal {
-  
+  min-width: 650px;
+  .active-order {
+    .qr-code {
+      width: 150px;
+      margin: 30px 0;
+    }
+    p {
+      line-height: 1.5;
+    }
+    .expires-in-countdown {
+      margin-left: 10px;
+    }
+  }
+  .completed-order {
+    padding: 46px 80px 26px 80px;
+    h1 {
+      font-size: 37px;
+      font-weight: bold;
+      line-height: 1.68;
+      color: #121212;
+      text-align: center;
+      padding-bottom: 7.5px;
+      border-bottom: solid 1px #707070;
+      margin-bottom: 48px;
+    }
+    span.label {
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 1.5;
+      color: #121212;
+      margin-bottom: 8px;
+    }
+    p {
+      margin-bottom: 32px;
+      font-size: 20px;
+      line-height: 1.5;
+      color: #121212;
+      &.platform {
+        font-weight: bold;
+        margin-bottom: 0;
+        margin-right: 15px;
+      }
+    }
+    input {
+      width: 100%;
+      height: 40px;
+      border: solid 2px #121212;
+      text-align: center;
+      padding: 6px 10px;
+      font-size: 20px;
+      line-height: 1.5;
+      color: #121212;
+    }
+    a {
+      font-size: 20px;
+      font-weight: bold;
+      line-height: 1.5;
+    }
+  }
 }
