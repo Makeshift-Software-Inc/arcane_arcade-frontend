@@ -15,8 +15,10 @@ const User = types
     activation_state: types.enumeration(['pending', 'active']),
     seller: types.maybeNull(Seller),
     orders: types.array(Order),
+    selectedOrder: types.maybe(types.reference(Order)),
     loadingSeller: false,
     creatingOrder: false,
+    loadingOrders: false,
   })
   .views((self) => ({
     activated() {
@@ -24,6 +26,12 @@ const User = types
     },
     isSeller() {
       return !!self.seller;
+    },
+    activeOrders() {
+      return self.orders.filter((order) => order.active());
+    },
+    completedOrders() {
+      return self.orders.filter((order) => order.completed());
     },
   }))
   .actions((self) => ({
@@ -70,17 +78,35 @@ const User = types
 
       try {
         const response = yield Api.post('/orders', { order });
-        console.log(response.data);
-        console.log(deserialize(response.data));
-        // self.seller = deserialize(response.data);
+        const newOrder = deserialize(response.data);
+        self.orders.push(newOrder);
+        self.selectedOrder = newOrder.id;
         self.creatingOrder = false;
         return true;
       } catch (e) {
         console.log(e);
+        console.log(e.response.data);
         self.creatingOrder = false;
         return false;
       }
     }),
+    loadOrders: flow(function* loadOrders() {
+      self.loadingOrders = true;
+
+      try {
+        const response = yield Api.get('/orders');
+        self.orders = deserialize(response.data);
+        self.loadingOrders = false;
+        return true;
+      } catch (e) {
+        console.log(e);
+        self.loadingOrders = false;
+        return false;
+      }
+    }),
+    setSelectedOrder(id) {
+      self.selectedOrder = id;
+    },
   }));
 
 export default types.compose(BaseUpdate, User);

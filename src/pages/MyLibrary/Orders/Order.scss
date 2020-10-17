@@ -1,0 +1,46 @@
+$order-details-bg-color: #463af3;
+$order-details-color: #4539ee;
+
+.arcane-order {
+  position: relative;
+  img {
+    width: 100%;
+    min-width: 230px;
+    min-height: 230px;
+    border-radius: 20px;
+  }
+  .order-details {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    background-color: $order-details-bg-color;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: all 0.3s;
+    a {
+      background-color: white;
+      border-radius: 25px;
+      box-shadow: 1px 1px 6px 0 rgba(255, 255, 255, 0.1);
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.19;
+      padding: 11px 35px;
+      color: $order-details-color;
+      cursor: pointer;
+    }
+  }
+  &:hover {
+    .order-details {
+      box-shadow: 0 3px 10px 0 rgba(255, 255, 255, 0.1);
+      opacity: 0.95;
+      transition: all 0.3s;
+    }
+  }
+}

@@ -2,9 +2,14 @@ import React from 'react';
 
 import './Loading.scss';
 
-const Loading = () => (
-  <div className="loader-wrapper">
+const Loading = ({ text, small, white }) => (
+  <div
+    className={`loader-wrapper ${small ? 'small' : ''} ${
+      white ? 'is-white' : ''
+    }`}
+  >
     <div className="loader" />
+    {text && <p>{text}</p>}
   </div>
 );
 

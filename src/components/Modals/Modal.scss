@@ -1,4 +1,5 @@
 $main-color: #000000;
+$blue-color: #463af3;
 
 .arcane-modal {
   .modal-content {
@@ -7,5 +8,9 @@ $main-color: #000000;
     border-radius: 10px;
     color: $main-color;
     font-family: Montserrat;
+    &.is-blue {
+      background-color: $blue-color;
+      color: white;
+    }
   }
 }

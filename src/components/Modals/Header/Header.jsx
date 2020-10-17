@@ -2,11 +2,12 @@ import React from 'react';
 
 import backIcon from '../../../img/back_black.svg';
 import closeIcon from '../../../img/close.svg';
+import closeIconWhite from '../../../img/close_white.svg';
 
 import './Header.scss';
 
 const Header = ({
-  back, close, title, black,
+  back, close, title, black, closeWhite,
 }) => {
   const goBack = (e) => {
     e.preventDefault();
@@ -33,7 +34,7 @@ const Header = ({
         {close && (
           // eslint-disable-next-line
           <a href="#" onClick={closeModal} className="flex-row">
-            <img src={closeIcon} alt="Close" />
+            <img src={closeWhite ? closeIconWhite : closeIcon} alt="Close" />
           </a>
         )}
       </span>

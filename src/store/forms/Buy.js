@@ -36,7 +36,7 @@ const Buy = types
       const valid = self.validate();
       if (!valid) return false;
 
-      if (self.currentStep < 2) {
+      if (self.currentStep < 1) {
         self.currentStep += 1;
       }
       return true;

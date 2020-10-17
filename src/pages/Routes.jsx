@@ -10,13 +10,13 @@ import Login from './Login/Login';
 import SignUp from './SignUp/SignUp';
 import TwoFactorAuth from './TwoFactorAuth/TwoFactorAuth';
 import GamesShow from './Games/Show/GamesShow';
-import OrdersShow from './Orders/Show/OrdersShow';
 import Logout from './Logout/Logout';
 import HowItWorks from './HowItWorks/HowItWorks';
 import ContactUs from './ContactUs/ContactUs';
 import SellerDashboard from './Seller/Dashboard/Dashboard';
 import SellerListingsNew from './Seller/Listings/New';
 import SellerListingsAddDistribution from './Seller/Listings/Distribution';
+import MyLibrary from './MyLibrary/MyLibrary';
 
 const Routes = () => {
   const {
@@ -71,8 +71,8 @@ const Routes = () => {
         asActiveUser
         redirectTo={isLoggedIn ? '/authorize' : '/login'}
         exact
-        path="/buy/:id"
-        component={OrdersShow}
+        path="/my-library"
+        component={MyLibrary}
       />
       <ProtectedRoute
         asSeller
