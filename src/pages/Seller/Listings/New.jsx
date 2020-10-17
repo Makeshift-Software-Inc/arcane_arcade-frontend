@@ -478,7 +478,7 @@ const SellerListingsNew = ({ history }) => {
           <button
             type="submit"
             disabled={!allFilesUploaded() || waitList.length !== 0}
-            className="topcoat-button--large"
+            className="button"
           >
             CREATE
           </button>

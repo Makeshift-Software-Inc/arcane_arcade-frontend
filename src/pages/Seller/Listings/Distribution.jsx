@@ -112,7 +112,7 @@ const SteamKeys = observer(({ steamKeys, add, remove }) => {
         <button
           type="button"
           onClick={addKeys}
-          className="topcoat-button--large"
+          className="button"
         >
           ADD KEY
         </button>
@@ -212,7 +212,7 @@ const Console = observer(({ distribution, platformName, create }) => (
     />
     <br />
     <br />
-    <button onClick={create} type="button" className="topcoat-button--large">
+    <button onClick={create} type="button" className="button">
       CREATE
     </button>
     {distribution.errors.full_messages.length > 0 && (
@@ -257,7 +257,7 @@ const PC = observer(({ platform, create }) => {
         disabled={platform.uploadingInstallers()}
         onClick={create}
         type="button"
-        className="topcoat-button--large"
+        className="button"
       >
         CREATE
       </button>

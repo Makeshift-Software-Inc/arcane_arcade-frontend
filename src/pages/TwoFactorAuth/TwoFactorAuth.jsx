@@ -9,6 +9,7 @@ import SendCode from './SendCode';
 import EnterCode from './EnterCode';
 
 import './TwoFactorAuth.scss';
+import logo from '../../img/logo.png';
 
 import { useStore } from '../../store';
 
@@ -50,7 +51,7 @@ const TwoFactorAuth = ({ history }) => {
         <div className="flex-column flex-grow two-factor-form align-center justify-between">
 
           <Link className="logo flex" to="/">
-            Logo
+            <img src={logo} alt="logo" />
           </Link>
 
           {renderContent()}

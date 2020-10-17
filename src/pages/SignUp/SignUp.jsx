@@ -15,6 +15,7 @@ import Input from '../../components/Form/Input/Input';
 import Submit from '../../components/Form/Submit/Submit';
 
 import eyeIcon from '../../img/Show-Hide_icon.svg';
+import logo from '../../img/logo.png';
 
 import './SignUp.scss';
 
@@ -53,7 +54,7 @@ const SignUpPage = ({ history }) => {
 
         <div className="login-form flex flex-column flex-grow">
           <Link className="logo flex" to="/">
-            Logo
+            <img src={logo} alt="logo" />
           </Link>
           <div className="sign-up-link">
             <h1> Sign Up </h1>

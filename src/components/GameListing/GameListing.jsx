@@ -28,7 +28,7 @@ const PopupContent = ({
     {images[0] && <img src={images[0]} alt="" />}
     {images[1] && <img src={images[1]} alt="" />}
     {videos.length > 0 && (
-    <button type="button" onClick={play} className="topcoat-button--large--cta">
+    <button type="button" onClick={play} className="button">
       Play Trailer
     </button>
     )}

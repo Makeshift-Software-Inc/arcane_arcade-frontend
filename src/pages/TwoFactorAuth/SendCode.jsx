@@ -63,7 +63,7 @@ const SendCode = ({ selected, onChange, send }) => (
       <button
         type="button"
         onClick={send}
-        className="topcoat-button--large--cta"
+        className="button"
         disabled={!selected}
       >
         SEND

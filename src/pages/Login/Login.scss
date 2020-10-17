@@ -32,8 +32,7 @@
     color: #E4E4E4;
     font-size: 33px;
     font-weight: normal;
-    background-color: #463AF3;
-    margin-bottom: 40px;
+    margin-bottom: 100px;
   }
 
 
@@ -86,8 +85,8 @@
 
       /* Change the white to any color ;) */
       .arcane-input:-webkit-autofill,
-      .arcane-input:-webkit-autofill:hover, 
-      .arcane-input:-webkit-autofill:focus, 
+      .arcane-input:-webkit-autofill:hover,
+      .arcane-input:-webkit-autofill:focus,
       .arcane-input:-webkit-autofill:active  {
         -webkit-box-shadow: 0 0 0 30px white inset !important;
       }

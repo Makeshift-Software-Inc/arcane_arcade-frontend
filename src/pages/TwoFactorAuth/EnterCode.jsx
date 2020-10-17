@@ -137,7 +137,7 @@ const EnterCode = ({ authorize, resend }) => {
         {/* eslint-disable-next-line */}
       </div>
       <div className="submit-delivery">
-        <button type="button" onClick={authorizeCode} className="topcoat-button--large--cta">
+        <button type="button" onClick={authorizeCode} className="button">
           Send
         </button>
       </div>

@@ -167,7 +167,7 @@ const SellerDashboard = () => {
         <div className="manage-payments">
           <button
             type="button"
-            className="topcoat-button--large"
+            className="button"
             onClick={openCoinWalletsModal}
           >
             Manage Payments
