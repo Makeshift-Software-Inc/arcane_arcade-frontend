@@ -15,6 +15,7 @@ const User = types
     activation_state: types.enumeration(['pending', 'active']),
     seller: types.maybeNull(Seller),
     orders: types.array(Order),
+    selectedOrder: types.maybe(types.reference(Order)),
     loadingSeller: false,
     creatingOrder: false,
     loadingOrders: false,
@@ -75,9 +76,9 @@ const User = types
 
       try {
         const response = yield Api.post('/orders', { order });
-        console.log(response.data);
-        console.log(deserialize(response.data));
-        // self.seller = deserialize(response.data);
+        const newOrder = deserialize(response.data);
+        self.orders.push(newOrder);
+        self.selectedOrder = newOrder.id;
         self.creatingOrder = false;
         return true;
       } catch (e) {
@@ -100,6 +101,9 @@ const User = types
         return false;
       }
     }),
+    setSelectedOrder(id) {
+      self.selectedOrder = id;
+    }
   }));
 
 export default types.compose(BaseUpdate, User);

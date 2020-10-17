@@ -79,6 +79,13 @@ const Routes = () => {
         asActiveUser
         redirectTo={isLoggedIn ? '/authorize' : '/login'}
         exact
+        path="/my-library/:tab/:orderId"
+        component={MyLibrary}
+      />
+      <ProtectedRoute
+        asActiveUser
+        redirectTo={isLoggedIn ? '/authorize' : '/login'}
+        exact
         path="/buy/:id"
         component={OrdersShow}
       />
