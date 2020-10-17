@@ -37,7 +37,7 @@ const Active = ({ order }) => {
         {' '}
         to:
       </p>
-      <p>
+      <p className="address">
         <b>{order.escrow_address}</b>
       </p>
       <p>
