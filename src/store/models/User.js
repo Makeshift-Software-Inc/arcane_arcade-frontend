@@ -17,6 +17,7 @@ const User = types
     orders: types.array(Order),
     loadingSeller: false,
     creatingOrder: false,
+    loadingOrders: false,
   })
   .views((self) => ({
     activated() {
@@ -25,6 +26,12 @@ const User = types
     isSeller() {
       return !!self.seller;
     },
+    activeOrders() {
+      return self.orders.filter((order) => order.active());
+    },
+    completedOrders() {
+      return self.orders.filter((order) => order.completed());
+    },
   }))
   .actions((self) => ({
     createSeller: flow(function* create() {
@@ -32,9 +39,7 @@ const User = types
 
       const {
         forms: {
-          onboarding: {
-            acceptedCrypto, fiatCurrency, companyName, studioSize,
-          },
+          onboarding: { acceptedCrypto, fiatCurrency, companyName, studioSize },
         },
       } = getRoot(self);
 
@@ -78,6 +83,20 @@ const User = types
       } catch (e) {
         console.log(e);
         self.creatingOrder = false;
+        return false;
+      }
+    }),
+    loadOrders: flow(function* loadOrders() {
+      self.loadingOrders = true;
+
+      try {
+        const response = yield Api.get('/orders');
+        self.orders = deserialize(response.data);
+        self.loadingOrders = false;
+        return true;
+      } catch (e) {
+        console.log(e);
+        self.loadingOrders = false;
         return false;
       }
     }),

@@ -32,18 +32,12 @@ const STEPS = [
 
 const BuyModal = ({ close }) => {
   const {
-    auth: { user },
+    auth: {
+      user: { creatingOrder, createOrder },
+    },
     forms: {
       buy,
-      buy: {
-        creatingOrder,
-        prepare,
-        update,
-        currentStep,
-        nextStep,
-        previousStep,
-        errors,
-      },
+      buy: { prepare, update, currentStep, nextStep, previousStep, errors },
     },
   } = useStore();
 
@@ -55,7 +49,7 @@ const BuyModal = ({ close }) => {
     e.preventDefault();
     if (currentStep === 1) {
       if (nextStep()) {
-        if (await user.createOrder()) {
+        if (await createOrder()) {
           console.log('ORDER CREATED');
           // history.push('/seller/dashboard');
           // toast('Your seller account has been created.');
@@ -74,7 +68,7 @@ const BuyModal = ({ close }) => {
         ? buy[prop].toJSON()
         : buy[prop],
     }),
-    {},
+    {}
   );
 
   const Component = STEPS[currentStep].component;
