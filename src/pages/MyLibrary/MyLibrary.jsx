@@ -44,7 +44,7 @@ const MyLibrary = () => {
     setSelectedOrder(order.id);
   };
 
-  const detailsText = activeTab === 'completed_orders' ? 'Order Details' : 'Countinue Order';
+  const detailsText = activeTab === 'completed_orders' ? 'Order Details' : 'Continue Order';
 
   return (
     <div className="App my-library">
