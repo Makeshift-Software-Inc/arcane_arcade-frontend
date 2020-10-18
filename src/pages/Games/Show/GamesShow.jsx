@@ -4,7 +4,6 @@ import { toast } from 'react-toastify';
 
 import ReactPlayer from 'react-player';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
-import { toast } from 'react-toastify';
 
 import '@splidejs/splide/dist/css/themes/splide-default.min.css';
 
