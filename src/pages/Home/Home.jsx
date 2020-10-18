@@ -70,8 +70,8 @@ const Home = () => {
       link: '#',
     },
     {
-      text: `Dark Souls continues to push the boundaries with the latest, 
-      ambitious chapter in the critically-acclaimed and genre-defining series. 
+      text: `Dark Souls continues to push the boundaries with the latest,
+      ambitious chapter in the critically-acclaimed and genre-defining series.
       Prepare yourself and Embrace The Darkness!`,
       title: 'Dark Souls III',
       icon: [macIcon, switchIcon, psIcon, windowsIcon, xbIcon],
@@ -226,6 +226,12 @@ const Home = () => {
                       clones: 0,
                       lazyLoad: true,
                       waitForTransition: true,
+                      breakpoints: {
+                        400: {
+                          width: 390,
+                          height: 200,
+                        },
+                      },
                     }}
                   >
                     <SplideSlide>
