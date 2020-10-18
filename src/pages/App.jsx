@@ -27,7 +27,6 @@ const App = () => {
       await forms.listing.load();
     };
     load();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (auth.loading) return <Loading />;

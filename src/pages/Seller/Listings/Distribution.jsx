@@ -312,7 +312,6 @@ const Distribution = ({ match, history }) => {
     };
 
     load();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (loadingGames || !selectedGame) return <Loading />;

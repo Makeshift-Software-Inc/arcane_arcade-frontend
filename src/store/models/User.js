@@ -1,4 +1,6 @@
-import { types, flow, getRoot } from 'mobx-state-tree';
+import {
+  types, flow, getRoot, destroy,
+} from 'mobx-state-tree';
 import BaseUpdate from './BaseUpdate';
 import Seller from './Seller';
 import Order from './Order';
@@ -29,6 +31,9 @@ const User = types
     },
     activeOrders() {
       return self.orders.filter((order) => order.active());
+    },
+    paidOrders() {
+      return self.orders.filter((order) => order.paid());
     },
     completedOrders() {
       return self.orders.filter((order) => order.completed());
@@ -81,6 +86,7 @@ const User = types
         const newOrder = deserialize(response.data);
         self.orders.push(newOrder);
         self.selectedOrder = newOrder.id;
+        buy.reset();
         self.creatingOrder = false;
         return true;
       } catch (e) {
@@ -104,6 +110,12 @@ const User = types
         return false;
       }
     }),
+    removeOrder(order) {
+      if (self.selectedOrder.id === order.id) {
+        self.selectedOrder = undefined;
+      }
+      destroy(order);
+    },
     setSelectedOrder(id) {
       self.selectedOrder = id;
     },

@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 
 import ReactPlayer from 'react-player';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
+import { toast } from 'react-toastify';
 
 import '@splidejs/splide/dist/css/themes/splide-default.min.css';
 
@@ -50,8 +51,9 @@ const Splides = ({ images, videos, gameTitle }) => (
 const GamesShow = ({ match, history }) => {
   const [showBuyModal, setShowBuyModal] = useState(false);
   const {
+    games: { loadGame, selectedGame, selectGame },
     auth: { isLoggedIn, user },
-    games: { loadGame, selectedGame },
+    forms: { buy: { reset } },
   } = useStore();
 
   const { slug } = match.params;
@@ -59,21 +61,29 @@ const GamesShow = ({ match, history }) => {
   useEffect(() => {
     loadGame(slug);
     // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    return () => {
+      selectGame();
+    };
   }, [slug]);
 
   if (!selectedGame) return <Loading />;
 
   const openBuyModal = () => {
-    if (isLoggedIn && user.activated()) {
-      setShowBuyModal(true);
-    } else {
+    if (!isLoggedIn) {
+      toast('Please login to continue');
+      history.push('/login');
+    } else if (!user.activated()) {
       toast('Please finish two factor auth first.');
       history.push('/authorize');
+    } else {
+      setShowBuyModal(true);
     }
   };
 
   const closeBuyModal = () => {
     setShowBuyModal(false);
+    reset();
   };
 
   return (
@@ -106,8 +116,6 @@ const GamesShow = ({ match, history }) => {
                 {selectedGame.accepts_bitcoin && (
                   <div className="bitcoin">
                     <label className="topcoat-radio-button">
-                      <input type="radio" id="btc" name="payment_method" />
-                      <div className="topcoat-radio-button__checkmark" />
                       <Tippy
                         content={`${selectedGame.btc_amount} BTC`}
                         interactive
@@ -124,8 +132,6 @@ const GamesShow = ({ match, history }) => {
                 {selectedGame.accepts_monero && (
                   <div className="monero">
                     <label className="topcoat-radio-button">
-                      <input type="radio" id="xmr" name="payment_method" />
-                      <div className="topcoat-radio-button__checkmark" />
                       <Tippy
                         content={`${selectedGame.xmr_amount} XMR`}
                         interactive

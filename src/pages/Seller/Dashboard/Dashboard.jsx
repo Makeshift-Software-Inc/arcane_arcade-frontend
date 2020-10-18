@@ -29,8 +29,6 @@ const SellerDashboard = () => {
 
   useEffect(() => {
     loadGames();
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const closeCoinWalletsModal = () => {
