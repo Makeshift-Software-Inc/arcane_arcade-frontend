@@ -1,7 +1,8 @@
 import React from 'react';
 
-
-const SliderInfo = ({ title, text, link, icons }) => (
+const SliderInfo = ({
+  title, text, link, icons,
+}) => (
 
   <div className="slider-info flex-column justify-between">
 
@@ -12,18 +13,15 @@ const SliderInfo = ({ title, text, link, icons }) => (
         {text}
       </p>
     </div>
-    
 
     <div className="platform-icons flex-row justify-between">
       {/* eslint-disable-next-line */}
       <a href={link}>Learn More ⟶</a>
       <div className="icons flex-row">
-      {
+        {
 
-        icons.map((icon, i) => {
-          return  <img src={icon} alt="svg-icon" key={i}/>
-        })
-       
+        icons.map((icon) => <img src={icon} alt="svg-icon" />)
+
       }
       </div>
     </div>

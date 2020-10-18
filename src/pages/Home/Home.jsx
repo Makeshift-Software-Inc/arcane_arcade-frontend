@@ -13,7 +13,7 @@ import Navbar from '../../components/Navbar/Navbar';
 import Loading from '../../components/Loading/Loading';
 
 import GamesListings from './GamesListings';
-import SliderInfo from './../../components/Home/SliderInfo';
+import SliderInfo from '../../components/Home/SliderInfo';
 
 import hades from '../../img/hades.png';
 import fire_emblem from '../../img/fire_emblem.png';
@@ -21,11 +21,11 @@ import kingdomCome from '../../img/kingdom_come.jpeg';
 import greedfall from '../../img/greedfall.jpg';
 import xcom from '../../img/xcom.jpg';
 
-import windowsIcon from  '../../img/platform_icons/WINDOWS.svg';
-import macIcon from  '../../img/platform_icons/MAC.svg';
-import psIcon from  '../../img/platform_icons/PS4.svg';
-import switchIcon from  '../../img/platform_icons/SWITCH.svg';
-import xbIcon from  '../../img/platform_icons/XB1.svg';
+import windowsIcon from '../../img/platform_icons/WINDOWS.svg';
+import macIcon from '../../img/platform_icons/MAC.svg';
+import psIcon from '../../img/platform_icons/PS4.svg';
+import switchIcon from '../../img/platform_icons/SWITCH.svg';
+import xbIcon from '../../img/platform_icons/XB1.svg';
 
 import { useStore } from '../../store';
 
@@ -93,7 +93,7 @@ const Home = () => {
         Morbi mattis tempor commodo. Mauris commodo consectetur lacinia.
         Sed id nisi vitae velit placerat maximus.`,
       title: 'Forth Title',
-      icon:  [macIcon, switchIcon, psIcon, windowsIcon, xbIcon],
+      icon: [macIcon, switchIcon, psIcon, windowsIcon, xbIcon],
       link: '#',
     },
     {
@@ -102,7 +102,7 @@ const Home = () => {
         Sed semper, eros vitae molestie rhoncus, ipsum metus sagittis odio,
         eu ultrices ante quam quis turpis.`,
       title: 'Fifth Title',
-      icon:  [macIcon, switchIcon, psIcon, windowsIcon, xbIcon],
+      icon: [macIcon, switchIcon, psIcon, windowsIcon, xbIcon],
       link: '#',
     },
   ];
@@ -227,30 +227,29 @@ const Home = () => {
                       height: 450,
                       clones: 0,
                       lazyLoad: true,
-                      waitForTransition: true
+                      waitForTransition: true,
                     }}
                   >
                     <SplideSlide>
-                    <div className="slider-item flex-row">
-                      <img
-                        src={kingdomCome}
-                        alt="kingdom come deliverance cover"
-                      />
-                      <SliderInfo 
-                        title={mainSplideData[mainSplideIndex].title}
-                        text={mainSplideData[mainSplideIndex].text}
-                        link={mainSplideData[mainSplideIndex].link}
-                        icons={mainSplideData[mainSplideIndex].icon}
-                        iconType={mainSplideData[mainSplideIndex].iconType}
-                      />
-                    </div>
-                      
+                      <div className="slider-item flex-row">
+                        <img
+                          src={kingdomCome}
+                          alt="kingdom come deliverance cover"
+                        />
+                        <SliderInfo
+                          title={mainSplideData[mainSplideIndex].title}
+                          text={mainSplideData[mainSplideIndex].text}
+                          link={mainSplideData[mainSplideIndex].link}
+                          icons={mainSplideData[mainSplideIndex].icon}
+                          iconType={mainSplideData[mainSplideIndex].iconType}
+                        />
+                      </div>
 
                     </SplideSlide>
                     <SplideSlide>
                       <div className="slider-item flex-row">
                         <img src={fire_emblem} alt="civilizations 6 cover" />
-                        <SliderInfo 
+                        <SliderInfo
                           title={mainSplideData[mainSplideIndex].title}
                           text={mainSplideData[mainSplideIndex].text}
                           link={mainSplideData[mainSplideIndex].link}
@@ -262,7 +261,7 @@ const Home = () => {
                     <SplideSlide>
                       <div className="slider-item flex-row">
                         <img src={hades} alt="hades cover" />
-                        <SliderInfo 
+                        <SliderInfo
                           title={mainSplideData[mainSplideIndex].title}
                           text={mainSplideData[mainSplideIndex].text}
                           link={mainSplideData[mainSplideIndex].link}
@@ -274,7 +273,7 @@ const Home = () => {
                     <SplideSlide>
                       <div className="slider-item flex-row">
                         <img src={greedfall} alt="greedfall 6 cover" />
-                       <SliderInfo 
+                        <SliderInfo
                           title={mainSplideData[mainSplideIndex].title}
                           text={mainSplideData[mainSplideIndex].text}
                           link={mainSplideData[mainSplideIndex].link}
@@ -286,7 +285,7 @@ const Home = () => {
                     <SplideSlide>
                       <div className="slider-item flex-row">
                         <img src={xcom} alt="civilizations 6 cover" />
-                        <SliderInfo 
+                        <SliderInfo
                           title={mainSplideData[mainSplideIndex].title}
                           text={mainSplideData[mainSplideIndex].text}
                           link={mainSplideData[mainSplideIndex].link}
@@ -297,7 +296,6 @@ const Home = () => {
                     </SplideSlide>
 
                   </Splide>
-  
 
                 </div>
               </div>
