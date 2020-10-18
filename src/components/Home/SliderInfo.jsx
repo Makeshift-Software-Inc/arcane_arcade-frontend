@@ -5,7 +5,7 @@ const SliderInfo = ({ title, text, link, icons }) => (
 
   <div className="slider-info flex-column justify-between">
 
-    <div className="">
+    <div className="slider-text-container">
       <h1>{title}</h1>
 
       <p>

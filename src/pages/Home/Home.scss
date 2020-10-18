@@ -226,7 +226,10 @@
 
         .slider-info {
            height: 300px;
+
+          .slider-text-container {
            overflow-x: scroll;
+          }
         }
       }
     }
