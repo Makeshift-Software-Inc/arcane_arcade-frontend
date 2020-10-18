@@ -25,6 +25,7 @@ const TwoFactorAuth = ({ history }) => {
 
   const authorize = async (code) => {
     if (await auth.authorize(code)) {
+      console.log('GOOD');
       history.push('/');
     }
   };
@@ -35,7 +36,7 @@ const TwoFactorAuth = ({ history }) => {
     if (!two_factor_auth.codeSent) {
       return (
         <SendCode
-          selected={two_factor_auth.delivery_method || 'email'}
+          selected={two_factor_auth.delivery_method}
           onChange={two_factor_auth.onChange}
           send={sendAuthCode}
         />

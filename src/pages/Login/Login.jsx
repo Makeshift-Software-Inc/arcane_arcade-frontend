@@ -25,7 +25,11 @@ const LoginPage = ({ history }) => {
     e.preventDefault();
     if (login.validate()) {
       if (await authStore.login()) {
-        history.push('/');
+        if (authStore.user.activated()) {
+          history.push('/');
+        } else {
+          history.push('/authorize');
+        }
       }
     }
   };

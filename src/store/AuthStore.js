@@ -32,8 +32,7 @@ const AuthStore = types
         });
         localStorage.setItem('auth_token', response.data.token);
 
-        self.user = deserialize(response.data);
-        // FIXME: are we sure we want users to be logged in immedietly after signup?
+        self.user = deserialize(response.data.user);
         self.isLoggedIn = true;
         return true;
       } catch (e) {
@@ -117,8 +116,6 @@ const AuthStore = types
 
       self.loading = true;
 
-      const { forms } = getRoot(self);
-
       try {
         yield Api.post('/authorize', {
           auth: { code },
@@ -127,7 +124,9 @@ const AuthStore = types
         self.loading = false;
         return true;
       } catch (e) {
+        console.log(e);
         if (e.response && e.response.data) {
+          const { forms } = getRoot(self);
           forms.two_factor_auth.errors.update(e.response.data);
         }
         self.loading = false;

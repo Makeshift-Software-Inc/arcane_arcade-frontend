@@ -100,13 +100,7 @@ const HowItWorks = () => {
           <img src={straightLine} alt="straight-line" className="straight-line-img" />
 
           <div className="flex flex-column list">
-            {
-            buyer && <HowItWorksList data={buyerData} />
-          }
-
-            {
-            seller && <HowItWorksList data={sellerData} />
-          }
+            {buyer ? <HowItWorksList data={buyerData} /> : <HowItWorksList data={sellerData} />}
           </div>
         </div>
 
