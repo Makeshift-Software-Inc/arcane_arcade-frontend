@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
+import { toast } from 'react-toastify';
 
 import ReactPlayer from 'react-player';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
@@ -46,9 +47,10 @@ const Splides = ({ images, videos, gameTitle }) => (
   </>
 );
 
-const GamesShow = ({ match }) => {
+const GamesShow = ({ match, history }) => {
   const [showBuyModal, setShowBuyModal] = useState(false);
   const {
+    auth: { isLoggedIn, user },
     games: { loadGame, selectedGame },
   } = useStore();
 
@@ -62,7 +64,12 @@ const GamesShow = ({ match }) => {
   if (!selectedGame) return <Loading />;
 
   const openBuyModal = () => {
-    setShowBuyModal(true);
+    if (isLoggedIn && user.activated()) {
+      setShowBuyModal(true);
+    } else {
+      toast('Please finish two factor auth first.');
+      history.push('/authorize');
+    }
   };
 
   const closeBuyModal = () => {

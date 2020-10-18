@@ -4,7 +4,7 @@ import Errors from './Errors';
 
 const TwoFactorAuth = types
   .model('TwoFactorAuth', {
-    delivery_method: types.maybe(types.enumeration(['sms', 'email'])),
+    delivery_method: types.optional(types.enumeration(['sms', 'email']), 'email'),
     codeSent: false,
     errors: types.optional(Errors, {}),
   })

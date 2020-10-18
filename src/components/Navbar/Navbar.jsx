@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { observer } from 'mobx-react';
+
+import { toast } from 'react-toastify';
 
 import Modal from '../Modals/Modal';
 import OnboardingModalContent from '../Onboarding/Modal';
@@ -11,6 +13,7 @@ import logo from '../../img/logo.png';
 import { useStore } from '../../store';
 
 const Navbar = () => {
+  const history = useHistory();
   const [showOnboardingModal, setShowOnboardingModal] = useState(false);
   const { isLoggedIn, user } = useStore('auth');
 
@@ -18,7 +21,12 @@ const Navbar = () => {
 
   const handleShowOnboardingModal = (e) => {
     e.preventDefault();
-    setShowOnboardingModal(true);
+    if (user.activated()) {
+      setShowOnboardingModal(true);
+    } else {
+      toast('Please finish two factor auth first.');
+      history.push('/authorize');
+    }
   };
 
   const closeOnboardingModal = () => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Redirect, useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import { useStore } from '../../store';
@@ -12,7 +12,10 @@ const ProtectedRoute = ({
   redirectTo,
   ...rest
 }) => {
+  const history = useHistory();
   const { isLoggedIn, user } = useStore('auth');
+
+  if (history.location.pathname === redirectTo) return <Route {...rest} />;
 
   const redirect = <Redirect to={redirectTo} />;
 
