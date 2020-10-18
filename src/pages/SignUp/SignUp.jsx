@@ -27,7 +27,6 @@ const SignUpPage = ({ history }) => {
       utilsScript: '../../node_modules/intl-tel-input/build/js/utils.js',
       separateDialCode: true,
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const {

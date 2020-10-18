@@ -43,7 +43,7 @@ const BuyModal = ({ close }) => {
 
   useEffect(() => {
     prepare();
-  }, [prepare]);
+  }, []);
 
   const next = async (e) => {
     e.preventDefault();

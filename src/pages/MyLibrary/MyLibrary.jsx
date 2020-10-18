@@ -21,7 +21,7 @@ const MyLibrary = () => {
     user: {
       loadOrders,
       loadingOrders,
-      completedOrders,
+      paidOrders,
       activeOrders,
       setSelectedOrder,
     },
@@ -29,7 +29,7 @@ const MyLibrary = () => {
 
   useEffect(() => {
     loadOrders();
-  }, [loadOrders]);
+  }, []);
 
   if (loadingOrders) return <Loading />;
 
@@ -38,7 +38,7 @@ const MyLibrary = () => {
     { name: 'active_orders', text: 'My Orders' },
   ];
 
-  const orders = activeTab === 'completed_orders' ? completedOrders() : activeOrders();
+  const orders = activeTab === 'completed_orders' ? paidOrders() : activeOrders();
 
   const handleOrderClick = (order) => {
     setSelectedOrder(order.id);

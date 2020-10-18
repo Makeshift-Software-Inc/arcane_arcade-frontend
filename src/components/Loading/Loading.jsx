@@ -4,7 +4,7 @@ import './Loading.scss';
 
 const Loading = ({ text, small, white }) => (
   <div
-    className={`loader-wrapper ${small ? 'small' : ''} ${
+    className={`loader-wrapper ${small ? 'is-small' : ''} ${
       white ? 'is-white' : ''
     }`}
   >

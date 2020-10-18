@@ -6,16 +6,18 @@
   align-items: center;
   justify-content: center;
   padding: 30px;
+
+  &.is-small {
+    min-height: auto;
+  }
+  &.is-white {
+    background-color: white;
+  }
+
   .loader {
     font-size: 50px;
   }
   p {
     margin-top: 20px;
-  }
-  .small {
-    min-height: auto;
-  }
-  .is-white {
-    background-color: white;
   }
 }

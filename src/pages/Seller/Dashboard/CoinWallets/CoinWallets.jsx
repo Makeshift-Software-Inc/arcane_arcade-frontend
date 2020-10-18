@@ -37,7 +37,7 @@ const CoinWallets = ({ close }) => {
 
   useEffect(() => {
     prepare();
-  }, [prepare]);
+  }, []);
 
   const save = async (e) => {
     e.preventDefault();

@@ -106,7 +106,6 @@ const SellerListingsNew = ({ history }) => {
         setWaitList([...waitList.filter((id) => event.attachment.id !== id)]);
       }
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const toggleEarlyAccess = () => {

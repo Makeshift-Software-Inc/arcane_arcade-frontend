@@ -44,6 +44,16 @@ const Buy = types
     previousStep() {
       self.currentStep -= 1;
     },
+    reset() {
+      self.listing_id = '';
+      self.platform = '';
+      self.payment_method = '';
+      self.currentStep = 0;
+      self.errors = {};
+      self.supportedPlatforms = [];
+      self.paymentOptions = [];
+      self.prepared = false;
+    },
     validate: () => {
       self.errors = {};
       switch (self.currentStep) {

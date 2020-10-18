@@ -3,6 +3,7 @@ import { observer } from 'mobx-react';
 
 import ReactPlayer from 'react-player';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
+import { toast } from 'react-toastify';
 
 import '@splidejs/splide/dist/css/themes/splide-default.min.css';
 
@@ -46,10 +47,12 @@ const Splides = ({ images, videos, gameTitle }) => (
   </>
 );
 
-const GamesShow = ({ match }) => {
+const GamesShow = ({ match, history }) => {
   const [showBuyModal, setShowBuyModal] = useState(false);
   const {
-    games: { loadGame, selectedGame },
+    games: { loadGame, selectedGame, selectGame },
+    auth: { isLoggedIn },
+    forms: { buy: { reset } },
   } = useStore();
 
   const { slug } = match.params;
@@ -57,16 +60,26 @@ const GamesShow = ({ match }) => {
   useEffect(() => {
     loadGame(slug);
     // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    return () => {
+      selectGame();
+    };
   }, [slug]);
 
   if (!selectedGame) return <Loading />;
 
   const openBuyModal = () => {
-    setShowBuyModal(true);
+    if (!isLoggedIn) {
+      toast('Please login to continue');
+      history.push('/login');
+    } else {
+      setShowBuyModal(true);
+    }
   };
 
   const closeBuyModal = () => {
     setShowBuyModal(false);
+    reset();
   };
 
   return (
