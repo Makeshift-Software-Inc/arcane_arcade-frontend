@@ -14,7 +14,7 @@ const SendCode = ({ selected, onChange, send }) => (
     <div className="delivery-options flex-row">
 
       <label className="topcoat-radio-button flex-row topcoat-email-label">
-        <span className={`email-span ${selected === 'email' ? 'active' : ''}`}>Email</span>
+        <span className={`email-span ${selected === 'email' ? '' : 'active'}`}>Email</span>
         {
             selected === 'sms'
             && (
@@ -55,7 +55,7 @@ const SendCode = ({ selected, onChange, send }) => (
           onChange={onChange}
         />
         <div className="topcoat-radio-button__checkmark" />
-        <span className={`sms-span ${selected === 'sms' ? 'active' : ''}`}>SMS</span>
+        <span className={`sms-span ${selected === 'sms' ? '' : 'active'}`}>SMS</span>
       </label>
     </div>
 
