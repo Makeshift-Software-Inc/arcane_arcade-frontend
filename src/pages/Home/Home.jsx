@@ -13,12 +13,19 @@ import Navbar from '../../components/Navbar/Navbar';
 import Loading from '../../components/Loading/Loading';
 
 import GamesListings from './GamesListings';
+import SliderInfo from '../../components/Home/SliderInfo';
 
 import hades from '../../img/hades.png';
 import fire_emblem from '../../img/fire_emblem.png';
 import kingdomCome from '../../img/kingdom_come.jpeg';
 import greedfall from '../../img/greedfall.jpg';
 import xcom from '../../img/xcom.jpg';
+
+import windowsIcon from '../../img/platform_icons/WINDOWS.svg';
+import macIcon from '../../img/platform_icons/MAC.svg';
+import psIcon from '../../img/platform_icons/PS4.svg';
+import switchIcon from '../../img/platform_icons/SWITCH.svg';
+import xbIcon from '../../img/platform_icons/XB1.svg';
 
 import { useStore } from '../../store';
 
@@ -27,6 +34,8 @@ const Home = () => {
   const {
     selectedGame, games, load, loading,
   } = useStore('games');
+
+  const [mainSplideIndex, setMainSplideIndex] = useState(0);
 
   useEffect(() => {
     load();
@@ -46,6 +55,56 @@ const Home = () => {
   const exploreContent = createRef();
   const discoverRef = createRef();
   const discoverContent = createRef();
+
+  // this is data for the first, main slide
+  const mainSplideData = [
+    {
+      text: `From its inception, Kingdom Come: Deliverance was billed as a
+        game steeped in realism. From period-accurate food and weapon
+        damage to characters drawn from history, Warhorse Studios did
+        its homework. With the game’s release last week, we finally
+        got to play in their (as promised) realistic version of 15th
+        century Bohemia.`,
+      title: 'Kingdom Come: Deliverance',
+      icon: [macIcon, switchIcon, psIcon, windowsIcon, xbIcon],
+      link: '#',
+    },
+    {
+      text: `Dark Souls continues to push the boundaries with the latest, 
+      ambitious chapter in the critically-acclaimed and genre-defining series. 
+      Prepare yourself and Embrace The Darkness!`,
+      title: 'Dark Souls III',
+      icon: [macIcon, switchIcon, psIcon, windowsIcon, xbIcon],
+      link: '#',
+    },
+    {
+      text: `Aenean sed consectetur magna. Donec metus nulla,
+        faucibus eu nibh at, dapibus accumsan justo.
+        Sed elit sapien, venenatis sed odio dictum,
+        suscipit porttitor erat.`,
+      title: 'Third Title',
+      icon: [macIcon, switchIcon, psIcon, windowsIcon, xbIcon],
+      link: '#',
+    },
+    {
+      text: `Nullam luctus massa ut massa lobortis,
+        vel tincidunt sapien malesuada. Duis aliquet nec purus eget condimentum.
+        Morbi mattis tempor commodo. Mauris commodo consectetur lacinia.
+        Sed id nisi vitae velit placerat maximus.`,
+      title: 'Forth Title',
+      icon: [macIcon, switchIcon, psIcon, windowsIcon, xbIcon],
+      link: '#',
+    },
+    {
+      text: `Phasellus in lectus turpis.
+        Pellentesque tincidunt dignissim sagittis.
+        Sed semper, eros vitae molestie rhoncus, ipsum metus sagittis odio,
+        eu ultrices ante quam quis turpis.`,
+      title: 'Fifth Title',
+      icon: [macIcon, switchIcon, psIcon, windowsIcon, xbIcon],
+      link: '#',
+    },
+  ];
 
   const switchPanels = (e) => {
     e.preventDefault();
@@ -78,7 +137,7 @@ const Home = () => {
   };
 
   return (
-    <div className="App">
+    <div className="App flex-column">
       <Navbar />
 
       <div className="slider-container">
@@ -123,8 +182,9 @@ const Home = () => {
           </div>
         )}
         {!selectedGame && (
-          <div className="flex">
-            <div className="row">
+          <div className="flex flex-grow">
+            <div className="row flex-column">
+
               <div className="tabs">
                 <div className="tab">
                   {/* eslint-disable-next-line */}
@@ -152,65 +212,89 @@ const Home = () => {
                   </a>
                 </div>
               </div>
-              <div className="slider">
-                <Splide
-                  className="splide-slider"
-                  options={{
-                    width: 600,
-                    height: 450,
-                    clones: 0,
-                    lazyLoad: true,
-                    waitForTransition: true,
-                    breakpoints: {
-                      590: {
-                        width: 550,
-                        height: 450,
-                      },
-                      530: {
-                        width: 480,
-                        height: 400,
-                      },
-                    },
-                  }}
-                >
-                  <SplideSlide>
-                    <img
-                      src={kingdomCome}
-                      alt="kingdom come deliverance cover"
-                    />
-                  </SplideSlide>
-                  <SplideSlide>
-                    <img src={fire_emblem} alt="civilizations 6 cover" />
-                  </SplideSlide>
-                  <SplideSlide>
-                    <img src={hades} alt="hades cover" />
-                  </SplideSlide>
-                  <SplideSlide>
-                    <img src={greedfall} alt="greedfall 6 cover" />
-                  </SplideSlide>
-                  <SplideSlide>
-                    <img src={xcom} alt="civilizations 6 cover" />
-                  </SplideSlide>
-                </Splide>
-              </div>
-              <div className="slider-info">
-                <h1>Kingdom Come: Deliverance</h1>
 
-                <p>
-                  From its inception, Kingdom Come: Deliverance was billed as a
-                  game steeped in realism. From period-accurate food and weapon
-                  damage to characters drawn from history, Warhorse Studios did
-                  its homework. With the game’s release last week, we finally
-                  got to play in their (as promised) realistic version of 15th
-                  century Bohemia.
-                </p>
+              <div className="flex-row">
+                <div className="slider">
+                  <Splide
+                    onMove={(newIndex, oldIndex) => {
+                      setMainSplideIndex(oldIndex);
+                    }}
+                    className="splide-slider"
+                    options={{
+                      width: 1050,
+                      height: 450,
+                      clones: 0,
+                      lazyLoad: true,
+                      waitForTransition: true,
+                    }}
+                  >
+                    <SplideSlide>
+                      <div className="slider-item flex-row">
+                        <img
+                          src={kingdomCome}
+                          alt="kingdom come deliverance cover"
+                        />
+                        <SliderInfo
+                          title={mainSplideData[mainSplideIndex].title}
+                          text={mainSplideData[mainSplideIndex].text}
+                          link={mainSplideData[mainSplideIndex].link}
+                          icons={mainSplideData[mainSplideIndex].icon}
+                          iconType={mainSplideData[mainSplideIndex].iconType}
+                        />
+                      </div>
 
-                <div className="platform-icons">
-                  {/* eslint-disable-next-line */}
-                  <a>Learn More ⟶</a>
-                  <div className="icons">
-                    <i className="fab fa-windows" />
-                  </div>
+                    </SplideSlide>
+                    <SplideSlide>
+                      <div className="slider-item flex-row">
+                        <img src={fire_emblem} alt="civilizations 6 cover" />
+                        <SliderInfo
+                          title={mainSplideData[mainSplideIndex].title}
+                          text={mainSplideData[mainSplideIndex].text}
+                          link={mainSplideData[mainSplideIndex].link}
+                          icons={mainSplideData[mainSplideIndex].icon}
+                          iconType={mainSplideData[mainSplideIndex].iconType}
+                        />
+                      </div>
+                    </SplideSlide>
+                    <SplideSlide>
+                      <div className="slider-item flex-row">
+                        <img src={hades} alt="hades cover" />
+                        <SliderInfo
+                          title={mainSplideData[mainSplideIndex].title}
+                          text={mainSplideData[mainSplideIndex].text}
+                          link={mainSplideData[mainSplideIndex].link}
+                          icons={mainSplideData[mainSplideIndex].icon}
+                          iconType={mainSplideData[mainSplideIndex].iconType}
+                        />
+                      </div>
+                    </SplideSlide>
+                    <SplideSlide>
+                      <div className="slider-item flex-row">
+                        <img src={greedfall} alt="greedfall 6 cover" />
+                        <SliderInfo
+                          title={mainSplideData[mainSplideIndex].title}
+                          text={mainSplideData[mainSplideIndex].text}
+                          link={mainSplideData[mainSplideIndex].link}
+                          icons={mainSplideData[mainSplideIndex].icon}
+                          iconType={mainSplideData[mainSplideIndex].iconType}
+                        />
+                      </div>
+                    </SplideSlide>
+                    <SplideSlide>
+                      <div className="slider-item flex-row">
+                        <img src={xcom} alt="civilizations 6 cover" />
+                        <SliderInfo
+                          title={mainSplideData[mainSplideIndex].title}
+                          text={mainSplideData[mainSplideIndex].text}
+                          link={mainSplideData[mainSplideIndex].link}
+                          icons={mainSplideData[mainSplideIndex].icon}
+                          iconType={mainSplideData[mainSplideIndex].iconType}
+                        />
+                      </div>
+                    </SplideSlide>
+
+                  </Splide>
+
                 </div>
               </div>
             </div>
@@ -218,7 +302,7 @@ const Home = () => {
         )}
       </div>
 
-      <div className="discover" ref={discoverContent}>
+      <div className="discover flex-column" ref={discoverContent}>
         <div className="new-releases">
           <h1>New Releases</h1>
           <Splide
