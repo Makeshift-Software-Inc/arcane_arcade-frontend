@@ -231,9 +231,9 @@ const Home = () => {
                       breakpoints: {
                         400: {
                           width: 390,
-                          height: 200
-                        }
-                      }
+                          height: 200,
+                        },
+                      },
                     }}
                   >
                     <SplideSlide>
