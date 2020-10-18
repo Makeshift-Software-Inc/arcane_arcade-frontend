@@ -227,10 +227,14 @@
         .slider-info {
            height: 300px;
 
-          .slider-text-container {
-           overflow-x: scroll;
-          }
+         
         }
+      }
+
+      @media (max-width:768px) {
+         .slider-text-container {
+           overflow: auto;
+          }
       }
     }
 
