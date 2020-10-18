@@ -112,8 +112,6 @@ const GamesShow = ({ match, history }) => {
                 {selectedGame.accepts_bitcoin && (
                   <div className="bitcoin">
                     <label className="topcoat-radio-button">
-                      <input type="radio" id="btc" name="payment_method" />
-                      <div className="topcoat-radio-button__checkmark" />
                       <Tippy
                         content={`${selectedGame.btc_amount} BTC`}
                         interactive
@@ -130,8 +128,6 @@ const GamesShow = ({ match, history }) => {
                 {selectedGame.accepts_monero && (
                   <div className="monero">
                     <label className="topcoat-radio-button">
-                      <input type="radio" id="xmr" name="payment_method" />
-                      <div className="topcoat-radio-button__checkmark" />
                       <Tippy
                         content={`${selectedGame.xmr_amount} XMR`}
                         interactive
