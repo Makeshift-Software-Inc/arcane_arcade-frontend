@@ -13,10 +13,13 @@ import './Modal.scss';
 
 const OrderDetailsModal = () => {
   const {
-    user: { selectedOrder, setSelectedOrder },
+    isLoggedIn,
+    user,
   } = useStore('auth');
 
-  if (!selectedOrder) return null;
+  if (!isLoggedIn || !user.selectedOrder) return null;
+
+  const { selectedOrder, setSelectedOrder } = user;
 
   const close = () => setSelectedOrder(undefined);
 
@@ -24,7 +27,7 @@ const OrderDetailsModal = () => {
     <Modal blue={selectedOrder.active()}>
       <Header close={close} closeWhite={selectedOrder.active()} />
       <div className="order-details-modal">
-        {selectedOrder.completed() ? (
+        {selectedOrder.paid() ? (
           <CompletedOrder order={selectedOrder} />
         ) : (
           <ActiveOrder order={selectedOrder} />

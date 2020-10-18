@@ -15,7 +15,7 @@ const Active = ({ order }) => {
     return () => {
       clearInterval(interval);
     };
-  }, [order]);
+  }, []);
 
   const expiresAt = new Date(order.expires_at);
 
@@ -43,7 +43,9 @@ const Active = ({ order }) => {
       <p>
         <span>Expires In:</span>
         <span className="expires-in-countdown">
-          <Countdown date={expiresAt} />
+          <Countdown date={expiresAt}>
+            <span>EXPIRED</span>
+          </Countdown>
         </span>
       </p>
     </div>

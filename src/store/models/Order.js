@@ -1,5 +1,6 @@
-import { types, flow } from 'mobx-state-tree';
+import { types, flow, getRoot } from 'mobx-state-tree';
 import moment from 'moment';
+import { toast } from 'react-toastify';
 
 import BaseUpdate from './BaseUpdate';
 
@@ -30,11 +31,14 @@ const Order = types
     reloading: false,
   })
   .views((self) => ({
+    paid() {
+      return self.status === 'in_escrow';
+    },
     completed() {
       return self.status === 'completed';
     },
     active() {
-      return !self.completed();
+      return ['in_progress', 'unconfirmed'].includes(self.status);
     },
     purchaseDate() {
       return moment(self.created_at).format('MMMM Do YYYY');
@@ -53,7 +57,12 @@ const Order = types
         return true;
       } catch (e) {
         console.log(e);
+        const { auth: { user } } = getRoot(self);
         self.reloading = false;
+        if (e.response && e.response.status === 404) {
+          user.removeOrder(self);
+          toast('This order has expired and is deleted.');
+        }
         return false;
       }
     }),

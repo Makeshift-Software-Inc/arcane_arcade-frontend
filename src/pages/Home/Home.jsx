@@ -30,7 +30,6 @@ const Home = () => {
 
   useEffect(() => {
     load();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (loading) return <Loading />;
@@ -115,12 +114,11 @@ const Home = () => {
 
             <ReactPlayer
               url={selectedGame.videos[0]}
-              playing="playing"
+              playing
               width="75vw"
               height="50vh"
-              autoPlay="autoPlay"
-              controls="controls"
-              muted="muted"
+              controls
+              muted
             />
           </div>
         )}
