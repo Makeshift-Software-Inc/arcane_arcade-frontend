@@ -1,7 +1,27 @@
 .App.listings-show {
+
+  .game-page-container{
+    padding: 65px 140px;
+
+    .top-search-bar {
+      margin-bottom: 48px;
+    }
+  }
+
+  font-family: Montserrat;
+
   strong {
     color: aliceblue;
     letter-spacing: 0.7px;
+  }
+
+  .back-button {
+    cursor: pointer;
+    opacity: 0.3;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.2;
+    color: #e4e4e4;
   }
 
   .container {
@@ -160,16 +180,17 @@
   }
 
   .splide-container {
-    padding: 2em;
-    display: flex;
-    width: 100vw;
-    justify-content: center;
+    flex-direction: row;
+    flex-grow: 1;
   }
 
   .splide {
 
     .splide__track {
-      width: 71vw;
+      display: flex;
+      flex-direction: row;
+      flex-grow: 1;
+
       height: 640px;
 
       @media (max-width:500px) {
@@ -178,17 +199,20 @@
     }
 
     .splide__slide {
-      width: 71vw !important;
+      flex-direction: row;
+      flex-grow: 1;
+
     }
 
 
-    div[thumbnail] {
-      width: 71vw !important;
+    div[preload] {
+      width: 100vw !important;
       height: 600px !important;
     }
     video {
+      object-fit: cover;
       height: 600px !important;
-      width: 71vw;
+      width: 100vw;
       margin-bottom: 3em;
       @media (max-width:500px) {
         height: 330px  !important;
@@ -196,7 +220,7 @@
     }
     img {
       width: 100%;
-      object-fit: contain;
+      object-fit: cover;
       height: 600px !important;
       @media (max-width:500px) {
         height: 450px  !important;
