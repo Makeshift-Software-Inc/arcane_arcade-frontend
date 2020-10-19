@@ -218,6 +218,10 @@
       img {
         width: 600px;
 
+        @media (max-width:400px) {
+          height: 250px !important;
+        }
+
       }
 
       .slider-item {
