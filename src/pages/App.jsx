@@ -22,14 +22,17 @@ const App = () => {
   const { auth, forms } = useStore();
 
   useEffect(() => {
-    const load = async () => {
-      await auth.checkLoggedIn();
-      await forms.listing.load();
-    };
-    load();
+    auth.checkLoggedIn();
+    forms.listing.load();
   }, []);
 
-  if (auth.loading) return <Loading />;
+  useEffect(() => {
+    if (auth.isLoggedIn) {
+      auth.user.loadOrders();
+    }
+  }, [auth.isLoggedIn]);
+
+  if (auth.loading || !forms.listing.loaded) return <Loading />;
 
   return (
     <>

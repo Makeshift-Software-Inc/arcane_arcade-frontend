@@ -19,7 +19,7 @@ const ListingForm = types
     title: types.optional(types.string, ''),
     esrb: types.optional(
       types.enumeration(['EVERYONE', 'E_TEN_PLUS', 'TEEN', 'MATURE', 'ADULT']),
-      'EVERYONE',
+      'EVERYONE'
     ),
     description: types.optional(types.string, ''),
     selected_categories: types.array(types.reference(Category)),
@@ -34,6 +34,7 @@ const ListingForm = types
     attachments: types.array(UploadedFile),
     release_date: types.optional(types.string, ''),
     preorderable: false,
+    loaded: false,
   })
   .views((self) => ({
     allFilesUploaded() {
@@ -41,7 +42,7 @@ const ListingForm = types
       if (!filesUploaded) return false;
 
       const attachmentsUploaded = self.attachments.every(
-        (file) => file.uploaded,
+        (file) => file.uploaded
       );
       if (!attachmentsUploaded) return false;
 
@@ -59,7 +60,7 @@ const ListingForm = types
     systemRequirementsFields() {
       const doNotInclude = ['PC', 'XB1', 'SWITCH', 'PS4'];
       return self.supported_platforms.filter(
-        (platform) => !doNotInclude.includes(platform.name),
+        (platform) => !doNotInclude.includes(platform.name)
       );
     },
     releaseDateInFuture() {
@@ -70,21 +71,18 @@ const ListingForm = types
   .actions((self) => ({
     load: flow(function* load() {
       // already loaded
-      if (
-        self.supportedPlatformOptions.length > 0
-        && self.categoryOptions.length > 0
-        && self.tagsOptions.length > 0
-      ) return true;
+      if (self.loaded) return true;
 
       self.loading = true;
 
       try {
         const response = yield Api.get('/listings/new');
         self.supportedPlatformOptions = deserialize(
-          response.data.supported_platforms,
+          response.data.supported_platforms
         );
         self.categoryOptions = deserialize(response.data.categories);
         self.tagsOptions = deserialize(response.data.tags);
+        self.loaded = true;
         self.loading = false;
         return true;
       } catch (e) {
@@ -101,11 +99,11 @@ const ListingForm = types
     },
     removeSupportedPlatform(id, name) {
       self.supported_platforms = self.supported_platforms.filter(
-        (platform) => id !== platform.id,
+        (platform) => id !== platform.id
       );
       if (self.allowedSystemRequirementsFields().includes(name)) {
         self.system_requirements = self.system_requirements.filter(
-          (systemRequirement) => systemRequirement.name !== name,
+          (systemRequirement) => systemRequirement.name !== name
         );
       }
     },
@@ -119,7 +117,7 @@ const ListingForm = types
       if (index < 0) return;
       const category = self.selected_categories[index];
       self.selected_categories = self.selected_categories.filter(
-        (c) => c.id !== category.id,
+        (c) => c.id !== category.id
       );
       self.categoryOptions
         .find((c) => c.id === category.id)

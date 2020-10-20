@@ -28,6 +28,7 @@ const Order = types
     qr_url: types.maybe(types.string),
     created_at: types.string,
     owned_game: OwnedGame,
+    listing_id: types.string,
     reloading: false,
   })
   .views((self) => ({
@@ -57,7 +58,9 @@ const Order = types
         return true;
       } catch (e) {
         console.log(e);
-        const { auth: { user } } = getRoot(self);
+        const {
+          auth: { user },
+        } = getRoot(self);
         self.reloading = false;
         if (e.response && e.response.status === 404) {
           user.removeOrder(self);

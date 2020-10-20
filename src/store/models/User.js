@@ -1,6 +1,4 @@
-import {
-  types, flow, getRoot, destroy,
-} from 'mobx-state-tree';
+import { types, flow, getRoot, destroy } from 'mobx-state-tree';
 import BaseUpdate from './BaseUpdate';
 import Seller from './Seller';
 import Order from './Order';
@@ -21,6 +19,7 @@ const User = types
     loadingSeller: false,
     creatingOrder: false,
     loadingOrders: false,
+    ordersLoaded: false,
   })
   .views((self) => ({
     activated() {
@@ -38,6 +37,32 @@ const User = types
     completedOrders() {
       return self.orders.filter((order) => order.completed());
     },
+    ownSelectedGame() {
+      const {
+        games: { selectedGame },
+      } = getRoot(self);
+
+      const supportedPlatforms = selectedGame
+        .supportedPlatformsToBuy()
+        .map((distribution) => distribution.supported_platform.name);
+
+      const PC_PLATFORMS = ['MAC', 'WINDOWS', 'LINUX'];
+
+      const purchasedPlatforms = self.orders
+        .filter((order) => order.listing_id === selectedGame.id)
+        .map((order) =>
+          PC_PLATFORMS.includes(order.owned_game.platform)
+            ? PC_PLATFORMS
+            : order.owned_game.platform
+        )
+        .flat();
+
+      return (
+        supportedPlatforms.filter(
+          (platform) => !purchasedPlatforms.includes(platform)
+        ).length === 0
+      );
+    },
   }))
   .actions((self) => ({
     createSeller: flow(function* create() {
@@ -45,9 +70,7 @@ const User = types
 
       const {
         forms: {
-          onboarding: {
-            acceptedCrypto, fiatCurrency, companyName, studioSize,
-          },
+          onboarding: { acceptedCrypto, fiatCurrency, companyName, studioSize },
         },
       } = getRoot(self);
 
@@ -91,17 +114,23 @@ const User = types
         return true;
       } catch (e) {
         console.log(e);
-        console.log(e.response.data);
+        if (e.response && e.response.data) {
+          buy.errors.update(e.response.data);
+        }
+
         self.creatingOrder = false;
         return false;
       }
     }),
     loadOrders: flow(function* loadOrders() {
+      if (self.ordersLoaded) return true;
+
       self.loadingOrders = true;
 
       try {
         const response = yield Api.get('/orders');
         self.orders = deserialize(response.data);
+        self.ordersLoaded = true;
         self.loadingOrders = false;
         return true;
       } catch (e) {

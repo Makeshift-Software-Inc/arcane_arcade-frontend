@@ -2,9 +2,7 @@ import React from 'react';
 
 import './Select.scss';
 
-const Select = ({
-  options, name, onChange, selected,
-}) => (
+const Select = ({ options, name, onChange, selected }) => (
   <div className="buy-modal-select flex-row align-self-stretch justify-around">
     {options.map((option) => (
       <label key={option.value} className="flex-column align-center">

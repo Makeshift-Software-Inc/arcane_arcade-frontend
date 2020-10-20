@@ -16,8 +16,8 @@ const ICONS = {
   XB1: xb1Icon,
 };
 
-const Platform = ({ platform, supportedPlatforms, update }) => {
-  const options = supportedPlatforms.map((name) => ({
+const Platform = ({ platform, availablePlatforms, update }) => {
+  const options = availablePlatforms.map((name) => ({
     value: name,
     icon: ICONS[name],
   }));

@@ -10,14 +10,20 @@ const Buy = types
     currentStep: 0,
     errors: types.optional(Errors, {}),
     supportedPlatforms: types.array(types.string),
+    purchasedPlatforms: types.array(types.string),
+    availablePlatforms: types.array(types.string),
     paymentOptions: types.array(types.string),
     prepared: false,
   })
   .actions((self) => ({
     prepare() {
       if (self.prepared) return;
+
       const {
         games: { selectedGame },
+        auth: {
+          user: { orders },
+        },
       } = getRoot(self);
       self.listing_id = selectedGame.id;
       self.supportedPlatforms = selectedGame
@@ -29,6 +35,21 @@ const Buy = types
       if (selectedGame.accepts_monero) {
         self.paymentOptions.push('XMR');
       }
+
+      const PC_PLATFORMS = ['MAC', 'WINDOWS', 'LINUX'];
+
+      self.purchasedPlatforms = orders
+        .filter((order) => order.listing_id === selectedGame.id)
+        .map((order) =>
+          PC_PLATFORMS.includes(order.owned_game.platform)
+            ? PC_PLATFORMS
+            : order.owned_game.platform
+        )
+        .flat();
+
+      self.availablePlatforms = self.supportedPlatforms.filter(
+        (platform) => !self.purchasedPlatforms.includes(platform)
+      );
 
       self.prepared = true;
     },
@@ -64,7 +85,7 @@ const Buy = types
           }
           if (!self.supportedPlatforms.includes(self.platform)) {
             self.errors.addFullMessageError(
-              `${self.platform} is not supported by this game.`,
+              `${self.platform} is not supported by this game.`
             );
             return false;
           }
@@ -76,7 +97,7 @@ const Buy = types
           }
           if (!self.paymentOptions.includes(self.payment_method)) {
             self.errors.addFullMessageError(
-              `${self.payment_method} is not supported by this seller.`,
+              `${self.payment_method} is not supported by this seller.`
             );
             return false;
           }
