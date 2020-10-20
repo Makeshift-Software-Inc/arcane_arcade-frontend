@@ -10,6 +10,11 @@
 
     @media (max-width:1200px) {
       padding: 0;
+
+      .top-search-bar {
+        margin-bottom: 0;
+        padding: 13px 25px;
+      }
     }
   }
 
@@ -336,10 +341,21 @@
           display: flex;
           padding: 10px;
           margin-bottom: 24px;
-          flex-direction: column;
+          flex-direction: row;
           color: #E4E4E4;
           font-size: 17px;
           align-items: center;
+          justify-content: center;
+
+          .show-more-icon {
+
+            transform: rotate(90deg);
+
+          }
+
+          .show-less-icon {
+            transform: rotate(-90deg);
+          }
         }
 
         .desc-closed {

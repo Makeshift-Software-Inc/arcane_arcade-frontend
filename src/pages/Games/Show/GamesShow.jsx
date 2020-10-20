@@ -238,6 +238,7 @@ const GamesShow = ({ match, history }) => {
                 </div>
                 <div className="descr-toggle-button" onClick={() => setOpenMobileDescription(!openMobileDecription)}>
                   <span>{openMobileDecription ? 'Show less' : 'Show more'}</span>
+                  <img src={backSvg} className={`show-${openMobileDecription ? 'more' : 'less' }-icon`} alt="show-more"  />
                 </div>
 
                </div> 
