@@ -21,20 +21,22 @@ const Completed = ({ order }) => (
     </div>
     <div className="flex-column">
       <span className="label">{order.owned_game.methodName()}</span>
-      <div className="flex-row align-center">
-        <p className="platform">{order.owned_game.platform}</p>
-        {order.owned_game.method === 'steam_keys' ? (
-          <input
-            type="text"
-            readOnly
-            value={order.owned_game.platformKey()}
-          />
-        ) : (
-          <a href={order.owned_game.platformKey()} download>
-            Download
-          </a>
-        )}
-      </div>
+      {order.owned_game.method === 'steam_keys' ? (
+        <div className="flex-row align-center">
+          <p className="platform">{order.owned_game.platform}</p>
+          <input type="text" readOnly value={order.owned_game.platformKey()} />
+        </div>
+      ) : (
+        order.owned_game.platformKey().map((installer) => (
+          <div className="flex-row" key={installer.name}>
+            <p className="platform">{installer.name}</p>
+            <a href={installer.url} download>
+              Download
+            </a>
+            <br />
+          </div>
+        ))
+      )}
     </div>
   </div>
 );
