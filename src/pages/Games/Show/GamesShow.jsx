@@ -22,25 +22,23 @@ import OrderDetailsModal from '../../MyLibrary/Modal/Modal';
 
 import './GamesShow.scss';
 
-const Images = ({ images, gameTitle }) =>
-  images.map((image) => (
-    <SplideSlide key={image}>
-      <img src={image} alt={`${gameTitle} cover`} />
-    </SplideSlide>
-  ));
+const Images = ({ images, gameTitle }) => images.map((image) => (
+  <SplideSlide key={image}>
+    <img src={image} alt={`${gameTitle} cover`} />
+  </SplideSlide>
+));
 
-const Videos = ({ videos, thumbnail }) =>
-  videos.map((video) => (
-    <SplideSlide key={video}>
-      <ReactPlayer
-        url={video}
-        thumbnail={thumbnail}
-        playing={false}
-        controls
-        muted
-      />
-    </SplideSlide>
-  ));
+const Videos = ({ videos, thumbnail }) => videos.map((video) => (
+  <SplideSlide key={video}>
+    <ReactPlayer
+      url={video}
+      thumbnail={thumbnail}
+      playing={false}
+      controls
+      muted
+    />
+  </SplideSlide>
+));
 
 const Splides = ({ images, videos, gameTitle }) => (
   <>
@@ -156,7 +154,9 @@ const GamesShow = ({ match, history }) => {
                 {selectedGame.price && (
                   <h3>
                     {selectedGame.currency_symbol}
-                    {selectedGame.price} {selectedGame.default_currency}
+                    {selectedGame.price}
+                    {' '}
+                    {selectedGame.default_currency}
                   </h3>
                 )}
               </div>

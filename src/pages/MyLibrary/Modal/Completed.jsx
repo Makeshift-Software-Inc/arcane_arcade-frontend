@@ -10,7 +10,9 @@ const Completed = ({ order }) => (
     <div className="flex-column">
       <span className="label">Amount Paid</span>
       <p>
-        {order.coin_amount} {order.coin_type}
+        {order.coin_amount}
+        {' '}
+        {order.coin_type}
       </p>
     </div>
     <div className="flex-column">

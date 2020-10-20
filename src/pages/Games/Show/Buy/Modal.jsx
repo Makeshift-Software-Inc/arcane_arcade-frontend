@@ -43,7 +43,6 @@ const BuyModal = ({ close }) => {
         previousStep,
         errors,
         purchasedPlatforms,
-        availablePlatforms,
       },
     },
   } = useStore();
@@ -75,7 +74,7 @@ const BuyModal = ({ close }) => {
         ? buy[prop].toJSON()
         : buy[prop],
     }),
-    {}
+    {},
   );
 
   const Component = STEPS[currentStep].component;
@@ -84,8 +83,7 @@ const BuyModal = ({ close }) => {
   const goBack = currentStep > 0 ? previousStep : null;
 
   const renderContent = () => {
-    if (creatingOrder)
-      return <Loading text="Creating your order, please wait..." small white />;
+    if (creatingOrder) return <Loading text="Creating your order, please wait..." small white />;
 
     if (!ordersLoaded) return <Loading small white />;
 
@@ -101,7 +99,8 @@ const BuyModal = ({ close }) => {
 
           {purchasedPlatforms.length > 0 && (
             <p className="already-own">
-              You already own this game for{' '}
+              You already own this game for
+              {' '}
               <b>{purchasedPlatforms.join(', ')}</b>
             </p>
           )}

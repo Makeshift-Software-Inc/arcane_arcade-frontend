@@ -1,4 +1,6 @@
-import { types, flow, getRoot, destroy } from 'mobx-state-tree';
+import {
+  types, flow, getRoot, destroy,
+} from 'mobx-state-tree';
 import BaseUpdate from './BaseUpdate';
 import Seller from './Seller';
 import Order from './Order';
@@ -50,16 +52,14 @@ const User = types
 
       const purchasedPlatforms = self.orders
         .filter((order) => order.listing_id === selectedGame.id)
-        .map((order) =>
-          PC_PLATFORMS.includes(order.owned_game.platform)
-            ? PC_PLATFORMS
-            : order.owned_game.platform
-        )
+        .map((order) => (PC_PLATFORMS.includes(order.owned_game.platform)
+          ? PC_PLATFORMS
+          : order.owned_game.platform))
         .flat();
 
       return (
         supportedPlatforms.filter(
-          (platform) => !purchasedPlatforms.includes(platform)
+          (platform) => !purchasedPlatforms.includes(platform),
         ).length === 0
       );
     },
@@ -70,7 +70,9 @@ const User = types
 
       const {
         forms: {
-          onboarding: { acceptedCrypto, fiatCurrency, companyName, studioSize },
+          onboarding: {
+            acceptedCrypto, fiatCurrency, companyName, studioSize,
+          },
         },
       } = getRoot(self);
 
