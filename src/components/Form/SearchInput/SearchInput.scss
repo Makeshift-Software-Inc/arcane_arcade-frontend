@@ -38,5 +38,15 @@ $gray-color: #c4c4c4;
       /* Microsoft Edge */
       color: $gray-color;
     }
+
+  }
+
+  @media (max-width:768px) {
+    max-width: 200px;
+    background-color: #121212;
+
+    .arcane-input:focus {
+      border: none;
+    }
   }
 }

@@ -2,9 +2,14 @@
 
   .game-page-container{
     padding: 65px 140px;
+    background-color: #121212;
 
     .top-search-bar {
       margin-bottom: 48px;
+    }
+
+    @media (max-width:1200px) {
+      padding: 0;
     }
   }
 
@@ -39,7 +44,6 @@
       height: 29.9vh;
       position: relative;
       color: aliceblue;
-      background: rgba(0, 0, 0, 0.3);
 
       img {
         width: 100%;
@@ -59,10 +63,7 @@
   }
 
   .info-section {
-    padding: 3em;
-    margin: 0 5.3em;
     color: aliceblue;
-    background-color: rgba(0,0,0,0.3);
 
     @media (max-width:500px) {
       padding: 0;
@@ -71,18 +72,58 @@
     }
 
     .payment-submit {
-      display: flex;
-      justify-content: center;
+
 
       button {
+        background-color: #463af3;
         font-size: 18px;
         padding: 0.5em 1.4em;
+        border: none;
+        width: 236px;
+        height: 48px;
+        border-radius: 8px;
+        color: white;
+        font-size: 17px;
+        font-weight: bold;
+        line-height: 1.24;
+        letter-spacing: 0.85px;
       }
     }
 
     .description {
-      width: 600px;
-      margin: 0 auto;
+      margin-top: 115px;
+
+      .section-title {
+        font-size: 25px;
+        font-weight: 500;
+        line-height: 1.2;
+        color: #e4e4e4;
+      }
+
+      .game-title {
+        font-size: 27px;
+        font-weight: bold;
+        line-height: 1.22;
+        margin-top: 67px;
+        margin-bottom: 15px;
+        color: #e4e4e4;
+      }
+
+      .info-text {
+        font-family: OpenSans;
+        color: #e4e4e4;
+        font-size: 23px;
+        line-height: 1.74;
+        opacity: 0.6;
+      }
+
+      .second-section div {
+        width: 33%;
+      }
+
+      .game-description {
+        max-width: 998px;
+      }
 
       @media (max-width:450px) {
         width: 360px  !important;
@@ -91,16 +132,14 @@
     }
 
     .pricing {
-      display: flex;
-      justify-content: center;
+
 
       .tippy-content {
         font-size: 25px;
       }
 
       .payment {
-        display: inline-block;
-        vertical-align: top;
+
 
         .crypto {
           display: flex;
@@ -120,13 +159,16 @@
         }
 
         .fiat {
-          display: flex;
-          justify-content: center;
 
           h3 {
-            font-size: 32px;
+            font-size: 24px;
+            font-weight: 500;
+            line-height: 1.2;
+            color: #e4e4e4;
+            text-align: left;
+            margin-bottom: 20px;
             @media (max-width:500px) {
-              font-size: 21px;
+              font-size: 20px;
             }
           }
         }
@@ -228,5 +270,73 @@
 
       margin-bottom: 3em;
     }
+  }
+
+  @media (max-width:1200px) {
+    .back-button {
+      font-size: 10px;
+    }
+
+    .pricing,
+    .price {
+      justify-content: center;
+    }
+
+    .pricing {
+
+      form{
+        width: 100%;
+      }
+
+      .payment-submit .button {
+        width: 100%;
+      }
+
+      .payment {
+        margin-top: 10px;
+      }
+    }
+
+    .info-section {
+      .description {
+        padding: 11px 25px;
+        margin-top: 23px;
+
+        .info-text {
+          font-size: 17px;
+        }
+
+        .section-title {
+          font-size: 19px;
+        }
+
+        .second-section {
+          justify-content: flex-start;
+          div {
+             width: 50%;
+          }
+        }
+      }
+
+      .game-info {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    .splide {
+      
+
+      .splide__track {
+        height: 250px !important;
+      }
+      
+      video {
+        height: 221px !important;
+      }
+    }
+
+
+
   }
 }

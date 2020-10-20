@@ -20,7 +20,7 @@ const SliderInfo = ({
       <div className="icons flex-row">
         {
 
-        icons.map((icon) => <img src={icon} alt="svg-icon" />)
+        icons.map((icon,  i) => <img src={icon} alt="svg-icon" key={i}/>)
 
       }
       </div>

@@ -66,6 +66,10 @@ code {
   flex-grow: 1;
 }
 
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
 .no-scroll {
   max-height: 100vh;
   overflow: hidden;
@@ -86,6 +90,11 @@ code {
 .justify-flex-start {
   justify-content: flex-start;
 }
+
+.justify-flex-end {
+  justify-content: flex-end;
+}
+
 .align-self-start {
   align-self: flex-start;
 }

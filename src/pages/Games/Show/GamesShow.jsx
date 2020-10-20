@@ -93,7 +93,9 @@ const GamesShow = ({ match, history }) => {
     reset();
   };
 
-  const TopSearchBar = () => (
+  const TopSearchBar = () => { 
+    console.log(selectedGame.supportedPlatforms()[0].name);
+    return(
     <div className="flex-row justify-between top-search-bar">
       <div className="flex-row align-center back-button" onClick={() => history.goBack()}> 
         <img src={backSvg} alt="back-button" className="back-img"/>
@@ -104,7 +106,7 @@ const GamesShow = ({ match, history }) => {
         <SearchInput />
       </div>
     </div>
-  );
+  )};
 
   return (
     <div className="App listings-show">
@@ -113,64 +115,33 @@ const GamesShow = ({ match, history }) => {
 
         <TopSearchBar />
 
-        <div className="splide-container">
-          <Splide
-            className="splide-slider"
-            options={{
-              clones: 0,
-              lazyLoad: true,
-              waitForTransition: true,
-              perPage: 1,
-            }}
-          >
-            <Splides
-              images={selectedGame.images}
-              videos={selectedGame.videos}
-              gameTitle={selectedGame.title}
-            />
-          </Splide>
-        </div>
+        <div className="">
+          <div className="splide-container">
+            <Splide
+              className="splide-slider"
+              options={{
+                clones: 0,
+                lazyLoad: true,
+                waitForTransition: true,
+                perPage: 1,
+              }}
+            >
+              <Splides
+                images={selectedGame.images}
+                videos={selectedGame.videos}
+                gameTitle={selectedGame.title}
+              />
+            </Splide>
+          </div>
 
-        <div className="info-section">
-          <div className="pricing">
+        <div className="info-section flex-column">
+          <div className="pricing flex-row justify-flex-end">
             <form>
-              <div className="payment">
-                <div className="crypto">
-                  {selectedGame.accepts_bitcoin && (
-                    <div className="bitcoin">
-                      <label className="topcoat-radio-button">
-                        <Tippy
-                          content={`${selectedGame.btc_amount} BTC`}
-                          interactive
-                          interactiveBorder={20}
-                          delay={100}
-                          arrow
-                          placement="auto"
-                        >
-                          <i className="fab fa-bitcoin" />
-                        </Tippy>
-                      </label>
-                    </div>
-                  )}
-                  {selectedGame.accepts_monero && (
-                    <div className="monero">
-                      <label className="topcoat-radio-button">
-                        <Tippy
-                          content={`${selectedGame.xmr_amount} XMR`}
-                          interactive
-                          interactiveBorder={20}
-                          delay={100}
-                          arrow
-                          placement="auto"
-                        >
-                          <i className="fab fa-monero" />
-                        </Tippy>
-                      </label>
-                    </div>
-                  )}
-                </div>
+              <div className="payment flex-column justify-flex-end">
+                
+            
 
-                <div className="fiat">
+                <div className="price fiat flex-row justify-flex-end">
                   {selectedGame.price && (
                     <h3>
                       {selectedGame.currency_symbol}
@@ -182,30 +153,7 @@ const GamesShow = ({ match, history }) => {
                 </div>
               </div>
 
-              <div className="vl" />
-
-              <div className="platforms">
-                {selectedGame.hasSupportedPlatform('WINDOWS') && (
-                  <div className="windows">
-                    <i className="fab fa-windows" />
-                    <h3>Windows</h3>
-                  </div>
-                )}
-
-                {selectedGame.hasSupportedPlatform('MAC') && (
-                  <div className="mac">
-                    <i className="fab fa-apple" />
-                    <h3>Mac</h3>
-                  </div>
-                )}
-
-                {selectedGame.hasSupportedPlatform('LINUX') && (
-                  <div className="linux">
-                    <i className="fab fa-linux" />
-                    <h3>Linux</h3>
-                  </div>
-                )}
-              </div>
+             
               <div className="payment-submit">
                 <button onClick={openBuyModal} className="button" type="button">
                   BUY NOW
@@ -213,11 +161,110 @@ const GamesShow = ({ match, history }) => {
               </div>
             </form>
           </div>
-          <div
-            className="description"
-            // eslint-disable-next-line
-            dangerouslySetInnerHTML={{ __html: selectedGame.description }}
-          />
+
+          <div className="description flex-column">
+            <div className="about-game game-info flex-row flex-grow justify-between">
+              <div className="first-section flex-grow">
+                <h3 className="section-title">About Game</h3>
+              </div>
+
+              <div className="flex-column">
+                <div className="second-section flex-row flex-grow flex-wrap justify-flex-end">
+
+                  <div>
+                    <p>Developer</p>
+                    <p>-</p>
+                  </div>
+
+                  <div>
+                    <p>Publisher</p>
+                    <p>-</p>
+                  </div>
+
+                  <div>
+                    <p>Release Date</p>
+                    <p>{selectedGame.release_date}</p>
+                  </div>
+
+                  <div>
+                    <p>Rating</p>
+                    <p>-</p>
+                  </div>
+
+                  <div className="flex-column">
+                    <p>Platform</p>
+
+                    <div className="platforms">
+                      {selectedGame.hasSupportedPlatform('WINDOWS') && (
+                        <div className="windows">
+                          <i className="fab fa-windows" />
+                        </div>
+                      )}
+
+                      {selectedGame.hasSupportedPlatform('MAC') && (
+                        <div className="mac">
+                          <i className="fab fa-apple" />
+                        </div>
+                      )}
+
+                      {selectedGame.hasSupportedPlatform('LINUX') && (
+                        <div className="linux">
+                          <i className="fab fa-linux" />
+                        </div>
+                      )}
+                    </div>
+
+                  </div>
+
+
+                </div>
+
+                <div className="descr">
+                  <h3 className="game-title">{selectedGame.title}</h3>
+                  <div className="game-description info-text" 
+                  // eslint-disable-next-line
+                  dangerouslySetInnerHTML={{ __html: selectedGame.description }} />
+                </div>
+
+               </div> 
+              
+            </div>
+
+            
+
+            <div className="game-specification game-info flex-row flex-grow justify-between align-center">
+              <div className="first-section flex-grow">
+                <h3 className="section-title">Game Specification</h3>
+              </div>
+
+              <div className="flex-column justify-flex-end flex-grow">
+                <p className="info-text">Languages Supported</p>
+                <p></p>
+                <p></p>
+              </div>
+            </div>
+
+            <div className="system-requirements game-info  flex-row flex-grow justify-between align-center">
+              <div className="first-section flex-row flex-grow">
+                <h3 className="section-title">System Requirements</h3>
+              </div>
+
+              <div className="flex-row flex-grow align-center">
+                <div className="flex-column flex-grow">
+                  <p className="info-text">Minimum</p>
+
+                </div>
+
+                <div className="flex-column flex-grow">
+                  <p className="info-text">Recommended</p>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
         </div>
         {showBuyModal && <BuyModal close={closeBuyModal} />}
         <OrderDetailsModal />
