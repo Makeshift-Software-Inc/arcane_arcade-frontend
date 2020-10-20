@@ -8,7 +8,7 @@ import { observer } from 'mobx-react';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 
 import './Home.scss';
-import Api from '../../services/Api'
+// import Api from '../../services/Api';
 import Navbar from '../../components/Navbar/Navbar';
 import Loading from '../../components/Loading/Loading';
 
@@ -46,9 +46,9 @@ const Home = () => {
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
 
-    Api.get(`/listings?q=${e.target.value}`).then((response) => {
-      debugger
-    })
+    // Api.get(`/listings?q=${e.target.value}`).then((response) => {
+    //   debugger;
+    // });
   };
 
   const handleSubmit = (e) => {
