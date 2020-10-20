@@ -213,7 +213,7 @@ const SellerDashboard = () => {
       <div className="my-games is-hidden" ref={myGamesContent}>
         <div className="post">
           <Link to="/sell-your-game">
-            <button type="button" className="topcoat-button--large--cta">
+            <button type="button" className="button">
               Post a New Game
             </button>
           </Link>

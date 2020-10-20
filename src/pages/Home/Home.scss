@@ -273,15 +273,41 @@
     margin-top: 5vh;
     background-color: rgba(0, 0, 0, 0.5);
 
+    @media (max-width:1049px) {
+      width:100vw;
+      margin-bottom: 2em;
+      padding: 0;
+
+      .navbar-item {
+        display: inline-flex;
+
+        label {
+          font-size: 12px;
+        }
+      }
+
+      .search-filters {
+        display: flex;
+        background-color: transparent;
+        justify-content: space-between;
+
+
+        input[type=search] {
+          width: 13vw;
+        }
+      }
+    }
+
+
+
     label {
       padding-right: 1vw;
       color: rgba(#e4e4e4, 0.5);
     }
     input[type='search'] {
       padding: 0.3em 2.5em;
-      text-align: center;
-      color: aliceblue;
       margin-right: 1em;
+      border-radius: 15px;
     }
 
     select {
@@ -301,14 +327,11 @@
     width: 1050px;
     margin: 0 auto;
 
-    @media (max-width:800px) {
+    @media (max-width:1049px) {
       width:100vw
     }
 
-;
-  }
-
-  .game-list {
+    .game-list {
     min-height: 40vh;
     width: 75vw;
     background-color: rgba(0, 0, 0, 0.3);
@@ -316,8 +339,8 @@
     padding-top: 4vh;
     flex-wrap: wrap;
 
-    @media (max-width:450px) {
-      margin-left: 25px;
+    @media (max-width:880px) {
+      width: 100vw;
     }
 
     .game-listing {
@@ -348,12 +371,18 @@
       }
     }
   }
+  }
+
 
   .filters {
     min-height: 40vh;
     width: 25vw;
     border-left: 3px solid #2f2d32;
     background-color: rgba(#2a2a2a, 0.4);
+
+    @media (max-width:880px) {
+      display: none;
+    }
 
     .card {
       background-color: rgba(0, 0, 0, 0.2);
