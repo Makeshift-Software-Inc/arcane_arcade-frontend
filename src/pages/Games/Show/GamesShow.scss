@@ -1,5 +1,6 @@
 .App.listings-show {
 
+
   .game-page-container{
     padding: 65px 140px;
     background-color: #121212;
@@ -9,11 +10,42 @@
     }
 
     @media (max-width:1200px) {
+
+
+      ::-webkit-input-placeholder {
+         color:transparent;
+      }
+
+      :-moz-placeholder { /* Firefox 18- */
+         color:transparent; 
+      }
+
+      ::-moz-placeholder {  /* Firefox 19+ */
+         color:transparent; 
+      }
+
+      :-ms-input-placeholder {  
+         color:transparent;
+      }
       padding: 0;
 
       .top-search-bar {
         margin-bottom: 0;
         padding: 13px 25px;
+
+        .search-input {
+          flex-direction: row-reverse;
+          max-width: 200px;
+
+
+
+          .arcane-input {
+            min-width: 0;
+            max-width: 150px;
+
+
+          }
+        }
       }
     }
   }
@@ -134,10 +166,7 @@
         display: none;
       }
 
-      @media (max-width:450px) {
-        width: 360px  !important;
-        padding: 3em;
-      }
+
     }
 
     .pricing {
@@ -282,6 +311,9 @@
   }
 
   @media (max-width:1200px) {
+
+
+
     .back-button {
       font-size: 10px;
     }

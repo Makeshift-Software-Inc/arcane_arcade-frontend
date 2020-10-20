@@ -19,24 +19,28 @@ $gray-color: #c4c4c4;
     line-height: 1.5;
     padding: 15px;
     border: none;
+    color: #FFFFFF;
+    opacity: 0.3;
     &:focus {
-      border: solid 1px $gray-color;
+      border: none;
       outline: none;
     }
     &::placeholder {
       /* Chrome, Firefox, Opera, Safari 10.1+ */
-      color: $gray-color;
-      opacity: 1;
+      color: #FFFFFF;
+      opacity: 0.3;
     }
 
     &:-ms-input-placeholder {
       /* Internet Explorer 10-11 */
-      color: $gray-color;
+      color: #FFFFFF;
+      opacity: 0.3;
     }
 
     &::-ms-input-placeholder {
       /* Microsoft Edge */
-      color: $gray-color;
+      color: #FFFFFF;
+      opacity: 0.3;
     }
 
   }

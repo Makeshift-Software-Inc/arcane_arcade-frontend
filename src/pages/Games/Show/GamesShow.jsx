@@ -166,8 +166,14 @@ const GamesShow = ({ match, history }) => {
 
              
               <div className="payment-submit">
-                <button onClick={openBuyModal} className="button" type="button">
-                  BUY NOW
+     
+                <button
+                  disabled={!user.ordersLoaded}
+                  onClick={openBuyModal}
+                  className="button"
+                  type="button"
+                >
+                  {!user.ordersLoaded ? 'Loading...' : 'BUY NOW'}
                 </button>
               </div>
             </form>
@@ -279,17 +285,7 @@ const GamesShow = ({ match, history }) => {
 
 
             </div>
-            <div className="payment-submit">
-              <button
-                disabled={!user.ordersLoaded}
-                onClick={openBuyModal}
-                className="button"
-                type="button"
-              >
-                {!user.ordersLoaded ? 'Loading...' : 'BUY NOW'}
-              </button>
 
-            </div>
 
           </div>
 
