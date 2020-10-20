@@ -55,13 +55,19 @@ const Splides = ({ images, videos, gameTitle }) => (
   </>
 );
 
+
 const GamesShow = ({ match, history }) => {
   const [showBuyModal, setShowBuyModal] = useState(false);
+
   const {
     games: { loadGame, selectedGame, selectGame },
     auth: { isLoggedIn, user },
-    forms: { buy: { reset } },
+    forms: {
+      buy: { reset },
+    },
   } = useStore();
+
+  const [openMobileDecription, setOpenMobileDescription] = useState(false);
 
   const { slug } = match.params;
 
@@ -76,6 +82,8 @@ const GamesShow = ({ match, history }) => {
 
   if (!selectedGame) return <Loading />;
 
+
+
   const openBuyModal = () => {
     if (!isLoggedIn) {
       toast('Please login to continue');
@@ -83,6 +91,8 @@ const GamesShow = ({ match, history }) => {
     } else if (!user.activated()) {
       toast('Please finish two factor auth first.');
       history.push('/authorize');
+    } else if (user.ownSelectedGame()) {
+      toast('You already own this game for all available platforms.');
     } else {
       setShowBuyModal(true);
     }
@@ -107,6 +117,7 @@ const GamesShow = ({ match, history }) => {
       </div>
     </div>
   )};
+
 
   return (
     <div className="App listings-show">
@@ -183,7 +194,7 @@ const GamesShow = ({ match, history }) => {
 
                   <div>
                     <p>Release Date</p>
-                    <p>{selectedGame.release_date}</p>
+                    <p>{new Date(Date.parse(selectedGame.release_date)).toUTCString()}</p>
                   </div>
 
                   <div>
@@ -221,9 +232,12 @@ const GamesShow = ({ match, history }) => {
 
                 <div className="descr">
                   <h3 className="game-title">{selectedGame.title}</h3>
-                  <div className="game-description info-text" 
+                  <div className={`game-description info-text desc-${openMobileDecription ? 'open' : 'closed'}`} 
                   // eslint-disable-next-line
                   dangerouslySetInnerHTML={{ __html: selectedGame.description }} />
+                </div>
+                <div className="descr-toggle-button" onClick={() => setOpenMobileDescription(!openMobileDecription)}>
+                  <span>{openMobileDecription ? 'Show less' : 'Show more'}</span>
                 </div>
 
                </div> 
@@ -259,7 +273,21 @@ const GamesShow = ({ match, history }) => {
                   <p className="info-text">Recommended</p>
 
                 </div>
+
               </div>
+
+
+            </div>
+            <div className="payment-submit">
+              <button
+                disabled={!user.ordersLoaded}
+                onClick={openBuyModal}
+                className="button"
+                type="button"
+              >
+                {!user.ordersLoaded ? 'Loading...' : 'BUY NOW'}
+              </button>
+
             </div>
 
           </div>

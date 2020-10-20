@@ -8,7 +8,7 @@ import { observer } from 'mobx-react';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 
 import './Home.scss';
-
+// import Api from '../../services/Api';
 import Navbar from '../../components/Navbar/Navbar';
 import Loading from '../../components/Loading/Loading';
 
@@ -45,6 +45,10 @@ const Home = () => {
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
+
+    // Api.get(`/listings?q=${e.target.value}`).then((response) => {
+    //   debugger;
+    // });
   };
 
   const handleSubmit = (e) => {
@@ -66,7 +70,7 @@ const Home = () => {
         got to play in their (as promised) realistic version of 15th
         century Bohemia.`,
       title: 'Kingdom Come: Deliverance',
-      icon: [macIcon, switchIcon, psIcon, windowsIcon, xbIcon],
+      icon: [windowsIcon],
       link: '#',
     },
     {
@@ -365,7 +369,7 @@ const Home = () => {
           role="navigation"
           aria-label="main-navigation"
         >
-          <div id="navbarBasicExample" className="navbar-menu">
+          <div id="navbarBasicExample" className="navbar-menu search-filters">
             <div className="navbar-start">
               <div className="navbar-item">
                 <label htmlFor="sort-by">Sort By</label>
@@ -398,7 +402,7 @@ const Home = () => {
                     onChange={handleSearchChange}
                     value={searchQuery}
                     type="search"
-                    placeholder="enter search term or tag"
+                    placeholder="search"
                     className="topcoat-search-input"
                   />
                 </form>

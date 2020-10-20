@@ -125,6 +125,10 @@
         max-width: 998px;
       }
 
+      .descr-toggle-button {
+        display: none;
+      }
+
       @media (max-width:450px) {
         width: 360px  !important;
         padding: 3em;
@@ -310,11 +314,37 @@
           font-size: 19px;
         }
 
+        .game-title {
+          margin-top: 43px;
+          margin-bottom: 19px;
+        }
+
         .second-section {
           justify-content: flex-start;
           div {
              width: 50%;
           }
+        }
+
+        .desc-open {
+          height: 100%;
+        }
+
+        .descr-toggle-button {
+          background: transparent linear-gradient(180deg, #12121200 0%, #2A2A2A 100%);
+          opacity: 1;
+          display: flex;
+          padding: 10px;
+          margin-bottom: 24px;
+          flex-direction: column;
+          color: #E4E4E4;
+          font-size: 17px;
+          align-items: center;
+        }
+
+        .desc-closed {
+          height: 253px;
+          overflow: hidden;
         }
       }
 

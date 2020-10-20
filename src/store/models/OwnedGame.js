@@ -1,5 +1,6 @@
 import { types } from 'mobx-state-tree';
 import BaseUpdate from './BaseUpdate';
+import Installer from './Installer';
 
 const OwnedGame = types
   .model('OwnedGame', {
@@ -8,7 +9,7 @@ const OwnedGame = types
     platform: types.string,
     method: types.enumeration(['steam_keys', 'installer']),
     steam_key: types.maybeNull(types.string),
-    installer_url: types.maybeNull(types.string),
+    installer_urls: types.maybeNull(types.array(Installer)),
   })
   .views((self) => ({
     methodName() {
@@ -16,7 +17,7 @@ const OwnedGame = types
         case 'steam_keys':
           return 'Steam Key';
         case 'installer':
-          return 'Installer';
+          return 'Installers';
         default:
           return '';
       }
@@ -26,7 +27,7 @@ const OwnedGame = types
         case 'steam_keys':
           return self.steam_key;
         case 'installer':
-          return self.installer_url;
+          return self.installer_urls;
         default:
           return '';
       }
