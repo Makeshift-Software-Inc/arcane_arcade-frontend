@@ -8,7 +8,7 @@ import { observer } from 'mobx-react';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 
 import './Home.scss';
-// import Api from '../../services/Api';
+import Api from '../../services/Api';
 import Navbar from '../../components/Navbar/Navbar';
 import Loading from '../../components/Loading/Loading';
 
@@ -40,6 +40,7 @@ const Home = () => {
   useEffect(() => {
     load();
   }, []);
+
 
   if (loading) return <Loading />;
 
@@ -139,6 +140,8 @@ const Home = () => {
       }
     }
   };
+
+
 
   return (
     <div className="App flex-column">
@@ -419,11 +422,25 @@ const Home = () => {
           <div className="filters">
             <div className="card">
               <header className="card-header">
+                <p className="card-header-title">Genre</p>
+              </header>
+
+              <div className="card-content">
+                <div className="content">
+                  <select name="genre">
+                  </select>
+                </div>
+              </div>
+
+            </div>
+
+            <div className="card">
+              <header className="card-header">
                 <p className="card-header-title">Narrow by Price</p>
               </header>
               <div className="card-content">
                 <div className="content">
-                  <input type="range" className="topcoat-range" />
+                  <input type="range" className="topcoat-range" min="0" max="60"/>
                 </div>
               </div>
             </div>
