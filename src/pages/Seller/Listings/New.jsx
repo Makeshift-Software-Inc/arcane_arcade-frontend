@@ -313,12 +313,11 @@ const SellerListingsNew = ({ history }) => {
                       name="early-access"
                       value={earlyAccess}
                     />
-                </label>
+                  </label>
                 </div>
               </div>
             </div>
           </div>
-
 
           <div className="field description-field">
 
@@ -333,7 +332,7 @@ const SellerListingsNew = ({ history }) => {
                   value={price}
                   onChange={onChange}
                   name="price"
-                  />
+                />
               </div>
 
               <div>
@@ -342,7 +341,7 @@ const SellerListingsNew = ({ history }) => {
                   selected={releaseDateAsDate}
                   onChange={setReleaseDate}
                   dateFormat="Pp"
-                  />
+                />
               </div>
             </div>
 
@@ -369,7 +368,6 @@ const SellerListingsNew = ({ history }) => {
               <trix-editor input="trix" name="description" ref={trixInput} />
             </div>
           </div>
-
 
           <div>
             <h4>Platforms Supported</h4>
