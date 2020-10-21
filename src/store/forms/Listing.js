@@ -34,6 +34,7 @@ const ListingForm = types
     attachments: types.array(UploadedFile),
     release_date: types.optional(types.string, ''),
     preorderable: false,
+    loaded: false,
   })
   .views((self) => ({
     allFilesUploaded() {
@@ -70,11 +71,7 @@ const ListingForm = types
   .actions((self) => ({
     load: flow(function* load() {
       // already loaded
-      if (
-        self.supportedPlatformOptions.length > 0
-        && self.categoryOptions.length > 0
-        && self.tagsOptions.length > 0
-      ) return true;
+      if (self.loaded) return true;
 
       self.loading = true;
 
@@ -85,6 +82,7 @@ const ListingForm = types
         );
         self.categoryOptions = deserialize(response.data.categories);
         self.tagsOptions = deserialize(response.data.tags);
+        self.loaded = true;
         self.loading = false;
         return true;
       } catch (e) {

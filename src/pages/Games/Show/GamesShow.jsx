@@ -52,7 +52,9 @@ const GamesShow = ({ match, history }) => {
   const {
     games: { loadGame, selectedGame, selectGame },
     auth: { isLoggedIn, user },
-    forms: { buy: { reset } },
+    forms: {
+      buy: { reset },
+    },
   } = useStore();
 
   const { slug } = match.params;
@@ -75,6 +77,8 @@ const GamesShow = ({ match, history }) => {
     } else if (!user.activated()) {
       toast('Please finish two factor auth first.');
       history.push('/authorize');
+    } else if (user.ownSelectedGame()) {
+      toast('You already own this game for all available platforms.');
     } else {
       setShowBuyModal(true);
     }
@@ -183,8 +187,13 @@ const GamesShow = ({ match, history }) => {
               )}
             </div>
             <div className="payment-submit">
-              <button onClick={openBuyModal} className="button" type="button">
-                BUY NOW
+              <button
+                disabled={!user.ordersLoaded}
+                onClick={openBuyModal}
+                className="button"
+                type="button"
+              >
+                {!user.ordersLoaded ? 'Loading...' : 'BUY NOW'}
               </button>
             </div>
           </form>
