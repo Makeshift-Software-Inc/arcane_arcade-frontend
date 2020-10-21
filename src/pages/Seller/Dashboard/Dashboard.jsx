@@ -17,7 +17,7 @@ import Navbar from '../../../components/Navbar/Navbar';
 import { useStore } from '../../../store';
 
 const SellerDashboard = () => {
-  const [showCointWalletsModal, setShowCoinWalletsModal] = useState(false);
+  const [showCoinWalletsModal, setShowCoinWalletsModal] = useState(false);
 
   const {
     user: {
@@ -64,7 +64,7 @@ const SellerDashboard = () => {
               label: 'ORDERS',
               data: [10, 8, 6, 5, 12, 8, 16, 17, 6, 7, 6, 10],
               backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
+                'rgba(69,57,240, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
                 'rgba(255, 206, 86, 0.2)',
                 'rgba(75, 192, 192, 0.2)',
@@ -72,7 +72,7 @@ const SellerDashboard = () => {
                 'rgba(255, 159, 64, 0.2)',
               ],
               borderColor: [
-                'rgba(255, 99, 132, 1)',
+                'rgba(42, 106, 152, 1)',
                 'rgba(54, 162, 235, 1)',
                 'rgba(255, 206, 86, 1)',
                 'rgba(75, 192, 192, 1)',
@@ -86,8 +86,8 @@ const SellerDashboard = () => {
         options: {
           legend: {
             labels: {
-              fontColor: 'red',
-              fontSize: 18,
+              fontColor: 'rgba(69,57,240, 1)',
+              fontSize: 14,
             },
           },
         },
@@ -173,35 +173,35 @@ const SellerDashboard = () => {
         </div>
         <canvas id="lineChart" ref={lineChartCtx} />
         <div className="chart-filters">
-          <div className="topcoat-button-bar">
-            <div className="topcoat-button-bar__item">
+          <div className="button-bar">
+            <div className="button-bar__item">
               <button
                 type="button"
-                className="topcoat-button-bar__button--large"
+                className="button-bar__button"
               >
                 Daily
               </button>
             </div>
-            <div className="topcoat-button-bar__item">
+            <div className="button-bar__item">
               <button
                 type="button"
-                className="topcoat-button-bar__button--large"
+                className="button-bar__button--large"
               >
                 Weekly
               </button>
             </div>
-            <div className="topcoat-button-bar__item">
+            <div className="button-bar__item">
               <button
                 type="button"
-                className="topcoat-button-bar__button--large"
+                className="button-bar__button--large"
               >
                 Monthly
               </button>
             </div>
-            <div className="topcoat-button-bar__item">
+            <div className="button-bar__item">
               <button
                 type="button"
-                className="topcoat-button-bar__button--large"
+                className="button-bar__button--large"
               >
                 Yearly
               </button>
@@ -348,7 +348,7 @@ const SellerDashboard = () => {
           </div>
         </div>
       </div>
-      {showCointWalletsModal && <CoinWallets close={closeCoinWalletsModal} />}
+      {showCoinWalletsModal && <CoinWallets close={closeCoinWalletsModal} />}
     </div>
   );
 };

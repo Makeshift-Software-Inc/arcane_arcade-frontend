@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import ReactTags from 'react-tag-autocomplete';
 import { Helmet } from 'react-helmet';
@@ -190,6 +191,10 @@ const SellerListingsNew = ({ history }) => {
         />
       </Helmet>
       <div className="form-container">
+        <div className="back-to-dashboard">
+          <Link to="/seller/dashboard">⟵ Back To Dashboard</Link>
+        </div>
+
         <form onSubmit={handleSubmit}>
           <h1>Sell your game</h1>
 
@@ -298,8 +303,8 @@ const SellerListingsNew = ({ history }) => {
                   />
                 </div>
                 <div className="early-access">
-                  <label className="form-label">Early Access</label>
-                  <label className="topcoat-switch">
+                  <label className="form-label" htmlFor="early-access">
+                    Early Access
                     <input
                       type="checkbox"
                       className="topcoat-switch__input"
@@ -308,19 +313,43 @@ const SellerListingsNew = ({ history }) => {
                       name="early-access"
                       value={earlyAccess}
                     />
-
-                    <div className="topcoat-switch__toggle" />
-                  </label>
+                </label>
                 </div>
               </div>
             </div>
           </div>
 
+
           <div className="field description-field">
+
+            <div className="form-row">
+              <div className="price">
+                <label className="form-label" htmlFor="price">
+                  Price in USD
+                </label>
+                <input
+                  type="number"
+                  className="topcoat-text-input"
+                  value={price}
+                  onChange={onChange}
+                  name="price"
+                  />
+              </div>
+
+              <div>
+                <label className="form-label">Release Date:</label>
+                <DatePicker
+                  selected={releaseDateAsDate}
+                  onChange={setReleaseDate}
+                  dateFormat="Pp"
+                  />
+              </div>
+            </div>
+
             <label className="form-label description">
               Game Description
               <Tippy
-                content="You may want to add photos or .gifs for a more appealing synopsis. (700x295)"
+                content="You may want to add photos or .gifs for a more appealing synopsis. (600x295)"
                 interactive
                 interactiveBorder={20}
                 delay={100}
@@ -341,30 +370,6 @@ const SellerListingsNew = ({ history }) => {
             </div>
           </div>
 
-          <div className="form-row">
-            <div className="price">
-              <label className="form-label" htmlFor="price">
-                Price in USD
-              </label>
-              <input
-                type="number"
-                className="topcoat-text-input"
-                value={price}
-                onChange={onChange}
-                name="price"
-              />
-            </div>
-
-            <div>
-              <label className="form-label">Release Date:</label>
-              <DatePicker
-                selected={releaseDateAsDate}
-                onChange={setReleaseDate}
-                showTimeSelect
-                dateFormat="Pp"
-              />
-            </div>
-          </div>
 
           <div>
             <h4>Platforms Supported</h4>
@@ -439,7 +444,6 @@ const SellerListingsNew = ({ history }) => {
                   <div key={systemRequirement.name}>
                     <div className="topcoat-tab-bar">
                       <label className="topcoat-tab-bar__item">
-                        <input type="radio" name="tab-bar" />
                         <button
                           type="button"
                           className="topcoat-tab-bar__button"
