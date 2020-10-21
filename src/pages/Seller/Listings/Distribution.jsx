@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
-import { useStore } from '../../../store';
 import { Helmet } from 'react-helmet';
+import { useStore } from '../../../store';
 
 import './Distribution.scss';
 
@@ -156,7 +156,6 @@ const Installer = observer(({ platform }) => {
 
   return (
     <div className="uploader">
-
 
       <br />
       <br />
@@ -328,7 +327,7 @@ const Distribution = ({ match, history }) => {
     }
   };
 
-  const metaDesc = "Add Installers or Steam keys to be purchased for Bitcoin or Monero."
+  const metaDesc = 'Add Installers or Steam keys to be purchased for Bitcoin or Monero.';
   return (
     <div className="App add-distribution">
       <Helmet>

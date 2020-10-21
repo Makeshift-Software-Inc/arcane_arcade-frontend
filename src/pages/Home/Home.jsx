@@ -8,7 +8,7 @@ import { observer } from 'mobx-react';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 
 import './Home.scss';
-import Api from '../../services/Api';
+// import Api from '../../services/Api';
 import Navbar from '../../components/Navbar/Navbar';
 import Loading from '../../components/Loading/Loading';
 
@@ -424,7 +424,7 @@ const Home = () => {
 
               <div className="card-content">
                 <div className="content">
-                  <select name="genre" />
+                  <select name="genre" aria-label="search by genre" />
                 </div>
               </div>
 
