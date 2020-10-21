@@ -2,6 +2,7 @@ import React, { useEffect, createRef, useState } from 'react';
 
 import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
+import { Helmet } from 'react-helmet';
 
 import 'intl-tel-input/build/css/intlTelInput.css';
 import 'intl-tel-input/build/js/utils';
@@ -46,9 +47,17 @@ const SignUpPage = ({ history }) => {
     }
   };
 
+  const metaDesc = `Double check that your email "${signUp.email}" is accurate and doesn't contain any typos.`;
   return (
     <div className="App sign-up flex-row">
-
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Create Your Account</title>
+        <meta
+          name="description"
+          content={metaDesc}
+        />
+      </Helmet>
       <div className="flex-row align-center justify-center flex-grow sign-up-page">
 
         <div className="login-form flex flex-column flex-grow">
