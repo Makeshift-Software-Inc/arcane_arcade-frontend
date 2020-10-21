@@ -2,18 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
 import { toast } from 'react-toastify';
 
-import { withRouter } from 'react-router-dom';
-
 import ReactPlayer from 'react-player';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 
 import '@splidejs/splide/dist/css/themes/splide-default.min.css';
 
 import '@fortawesome/fontawesome-free/css/all.min.css';
-
-import Tippy from '@tippyjs/react';
-import 'tippy.js/dist/tippy.css';
-import 'trix/dist/trix.css';
 
 import { useStore } from '../../../store';
 
@@ -200,7 +194,7 @@ const GamesShow = ({ match, history }) => {
 
                   <div>
                     <p>Release Date</p>
-                    <p>{new Date(Date.parse(selectedGame.release_date)).toUTCString()}</p>
+                    <p>{new Date(Date.parse(selectedGame.release_date)).toDateString()}</p>
                   </div>
 
                   <div>
