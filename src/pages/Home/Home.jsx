@@ -41,7 +41,6 @@ const Home = () => {
     load();
   }, []);
 
-
   if (loading) return <Loading />;
 
   const handleSearchChange = (e) => {
@@ -140,8 +139,6 @@ const Home = () => {
       }
     }
   };
-
-
 
   return (
     <div className="App flex-column">
@@ -427,8 +424,7 @@ const Home = () => {
 
               <div className="card-content">
                 <div className="content">
-                  <select name="genre">
-                  </select>
+                  <select name="genre" />
                 </div>
               </div>
 
@@ -440,7 +436,7 @@ const Home = () => {
               </header>
               <div className="card-content">
                 <div className="content">
-                  <input type="range" className="topcoat-range" min="0" max="60"/>
+                  <input type="range" className="topcoat-range" min="0" max="60" />
                 </div>
               </div>
             </div>

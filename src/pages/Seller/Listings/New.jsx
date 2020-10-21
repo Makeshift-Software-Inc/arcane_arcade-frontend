@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { observer } from 'mobx-react';
 import ReactTags from 'react-tag-autocomplete';
+import { Helmet } from 'react-helmet';
 
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -177,8 +178,17 @@ const SellerListingsNew = ({ history }) => {
 
   if (games.creating) return <Loading />;
 
+  const metaDesc = 'Sell your game with Arcane Arcade. Receive cryptocurrency (Bitcoin and/or Monero) for your game.';
   return (
     <div className="App seller-listings-new">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Sell Your Game</title>
+        <meta
+          name="description"
+          content={metaDesc}
+        />
+      </Helmet>
       <div className="form-container">
         <form onSubmit={handleSubmit}>
           <h1>Sell your game</h1>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 import Loading from '../../components/Loading/Loading';
 import Errors from '../../components/Errors/Errors';
@@ -48,6 +49,11 @@ const TwoFactorAuth = ({ history }) => {
 
   return (
     <div className="App two-factor flex-row">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Authorize</title>
+      </Helmet>
+
       <div className="flex-row align-center justify-center flex-grow two-factor-page">
         <div className="flex-column flex-grow two-factor-form align-center justify-between">
 

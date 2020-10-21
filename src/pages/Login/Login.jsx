@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
+import { Helmet } from 'react-helmet';
 
 import { useStore } from '../../store';
 
@@ -34,8 +35,17 @@ const LoginPage = ({ history }) => {
     }
   };
 
+  const metaDesc = 'Sign in to your account on Arcane Arcade.';
   return (
     <div className="App login flex-row">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Sign In</title>
+        <meta
+          name="description"
+          content={metaDesc}
+        />
+      </Helmet>
 
       <div className="flex-row align-center justify-center flex-grow login-page">
 
