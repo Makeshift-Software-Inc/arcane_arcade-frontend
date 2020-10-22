@@ -205,7 +205,6 @@
         color: #E4E4E4;
       }
 
-
       .second-section div {
         width: 33%;
       }
@@ -220,7 +219,22 @@
       }
 
       .system-req-btns {
-        display: none;
+        .system-req-btn {
+          border: 1px solid white;
+        }
+
+        .system-req-btn.active {
+          border-bottom: none;
+        }
+
+        .border-div {
+          border-bottom: 1px solid white;
+        }
+      }
+
+      .system-req-text{
+        border: 1px solid white;
+        border-top: none;
       }
 
 
@@ -399,6 +413,7 @@
     .info-section {
 
      .pricing {
+      padding: 0 25px;
 
         form{
           width: 100%;
@@ -409,12 +424,13 @@
         }
 
         .payment {
-          padding: 10px 25px;
+          padding: 10px 0px;
 
           .top-game-info {
             display: flex;
             font-family: Open Sans;
-            font-size: 13px;
+            font-size: 17px;
+            margin-bottom: 10px;
 
             .title {
               font-size: 20px;
@@ -444,11 +460,18 @@
               color: #2A2A2A;
               max-width: 100px;
             }
-            div.active {
+          }
+          .system-req-btn.active {
+            border-bottom: 1px solid #2A2A2A;
+            div{
               color: #E4E4E4;
               border-bottom: 2px solid #463AF3;
             }
           }
+        }
+
+        .system-req-text {
+          border: none;
         }
 
 

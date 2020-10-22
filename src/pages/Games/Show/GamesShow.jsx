@@ -68,8 +68,7 @@ const supportedPlatformsImgs = {
 const GamesShow = ({ match, history }) => {
   const [showBuyModal, setShowBuyModal] = useState(false);
 
-  const [systemWin, setSystemWin] = useState(true);
-  const [systemMac, setSystemMac] = useState(false);
+  const [systemReq, setSystemReq] = useState('windows');
 
   const [openMobileDecription, setOpenMobileDescription] = useState(false);
 
@@ -171,8 +170,6 @@ const GamesShow = ({ match, history }) => {
                     Prepare yourself and Embrace The Darkness!
                   </p>
                 </div>
-                
-            
 
                 <div className="price fiat flex-row justify-flex-end">
                   {selectedGame.price && (
@@ -285,19 +282,31 @@ const GamesShow = ({ match, history }) => {
                 <h3 className="section-title">System Requirements</h3>
               </div>
 
-              <div className="system-req-btns flex-row flex-grow justify-between">
-                <div className="system-req-btn flex-column flex-grow align-center" onClick={() => {setSystemWin(true); setSystemMac(false)}}>
-                  <div className={systemWin ? 'active' : ''}>Windows</div>
+              <div className="flex-column flex-grow section-text">
+              <div className="system-req-btns flex-row flex-grow">
+                <div 
+                  className={`system-req-btn flex-column  align-center ${systemReq === 'windows' ? 'active' : ''}`} 
+                  onClick={() => setSystemReq('windows')}
+                >
+                  <div>Windows</div>
                 </div>
-                <div className="system-req-btn flex-column flex-grow align-center" onClick={() => {setSystemWin(false); setSystemMac(true)}}>
-                  <div className={systemMac ? 'active' : ''}>Mac</div>
+                <div 
+                  className={`system-req-btn flex-column align-center ${systemReq === 'mac' ? 'active' : ''}`} 
+                  onClick={() => setSystemReq('mac')}
+                >
+                  <div>Mac</div>
                 </div>
+                <div 
+                  className={`system-req-btn flex-column align-center ${systemReq === 'linux' ? 'active' : ''}`} 
+                  onClick={() => setSystemReq('linux')}
+                >
+                  <div>Linux</div>
+                </div>
+                <div className="flex-row flex-grow border-div" />
               </div>
 
-              <div className="flex-row flex-grow align-center section-text">
+              <div className="flex-row system-req-text">
 
-
-                
                 <div className="flex-column flex-grow">
                   <p className="info-text">Minimum</p>
                   <p>
@@ -325,12 +334,9 @@ const GamesShow = ({ match, history }) => {
                     Storage: 150 GB available space 
                     Sound Card: Direct X Compatible
                   </p>
-
                 </div>
-
+                </div>
               </div>
-
-
             </div>
 
 
