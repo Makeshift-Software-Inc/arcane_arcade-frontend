@@ -20,6 +20,16 @@ import OrderDetailsModal from '../../MyLibrary/Modal/Modal';
 
 import SearchInput from '../../../components/Form/SearchInput/SearchInput';
 
+//suported platforms imgs
+import PC from '../../../img/platform_icons/PS4.svg';
+import WINDOWS from '../../../img/platform_icons/WINDOWS.svg';
+import MAC from '../../../img/platform_icons/MAC.svg';
+import LINUX from '../../../img/platform_icons/linux.svg';
+import SWITCH from '../../../img/platform_icons/SWITCH.svg';
+import XB1 from '../../../img/platform_icons/XB1.svg';
+
+import playButton from '../../../img/Play_Button.svg';
+
 
 import './GamesShow.scss';
 
@@ -36,6 +46,7 @@ const Videos = ({ videos, thumbnail }) => videos.map((video) => (
       light={thumbnail}
       playing={false}
       preload={thumbnail}
+      playIcon={<img src={playButton} className="play-btn" />}
       controls
       muted
     />
@@ -49,9 +60,18 @@ const Splides = ({ images, videos, gameTitle }) => (
   </>
 );
 
+const supportedPlatformsImgs = {
+  PC: PC, WINDOWS: WINDOWS, MAC: MAC, LINUX: LINUX, SWITCH: SWITCH, XB1: XB1
+};
+
 
 const GamesShow = ({ match, history }) => {
   const [showBuyModal, setShowBuyModal] = useState(false);
+
+  const [systemWin, setSystemWin] = useState(true);
+  const [systemMac, setSystemMac] = useState(false);
+
+  const [openMobileDecription, setOpenMobileDescription] = useState(false);
 
   const {
     games: { loadGame, selectedGame, selectGame },
@@ -61,7 +81,6 @@ const GamesShow = ({ match, history }) => {
     },
   } = useStore();
 
-  const [openMobileDecription, setOpenMobileDescription] = useState(false);
 
   const { slug } = match.params;
 
@@ -97,9 +116,7 @@ const GamesShow = ({ match, history }) => {
     reset();
   };
 
-  const TopSearchBar = () => { 
-    console.log(selectedGame.supportedPlatforms()[0].name);
-    return(
+  const TopSearchBar = () => (
     <div className="flex-row justify-between top-search-bar">
       <div className="flex-row align-center back-button" onClick={() => history.goBack()}> 
         <img src={backSvg} alt="back-button" className="back-img"/>
@@ -110,7 +127,7 @@ const GamesShow = ({ match, history }) => {
         <SearchInput />
       </div>
     </div>
-  )};
+  );
 
 
   return (
@@ -129,7 +146,9 @@ const GamesShow = ({ match, history }) => {
                 lazyLoad: true,
                 waitForTransition: true,
                 perPage: 1,
+                slidesPerView: 1,
               }}
+
             >
               <Splides
                 images={selectedGame.images}
@@ -143,6 +162,15 @@ const GamesShow = ({ match, history }) => {
           <div className="pricing flex-row justify-flex-end">
             <form>
               <div className="payment flex-column justify-flex-end">
+
+                <div className="top-game-info flex-column">
+                  <p className="title">Dark Souls III</p>
+                  <p>
+                    Dark Souls continues to push the boundaries with the latest, 
+                    ambitious chapter in the critically-acclaimed and genre-defining series. 
+                    Prepare yourself and Embrace The Darkness!
+                  </p>
+                </div>
                 
             
 
@@ -179,50 +207,40 @@ const GamesShow = ({ match, history }) => {
                 <h3 className="section-title">About Game</h3>
               </div>
 
-              <div className="flex-column">
+              <div className="flex-column about-game-info">
                 <div className="second-section flex-row flex-grow flex-wrap justify-flex-end">
 
-                  <div>
-                    <p>Developer</p>
+                  <div className="info-container">
+                    <p className="info-text">Developer</p>
                     <p>-</p>
                   </div>
 
-                  <div>
-                    <p>Publisher</p>
+                  <div className="info-container">
+                    <p className="info-text">Publisher</p>
                     <p>-</p>
                   </div>
 
-                  <div>
-                    <p>Release Date</p>
+                  <div className="info-container">
+                    <p className="info-text">Release Date</p>
                     <p>{new Date(Date.parse(selectedGame.release_date)).toDateString()}</p>
                   </div>
 
-                  <div>
-                    <p>Rating</p>
+                  <div className="info-container">
+                    <p className="info-text">Rating</p>
                     <p>-</p>
                   </div>
 
-                  <div className="flex-column">
-                    <p>Platform</p>
+                  <div className="flex-column info-container">
+                    <p className="info-text">Platform</p>
 
-                    <div className="platforms">
-                      {selectedGame.hasSupportedPlatform('WINDOWS') && (
-                        <div className="windows">
-                          <i className="fab fa-windows" />
-                        </div>
-                      )}
+                    <div className="platforms-imgs">
+                    {
 
-                      {selectedGame.hasSupportedPlatform('MAC') && (
-                        <div className="mac">
-                          <i className="fab fa-apple" />
-                        </div>
-                      )}
-
-                      {selectedGame.hasSupportedPlatform('LINUX') && (
-                        <div className="linux">
-                          <i className="fab fa-linux" />
-                        </div>
-                      )}
+                      selectedGame.supportedPlatforms().map((platform, i) => {
+                        return <img src={supportedPlatformsImgs[platform.name]} key={i} alt="platform-icon" />
+                      })
+                    }
+                      
                     </div>
 
                   </div>
@@ -247,31 +265,66 @@ const GamesShow = ({ match, history }) => {
 
             
 
-            <div className="game-specification game-info flex-row flex-grow justify-between align-center">
+            <div className="game-specification game-info flex-row flex-grow justify-between align-start">
               <div className="first-section flex-grow">
                 <h3 className="section-title">Game Specification</h3>
               </div>
 
-              <div className="flex-column justify-flex-end flex-grow">
+              <div className="flex-column justify-flex-end flex-grow section-text">
                 <p className="info-text">Languages Supported</p>
-                <p></p>
-                <p></p>
+                <p>Audio: English, French, German, Spanish</p>
+                <p>
+                  Text: English, French, Spanish - Spain, Italian, German, Polish, Russian, 
+                  Portuguese - Brazil, Japanese, Spanish - Mexico, Chinese - Traditional
+                </p>
               </div>
             </div>
 
-            <div className="system-requirements game-info  flex-row flex-grow justify-between align-center">
+            <div className="system-requirements game-info  flex-row flex-grow justify-between align-start">
               <div className="first-section flex-row flex-grow">
                 <h3 className="section-title">System Requirements</h3>
               </div>
 
-              <div className="flex-row flex-grow align-center">
+              <div className="system-req-btns flex-row flex-grow justify-between">
+                <div className="system-req-btn flex-column flex-grow align-center" onClick={() => {setSystemWin(true); setSystemMac(false)}}>
+                  <div className={systemWin ? 'active' : ''}>Windows</div>
+                </div>
+                <div className="system-req-btn flex-column flex-grow align-center" onClick={() => {setSystemWin(false); setSystemMac(true)}}>
+                  <div className={systemMac ? 'active' : ''}>Mac</div>
+                </div>
+              </div>
+
+              <div className="flex-row flex-grow align-center section-text">
+
+
+                
                 <div className="flex-column flex-grow">
                   <p className="info-text">Minimum</p>
+                  <p>
+                    Requires a 64-bit processor and operating system 
+                    OS: Windows 7 - Service Pack 1 (6.1.7601) 
+                    Processor: Intel® Core™ i5-2500K / AMD FX-6300 
+                    Memory: 8 GB RAM 
+                    Graphics: Nvidia GeForce GTX 770 2GB / AMD Radeon R9 280 3GB 
+                    Network: Broadband Internet connection 
+                    Storage: 150 GB available space 
+                    Sound Card: Direct X Compatible
+                  </p>
 
                 </div>
 
-                <div className="flex-column flex-grow">
+                <div className="flex-column flex-grow recommended">
                   <p className="info-text">Recommended</p>
+                  <p>
+                    Requires a 64-bit processor and operating system 
+                    OS: Windows 10 - April 2018 Update (v1803) 
+                    Processor: Intel® Core™ i7-4770K / AMD Ryzen 5 1500X 
+                    Memory: 12 GB RAM 
+                    Graphics: Nvidia GeForce GTX 1060 6GB / AMD Radeon RX 480 4GB 
+                    Network: Broadband Internet connection 
+                    Storage: 150 GB available space 
+                    Sound Card: Direct X Compatible
+                  </p>
 
                 </div>
 

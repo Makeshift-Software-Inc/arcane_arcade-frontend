@@ -1,5 +1,7 @@
 .App.listings-show {
 
+  font-family: Montserrat;
+
 
   .game-page-container{
     padding: 65px 140px;
@@ -7,6 +9,11 @@
 
     .top-search-bar {
       margin-bottom: 48px;
+    }
+
+    .play-btn {
+      width: 60px;
+      height: 60px !important;
     }
 
     @media (max-width:1200px) {
@@ -50,7 +57,7 @@
     }
   }
 
-  font-family: Montserrat;
+
 
   strong {
     color: aliceblue;
@@ -81,6 +88,10 @@
       height: 29.9vh;
       position: relative;
       color: aliceblue;
+
+      .section-text {
+        max-width: 998px; 
+      }
 
       img {
         width: 100%;
@@ -146,23 +157,69 @@
         color: #e4e4e4;
       }
 
+      .info-container {
+        margin-bottom: 64px;
+
+        .platforms-imgs img {
+          width: 20px;
+          height: 20px;
+          margin-right: 5px;
+        }
+      }
+
       .info-text {
-        font-family: OpenSans;
         color: #e4e4e4;
         font-size: 23px;
         line-height: 1.74;
         opacity: 0.6;
+        margin: 0;
       }
+
+      .recommended {
+        margin-left: 54px;
+      }
+
+      .section-text {
+        font-size: 23px;
+        letter-spacing: 0px;
+        color: #E4E4E4;
+        opacity: 1;
+      }
+
+      .about-game-info {
+        max-width: 100%;
+      }
+
+
+      .game-specification {
+        margin-top: 76px;
+        margin-bottom: 114px;
+      }
+                
+      .section-text {
+        font-style:  Montserrat;
+        max-width: 998px; 
+        text-align: left;
+        font: 23px;
+        letter-spacing: 0px;
+        color: #E4E4E4;
+      }
+
 
       .second-section div {
         width: 33%;
       }
 
       .game-description {
+        font-family: OpenSans;
         max-width: 998px;
       }
 
       .descr-toggle-button {
+        display: none;
+      }
+
+      .system-req-btns {
         display: none;
       }
 
@@ -178,6 +235,9 @@
 
       .payment {
 
+        .top-game-info {
+          display: none;
+        }
 
         .crypto {
           display: flex;
@@ -276,6 +336,13 @@
       @media (max-width:500px) {
         height: 437px;
       }
+
+    }
+
+    .splide__pagination {
+      flex-wrap: nowrap;
+      max-width: 100px;
+      overflow: hidden;
     }
 
     .react-player__preview {
@@ -290,7 +357,7 @@
 
 
     div[preload] {
-      width: 100vw !important;
+      width: 100% !important;
       height: 600px !important;
     }
     video {
@@ -314,7 +381,7 @@
     }
   }
 
-  @media (max-width:1200px) {
+  @media (max-width:768px) {
 
 
 
@@ -327,25 +394,67 @@
       justify-content: center;
     }
 
-    .pricing {
 
-      form{
-        width: 100%;
-      }
-
-      .payment-submit .button {
-        width: 100%;
-      }
-
-      .payment {
-        margin-top: 10px;
-      }
-    }
-
+   
     .info-section {
+
+     .pricing {
+
+        form{
+          width: 100%;
+        }
+
+        .payment-submit .button {
+          width: 100%;
+        }
+
+        .payment {
+          padding: 10px 25px;
+
+          .top-game-info {
+            display: flex;
+            font-family: Open Sans;
+            font-size: 13px;
+
+            .title {
+              font-size: 20px;
+            }
+          }
+
+        }
+      }
+
       .description {
         padding: 11px 25px;
         margin-top: 23px;
+        border-top: 2px solid #FFFFFF26;
+
+        .system-req-btns {
+          display: flex;
+          width: 100%;
+          text-align: center;
+          font-size: 22px;
+          margin-bottom: 30px;
+
+          .system-req-btn {
+            border: 1px solid #2A2A2A;
+            width: 50%;
+            padding: 8px 0;
+            div {
+              color: #2A2A2A;
+              max-width: 100px;
+            }
+            div.active {
+              color: #E4E4E4;
+              border-bottom: 2px solid #463AF3;
+            }
+          }
+        }
+
+
+        .info-container {
+          margin-bottom: 19px;
+        }
 
         .info-text {
           font-size: 17px;
@@ -353,11 +462,22 @@
 
         .section-title {
           font-size: 19px;
+          margin-bottom: 17px;
+        }
+
+        .section-text {
+          font-size: 19px;
+        }
+
+        .game-specification {
+          margin-top: 24px;
+          margin-bottom: 19px;
         }
 
         .game-title {
           margin-top: 43px;
           margin-bottom: 19px;
+          font-size: 18px;
         }
 
         .second-section {
@@ -403,6 +523,7 @@
       .game-info {
         flex-direction: column;
         align-items: flex-start;
+
       }
     }
 
