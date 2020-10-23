@@ -122,7 +122,7 @@ const GamesShow = ({ match, history }) => {
         <p>Back to store</p>
       </div>
 
-      <div className="flex-row">
+      <div className="flex-row flex-grow justify-flex-end">
         <SearchInput />
       </div>
     </div>
@@ -132,7 +132,8 @@ const GamesShow = ({ match, history }) => {
   return (
     <div className="App listings-show">
       <Navbar />
-      <div className="game-page-container">
+      <div className="game-page-container flex-column align-center">
+      <div className="game-show">
 
         <TopSearchBar />
 
@@ -346,6 +347,7 @@ const GamesShow = ({ match, history }) => {
         </div>
         {showBuyModal && <BuyModal close={closeBuyModal} />}
         <OrderDetailsModal />
+        </div>
       </div>
     </div>
   );

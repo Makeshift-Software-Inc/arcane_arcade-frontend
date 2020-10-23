@@ -7,6 +7,11 @@
     padding: 65px 140px;
     background-color: #121212;
 
+    .game-show {
+      max-width: 1640px;
+      width: 100%;
+    }
+
     .top-search-bar {
       margin-bottom: 48px;
     }
@@ -17,7 +22,6 @@
     }
 
     @media (max-width:1200px) {
-
 
       ::-webkit-input-placeholder {
          color:transparent;
@@ -44,24 +48,13 @@
           flex-direction: row-reverse;
           max-width: 200px;
 
-
-
           .arcane-input {
             min-width: 0;
             max-width: 150px;
-
-
           }
         }
       }
     }
-  }
-
-
-
-  strong {
-    color: aliceblue;
-    letter-spacing: 0.7px;
   }
 
   .back-button {
@@ -112,16 +105,9 @@
 
   .info-section {
     color: aliceblue;
-
-    @media (max-width:500px) {
-      padding: 0;
-      margin: 0;
-
-    }
+    padding: 25px;
 
     .payment-submit {
-
-
       button {
         background-color: #463af3;
         font-size: 18px;
@@ -146,13 +132,14 @@
         font-weight: 500;
         line-height: 1.2;
         color: #e4e4e4;
+        margin-right: 20px;
       }
 
       .game-title {
         font-size: 27px;
         font-weight: bold;
         line-height: 1.22;
-        margin-top: 67px;
+        margin-top: 37px;
         margin-bottom: 15px;
         color: #e4e4e4;
       }
@@ -220,6 +207,7 @@
 
       .system-req-btns {
         .system-req-btn {
+          padding: 20px; 
           border: 1px solid white;
         }
 
@@ -233,6 +221,7 @@
       }
 
       .system-req-text{
+        padding: 20px;
         border: 1px solid white;
         border-top: none;
       }
@@ -242,36 +231,13 @@
 
     .pricing {
 
-
-      .tippy-content {
-        font-size: 25px;
-      }
-
       .payment {
 
         .top-game-info {
           display: none;
         }
 
-        .crypto {
-          display: flex;
-
-          .monero {
-            margin-left: 10px;
-          }
-        }
-
-        i.fab {
-          margin: 0.2em 0.3em;
-          font-size: 50px;
-
-          @media (max-width:500px) {
-            font-size: 40px;
-          }
-        }
-
         .fiat {
-
           h3 {
             font-size: 24px;
             font-weight: 500;
@@ -282,46 +248,6 @@
             @media (max-width:500px) {
               font-size: 20px;
             }
-          }
-        }
-      }
-
-      .vl {
-        display: inline-block;
-        border-left: 1px solid;
-        height: 90px;
-
-        @media (max-width:500px) {
-          margin: 1em;
-        }
-      }
-
-      .platforms {
-        vertical-align: top;
-        display: inline-flex;
-
-        @media (max-width:500px) {
-          margin-top: 10px;
-          padding: 0.3em 0;
-        }
-
-        i {
-          font-size: 70px;
-          @media (max-width:500px) {
-            font-size: 40px;
-          }
-        }
-        h3 {
-          text-align: center;
-        }
-        div {
-          margin: 0 0em 0em 2em;
-          &:first-of-type {
-            margin: 0;
-          }
-
-          &:last-of-type {
-            margin: 0 2em;
           }
         }
       }
@@ -350,7 +276,14 @@
       @media (max-width:500px) {
         height: 437px;
       }
+    }
 
+    .splide__arrow {
+      border-radius: none;
+      background-color: transparent;
+      svg {
+        filter: invert(100%) sepia(99%) saturate(2%) hue-rotate(249deg) brightness(106%) contrast(100%);
+      }
     }
 
     .splide__pagination {
@@ -397,8 +330,6 @@
 
   @media (max-width:768px) {
 
-
-
     .back-button {
       font-size: 10px;
     }
@@ -408,8 +339,6 @@
       justify-content: center;
     }
 
-
-   
     .info-section {
 
      .pricing {
@@ -436,7 +365,6 @@
               font-size: 20px;
             }
           }
-
         }
       }
 
@@ -494,7 +422,7 @@
 
         .game-specification {
           margin-top: 24px;
-          margin-bottom: 19px;
+          margin-bottom: 34px;
         }
 
         .game-title {
@@ -552,6 +480,13 @@
 
     .splide {
       
+      .splide__arrow {
+        top: 110%;
+      }
+
+      .splide__arrow.splide__arrow--next {
+        left: 10%;
+      }
 
       .splide__track {
         height: 250px !important;
@@ -561,8 +496,6 @@
         height: 221px !important;
       }
     }
-
-
 
   }
 }
