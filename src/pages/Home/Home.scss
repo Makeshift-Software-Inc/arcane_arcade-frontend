@@ -139,31 +139,23 @@
     }
   }
 
-  .slider-container {
+  .page-container {
     width: 100%;
     display: flex;
 
     .slider {
       display: inline-block;
       width: 100%;
-
-      @media (max-width:1060px) {
-        width: 100vw;
-      }
     }
 
     .slider-info {
       font-family: 'Montserrat';
-      width: 552px;
+      width: 40%;
       background-color: #463af3;
       padding: 44px 42px 47px 42px;
 
-      @media (max-width:1069px) {
+      @media (max-width:1025px) {
     		width: 600px
-    	}
-
-      @media (max-width:600px) {
-    		width: 100vw
     	}
 
 
@@ -200,8 +192,8 @@
         }
       }
 
-       @media (max-width:1060px) {
-        width: 100vw;
+       @media (max-width:1025px) {
+        width: 100%;
       }
     }
 
@@ -212,30 +204,25 @@
     }
 
     .splide__slide {
-      display: flex;
-      flex-direction: row;
-
       img {
-        width: 600px;
-
-        @media (max-width:400px) {
-          height: 250px !important;
-        }
-
+        width: 60%; 
+        height: 500px; 
       }
+
+      
 
       .slider-item {
         flex-direction: row;
       }
 
-      @media (max-width:1060px) {
+      @media (max-width:1025px) {
         flex-direction: column;
         max-width: 100vw;
-        height: 800px !important;
+        height: 100% !important;
 
         img {
           width: 100%;
-          height: 400px;
+          height: 300px;
         }
 
         .slider-item {
@@ -243,8 +230,8 @@
         }
 
         .slider-info {
-           height: 300px;
-
+          height: 300px;
+          padding: 25px 21px;
 
         }
       }
@@ -273,7 +260,7 @@
     margin-top: 5vh;
     background-color: rgba(0, 0, 0, 0.5);
 
-    @media (max-width:1049px) {
+    @media (max-width:1025px) {
       width:100vw;
       margin-bottom: 2em;
       padding: 0;
@@ -327,7 +314,7 @@
     width: 1050px;
     margin: 0 auto;
 
-    @media (max-width:1049px) {
+    @media (max-width:1025px) {
       width:100vw
     }
 
@@ -339,7 +326,7 @@
       padding-top: 4vh;
       flex-wrap: wrap;
 
-      @media (max-width:1049px) {
+      @media (max-width:1025px) {
         width: 100vw;
       }
 
@@ -403,4 +390,20 @@
       }
     }
   }
+
+
+  .home-page-container {
+    max-width: 1640px;
+    width: 100%;
+
+
+    @media (max-width:768px) {
+      .top-search-bar {
+        flex-direction: column;
+      }
+    }
+
+  }
+
 }
+

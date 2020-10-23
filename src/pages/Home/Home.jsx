@@ -54,7 +54,7 @@ const SplideItem = ({ data }) => (
         title={data.title}
         text={data.text}
         link={data.link}
-        icons={data.icon}
+        icons={data.icons}
         iconType={data.iconType}
       />
     </div>
@@ -77,17 +77,13 @@ const Home = () => {
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
-
-    // Api.get(`/listings?q=${e.target.value}`).then((response) => {
-    //   debugger;
-    // });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
   };
 
-  // this is model data for the first, main slide
+  // this is the model data that yet has to be done on BE for the first, main slide
   const mainSplideData = [
     {
       image: kingdomCome,
@@ -98,7 +94,7 @@ const Home = () => {
         got to play in their (as promised) realistic version of 15th
         century Bohemia.`,
       title: 'Kingdom Come: Deliverance',
-      icon: [windowsIcon],
+      icons: [windowsIcon],
       link: '#',
     },
     {
@@ -107,7 +103,7 @@ const Home = () => {
       ambitious chapter in the critically-acclaimed and genre-defining series.
       Prepare yourself and Embrace The Darkness!`,
       title: 'Dark Souls III',
-      icon: [macIcon, switchIcon, psIcon, windowsIcon, xbIcon],
+      icons: [macIcon, switchIcon, psIcon, windowsIcon, xbIcon],
       link: '#',
     },
     {
@@ -117,7 +113,7 @@ const Home = () => {
         Sed elit sapien, venenatis sed odio dictum,
         suscipit porttitor erat.`,
       title: 'Third Title',
-      icon: [macIcon, switchIcon, psIcon, windowsIcon, xbIcon],
+      icons: [macIcon, switchIcon, psIcon, windowsIcon, xbIcon],
       link: '#',
     },
     {
@@ -127,7 +123,7 @@ const Home = () => {
         Morbi mattis tempor commodo. Mauris commodo consectetur lacinia.
         Sed id nisi vitae velit placerat maximus.`,
       title: 'Forth Title',
-      icon: [macIcon, switchIcon, psIcon, windowsIcon, xbIcon],
+      icons: [macIcon, switchIcon, psIcon, windowsIcon, xbIcon],
       link: '#',
     },
     {
@@ -137,7 +133,7 @@ const Home = () => {
         Sed semper, eros vitae molestie rhoncus, ipsum metus sagittis odio,
         eu ultrices ante quam quis turpis.`,
       title: 'Fifth Title',
-      icon: [macIcon, switchIcon, psIcon, windowsIcon, xbIcon],
+      icons: [macIcon, switchIcon, psIcon, windowsIcon, xbIcon],
       link: '#',
     },
   ];
@@ -146,55 +142,46 @@ const Home = () => {
     <div className="App flex-column">
       <Navbar />
 
-      <div className="slider-container">
-
-        <div className="flex flex-grow">
-          <div className="row flex-column">
-
-            <SearchBar>
-              <div className="tabs">
-                <Tab
-                  text="Discover"
-                  selected={selectedTab === 'discover'}
-                  onClick={() => setSelectedTab('discover')}
-                />
-                <Tab
-                  text="Explore"
-                  selected={selectedTab === 'explore'}
-                  onClick={() => setSelectedTab('explore')}
-                />
-              </div>
-            </SearchBar>
-
-            <div className="flex-row">
-              <div className="slider">
-                <Splide
-                  className="splide-slider"
-                  options={{
-                    width: 1050,
-                    height: 450,
-                    clones: 0,
-                    lazyLoad: true,
-                    waitForTransition: true,
-                    breakpoints: {
-                      400: {
-                        width: 390,
-                        height: 200,
-                      },
-                    },
-                  }}
-                >
-                  {
-                    mainSplideData.map((item) => <SplideItem data={item} key={item.title} />)
-                  }
-                </Splide>
-
-              </div>
+      <div className="page-container flex-column flex-grow align-center">
+        <div className="flex-column home-page-container">
+          <SearchBar>
+            <div className="tabs">
+              <Tab
+                text="Discover"
+                selected={selectedTab === 'discover'}
+                onClick={() => setSelectedTab('discover')}
+              />
+              <Tab
+                text="Explore"
+                selected={selectedTab === 'explore'}
+                onClick={() => setSelectedTab('explore')}
+              />
             </div>
+          </SearchBar>
+
+          <div className="flex-row slider">
+            <Splide
+              className="splide-slider"
+              options={{
+          
+                clones: 0,
+                lazyLoad: true,
+                waitForTransition: true,
+                
+              }}
+            >
+              {
+                mainSplideData.map((item) => <SplideItem data={item} key={item.title} />)
+              }
+            </Splide>
           </div>
         </div>
-
       </div>
+
+
+
+
+
 
       <div className="discover flex-column">
         <div className="new-releases">
