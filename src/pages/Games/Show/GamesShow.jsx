@@ -175,12 +175,12 @@ const GamesShow = ({ match, history }) => {
                   <div className="payment-submit">
 
                     <button
-                      disabled={!user.ordersLoaded}
+                      disabled={!(user && user.ordersLoaded)}
                       onClick={openBuyModal}
                       className="button"
                       type="button"
                     >
-                      {!user.ordersLoaded ? 'Loading...' : 'BUY NOW'}
+                      {user && !user.ordersLoaded ? 'Loading...' : 'BUY NOW'}
                     </button>
                   </div>
                 </form>
