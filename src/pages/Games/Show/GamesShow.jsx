@@ -46,7 +46,7 @@ const Videos = ({ videos, thumbnail }) => videos.map((video) => (
       light={thumbnail}
       playing={false}
       preload={thumbnail}
-      playIcon={<img src={playButton} className="play-btn" />}
+      playIcon={<img src={playButton} className="play-btn" alt="play-btn" />}
       controls
       muted
     />
@@ -123,7 +123,9 @@ const GamesShow = ({ match, history }) => {
       </div>
 
       <div className="flex-row flex-grow justify-flex-end">
-        <SearchInput />
+        <form>
+          <SearchInput />
+        </form>
       </div>
     </div>
   );
@@ -133,220 +135,210 @@ const GamesShow = ({ match, history }) => {
     <div className="App listings-show">
       <Navbar />
       <div className="game-page-container flex-column align-center">
-      <div className="game-show">
+        <div className="game-show">
 
-        <TopSearchBar />
+          <TopSearchBar />
 
-        <div className="">
-          <div className="splide-container">
-            <Splide
-              className="splide-slider"
-              options={{
-                clones: 0,
-                lazyLoad: true,
-                waitForTransition: true,
-                perPage: 1,
-                slidesPerView: 1,
-              }}
+          <div className="">
+            <div className="splide-container">
+              <Splide
+                className="splide-slider"
+                options={{
+                  clones: 0,
+                  lazyLoad: true,
+                  waitForTransition: true,
+                  perPage: 1,
+                  slidesPerView: 1,
+                }}
 
-            >
-              <Splides
-                images={selectedGame.images}
-                videos={selectedGame.videos}
-                gameTitle={selectedGame.title}
-              />
-            </Splide>
-          </div>
+              >
+                <Splides
+                  images={selectedGame.images}
+                  videos={selectedGame.videos}
+                  gameTitle={selectedGame.title}
+                />
+              </Splide>
+            </div>
 
-        <div className="info-section flex-column">
-          <div className="pricing flex-row justify-flex-end">
-            <form>
-              <div className="payment flex-column justify-flex-end">
+          <div className="info-section flex-column">
+            <div className="pricing flex-row justify-flex-end">
+              <form>
+                <div className="payment flex-column justify-flex-end">
 
-                <div className="top-game-info flex-column">
-                  <p className="title">Dark Souls III</p>
-                  <p>
-                    Dark Souls continues to push the boundaries with the latest, 
-                    ambitious chapter in the critically-acclaimed and genre-defining series. 
-                    Prepare yourself and Embrace The Darkness!
-                  </p>
+                  <div className="top-game-info flex-column">
+                    <p className="title">Dark Souls III</p>
+                    <p>
+                      Dark Souls continues to push the boundaries with the latest, 
+                      ambitious chapter in the critically-acclaimed and genre-defining series. 
+                      Prepare yourself and Embrace The Darkness!
+                    </p>
+                  </div>
+
+                  <div className="price fiat flex-row justify-flex-end">
+                    {selectedGame.price && (
+                      <h3>
+                        {selectedGame.currency_symbol}
+                        {selectedGame.price}
+                        {' '}
+                        {selectedGame.default_currency}
+                      </h3>
+                    )}
+                  </div>
                 </div>
 
-                <div className="price fiat flex-row justify-flex-end">
-                  {selectedGame.price && (
-                    <h3>
-                      {selectedGame.currency_symbol}
-                      {selectedGame.price}
-                      {' '}
-                      {selectedGame.default_currency}
-                    </h3>
-                  )}
+               
+                <div className="payment-submit">
+       
+                  <button
+                    disabled={!user.ordersLoaded}
+                    onClick={openBuyModal}
+                    className="button"
+                    type="button"
+                  >
+                    {!user.ordersLoaded ? 'Loading...' : 'BUY NOW'}
+                  </button>
                 </div>
-              </div>
+              </form>
+            </div>
 
-             
-              <div className="payment-submit">
-     
-                <button
-                  disabled={!user.ordersLoaded}
-                  onClick={openBuyModal}
-                  className="button"
-                  type="button"
-                >
-                  {!user.ordersLoaded ? 'Loading...' : 'BUY NOW'}
-                </button>
-              </div>
-            </form>
-          </div>
+            <div className="description flex-column">
+              <div className="about-game game-info flex-row flex-grow justify-between">
+                <div className="first-section flex-grow">
+                  <h3 className="section-title">About Game</h3>
+                </div>
 
-          <div className="description flex-column">
-            <div className="about-game game-info flex-row flex-grow justify-between">
-              <div className="first-section flex-grow">
-                <h3 className="section-title">About Game</h3>
-              </div>
+                <div className="flex-column about-game-info">
+                  <div className="second-section flex-row flex-grow flex-wrap justify-flex-end">
 
-              <div className="flex-column about-game-info">
-                <div className="second-section flex-row flex-grow flex-wrap justify-flex-end">
-
-                  <div className="info-container">
-                    <p className="info-text">Developer</p>
-                    <p>-</p>
-                  </div>
-
-                  <div className="info-container">
-                    <p className="info-text">Publisher</p>
-                    <p>-</p>
-                  </div>
-
-                  <div className="info-container">
-                    <p className="info-text">Release Date</p>
-                    <p>{new Date(Date.parse(selectedGame.release_date)).toDateString()}</p>
-                  </div>
-
-                  <div className="info-container">
-                    <p className="info-text">Rating</p>
-                    <p>-</p>
-                  </div>
-
-                  <div className="flex-column info-container">
-                    <p className="info-text">Platform</p>
-
-                    <div className="platforms-imgs">
-                    {
-
-                      selectedGame.supportedPlatforms().map((platform, i) => {
-                        return <img src={supportedPlatformsImgs[platform.name]} key={i} alt="platform-icon" />
-                      })
-                    }
-                      
+                    <div className="info-container">
+                      <p className="info-text">Developer</p>
+                      <p>-</p>
                     </div>
 
+                    <div className="info-container">
+                      <p className="info-text">Publisher</p>
+                      <p>-</p>
+                    </div>
+
+                    <div className="info-container">
+                      <p className="info-text">Release Date</p>
+                      <p>{new Date(Date.parse(selectedGame.release_date)).toDateString()}</p>
+                    </div>
+
+                    <div className="info-container">
+                      <p className="info-text">Rating</p>
+                      <p>-</p>
+                    </div>
+
+                    <div className="flex-column info-container">
+                      <p className="info-text">Platform</p>
+
+                      <div className="platforms-imgs">
+                      {
+
+                        selectedGame.supportedPlatforms().map((platform, i) => {
+                          return <img src={supportedPlatformsImgs[platform.name]} key={i} alt="platform-icon" />
+                        })
+                      }
+                        
+                      </div>
+                    </div>
                   </div>
 
-
-                </div>
-
-                <div className="descr">
-                  <h3 className="game-title">{selectedGame.title}</h3>
-                  <div className={`game-description info-text desc-${openMobileDecription ? 'open' : 'closed'}`} 
-                  // eslint-disable-next-line
-                  dangerouslySetInnerHTML={{ __html: selectedGame.description }} />
-                </div>
-                <div className="descr-toggle-button" onClick={() => setOpenMobileDescription(!openMobileDecription)}>
-                  <span>{openMobileDecription ? 'Show less' : 'Show more'}</span>
-                  <img src={backSvg} className={`show-${openMobileDecription ? 'more' : 'less' }-icon`} alt="show-more"  />
-                </div>
-
-               </div> 
-              
-            </div>
-
-            
-
-            <div className="game-specification game-info flex-row flex-grow justify-between align-start">
-              <div className="first-section flex-grow">
-                <h3 className="section-title">Game Specification</h3>
+                  <div className="descr">
+                    <h3 className="game-title">{selectedGame.title}</h3>
+                    <div className={`game-description info-text desc-${openMobileDecription ? 'open' : 'closed'}`} 
+                    // eslint-disable-next-line
+                    dangerouslySetInnerHTML={{ __html: selectedGame.description }} />
+                  </div>
+                  <div className="descr-toggle-button" onClick={() => setOpenMobileDescription(!openMobileDecription)}>
+                    <span>{openMobileDecription ? 'Show less' : 'Show more'}</span>
+                    <img src={backSvg} className={`show-${openMobileDecription ? 'more' : 'less' }-icon`} alt="show-more"  />
+                  </div>
+                 </div> 
               </div>
 
-              <div className="flex-column justify-flex-end flex-grow section-text">
-                <p className="info-text">Languages Supported</p>
-                <p>Audio: English, French, German, Spanish</p>
-                <p>
-                  Text: English, French, Spanish - Spain, Italian, German, Polish, Russian, 
-                  Portuguese - Brazil, Japanese, Spanish - Mexico, Chinese - Traditional
-                </p>
-              </div>
-            </div>
-
-            <div className="system-requirements game-info  flex-row flex-grow justify-between align-start">
-              <div className="first-section flex-row flex-grow">
-                <h3 className="section-title">System Requirements</h3>
-              </div>
-
-              <div className="flex-column flex-grow section-text">
-              <div className="system-req-btns flex-row flex-grow">
-                <div 
-                  className={`system-req-btn flex-column  align-center ${systemReq === 'windows' ? 'active' : ''}`} 
-                  onClick={() => setSystemReq('windows')}
-                >
-                  <div>Windows</div>
+              <div className="game-specification game-info flex-row flex-grow justify-between align-start">
+                <div className="first-section flex-grow">
+                  <h3 className="section-title">Game Specification</h3>
                 </div>
-                <div 
-                  className={`system-req-btn flex-column align-center ${systemReq === 'mac' ? 'active' : ''}`} 
-                  onClick={() => setSystemReq('mac')}
-                >
-                  <div>Mac</div>
-                </div>
-                <div 
-                  className={`system-req-btn flex-column align-center ${systemReq === 'linux' ? 'active' : ''}`} 
-                  onClick={() => setSystemReq('linux')}
-                >
-                  <div>Linux</div>
-                </div>
-                <div className="flex-row flex-grow border-div" />
-              </div>
 
-              <div className="flex-row system-req-text">
-
-                <div className="flex-column flex-grow">
-                  <p className="info-text">Minimum</p>
+                <div className="flex-column justify-flex-end flex-grow section-text">
+                  <p className="info-text">Languages Supported</p>
+                  <p>Audio: English, French, German, Spanish</p>
                   <p>
-                    Requires a 64-bit processor and operating system 
-                    OS: Windows 7 - Service Pack 1 (6.1.7601) 
-                    Processor: Intel® Core™ i5-2500K / AMD FX-6300 
-                    Memory: 8 GB RAM 
-                    Graphics: Nvidia GeForce GTX 770 2GB / AMD Radeon R9 280 3GB 
-                    Network: Broadband Internet connection 
-                    Storage: 150 GB available space 
-                    Sound Card: Direct X Compatible
-                  </p>
-
-                </div>
-
-                <div className="flex-column flex-grow recommended">
-                  <p className="info-text">Recommended</p>
-                  <p>
-                    Requires a 64-bit processor and operating system 
-                    OS: Windows 10 - April 2018 Update (v1803) 
-                    Processor: Intel® Core™ i7-4770K / AMD Ryzen 5 1500X 
-                    Memory: 12 GB RAM 
-                    Graphics: Nvidia GeForce GTX 1060 6GB / AMD Radeon RX 480 4GB 
-                    Network: Broadband Internet connection 
-                    Storage: 150 GB available space 
-                    Sound Card: Direct X Compatible
+                    Text: English, French, Spanish - Spain, Italian, German, Polish, Russian, 
+                    Portuguese - Brazil, Japanese, Spanish - Mexico, Chinese - Traditional
                   </p>
                 </div>
+              </div>
+
+              <div className="system-requirements game-info  flex-row flex-grow justify-between align-start">
+                <div className="first-section flex-row flex-grow">
+                  <h3 className="section-title">System Requirements</h3>
+                </div>
+
+                <div className="flex-column flex-grow section-text">
+                  <div className="system-req-btns flex-row flex-grow">
+                    <div 
+                      className={`system-req-btn flex-column  align-center ${systemReq === 'windows' ? 'active' : ''}`} 
+                      onClick={() => setSystemReq('windows')}
+                    >
+                      <div>Windows</div>
+                    </div>
+                    <div 
+                      className={`system-req-btn flex-column align-center ${systemReq === 'mac' ? 'active' : ''}`} 
+                      onClick={() => setSystemReq('mac')}
+                    >
+                      <div>Mac</div>
+                    </div>
+                    <div 
+                      className={`system-req-btn flex-column align-center ${systemReq === 'linux' ? 'active' : ''}`} 
+                      onClick={() => setSystemReq('linux')}
+                    >
+                      <div>Linux</div>
+                    </div>
+                    <div className="flex-row flex-grow border-div" />
+                  </div>
+
+                  <div className="flex-row system-req-text">
+
+                    <div className="flex-column flex-grow">
+                      <p className="info-text">Minimum</p>
+                      <p>
+                        Requires a 64-bit processor and operating system 
+                        OS: Windows 7 - Service Pack 1 (6.1.7601) 
+                        Processor: Intel® Core™ i5-2500K / AMD FX-6300 
+                        Memory: 8 GB RAM 
+                        Graphics: Nvidia GeForce GTX 770 2GB / AMD Radeon R9 280 3GB 
+                        Network: Broadband Internet connection 
+                        Storage: 150 GB available space 
+                        Sound Card: Direct X Compatible
+                      </p>
+
+                    </div>
+
+                    <div className="flex-column flex-grow recommended">
+                      <p className="info-text">Recommended</p>
+                      <p>
+                        Requires a 64-bit processor and operating system 
+                        OS: Windows 10 - April 2018 Update (v1803) 
+                        Processor: Intel® Core™ i7-4770K / AMD Ryzen 5 1500X 
+                        Memory: 12 GB RAM 
+                        Graphics: Nvidia GeForce GTX 1060 6GB / AMD Radeon RX 480 4GB 
+                        Network: Broadband Internet connection 
+                        Storage: 150 GB available space 
+                        Sound Card: Direct X Compatible
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-
-
           </div>
-
-        </div>
-        </div>
-        {showBuyModal && <BuyModal close={closeBuyModal} />}
-        <OrderDetailsModal />
+          </div>
+          {showBuyModal && <BuyModal close={closeBuyModal} />}
+          <OrderDetailsModal />
         </div>
       </div>
     </div>

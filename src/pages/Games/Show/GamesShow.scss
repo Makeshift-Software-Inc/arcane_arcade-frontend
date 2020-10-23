@@ -46,11 +46,9 @@
 
         .search-input {
           flex-direction: row-reverse;
-          max-width: 200px;
 
           .arcane-input {
-            min-width: 0;
-            max-width: 150px;
+            min-width: 100%;
           }
         }
       }
