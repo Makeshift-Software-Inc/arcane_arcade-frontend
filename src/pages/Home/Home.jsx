@@ -1,15 +1,14 @@
-import React, { useState, useEffect, createRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-
-import ReactPlayer from 'react-player';
 
 import { observer } from 'mobx-react';
 
 import { Splide, SplideSlide } from '@splidejs/react-splide';
+import { useStore } from '../../store';
 
-import './Home.scss';
 // import Api from '../../services/Api';
 import Navbar from '../../components/Navbar/Navbar';
+import SearchBar from '../../components/SearchBar/SearchBar';
 import Loading from '../../components/Loading/Loading';
 
 import GamesListings from './GamesListings';
@@ -27,15 +26,48 @@ import psIcon from '../../img/platform_icons/PS4.svg';
 import switchIcon from '../../img/platform_icons/SWITCH.svg';
 import xbIcon from '../../img/platform_icons/XB1.svg';
 
-import { useStore } from '../../store';
+import './Home.scss';
+
+const Tab = ({ text, selected, onClick }) => (
+  <div className="tab">
+    {/* eslint-disable jsx-a11y/click-events-have-key-events */}
+    <a
+      className={selected ? 'selected' : ''}
+      onClick={onClick}
+      role="button"
+      tabIndex={0}
+    >
+      {text}
+    </a>
+    {/* eslint-enable jsx-a11y/click-events-have-key-events */}
+  </div>
+);
+
+const SplideItem = ({ data }) => (
+  <SplideSlide>
+    <div className="slider-item flex-row">
+      <img
+        src={data.image}
+        alt="kingdom come deliverance cover"
+      />
+      <SliderInfo
+        title={data.title}
+        text={data.text}
+        link={data.link}
+        icons={data.icon}
+        iconType={data.iconType}
+      />
+    </div>
+  </SplideSlide>
+);
 
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const {
-    selectedGame, games, load, loading,
+    games, load, loading,
   } = useStore('games');
 
-  const [mainSplideIndex, setMainSplideIndex] = useState(0);
+  const [selectedTab, setSelectedTab] = useState('explore');
 
   useEffect(() => {
     load();
@@ -55,14 +87,10 @@ const Home = () => {
     e.preventDefault();
   };
 
-  const exploreRef = createRef();
-  const exploreContent = createRef();
-  const discoverRef = createRef();
-  const discoverContent = createRef();
-
-  // this is data for the first, main slide
+  // this is model data for the first, main slide
   const mainSplideData = [
     {
+      image: kingdomCome,
       text: `From its inception, Kingdom Come: Deliverance was billed as a
         game steeped in realism. From period-accurate food and weapon
         damage to characters drawn from history, Warhorse Studios did
@@ -74,6 +102,7 @@ const Home = () => {
       link: '#',
     },
     {
+      image: fire_emblem,
       text: `Dark Souls continues to push the boundaries with the latest,
       ambitious chapter in the critically-acclaimed and genre-defining series.
       Prepare yourself and Embrace The Darkness!`,
@@ -82,6 +111,7 @@ const Home = () => {
       link: '#',
     },
     {
+      image: hades,
       text: `Aenean sed consectetur magna. Donec metus nulla,
         faucibus eu nibh at, dapibus accumsan justo.
         Sed elit sapien, venenatis sed odio dictum,
@@ -91,6 +121,7 @@ const Home = () => {
       link: '#',
     },
     {
+      image: greedfall,
       text: `Nullam luctus massa ut massa lobortis,
         vel tincidunt sapien malesuada. Duis aliquet nec purus eget condimentum.
         Morbi mattis tempor commodo. Mauris commodo consectetur lacinia.
@@ -100,6 +131,7 @@ const Home = () => {
       link: '#',
     },
     {
+      image: xcom,
       text: `Phasellus in lectus turpis.
         Pellentesque tincidunt dignissim sagittis.
         Sed semper, eros vitae molestie rhoncus, ipsum metus sagittis odio,
@@ -110,209 +142,61 @@ const Home = () => {
     },
   ];
 
-  const switchPanels = (e) => {
-    e.preventDefault();
-
-    const { target } = e;
-
-    let sibling;
-
-    if (target === exploreRef.current) {
-      sibling = target.parentElement.previousSibling;
-    } else {
-      sibling = target.parentElement.nextSibling;
-    }
-
-    if (!target.classList.contains('selected')) {
-      const link = sibling.querySelector('a');
-      link.classList.remove('selected');
-      target.classList.add('selected');
-
-      const explore = exploreContent.current;
-      const discover = discoverContent.current;
-      if (explore.classList.contains('is-hidden')) {
-        explore.classList.remove('is-hidden');
-        discover.classList.add('is-hidden');
-      } else {
-        explore.classList.add('is-hidden');
-        discover.classList.remove('is-hidden');
-      }
-    }
-  };
-
   return (
     <div className="App flex-column">
       <Navbar />
 
       <div className="slider-container">
-        {selectedGame && (
-          <div>
-            <div className="tabs">
-              <div className="tab">
-                {/* eslint-disable-next-line */}
-                <a
-                  role="link"
-                  tabIndex={0}
-                  className="selected"
-                  ref={discoverRef}
-                  onClick={switchPanels}
-                  onKeyDown={switchPanels}
-                >
-                  Discover
-                </a>
-              </div>
-              <div className="tab">
-                {/* eslint-disable-next-line */}
-                <a
-                  role="link"
-                  ref={exploreRef}
-                  onClick={switchPanels}
-                  onKeyDown={switchPanels}
-                  tabIndex={0}
-                >
-                  Explore
-                </a>
-              </div>
-            </div>
 
-            <ReactPlayer
-              url={selectedGame.videos[0]}
-              playing
-              width="75vw"
-              height="50vh"
-              controls
-              muted
-            />
-          </div>
-        )}
-        {!selectedGame && (
-          <div className="flex flex-grow">
-            <div className="row flex-column">
+        <div className="flex flex-grow">
+          <div className="row flex-column">
 
+            <SearchBar>
               <div className="tabs">
-                <div className="tab">
-                  {/* eslint-disable-next-line */}
-                  <a
-                    className="selected"
-                    role="link"
-                    tabIndex={0}
-                    ref={discoverRef}
-                    onClick={switchPanels}
-                    onKeyDown={switchPanels}
-                  >
-                    Discover
-                  </a>
-                </div>
-                <div className="tab">
-                  {/* eslint-disable-next-line */}
-                  <a
-                    role="link"
-                    tabIndex={0}
-                    ref={exploreRef}
-                    onClick={switchPanels}
-                    onKeyDown={switchPanels}
-                  >
-                    Explore
-                  </a>
-                </div>
+                <Tab
+                  text="Discover"
+                  selected={selectedTab === 'discover'}
+                  onClick={() => setSelectedTab('discover')}
+                />
+                <Tab
+                  text="Explore"
+                  selected={selectedTab === 'explore'}
+                  onClick={() => setSelectedTab('explore')}
+                />
               </div>
+            </SearchBar>
 
-              <div className="flex-row">
-                <div className="slider">
-                  <Splide
-                    onMove={(newIndex, oldIndex) => {
-                      setMainSplideIndex(oldIndex);
-                    }}
-                    className="splide-slider"
-                    options={{
-                      width: 1050,
-                      height: 450,
-                      clones: 0,
-                      lazyLoad: true,
-                      waitForTransition: true,
-                      breakpoints: {
-                        400: {
-                          width: 390,
-                          height: 200,
-                        },
+            <div className="flex-row">
+              <div className="slider">
+                <Splide
+                  className="splide-slider"
+                  options={{
+                    width: 1050,
+                    height: 450,
+                    clones: 0,
+                    lazyLoad: true,
+                    waitForTransition: true,
+                    breakpoints: {
+                      400: {
+                        width: 390,
+                        height: 200,
                       },
-                    }}
-                  >
-                    <SplideSlide>
-                      <div className="slider-item flex-row">
-                        <img
-                          src={kingdomCome}
-                          alt="kingdom come deliverance cover"
-                        />
-                        <SliderInfo
-                          title={mainSplideData[mainSplideIndex].title}
-                          text={mainSplideData[mainSplideIndex].text}
-                          link={mainSplideData[mainSplideIndex].link}
-                          icons={mainSplideData[mainSplideIndex].icon}
-                          iconType={mainSplideData[mainSplideIndex].iconType}
-                        />
-                      </div>
+                    },
+                  }}
+                >
+                  {
+                    mainSplideData.map((item) => <SplideItem data={item} key={item.title} />)
+                  }
+                </Splide>
 
-                    </SplideSlide>
-                    <SplideSlide>
-                      <div className="slider-item flex-row">
-                        <img src={fire_emblem} alt="civilizations 6 cover" />
-                        <SliderInfo
-                          title={mainSplideData[mainSplideIndex].title}
-                          text={mainSplideData[mainSplideIndex].text}
-                          link={mainSplideData[mainSplideIndex].link}
-                          icons={mainSplideData[mainSplideIndex].icon}
-                          iconType={mainSplideData[mainSplideIndex].iconType}
-                        />
-                      </div>
-                    </SplideSlide>
-                    <SplideSlide>
-                      <div className="slider-item flex-row">
-                        <img src={hades} alt="hades cover" />
-                        <SliderInfo
-                          title={mainSplideData[mainSplideIndex].title}
-                          text={mainSplideData[mainSplideIndex].text}
-                          link={mainSplideData[mainSplideIndex].link}
-                          icons={mainSplideData[mainSplideIndex].icon}
-                          iconType={mainSplideData[mainSplideIndex].iconType}
-                        />
-                      </div>
-                    </SplideSlide>
-                    <SplideSlide>
-                      <div className="slider-item flex-row">
-                        <img src={greedfall} alt="greedfall 6 cover" />
-                        <SliderInfo
-                          title={mainSplideData[mainSplideIndex].title}
-                          text={mainSplideData[mainSplideIndex].text}
-                          link={mainSplideData[mainSplideIndex].link}
-                          icons={mainSplideData[mainSplideIndex].icon}
-                          iconType={mainSplideData[mainSplideIndex].iconType}
-                        />
-                      </div>
-                    </SplideSlide>
-                    <SplideSlide>
-                      <div className="slider-item flex-row">
-                        <img src={xcom} alt="civilizations 6 cover" />
-                        <SliderInfo
-                          title={mainSplideData[mainSplideIndex].title}
-                          text={mainSplideData[mainSplideIndex].text}
-                          link={mainSplideData[mainSplideIndex].link}
-                          icons={mainSplideData[mainSplideIndex].icon}
-                          iconType={mainSplideData[mainSplideIndex].iconType}
-                        />
-                      </div>
-                    </SplideSlide>
-
-                  </Splide>
-
-                </div>
               </div>
             </div>
           </div>
-        )}
+        </div>
+
       </div>
 
-      <div className="discover flex-column" ref={discoverContent}>
+      <div className="discover flex-column">
         <div className="new-releases">
           <h1>New Releases</h1>
           <Splide
@@ -363,7 +247,7 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="explore is-hidden" ref={exploreContent}>
+      <div className="explore is-hidden">
         <nav
           className="navbar browse-listings"
           role="navigation"
