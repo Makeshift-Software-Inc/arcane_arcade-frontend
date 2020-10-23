@@ -16,9 +16,8 @@ const SliderInfo = ({
       <div className="icons flex-row">
 
         {
-
-        icons.map((icon,  i) => <img src={icon} alt="svg-icon" key={i}/>)
-
+        // eslint-disable-next-line
+        icons.map((icon, i) => <img src={icon} alt="svg-icon" key={i} />)
       }
 
       </div>

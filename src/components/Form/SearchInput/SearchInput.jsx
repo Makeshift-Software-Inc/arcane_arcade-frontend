@@ -1,14 +1,14 @@
 import React from 'react';
 
-import searchIcon from './../../../img/search-bg.png';
+import searchIcon from '../../../img/search-bg.png';
 
 import './SearchInput.scss';
 
 const SearchInput = ({
-  name, value, onChange,  placeholder, labelClass, className,
+  name, value, onChange, className,
 }) => (
   <div className="search-input flex-row flex-grow align-center">
-    <img src={searchIcon} alt="search-icon" className="search-icon"/>
+    <img src={searchIcon} alt="search-icon" className="search-icon" />
     <input
       type="text"
       name={name}
