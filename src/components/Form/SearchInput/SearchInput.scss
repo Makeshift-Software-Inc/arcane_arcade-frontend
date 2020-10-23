@@ -1,0 +1,55 @@
+$gray-color: #c4c4c4;
+
+.search-input{
+  height: 48px;
+  max-width: 447px;
+  padding: 15px;
+  border-radius: 5px;
+  background-color: #575757;
+
+  .search-icon {
+    width: 17.5px;
+    height: 17.5px;
+  }
+
+  .arcane-input{
+    background-color: transparent;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.5;
+    padding: 15px;
+    border: none;
+    color: #FFFFFF;
+    opacity: 0.3;
+    &:focus {
+      border: none;
+      outline: none;
+    }
+    &::placeholder {
+      /* Chrome, Firefox, Opera, Safari 10.1+ */
+      color: #FFFFFF;
+      opacity: 0.3;
+    }
+
+    &:-ms-input-placeholder {
+      /* Internet Explorer 10-11 */
+      color: #FFFFFF;
+      opacity: 0.3;
+    }
+
+    &::-ms-input-placeholder {
+      /* Microsoft Edge */
+      color: #FFFFFF;
+      opacity: 0.3;
+    }
+
+  }
+
+  @media (max-width:768px) {
+    background-color: #121212;
+
+    .arcane-input:focus {
+      border: none;
+    }
+  }
+}

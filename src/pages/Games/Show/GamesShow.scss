@@ -1,7 +1,67 @@
 .App.listings-show {
-  strong {
-    color: aliceblue;
-    letter-spacing: 0.7px;
+
+  font-family: Montserrat;
+
+
+  .game-page-container{
+    padding: 65px 140px;
+    background-color: #121212;
+
+    .game-show {
+      max-width: 1640px;
+      width: 100%;
+    }
+
+    .top-search-bar {
+      margin-bottom: 48px;
+    }
+
+    .play-btn {
+      width: 60px;
+      height: 60px !important;
+    }
+
+    @media (max-width:1200px) {
+
+      ::-webkit-input-placeholder {
+         color:transparent;
+      }
+
+      :-moz-placeholder { /* Firefox 18- */
+         color:transparent; 
+      }
+
+      ::-moz-placeholder {  /* Firefox 19+ */
+         color:transparent; 
+      }
+
+      :-ms-input-placeholder {  
+         color:transparent;
+      }
+      padding: 0;
+
+      .top-search-bar {
+        margin-bottom: 0;
+        padding: 13px 25px;
+
+        .search-input {
+          flex-direction: row-reverse;
+
+          .arcane-input {
+            min-width: 100%;
+          }
+        }
+      }
+    }
+  }
+
+  .back-button {
+    cursor: pointer;
+    opacity: 0.3;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.2;
+    color: #e4e4e4;
   }
 
   .container {
@@ -19,7 +79,10 @@
       height: 29.9vh;
       position: relative;
       color: aliceblue;
-      background: rgba(0, 0, 0, 0.3);
+
+      .section-text {
+        max-width: 998px; 
+      }
 
       img {
         width: 100%;
@@ -39,115 +102,135 @@
   }
 
   .info-section {
-    padding: 3em;
-    margin: 0 5.3em;
     color: aliceblue;
-    background-color: rgba(0,0,0,0.3);
-
-    @media (max-width:500px) {
-      padding: 0;
-      margin: 0;
-
-    }
+    padding: 25px;
 
     .payment-submit {
-      display: flex;
-      justify-content: center;
-
       button {
+        background-color: #463af3;
         font-size: 18px;
         padding: 0.5em 1.4em;
+        border: none;
+        width: 236px;
+        height: 48px;
+        border-radius: 8px;
+        color: white;
+        font-size: 17px;
+        font-weight: bold;
+        line-height: 1.24;
+        letter-spacing: 0.85px;
       }
     }
 
     .description {
-      width: 600px;
-      margin: 0 auto;
+      margin-top: 115px;
 
-      @media (max-width:450px) {
-        width: 360px  !important;
-        padding: 3em;
+      .section-title {
+        font-size: 25px;
+        font-weight: 500;
+        line-height: 1.2;
+        color: #e4e4e4;
+        margin-right: 20px;
       }
+
+      .game-title {
+        font-size: 27px;
+        font-weight: bold;
+        line-height: 1.22;
+        margin-top: 37px;
+        margin-bottom: 15px;
+        color: #e4e4e4;
+      }
+
+      .info-container {
+        margin-bottom: 64px;
+
+        .platforms-imgs img {
+          width: 20px;
+          height: 20px;
+          margin-right: 5px;
+        }
+      }
+
+      .info-text {
+        color: #e4e4e4;
+        font-size: 23px;
+        line-height: 1.74;
+        opacity: 0.6;
+        margin: 0;
+      }
+
+      .about-game-info {
+        max-width: 100%;
+      }
+
+
+      .game-specification {
+        margin-top: 76px;
+        margin-bottom: 114px;
+      }
+                
+      .section-text {
+        font-family:  Montserrat;
+        max-width: 100%; 
+        text-align: left;
+        font-size: 23px;
+        letter-spacing: 0px;
+        color: #E4E4E4;
+      }
+
+      .second-section div {
+        width: 33%;
+      }
+
+      .game-description {
+        font-family: OpenSans;
+        max-width: 998px;
+      }
+
+      .descr-toggle-button {
+        display: none;
+      }
+
+      .system-req-btns {
+        .system-req-btn {
+          padding: 20px; 
+          border: 1px solid white;
+        }
+
+        .system-req-btn.active {
+          border-bottom: none;
+        }
+
+        .border-div {
+          border-bottom: 1px solid white;
+        }
+      }
+
+      .system-req-text{
+        padding: 20px;
+        border: 1px solid white;
+        border-top: none;
+      }
+
+
     }
 
     .pricing {
-      display: flex;
-      justify-content: center;
-
-      .tippy-content {
-        font-size: 25px;
-      }
 
       .payment {
-        display: inline-block;
-        vertical-align: top;
-
-        .crypto {
-          display: flex;
-
-          .monero {
-            margin-left: 10px;
-          }
-        }
-
-        i.fab {
-          margin: 0.2em 0.3em;
-          font-size: 50px;
-
-          @media (max-width:500px) {
-            font-size: 40px;
-          }
-        }
 
         .fiat {
-          display: flex;
-          justify-content: center;
-
           h3 {
-            font-size: 32px;
+            font-size: 24px;
+            font-weight: 500;
+            line-height: 1.2;
+            color: #e4e4e4;
+            text-align: left;
+            margin-bottom: 20px;
             @media (max-width:500px) {
-              font-size: 21px;
+              font-size: 20px;
             }
-          }
-        }
-      }
-
-      .vl {
-        display: inline-block;
-        border-left: 1px solid;
-        height: 90px;
-
-        @media (max-width:500px) {
-          margin: 1em;
-        }
-      }
-
-      .platforms {
-        vertical-align: top;
-        display: inline-flex;
-
-        @media (max-width:500px) {
-          margin-top: 10px;
-          padding: 0.3em 0;
-        }
-
-        i {
-          font-size: 70px;
-          @media (max-width:500px) {
-            font-size: 40px;
-          }
-        }
-        h3 {
-          text-align: center;
-        }
-        div {
-          margin: 0 0em 0em 2em;
-          &:first-of-type {
-            margin: 0;
-          }
-
-          &:last-of-type {
-            margin: 0 2em;
           }
         }
       }
@@ -160,16 +243,17 @@
   }
 
   .splide-container {
-    padding: 2em;
-    display: flex;
-    width: 100vw;
-    justify-content: center;
+    flex-direction: row;
+    flex-grow: 1;
   }
 
   .splide {
 
     .splide__track {
-      width: 71vw;
+      display: flex;
+      flex-direction: row;
+      flex-grow: 1;
+
       height: 640px;
 
       @media (max-width:500px) {
@@ -177,18 +261,39 @@
       }
     }
 
+    .splide__arrow {
+      border-radius: none;
+      background-color: transparent;
+      svg {
+        filter: invert(100%) sepia(99%) saturate(2%) hue-rotate(249deg) brightness(106%) contrast(100%);
+      }
+    }
+
+    .splide__pagination {
+      flex-wrap: nowrap;
+      max-width: 100px;
+      overflow: hidden;
+    }
+
+    .react-player__preview {
+      max-width: 1640px;
+    }
+
     .splide__slide {
-      width: 71vw !important;
+      flex-direction: row;
+      flex-grow: 1;
+
     }
 
 
-    div[thumbnail] {
-      width: 71vw !important;
+    div[preload] {
+      width: 100% !important;
       height: 600px !important;
     }
     video {
+      object-fit: cover;
       height: 600px !important;
-      width: 71vw;
+      width: 100vw;
       margin-bottom: 3em;
       @media (max-width:500px) {
         height: 330px  !important;
@@ -196,7 +301,7 @@
     }
     img {
       width: 100%;
-      object-fit: contain;
+      object-fit: cover;
       height: 600px !important;
       @media (max-width:500px) {
         height: 450px  !important;
@@ -204,5 +309,172 @@
 
       margin-bottom: 3em;
     }
+  }
+
+  @media (max-width:768px) {
+
+    .back-button {
+      font-size: 10px;
+    }
+
+    .pricing,
+    .price {
+      justify-content: center;
+    }
+
+    .info-section {
+
+     .pricing {
+      padding: 0 25px;
+
+        form{
+          width: 100%;
+        }
+
+        .payment-submit .button {
+          width: 100%;
+        }
+
+        .payment {
+          padding: 10px 0px;
+        }
+      }
+
+      .description {
+        padding: 11px 25px;
+        margin-top: 23px;
+        border-top: 2px solid #FFFFFF26;
+
+        .system-req-btns {
+          display: flex;
+          width: 100%;
+          text-align: center;
+          font-size: 20px;
+          margin-bottom: 30px;
+
+          .system-req-btn {
+            border: 1px solid #2A2A2A;
+            width: 50%;
+            padding: 8px 0;
+            div {
+              color: #2A2A2A;
+              max-width: 100px;
+            }
+          }
+          .system-req-btn.active {
+            border-bottom: 1px solid #2A2A2A;
+            div{
+              color: #E4E4E4;
+              border-bottom: 2px solid #463AF3;
+            }
+          }
+        }
+
+        .system-req-text {
+          border: none;
+          div {
+            margin-bottom: 20px;
+          }
+        }
+
+
+        .info-container {
+          margin-bottom: 19px;
+        }
+
+        .info-text {
+          font-size: 17px;
+        }
+
+        .section-title {
+          font-size: 19px;
+          margin-bottom: 17px;
+        }
+
+        .section-text {
+          font-size: 19px;
+        }
+
+        .game-specification {
+          margin-top: 24px;
+          margin-bottom: 34px;
+        }
+
+        .game-title {
+          margin-top: 43px;
+          margin-bottom: 19px;
+          font-size: 18px;
+        }
+
+        .second-section {
+          justify-content: flex-start;
+          div {
+             width: 50%;
+          }
+        }
+
+        .desc-open {
+          height: 100%;
+        }
+
+        .descr-toggle-button {
+          background: transparent linear-gradient(180deg, #12121200 0%, #2A2A2A 100%);
+          opacity: 1;
+          display: flex;
+          padding: 10px;
+          margin-bottom: 24px;
+          flex-direction: row;
+          color: #E4E4E4;
+          font-size: 17px;
+          align-items: center;
+          justify-content: center;
+
+          .show-more-icon {
+
+            transform: rotate(90deg);
+
+          }
+
+          .show-less-icon {
+            transform: rotate(-90deg);
+          }
+        }
+
+        .desc-closed {
+          height: 253px;
+          overflow: hidden;
+        }
+      }
+
+      .game-info {
+        flex-direction: column;
+        align-items: flex-start;
+
+      }
+    }
+
+    .splide {
+      
+      .splide__arrow {
+        top: 110%;
+      }
+
+      .splide__arrow.splide__arrow--next {
+        left: 10%;
+      }
+
+      .splide__track {
+        height: 400px !important;
+      }
+
+      div[preload] {
+        height: 400px !important;
+      }
+      
+      video {
+        height: 400px !important;
+      }
+    }
+
   }
 }
