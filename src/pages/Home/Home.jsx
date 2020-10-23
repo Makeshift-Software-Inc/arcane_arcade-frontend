@@ -161,7 +161,7 @@ const Home = () => {
 
           <div className="flex-row slider">
             <Splide
-              className="splide-slider"
+              className="main-slider"
               options={{
           
                 clones: 0,
@@ -176,65 +176,58 @@ const Home = () => {
             </Splide>
           </div>
         </div>
-      </div>
 
-
-
-
-
-
-      <div className="discover flex-column">
-        <div className="new-releases">
-          <h1>New Releases</h1>
-          <Splide
-            className="new release-slider"
-            options={{
-              clones: 0,
-              perPage: 4,
-              perMove: 1,
-              width: 1000,
-              height: 250,
-              rewind: false,
-              keyboard: false,
-              lazyLoad: true,
-              breakpoints: {
-                800: {
-                  width: 600,
-                  perPage: 2,
+        <div className="discover flex-column">
+          <div className="new-releases">
+            <h1>New Releases</h1>
+            <Splide
+              className="new release-slider"
+              options={{
+                clones: 0,
+                perPage: 4,
+                perMove: 1,
+                rewind: false,
+                keyboard: false,
+                lazyLoad: true,
+                breakpoints: {
+                  800: {
+                    width: 600,
+                    perPage: 2,
+                  },
                 },
-              },
-            }}
-          >
-            {games.map((game) => {
-              const imageAlt = `${game.title} cover`;
-              const listingShowLink = `/games/${game.slug}`;
+              }}
+            >
+              {games.map((game) => {
+                const imageAlt = `${game.title} cover`;
+                const listingShowLink = `/games/${game.slug}`;
 
-              return (
-                <SplideSlide key={game.id}>
-                  <div className="game-listing" key={game.id}>
-                    <Link to={listingShowLink}>
-                      <img src={game.images[0]} alt={imageAlt} />
-                    </Link>
-                    <div className="magic foolishIn info" />
-                  </div>
-                </SplideSlide>
-              );
-            })}
-          </Splide>
-        </div>
+                return (
+                  <SplideSlide key={game.id}>
+                    <div className="releases-games-listing" key={game.id}>
+                      <Link to={listingShowLink}>
+                        <img src={game.images[0]} alt={imageAlt} />
+                      </Link>
+                      <div className="magic foolishIn info" />
+                    </div>
+                  </SplideSlide>
+                );
+              })}
+            </Splide>
+          </div>
 
-        <div className="promotions">
-          <h1>Promotions</h1>
+          <div className="promotions">
+            <h1>Promotions</h1>
 
-          <div className="games">
-            <div className="game-list">
-              <GamesListings />
+            <div className="games">
+              <div className="game-list">
+                <GamesListings />
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div className="explore is-hidden">
+
+        <div className="explore is-hidden">
         <nav
           className="navbar browse-listings"
           role="navigation"
@@ -314,6 +307,12 @@ const Home = () => {
           </div>
         </div>
       </div>
+
+      </div>
+
+
+
+
     </div>
   );
 };
