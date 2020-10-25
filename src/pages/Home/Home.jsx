@@ -177,9 +177,9 @@ const Home = () => {
           </div>
         </div>
 
-        <div className="discover flex-column">
+        <div className="discover flex-column align-center">
           <div className="new-releases">
-            <h1>New Releases</h1>
+            <h1 className="title">New Releases</h1>
             <Splide
               className="new release-slider"
               options={{
@@ -203,7 +203,7 @@ const Home = () => {
 
                 return (
                   <SplideSlide key={game.id}>
-                    <div className="releases-games-listing" key={game.id}>
+                    <div className="releases-games-listing flew-row flex-grow" key={game.id}>
                       <Link to={listingShowLink}>
                         <img src={game.images[0]} alt={imageAlt} />
                       </Link>
@@ -215,13 +215,13 @@ const Home = () => {
             </Splide>
           </div>
 
-          <div className="promotions">
+          <div className="promotions flex-column flex-grow align-center">
             <h1>Promotions</h1>
 
-            <div className="games">
-              <div className="game-list">
-                <GamesListings />
-              </div>
+            <div className="games flex-row flex-grow flex-wrap">
+
+              <GamesListings />
+
             </div>
           </div>
         </div>
