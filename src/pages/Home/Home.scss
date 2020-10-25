@@ -107,15 +107,22 @@
     .discover {
       width: 100%;
       margin-top: 85px;
+
+      .title-container { 
+        width: 100%;
+        max-width: 1640px;
+        margin-bottom: 34px;
+        font-family: Montserrat;
+        font-size: 25px;
+        font-weight: 500;
+        line-height: 1.2;
+        text-align: left;
+        color: #e4e4e4;
+      }
+
       .new-releases {
         margin-bottom: 34px;
-        .title {
-          font-size: 25px;
-          font-weight: 500;
-          line-height: 1.2;
-          text-align: left;
-          color: #e4e4e4 
-        }
+
         .release-slider {
 
           max-width: 1900px;
@@ -133,13 +140,21 @@
            }
 
           .splide__list {
-            display: flex;
-            flex-direction: row;
-            max-width: 1670px;
+            gap: 88px;
+            grid-template-columns: repeat(auto-fill, minmax(344px, 1fr));
+            grid-auto-flow: column;
+            grid-auto-columns: minmax(344px, 1fr);
+            display: grid;
+            width: 100%;
+            max-width: 1640px;
+
+            &::before,
+            &::after {
+              content: ‘’;
+            }
 
             li.splide__slide {
-              padding: 0 15px;
-              width: 25% !important;
+              width: 100% !important;
             }
           }
 
@@ -160,6 +175,24 @@
       }
 
     }
+
+    @media (max-width:768px) {
+      .discover {
+        .new-releases {
+          .release-slider {
+            .splide__list {
+              gap: 20px;
+              grid-template-columns: repeat(auto-fill, minmax(153px, 1fr));
+              grid-auto-columns: minmax(153px, 1fr);
+
+              img {
+                height: 153px;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 
     .slider {
@@ -168,7 +201,7 @@
     }
 
     .slider-info {
-      font-family: 'Montserrat';
+      font-family: Montserrat;
       width: 40%;
       background-color: #463af3;
       padding: 44px 42px 47px 42px;

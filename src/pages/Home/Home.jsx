@@ -178,8 +178,11 @@ const Home = () => {
         </div>
 
         <div className="discover flex-column align-center">
-          <div className="new-releases">
-            <h1 className="title">New Releases</h1>
+          <div className="new-releases flex-column align-center">
+            <div className="flex-row flex-grow title-container">
+              <h1>New Releases</h1>  
+            </div>
+          
             <Splide
               className="new release-slider"
               options={{
@@ -190,8 +193,7 @@ const Home = () => {
                 keyboard: false,
                 lazyLoad: true,
                 breakpoints: {
-                  800: {
-                    width: 600,
+                  768: {
                     perPage: 2,
                   },
                 },
@@ -215,8 +217,11 @@ const Home = () => {
             </Splide>
           </div>
 
-          <div className="promotions flex-column flex-grow align-center">
-            <h1>Promotions</h1>
+          <div className="promotions flex-column flex-grow">
+            <div className="title-container">
+              <h1>Promotions</h1>  
+            </div>
+            
 
             <div className="games flex-row flex-grow flex-wrap">
 
