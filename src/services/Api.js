@@ -8,7 +8,7 @@ class Api {
   });
 
   static async get(path, params = {}) {
-    return this.instance().get(path, params);
+    return this.instance().get(path, { params });
   }
 
   static async post(path, data) {
