@@ -6,6 +6,7 @@ import Onboarding from './forms/Onboarding';
 import Listing from './forms/Listing';
 import CoinWallet from './forms/CoinWallet';
 import Buy from './forms/Buy';
+import Search from './forms/Search';
 
 const FormsStore = types
   .model('Forms', {
@@ -16,6 +17,7 @@ const FormsStore = types
     listing: types.optional(Listing, {}),
     coin_wallet: types.optional(CoinWallet, {}),
     buy: types.optional(Buy, {}),
+    search: types.optional(Search, {}),
   })
   .actions(() => ({}));
 
