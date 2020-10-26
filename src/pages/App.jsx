@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 
 import 'react-toastify/dist/ReactToastify.css';
+import 'tippy.js/dist/tippy.css';
 
 import '../react-tags.css';
 

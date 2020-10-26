@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import Tippy from '@tippyjs/react';
-import 'tippy.js/dist/tippy.css';
 
 import './GameListing.scss';
 
@@ -28,9 +27,9 @@ const PopupContent = ({
     {images[0] && <img src={images[0]} alt="" />}
     {images[1] && <img src={images[1]} alt="" />}
     {videos.length > 0 && (
-    <button type="button" onClick={play} className="button">
-      Play Trailer
-    </button>
+      <button type="button" onClick={play} className="button">
+        Play Trailer
+      </button>
     )}
   </div>
 );
