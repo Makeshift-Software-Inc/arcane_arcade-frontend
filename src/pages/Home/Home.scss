@@ -23,11 +23,13 @@
     text-align: center;
   }
 
-  .tabs {
-    display: flex;
-    justify-content: flex-end;
-    margin: 0 auto;
+  .top-search-bar {
     padding: 3em 0;
+  }
+
+  .tabs {
+
+    margin-bottom: 0;
 
     @media (max-width:600px) {
       justify-content: center;

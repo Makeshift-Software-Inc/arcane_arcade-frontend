@@ -13,6 +13,7 @@ import Loading from '../../components/Loading/Loading';
 
 import GamesListings from './GamesListings';
 import SliderInfo from '../../components/Home/SliderInfo';
+import AdvancedSearch from '../../components/Home/AdvancedSearch';
 
 import hades from '../../img/hades.png';
 import fire_emblem from '../../img/fire_emblem.png';
@@ -64,8 +65,10 @@ const SplideItem = ({ data }) => (
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const {
-    games, load, loading,
-  } = useStore('games');
+    games: {
+      selectedGame, games, load, loading, searching, searchResults,
+    },
+  } = useStore();
 
   const [selectedTab, setSelectedTab] = useState('explore');
 
@@ -144,8 +147,8 @@ const Home = () => {
 
       <div className="page-container flex-column flex-grow align-center">
         <div className="flex-column home-page-container">
-          <SearchBar>
-            <div className="tabs">
+          <SearchBar show={selectedTab == 'discover' ? true : false} >
+            <div className="tabs flex-row">
               <Tab
                 text="Discover"
                 selected={selectedTab === 'discover'}
@@ -163,11 +166,11 @@ const Home = () => {
             <Splide
               className="main-slider"
               options={{
-          
+
                 clones: 0,
                 lazyLoad: true,
                 waitForTransition: true,
-                
+
               }}
             >
               {
@@ -178,50 +181,66 @@ const Home = () => {
         </div>
 
         <div className="discover flex-column align-center">
-          <div className="new-releases flex-column align-center">
-            <div className="flex-row flex-grow title-container">
-              <h1>New Releases</h1>  
-            </div>
-          
-            <Splide
-              className="new release-slider"
-              options={{
-                clones: 0,
-                perPage: 4,
-                perMove: 1,
-                rewind: false,
-                keyboard: false,
-                lazyLoad: true,
-                breakpoints: {
-                  768: {
-                    perPage: 2,
-                  },
-                },
-              }}
-            >
-              {games.map((game) => {
-                const imageAlt = `${game.title} cover`;
-                const listingShowLink = `/games/${game.slug}`;
 
-                return (
-                  <SplideSlide key={game.id}>
-                    <div className="releases-games-listing flew-row flex-grow" key={game.id}>
-                      <Link to={listingShowLink}>
-                        <img src={game.images[0]} alt={imageAlt} />
-                      </Link>
-                      <div className="magic foolishIn info" />
-                    </div>
-                  </SplideSlide>
-                );
-              })}
-            </Splide>
-          </div>
+          { selectedTab == 'discover' ? ( 
+            <div className="new-releases flex-column align-center">
+              <div className="flex-row flex-grow title-container">
+                <h1>New Releases</h1>
+              </div>
+
+              <Splide
+                className="new release-slider"
+                options={{
+                  clones: 0,
+                  perPage: 4,
+                  perMove: 1,
+                  rewind: false,
+                  keyboard: false,
+                  lazyLoad: true,
+                  breakpoints: {
+                    768: {
+                      perPage: 2,
+                    },
+                  },
+                }}
+              >
+                {games.map((game) => {
+                  const imageAlt = `${game.title} cover`;
+                  const listingShowLink = `/games/${game.slug}`;
+
+                  return (
+                    <SplideSlide key={game.id}>
+                      <div className="releases-games-listing flew-row flex-grow" key={game.id}>
+                        <Link to={listingShowLink}>
+                          <img src={game.images[0]} alt={imageAlt} />
+                        </Link>
+                        <div className="magic foolishIn info" />
+                      </div>
+                    </SplideSlide>
+                  );
+                })}
+              </Splide>
+            </div> ): (
+              <div className="explore">
+                <AdvancedSearch />
+
+                <div className="games">
+                  <div className="game-list">
+                    {searching ? (
+                      <Loading />
+                    ) : (
+                      <GamesListings games={searchResults} loading={searching} />
+                    )}
+                  </div>
+                </div>
+              </div>
+            )
+          }
 
           <div className="promotions flex-column flex-grow">
             <div className="title-container">
-              <h1>Promotions</h1>  
+              <h1>Promotions</h1>
             </div>
-            
 
             <div className="games flex-row flex-grow flex-wrap">
 
@@ -232,91 +251,8 @@ const Home = () => {
         </div>
 
 
-        <div className="explore is-hidden">
-        <nav
-          className="navbar browse-listings"
-          role="navigation"
-          aria-label="main-navigation"
-        >
-          <div id="navbarBasicExample" className="navbar-menu search-filters">
-            <div className="navbar-start">
-              <div className="navbar-item">
-                <label htmlFor="sort-by">Sort By</label>
-
-                <div className="select">
-                  <select name="sort-by">
-                    <option value="relevance">Relevance</option>
-                    <option value="release_date">Release Date</option>
-                    <option value="Name">Name</option>
-                    <option value="price_asc">Lowest Price</option>
-                    <option value="price_desc">Highest Price</option>
-                    <option value="reviews">User Reviews</option>
-                  </select>
-                </div>
-              </div>
-
-              <div className="navbar-item">
-                <label htmlFor="platform">Platform</label>
-
-                <select name="platform">
-                  <option value="PC">PC</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="navbar-end">
-              <div className="navbar-item">
-                <form onSubmit={handleSubmit}>
-                  <input
-                    onChange={handleSearchChange}
-                    value={searchQuery}
-                    type="search"
-                    placeholder="search"
-                    className="topcoat-search-input"
-                  />
-                </form>
-              </div>
-            </div>
-          </div>
-        </nav>
-
-        <div className="games">
-          <div className="game-list">
-            <GamesListings />
-          </div>
-
-          <div className="filters">
-            <div className="card">
-              <header className="card-header">
-                <p className="card-header-title">Genre</p>
-              </header>
-
-              <div className="card-content">
-                <div className="content">
-                  <select name="genre" aria-label="search by genre" />
-                </div>
-              </div>
-
-            </div>
-
-            <div className="card">
-              <header className="card-header">
-                <p className="card-header-title">Narrow by Price</p>
-              </header>
-              <div className="card-content">
-                <div className="content">
-                  <input type="range" className="topcoat-range" min="0" max="60" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
       </div>
-
-
-
 
     </div>
   );
