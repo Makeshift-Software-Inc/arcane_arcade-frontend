@@ -1,4 +1,5 @@
 import { types, flow } from 'mobx-state-tree';
+import moment from 'moment';
 import BaseUpdate from './BaseUpdate';
 import SellerGame from './SellerGame';
 import DestinationAddresses from './DestinationAddresses';
@@ -19,6 +20,9 @@ const Seller = types
     loadingGames: false,
     selectedGame: types.maybe(types.reference(SellerGame)),
     addingDestinationAddresses: false,
+    statsLoaded: false,
+    loadingStats: false,
+    stats: types.frozen(),
   })
   .views((self) => ({
     activeGames() {
@@ -27,8 +31,54 @@ const Seller = types
     pendingGames() {
       return self.games.filter((game) => game.pending());
     },
+    statsDataFor(chartOption) {
+      switch (chartOption) {
+        case 'Daily':
+          return Object.values(self.stats.daily);
+        case 'Weekly':
+          return Object.values(self.stats.weekly);
+        case 'Monthly':
+          return Object.values(self.stats.monthly);
+        case 'Yearly':
+          return Object.values(self.stats.yearly);
+        default:
+          return [];
+      }
+    },
+    statsLabelsFor(chartOption) {
+      switch (chartOption) {
+        case 'Daily':
+          return Object.keys(self.stats.daily).map((time) => moment(time).format('ddd'));
+        case 'Weekly':
+          return Object.keys(self.stats.weekly).map((time) => moment(time).format('Wo'));
+        case 'Monthly':
+          return Object.keys(self.stats.monthly).map((time) => moment(time).format('MMM'));
+        case 'Yearly':
+          return Object.keys(self.stats.yearly).map((time) => moment(time).format('MMM'));
+        default:
+          return [];
+      }
+    },
   }))
   .actions((self) => ({
+    loadStats: flow(function* loadStats() {
+      if (self.statsLoaded) return true;
+
+      self.loadingStats = true;
+
+      try {
+        const response = yield Api.get('/sellers/stats');
+        console.log(response.data);
+        self.stats = response.data;
+        self.statsLoaded = true;
+        self.loadingStats = false;
+        return true;
+      } catch (e) {
+        console.log(e);
+        self.loadingStats = false;
+        return false;
+      }
+    }),
     loadGames: flow(function* loadGames() {
       if (self.gamesLoaded) return true;
 
