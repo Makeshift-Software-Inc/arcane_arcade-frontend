@@ -4,10 +4,10 @@ import { observer } from 'mobx-react';
 import { Line } from 'chart.js';
 import 'chart.js/dist/Chart.min.css';
 
-import { useStore } from '../../../store';
-import Loading from '../../../components/Loading/Loading';
+import { useStore } from '../../../../store';
+import Loading from '../../../../components/Loading/Loading';
 
-import CoinWallets from './CoinWallets/CoinWallets';
+import CoinWallets from '../CoinWallets/CoinWallets';
 
 const ChartOptions = ({ options, onClick, active }) => options.map((option) => (
   <div className="button-bar__item" key={option}>
@@ -59,6 +59,7 @@ const Payments = () => {
           ],
         },
         options: {
+          scaleStartValue: 0,
           legend: {
             labels: {
               fontColor: 'rgba(69,57,240, 1)',
@@ -87,7 +88,7 @@ const Payments = () => {
   };
 
   return (
-    <div className="dashboard">
+    <div className="payments">
       <div className="manage-payments">
         <button type="button" className="button" onClick={openCoinWalletsModal}>
           Manage Payments

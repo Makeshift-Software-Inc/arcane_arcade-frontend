@@ -22,6 +22,7 @@ const UploadedFile = types
     attachment: types.frozen(),
     uploaded: false,
     secure: false,
+    autoupload: true,
   })
   .views((self) => ({
     storage() {
@@ -49,8 +50,7 @@ const UploadedFile = types
   .actions((self) => ({
     afterCreate() {
       self.source = CancelToken.source();
-      // don't auto upload attachments
-      if (!self.attachment) {
+      if (self.autoupload) {
         self.upload();
       }
     },

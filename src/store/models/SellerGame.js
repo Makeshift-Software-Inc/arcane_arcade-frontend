@@ -2,6 +2,9 @@ import { types } from 'mobx-state-tree';
 import BaseUpdate from './BaseUpdate';
 import SupportedPlatform from './SupportedPlatform';
 import SupportedPlatformListing from './SupportedPlatformListing';
+import Category from './Category';
+import Tag from './Tag';
+import SavedFile from './SavedFile';
 
 const SellerGame = types
   .model('SellerGame', {
@@ -22,7 +25,10 @@ const SellerGame = types
     status: types.enumeration(['pending', 'active']),
     supported_platforms: types.array(types.reference(SupportedPlatform)),
     supported_platform_listings: types.array(SupportedPlatformListing),
+    categories: types.array(types.reference(Category)),
+    tags: types.array(types.reference(Tag)),
     release_date: types.string,
+    saved_files: types.array(SavedFile),
   })
   .views((self) => ({
     active() {

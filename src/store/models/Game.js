@@ -2,6 +2,8 @@ import { types, getParent } from 'mobx-state-tree';
 import BaseUpdate from './BaseUpdate';
 import Seller from './Seller';
 import SupportedPlatformListing from './SupportedPlatformListing';
+import Category from './Category';
+import Tag from './Tag';
 
 const Game = types
   .model('Game', {
@@ -24,6 +26,8 @@ const Game = types
     seller: types.maybe(Seller),
     status: types.enumeration(['pending', 'active']),
     supported_platform_listings: types.array(SupportedPlatformListing),
+    categories: types.array(types.reference(Category)),
+    tags: types.array(types.reference(Tag)),
     release_date: types.string,
   })
   .views((self) => ({

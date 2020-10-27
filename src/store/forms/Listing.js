@@ -1,4 +1,4 @@
-import { types, flow } from 'mobx-state-tree';
+import { types, flow, getRoot } from 'mobx-state-tree';
 import Base from './Base';
 import Errors from './Errors';
 
@@ -7,6 +7,7 @@ import Category from '../models/Category';
 import Tag from '../models/Tag';
 import SystemRequirements from '../models/SystemRequirements';
 import UploadedFile from '../models/UploadedFile';
+import SavedFile from '../models/SavedFile';
 
 import Api from '../../services/Api';
 import deserialize from '../../utils/deserialize';
@@ -22,16 +23,17 @@ const ListingForm = types
       'EVERYONE',
     ),
     description: types.optional(types.string, ''),
-    selected_categories: types.array(types.reference(Category)),
+    categories: types.array(types.reference(Category)),
     supported_platforms: types.array(types.reference(SupportedPlatform)),
     tags: types.array(types.reference(Tag)),
-    earlyAccess: false,
-    price: types.optional(types.string, ''),
+    early_access: false,
+    price: types.maybe(types.number),
     errors: types.optional(Errors, {}),
     loading: false,
     system_requirements: types.array(SystemRequirements),
     files: types.array(UploadedFile),
     attachments: types.array(UploadedFile),
+    saved_files: types.array(SavedFile),
     release_date: types.optional(types.string, ''),
     preorderable: false,
     loaded: false,
@@ -91,6 +93,23 @@ const ListingForm = types
         return false;
       }
     }),
+    prepareEdit: flow(function* prepareEdit(slug) {
+      self.loading = true;
+      const {
+        auth: {
+          user: {
+            seller: { games, gamesLoaded, loadGames },
+          },
+        },
+      } = getRoot(self);
+
+      if (!gamesLoaded) yield loadGames();
+
+      const game = games.find((g) => g.slug === slug);
+
+      self.update(game.toJSON());
+      self.loading = false;
+    }),
     addSupportedPlatform(id, name) {
       self.supported_platforms.push(id);
       if (self.allowedSystemRequirementsFields().includes(name)) {
@@ -148,6 +167,7 @@ const ListingForm = types
         data: file,
         url: URL.createObjectURL(file),
         attachment,
+        autoupload: false,
       });
 
       self.attachments.push(uploadedFile);

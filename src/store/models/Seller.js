@@ -3,6 +3,7 @@ import moment from 'moment';
 import BaseUpdate from './BaseUpdate';
 import SellerGame from './SellerGame';
 import DestinationAddresses from './DestinationAddresses';
+import Order from './Order';
 
 import Api from '../../services/Api';
 import deserialize from '../../utils/deserialize';
@@ -22,6 +23,7 @@ const Seller = types
     addingDestinationAddresses: false,
     statsLoaded: false,
     loadingStats: false,
+    recentOrders: types.array(Order),
     stats: types.frozen(),
   })
   .views((self) => ({
@@ -68,8 +70,8 @@ const Seller = types
 
       try {
         const response = yield Api.get('/sellers/stats');
-        console.log(response.data);
-        self.stats = response.data;
+        self.recentOrders = deserialize(response.data.orders);
+        self.stats = response.data.stats;
         self.statsLoaded = true;
         self.loadingStats = false;
         return true;
@@ -86,6 +88,7 @@ const Seller = types
 
       try {
         const response = yield Api.get('/listings/seller_listings');
+        console.log(response.data);
         self.games = deserialize(response.data);
         self.gamesLoaded = true;
         self.loadingGames = false;
