@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
 import { toast } from 'react-toastify';
-
+import { Helmet } from 'react-helmet';
 import ReactPlayer from 'react-player';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 
@@ -127,8 +127,24 @@ const GamesShow = ({ match, history }) => {
     </div>
   );
 
+  const metaDesc = 'Arcane Arcade is an emerging marketplace for game developers and publishers to sell games for cryptocurrency.';
+
   return (
     <div className="App listings-show">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>
+          Buy
+          {selectedGame.title}
+          {' '}
+          on Arcane Arcade
+        </title>
+        <meta
+          name="description"
+          content={metaDesc}
+        />
+      </Helmet>
+
       <Navbar />
       <div className="game-page-container flex-column align-center">
         <div className="game-show">

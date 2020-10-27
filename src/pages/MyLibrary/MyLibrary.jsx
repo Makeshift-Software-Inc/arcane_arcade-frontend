@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet';
 
 import { observer } from 'mobx-react';
 import { useStore } from '../../store';
@@ -46,8 +47,19 @@ const MyLibrary = () => {
 
   const detailsText = activeTab === 'completed_orders' ? 'Order Details' : 'Continue Order';
 
+  const metaDesc = 'View your purchased games and outstanding orders.';
+
   return (
     <div className="App my-library">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>My Library</title>
+        <meta
+          name="description"
+          content={metaDesc}
+        />
+      </Helmet>
+
       <Navbar />
       <div className="my-library-content flex-column">
         <Tabs options={options} active={activeTab} onChange={setActiveTab} />

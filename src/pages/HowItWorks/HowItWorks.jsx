@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet';
 
 import './HowItWorks.scss';
 
@@ -76,14 +77,25 @@ const HowItWorks = () => {
       img: gameTypeImg,
     },
     {
-      text: '6. PROFIT! Receive payment after every sale, into your coin wallet. If you don’t wish to keep them, liquidate your coins through Coinbase.',
+      text: '6. PROFIT! Receive payment after every sale, into your coin wallet. We only take 10%, so 90% goes directly to you! If you don’t wish to keep them, liquidate your coins through Coinbase.',
       img: profitImg,
     },
   ];
 
+  const metaDesc = 'Arcane Arcade is an emerging marketplace for game developers and publishers to sell games for cryptocurrency.';
+
   return (
 
     <div className="App how-it-works ">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>How It Works</title>
+        <meta
+          name="description"
+          content={metaDesc}
+        />
+      </Helmet>
+
       <Navbar />
       <div className="flex flex-column page-container">
 
