@@ -33,7 +33,7 @@ const ListingForm = types
     system_requirements: types.array(SystemRequirements),
     files: types.array(UploadedFile),
     attachments: types.array(UploadedFile),
-    saved_files: types.array(SavedFile),
+    saved_files: types.array(types.reference(SavedFile)),
     release_date: types.optional(types.string, ''),
     preorderable: false,
     loaded: false,
@@ -107,7 +107,19 @@ const ListingForm = types
 
       const game = games.find((g) => g.slug === slug);
 
-      self.update(game.toJSON());
+      self.title = game.title;
+      self.description = game.description;
+      self.esrb = game.esrb;
+      self.categories = game.categories.toJSON();
+      self.supported_platforms = game.supported_platforms.toJSON();
+      self.tags = game.tags.toJSON();
+      self.early_access = game.early_access;
+      self.price = game.price;
+      self.system_requirements = game.system_requirements;
+      self.saved_files = game.saved_files.map((file) => file.id);
+      self.release_date = game.release_date;
+      self.preorderable = game.preorderable;
+
       self.loading = false;
     }),
     addSupportedPlatform(id, name) {
@@ -127,17 +139,15 @@ const ListingForm = types
       }
     },
     addCategory(category) {
-      self.selected_categories.push(category.id);
+      self.categories.push(category.id);
       self.categoryOptions
         .find((c) => c.id === category.id)
         .update({ disabled: true });
     },
     removeCategory(index) {
       if (index < 0) return;
-      const category = self.selected_categories[index];
-      self.selected_categories = self.selected_categories.filter(
-        (c) => c.id !== category.id,
-      );
+      const category = self.categories[index];
+      self.categories = self.categories.filter((c) => c.id !== category.id);
       self.categoryOptions
         .find((c) => c.id === category.id)
         .update({ disabled: false });
@@ -215,6 +225,9 @@ const ListingForm = types
     },
     setPreorderable(value) {
       self.preorderable = value;
+    },
+    setPrice(e) {
+      self.price = parseFloat(e.target.value);
     },
     validate: () => true,
   }));

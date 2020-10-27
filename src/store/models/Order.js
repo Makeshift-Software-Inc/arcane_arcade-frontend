@@ -32,11 +32,14 @@ const Order = types
     reloading: false,
   })
   .views((self) => ({
-    paid() {
+    inEscrow() {
       return self.status === 'in_escrow';
     },
     completed() {
       return self.status === 'completed';
+    },
+    paid() {
+      return self.inEscrow() || self.completed();
     },
     active() {
       return ['in_progress', 'unconfirmed'].includes(self.status);

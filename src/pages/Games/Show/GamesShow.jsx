@@ -60,7 +60,12 @@ const Splides = ({ images, videos, gameTitle }) => (
 );
 
 const supportedPlatformsImgs = {
-  PC, WINDOWS, MAC, LINUX, SWITCH, XB1,
+  PC,
+  WINDOWS,
+  MAC,
+  LINUX,
+  SWITCH,
+  XB1,
 };
 
 const GamesShow = ({ match, history }) => {
@@ -113,7 +118,12 @@ const GamesShow = ({ match, history }) => {
   const TopSearchBar = () => (
     <div className="flex-row justify-between top-search-bar">
       {/* eslint-disable jsx-a11y/click-events-have-key-events */}
-      <div className="flex-row align-center back-button" onClick={() => history.goBack()} role="button" tabIndex={0}>
+      <div
+        className="flex-row align-center back-button"
+        onClick={() => history.goBack()}
+        role="button"
+        tabIndex={0}
+      >
         <img src={backSvg} alt="back-button" className="back-img" />
         <p>Back to store</p>
       </div>
@@ -148,7 +158,6 @@ const GamesShow = ({ match, history }) => {
       <Navbar />
       <div className="game-page-container flex-column align-center">
         <div className="game-show">
-
           <TopSearchBar />
 
           <div className="">
@@ -162,7 +171,6 @@ const GamesShow = ({ match, history }) => {
                   perPage: 1,
                   slidesPerView: 1,
                 }}
-
               >
                 <Splides
                   images={selectedGame.images}
@@ -178,18 +186,17 @@ const GamesShow = ({ match, history }) => {
                   <div className="payment flex-column justify-flex-end">
                     <div className="price fiat flex-row justify-flex-end">
                       {selectedGame.price && (
-                      <h3>
-                        {selectedGame.currency_symbol}
-                        {selectedGame.price}
-                        {' '}
-                        {selectedGame.default_currency}
-                      </h3>
+                        <h3>
+                          {selectedGame.currency_symbol}
+                          {selectedGame.price}
+                          {' '}
+                          {selectedGame.default_currency}
+                        </h3>
                       )}
                     </div>
                   </div>
 
                   <div className="payment-submit">
-
                     <button
                       disabled={!(user && user.ordersLoaded)}
                       onClick={openBuyModal}
@@ -210,7 +217,6 @@ const GamesShow = ({ match, history }) => {
 
                   <div className="flex-column about-game-info">
                     <div className="second-section flex-row flex-grow flex-wrap justify-flex-end">
-
                       <div className="info-container">
                         <p className="info-text">Developer</p>
                         <p>-</p>
@@ -223,7 +229,11 @@ const GamesShow = ({ match, history }) => {
 
                       <div className="info-container">
                         <p className="info-text">Release Date</p>
-                        <p>{new Date(Date.parse(selectedGame.release_date)).toDateString()}</p>
+                        <p>
+                          {new Date(
+                            Date.parse(selectedGame.release_date),
+                          ).toDateString()}
+                        </p>
                       </div>
 
                       <div className="info-container">
@@ -235,10 +245,13 @@ const GamesShow = ({ match, history }) => {
                         <p className="info-text">Platform</p>
 
                         <div className="platforms-imgs">
-                          {
-                            selectedGame.supportedPlatforms().map((platform) => <img src={supportedPlatformsImgs[platform.name]} key={platform.id} alt="platform-icon" />)
-                          }
-
+                          {selectedGame.supportedPlatforms().map((platform) => (
+                            <img
+                              src={supportedPlatformsImgs[platform.name]}
+                              key={platform.id}
+                              alt="platform-icon"
+                            />
+                          ))}
                         </div>
                       </div>
                     </div>
@@ -246,9 +259,14 @@ const GamesShow = ({ match, history }) => {
                     <div className="descr">
                       <h3 className="game-title">{selectedGame.title}</h3>
                       <div
-                        className={`game-description info-text desc-${openMobileDecription ? 'open' : 'closed'}`}
-                    // eslint-disable-next-line
-                    dangerouslySetInnerHTML={{ __html: selectedGame.description }} />
+                        className={`game-description info-text desc-${
+                          openMobileDecription ? 'open' : 'closed'
+                        }`}
+                        // eslint-disable-next-line
+                        dangerouslySetInnerHTML={{
+                          __html: selectedGame.description,
+                        }}
+                      />
                     </div>
                     {/* eslint-disable jsx-a11y/click-events-have-key-events */}
                     <div
@@ -257,8 +275,16 @@ const GamesShow = ({ match, history }) => {
                       role="button"
                       tabIndex={0}
                     >
-                      <span>{openMobileDecription ? 'Show less' : 'Show more'}</span>
-                      <img src={backSvg} className={`show-${openMobileDecription ? 'more' : 'less'}-icon`} alt="show-more" />
+                      <span>
+                        {openMobileDecription ? 'Show less' : 'Show more'}
+                      </span>
+                      <img
+                        src={backSvg}
+                        className={`show-${
+                          openMobileDecription ? 'more' : 'less'
+                        }-icon`}
+                        alt="show-more"
+                      />
                     </div>
                     {/* eslint-enable jsx-a11y/click-events-have-key-events */}
                   </div>
@@ -273,8 +299,9 @@ const GamesShow = ({ match, history }) => {
                     <p className="info-text">Languages Supported</p>
                     <p>Audio: English, French, German, Spanish</p>
                     <p>
-                      Text: English, French, Spanish - Spain, Italian, German, Polish, Russian,
-                      Portuguese - Brazil, Japanese, Spanish - Mexico, Chinese - Traditional
+                      Text: English, French, Spanish - Spain, Italian, German,
+                      Polish, Russian, Portuguese - Brazil, Japanese, Spanish -
+                      Mexico, Chinese - Traditional
                     </p>
                   </div>
                 </div>
@@ -288,7 +315,9 @@ const GamesShow = ({ match, history }) => {
                     <div className="system-req-btns flex-row flex-grow">
                       {/* eslint-disable jsx-a11y/click-events-have-key-events */}
                       <div
-                        className={`system-req-btn flex-column  align-center ${systemReq === 'windows' ? 'active' : ''}`}
+                        className={`system-req-btn flex-column  align-center ${
+                          systemReq === 'windows' ? 'active' : ''
+                        }`}
                         onClick={() => setSystemReq('windows')}
                         role="button"
                         tabIndex={0}
@@ -296,7 +325,9 @@ const GamesShow = ({ match, history }) => {
                         <div>Windows</div>
                       </div>
                       <div
-                        className={`system-req-btn flex-column align-center ${systemReq === 'mac' ? 'active' : ''}`}
+                        className={`system-req-btn flex-column align-center ${
+                          systemReq === 'mac' ? 'active' : ''
+                        }`}
                         onClick={() => setSystemReq('mac')}
                         role="button"
                         tabIndex={0}
@@ -304,7 +335,9 @@ const GamesShow = ({ match, history }) => {
                         <div>Mac</div>
                       </div>
                       <div
-                        className={`system-req-btn flex-column align-center ${systemReq === 'linux' ? 'active' : ''}`}
+                        className={`system-req-btn flex-column align-center ${
+                          systemReq === 'linux' ? 'active' : ''
+                        }`}
                         onClick={() => setSystemReq('linux')}
                         role="button"
                         tabIndex={0}
@@ -316,33 +349,29 @@ const GamesShow = ({ match, history }) => {
                     </div>
 
                     <div className="flex-row flex-grow flex-wrap justify-between system-req-text">
-
                       <div className="flex-column flex-grow">
                         <p className="info-text">Minimum</p>
                         <p>
-                          Requires a 64-bit processor and operating system
-                          OS: Windows 7 - Service Pack 1 (6.1.7601)
-                          Processor: Intel® Core™ i5-2500K / AMD FX-6300
-                          Memory: 8 GB RAM
-                          Graphics: Nvidia GeForce GTX 770 2GB / AMD Radeon R9 280 3GB
-                          Network: Broadband Internet connection
-                          Storage: 150 GB available space
-                          Sound Card: Direct X Compatible
+                          Requires a 64-bit processor and operating system OS:
+                          Windows 7 - Service Pack 1 (6.1.7601) Processor:
+                          Intel® Core™ i5-2500K / AMD FX-6300 Memory: 8 GB RAM
+                          Graphics: Nvidia GeForce GTX 770 2GB / AMD Radeon R9
+                          280 3GB Network: Broadband Internet connection
+                          Storage: 150 GB available space Sound Card: Direct X
+                          Compatible
                         </p>
-
                       </div>
 
                       <div className="flex-column flex-grow recommended">
                         <p className="info-text">Recommended</p>
                         <p>
-                          Requires a 64-bit processor and operating system
-                          OS: Windows 10 - April 2018 Update (v1803)
-                          Processor: Intel® Core™ i7-4770K / AMD Ryzen 5 1500X
-                          Memory: 12 GB RAM
-                          Graphics: Nvidia GeForce GTX 1060 6GB / AMD Radeon RX 480 4GB
-                          Network: Broadband Internet connection
-                          Storage: 150 GB available space
-                          Sound Card: Direct X Compatible
+                          Requires a 64-bit processor and operating system OS:
+                          Windows 10 - April 2018 Update (v1803) Processor:
+                          Intel® Core™ i7-4770K / AMD Ryzen 5 1500X Memory: 12
+                          GB RAM Graphics: Nvidia GeForce GTX 1060 6GB / AMD
+                          Radeon RX 480 4GB Network: Broadband Internet
+                          connection Storage: 150 GB available space Sound Card:
+                          Direct X Compatible
                         </p>
                       </div>
                     </div>
@@ -352,7 +381,10 @@ const GamesShow = ({ match, history }) => {
             </div>
           </div>
           {showBuyModal && <BuyModal close={closeBuyModal} />}
-          <OrderDetailsModal />
+          <OrderDetailsModal
+            order={isLoggedIn && user.selectedOrder}
+            setSelectedOrder={isLoggedIn && user.setSelectedOrder}
+          />
         </div>
       </div>
     </div>
