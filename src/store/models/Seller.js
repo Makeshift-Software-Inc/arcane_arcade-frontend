@@ -24,6 +24,7 @@ const Seller = types
     statsLoaded: false,
     loadingStats: false,
     recentOrders: types.array(Order),
+    selectedRecentOrder: types.maybe(types.reference(Order)),
     stats: types.frozen(),
   })
   .views((self) => ({
@@ -120,6 +121,9 @@ const Seller = types
     },
     addGame(game) {
       self.games.push(game);
+    },
+    setSelectedRecentOrder(id) {
+      self.selectedRecentOrder = id;
     },
   }));
 

@@ -23,6 +23,7 @@ const MyLibrary = () => {
       loadingOrders,
       paidOrders,
       activeOrders,
+      selectedOrder,
       setSelectedOrder,
     },
   } = useStore('auth');
@@ -61,7 +62,10 @@ const MyLibrary = () => {
           />
         )}
       </div>
-      <OrderDetailsModal />
+      <OrderDetailsModal
+        order={selectedOrder}
+        setSelectedOrder={setSelectedOrder}
+      />
     </div>
   );
 };

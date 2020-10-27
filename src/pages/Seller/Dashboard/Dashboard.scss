@@ -179,20 +179,5 @@
   }
   .recent-orders {
     padding: 0 30px;
-    .orders {
-      .order {
-        padding: 20px 0;
-        border-bottom: 1px solid;
-        &:last-of-type {
-          border-bottom: none;
-        }
-        .order-image img {
-          max-width: 100px;
-        }
-        .order-details {
-          padding: 0 20px;
-        }
-      }
-    }
   }
 }

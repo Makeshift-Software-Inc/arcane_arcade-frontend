@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { observer } from 'mobx-react';
-import { useStore } from '../../../store';
 
 import Modal from '../../../components/Modals/Modal';
 import Header from '../../../components/Modals/Header/Header';
@@ -11,26 +10,26 @@ import ActiveOrder from './Active';
 
 import './Modal.scss';
 
-const OrderDetailsModal = () => {
-  const {
-    isLoggedIn,
-    user,
-  } = useStore('auth');
-
-  if (!isLoggedIn || !user.selectedOrder) return null;
-
-  const { selectedOrder, setSelectedOrder } = user;
+const OrderDetailsModal = ({
+  order,
+  setSelectedOrder,
+  withoutDistributionMethod,
+}) => {
+  if (!order) return null;
 
   const close = () => setSelectedOrder(undefined);
 
   return (
-    <Modal blue={selectedOrder.active()}>
-      <Header close={close} closeWhite={selectedOrder.active()} />
+    <Modal blue={order.active()}>
+      <Header close={close} closeWhite={order.active()} />
       <div className="order-details-modal">
-        {selectedOrder.paid() ? (
-          <CompletedOrder order={selectedOrder} />
+        {order.paid() ? (
+          <CompletedOrder
+            order={order}
+            withoutDistributionMethod={withoutDistributionMethod}
+          />
         ) : (
-          <ActiveOrder order={selectedOrder} />
+          <ActiveOrder order={order} />
         )}
       </div>
     </Modal>

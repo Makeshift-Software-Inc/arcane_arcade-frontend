@@ -1,198 +1,69 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
-import ReactTags from 'react-tag-autocomplete';
 import { Helmet } from 'react-helmet';
 
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-
-import Tippy from '@tippyjs/react';
-import 'tippy.js/dist/tippy.css';
-
-import 'trix/dist/trix';
-import 'trix/dist/trix.css';
-
 import { useStore } from '../../../store';
+import Form from './Form';
 
-import Errors from '../../../components/Errors/Errors';
-
-import Uploader from '../../../components/Uploader/Uploader';
 import Loading from '../../../components/Loading/Loading';
-import './New.scss';
 
-const SellerListingsEdit = ({ history, match }) => {
-  const [waitList, setWaitList] = useState([]);
-
-  const trixInput = useRef(null);
-
+const SellerListingsEdit = ({ match }) => {
   const { slug } = match.params;
 
   const {
-    games,
-    forms: {
-      listing: {
-        load,
-        loading,
-        categoryOptions,
-        categories,
-        addCategory,
-        removeCategory,
-        supportedPlatformOptions,
-        supported_platforms,
-        addSupportedPlatform,
-        removeSupportedPlatform,
-        esrb,
-        title,
-        description,
-        early_access,
-        price,
-        update,
-        onChange,
-        system_requirements,
-        files,
-        addFile,
-        attachments,
-        addAttachment,
-        reorderFiles,
-        errors,
-        images,
-        videos,
-        tagsOptions,
-        tags,
-        addTag,
-        removeTag,
-        allFilesUploaded,
-        release_date,
-        setReleaseDate,
-        releaseDateInFuture,
-        preorderable,
-        prepareEdit,
-      },
-    },
+    forms: { listing },
   } = useStore();
 
   useEffect(() => {
     const prepare = async () => {
-      await load();
-      await prepareEdit(slug);
+      await listing.load();
+      await listing.prepareEdit(slug);
     };
 
     prepare();
-
-    trixInput.current.addEventListener('trix-change', (event) => {
-      if (event.target.name) {
-        onChange(event);
-      }
-    });
-
-    trixInput.current.addEventListener('trix-file-accept', (event) => {
-      const acceptedAttachments = [
-        'image/png',
-        'image/jpeg',
-        'image/gif',
-        'image/jpg',
-      ];
-      if (!acceptedAttachments.includes(event.file.type)) {
-        event.preventDefault();
-        // eslint-disable-next-line no-alert
-        alert('You can only add images with jpeg or png format.');
-      }
-      const maxFileSize = 1024 * 1024 * 10; // 10MB
-      if (event.file.size > maxFileSize) {
-        event.preventDefault();
-        // eslint-disable-next-line no-alert
-        alert('Only support attachment files upto 10MB.');
-      }
-    });
-
-    trixInput.current.addEventListener('trix-attachment-add', async (event) => {
-      if (event.attachment.file) {
-        setWaitList([...waitList, event.attachment.id]);
-        const data = await addAttachment(event);
-        if (data) {
-          event.attachment.setAttributes(data);
-        }
-        setWaitList([...waitList.filter((id) => event.attachment.id !== id)]);
-      }
-    });
   }, []);
-
-  const toggleEarlyAccess = () => {
-    update({ early_access: !early_access });
-  };
-
-  const togglePreorderable = () => {
-    update({ preorderable: !preorderable });
-  };
-
-  const handleSupportedPlatformChange = (e) => {
-    if (e.target.checked) {
-      addSupportedPlatform(e.target.dataset.id, e.target.name);
-    } else {
-      removeSupportedPlatform(e.target.dataset.id, e.target.name);
-    }
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!allFilesUploaded() || games.creating) return;
+    if (!listing.allFilesUploaded()) return;
 
-    const listing = {
-      title,
-      description,
-      esrb,
-      early_access,
-      price: price ? price * 100 : null,
-      release_date,
-      preorderable,
-      category_ids: categories.map((category) => category.id),
-      supported_platforms_ids: supported_platforms.map(
+    // eslint-disable-next-line
+    const data = {
+      title: listing.title,
+      description: listing.description,
+      esrb: listing.esrb,
+      early_access: listing.early_access,
+      price: listing.price ? listing.price * 100 : null,
+      release_date: listing.release_date,
+      preorderable: listing.preorderable,
+      category_ids: listing.categories.map((category) => category.id),
+      supported_platforms_ids: listing.supported_platforms.map(
         (platform) => platform.id,
       ),
-      listing_images_attributes: images().map((image) => ({
+      listing_images_attributes: listing.images().map((image) => ({
         image: image.keys(),
       })),
-      listing_videos_attributes: videos().map((video) => ({
+      listing_videos_attributes: listing.videos().map((video) => ({
         video: video.keys(),
       })),
-      listing_attachments_attributes: attachments.map((attachment) => ({
+      listing_attachments_attributes: listing.attachments.map((attachment) => ({
         attachment: attachment.keys(),
       })),
-      listing_tags_attributes: tags.map((tag) => ({ tag_id: tag.id })),
+      listing_tags_attributes: listing.tags.map((tag) => ({ tag_id: tag.id })),
     };
-
-    const id = await games.create(listing);
-
-    if (id) {
-      const notification = 'Listing created.';
-      history.push({
-        pathname: `/sell-your-game/${id}/distribution/add`,
-        state: { notification },
-      });
-    }
   };
 
-  const selectedCategoriesAsTags = categories.map((category) => ({
-    ...category,
-    name: category.title,
-  }));
+  if (listing.loading) return <Loading />;
 
-  const categoriesOptionsAsTags = categoryOptions.map((category) => ({
-    ...category,
-    name: category.title,
-  }));
-
-  const releaseDateAsDate = release_date.length > 0 ? new Date(release_date) : null;
-
-  if (loading) return <Loading />;
+  const title = 'Edit Your Game';
 
   const metaDesc = 'Sell your game with Arcane Arcade. Receive cryptocurrency (Bitcoin and/or Monero) for your game.';
   return (
     <div className="App seller-listings-new">
       <Helmet>
         <meta charSet="utf-8" />
-        <title>Sell Your Game</title>
+        <title>{title}</title>
         <meta name="description" content={metaDesc} />
       </Helmet>
       <div className="form-container">
@@ -200,307 +71,7 @@ const SellerListingsEdit = ({ history, match }) => {
           <Link to="/seller/dashboard">⟵ Back To Dashboard</Link>
         </div>
 
-        <form onSubmit={handleSubmit}>
-          <h1>Edit your game</h1>
-
-          <div className="columns">
-            <div className="column flex">
-              <Uploader
-                accept="image/*,video/*"
-                addFile={addFile}
-                files={files}
-                reorder={reorderFiles}
-              />
-              <div className="form-column">
-                <div className="title">
-                  <label htmlFor="title" className="form-label">
-                    Game Title
-                  </label>
-                  <input
-                    type="text"
-                    value={title}
-                    onChange={onChange}
-                    name="title"
-                    className="topcoat-text-input"
-                  />
-                </div>
-                <div className="esrb">
-                  <label htmlFor="esrb" className="form-label">
-                    ESRB
-                  </label>
-
-                  <select
-                    name="esrb"
-                    value={esrb}
-                    onChange={onChange}
-                    className="topcoat-text-input"
-                  >
-                    <option value="EVERYONE">EVERYONE</option>
-                    <option value="E_TEN_PLUS">E10+</option>
-                    <option value="TEEN">TEEN</option>
-                    <option value="MATURE">MATURE</option>
-                    <option value="ADULT">ADULT</option>
-                  </select>
-                </div>
-                <div className="game-category">
-                  <label htmlFor="category" className="form-label">
-                    Game Category
-                  </label>
-                  {loading ? (
-                    <Loading />
-                  ) : (
-                    <ReactTags
-                      tags={selectedCategoriesAsTags}
-                      suggestions={categoriesOptionsAsTags}
-                      onDelete={removeCategory}
-                      onAddition={addCategory}
-                      autoresize={false}
-                      placeholderText="Select Category"
-                      minQueryLength={0}
-                      maxSuggestionsLength={
-                        selectedCategoriesAsTags.length === 2 ? 0 : 100
-                      }
-                      classNames={{
-                        root: 'react-tags',
-                        rootFocused: 'is-focused',
-                        selected: 'react-tags__selected',
-                        selectedTag: 'react-tags__selected-tag',
-                        selectedTagName: 'react-tags__selected-tag-name',
-                        search: `react-tags__search ${
-                          selectedCategoriesAsTags.length === 2
-                            ? 'is-hidden'
-                            : ''
-                        }`,
-                        searchWrapper: 'react-tags__search-wrapper',
-                        searchInput:
-                          'react-tags__search-input topcoat-text-input',
-                        suggestions: 'react-tags__suggestions',
-                        suggestionActive: 'is-active',
-                        suggestionDisabled: 'is-disabled',
-                      }}
-                    />
-                  )}
-                </div>
-                <div className="game-tags">
-                  <label htmlFor="tags" className="form-label">
-                    Game Tags
-                  </label>
-                  <ReactTags
-                    tags={tags}
-                    suggestions={tagsOptions.filter((tag) => !tag.disabled)}
-                    onDelete={removeTag}
-                    onAddition={addTag}
-                    autoresize={false}
-                    classNames={{
-                      root: 'react-tags',
-                      rootFocused: 'is-focused',
-                      selected: 'react-tags__selected',
-                      selectedTag: 'react-tags__selected-tag',
-                      selectedTagName: 'react-tags__selected-tag-name',
-                      search: 'react-tags__search',
-                      searchWrapper: 'react-tags__search-wrapper',
-                      searchInput:
-                        'react-tags__search-input topcoat-text-input',
-                      suggestions: 'react-tags__suggestions',
-                      suggestionActive: 'is-active',
-                      suggestionDisabled: 'is-disabled',
-                    }}
-                  />
-                </div>
-                <div className="early-access">
-                  <label className="form-label" htmlFor="early-access">
-                    Early Access
-                    <input
-                      type="checkbox"
-                      className="topcoat-switch__input"
-                      onChange={toggleEarlyAccess}
-                      id="early-access"
-                      name="early-access"
-                      checked={early_access}
-                    />
-                  </label>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="field description-field">
-            <div className="form-row">
-              <div className="price">
-                <label className="form-label" htmlFor="price">
-                  Price in USD
-                </label>
-                <input
-                  type="number"
-                  className="topcoat-text-input"
-                  value={price || ''}
-                  onChange={onChange}
-                  name="price"
-                />
-              </div>
-
-              <div>
-                <label className="form-label">Release Date:</label>
-                <DatePicker
-                  selected={releaseDateAsDate}
-                  onChange={setReleaseDate}
-                  dateFormat="Pp"
-                />
-              </div>
-            </div>
-
-            <label className="form-label description">
-              Game Description
-              <Tippy
-                content="You may want to add photos or .gifs for a more appealing synopsis. (600x295)"
-                interactive
-                interactiveBorder={20}
-                delay={100}
-                arrow
-                placement="auto"
-              >
-                <i className="fas fa-question-circle" />
-              </Tippy>
-            </label>
-            <div>
-              <input
-                type="hidden"
-                id="trix"
-                value={description}
-                name="description"
-              />
-              <trix-editor input="trix" name="description" ref={trixInput} />
-            </div>
-          </div>
-
-          <div>
-            <h4>Platforms Supported</h4>
-            <div className="flex-column">
-              {loading ? (
-                <Loading />
-              ) : (
-                supportedPlatformOptions.map((platform) => {
-                  const checked = !!supported_platforms.find(
-                    (p) => p.id === platform.id,
-                  );
-                  return (
-                    <React.Fragment key={platform.id}>
-                      <label
-                        className="topcoat-checkbox"
-                        style={{ margin: 10 }}
-                      >
-                        <input
-                          type="checkbox"
-                          name={platform.name}
-                          data-id={platform.id}
-                          onChange={handleSupportedPlatformChange}
-                          checked={checked}
-                        />
-                        <div
-                          className="topcoat-checkbox__checkmark"
-                          style={{ marginRight: 10 }}
-                        />
-                        {platform.name}
-                      </label>
-                      {platform.children.length > 0 && (
-                        <div className="pc-platforms">
-                          {checked
-                            && platform.children.map((children) => (
-                              <label
-                                className="topcoat-checkbox"
-                                key={children.id}
-                                style={{ margin: 10 }}
-                              >
-                                <input
-                                  type="checkbox"
-                                  name={children.name}
-                                  data-id={children.id}
-                                  onChange={handleSupportedPlatformChange}
-                                  checked={
-                                    !!supported_platforms.find(
-                                      (p) => p.id === children.id,
-                                    )
-                                  }
-                                />
-                                <div
-                                  className="topcoat-checkbox__checkmark"
-                                  style={{ marginRight: 10 }}
-                                />
-                                {children.name}
-                              </label>
-                            ))}
-                        </div>
-                      )}
-                    </React.Fragment>
-                  );
-                })
-              )}
-            </div>
-          </div>
-
-          <div className="system-requirements">
-            {system_requirements.length > 0 && (
-              <React.Fragment>
-                <h4>System Requirements</h4>
-                {system_requirements.map((systemRequirement) => (
-                  <div key={systemRequirement.name}>
-                    <div className="topcoat-tab-bar">
-                      <label className="topcoat-tab-bar__item">
-                        <button
-                          type="button"
-                          className="topcoat-tab-bar__button"
-                        >
-                          {systemRequirement.name}
-                        </button>
-                      </label>
-                    </div>
-
-                    <textarea
-                      name="description"
-                      className="topcoat-text-input"
-                      value={systemRequirement.description}
-                      onChange={systemRequirement.onChange}
-                    />
-                  </div>
-                ))}
-              </React.Fragment>
-            )}
-          </div>
-
-          {releaseDateInFuture() && (
-            <div className="early-access">
-              <label className="form-label">Preorderable</label>
-              <label className="topcoat-switch">
-                <input
-                  type="checkbox"
-                  className="topcoat-switch__input"
-                  onChange={togglePreorderable}
-                  id="preorderable"
-                  name="preorderable"
-                  value={preorderable}
-                />
-                <div className="topcoat-switch__toggle" />
-              </label>
-            </div>
-          )}
-
-          <br />
-
-          <Errors errors={errors.full_messages.toJSON()} />
-
-          <br />
-
-          <button
-            type="submit"
-            disabled={!allFilesUploaded() || waitList.length !== 0}
-            className="button"
-          >
-            CREATE
-          </button>
-          {(!allFilesUploaded() || waitList.length !== 0) && (
-            <p>Some files are still not uploaded.</p>
-          )}
-        </form>
+        <Form form={listing} text={title} onSubmit={handleSubmit} isUpdate />
       </div>
     </div>
   );
