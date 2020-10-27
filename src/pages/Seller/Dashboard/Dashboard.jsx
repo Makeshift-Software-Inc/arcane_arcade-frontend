@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { observer } from 'mobx-react';
+import { Helmet } from 'react-helmet';
 
 import './Dashboard.scss';
 import Navbar from '../../../components/Navbar/Navbar';
@@ -30,9 +31,19 @@ const SellerDashboard = () => {
 
     return <RecentOrders />;
   };
+  const metaDesc = 'Manage your games and review your orders. Set your Bitcoin and/or Monero addresses.';
 
   return (
     <div className="App seller-dashboard">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Seller Dashboard</title>
+        <meta
+          name="description"
+          content={metaDesc}
+        />
+      </Helmet>
+
       <Navbar />
 
       <Tabs
