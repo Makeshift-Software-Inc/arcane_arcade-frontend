@@ -15,6 +15,7 @@ import HowItWorks from './HowItWorks/HowItWorks';
 import ContactUs from './ContactUs/ContactUs';
 import SellerDashboard from './Seller/Dashboard/Dashboard';
 import SellerListingsNew from './Seller/Listings/New';
+import SellerListingsEdit from './Seller/Listings/Edit';
 import SellerListingsAddDistribution from './Seller/Listings/Distribution';
 import MyLibrary from './MyLibrary/MyLibrary';
 
@@ -95,6 +96,13 @@ const Routes = () => {
         exact
         path="/sell-your-game/:id/distribution/add"
         component={SellerListingsAddDistribution}
+      />
+      <ProtectedRoute
+        asSeller
+        redirectTo={isLoggedIn ? '/seller/onboarding' : '/login'}
+        exact
+        path="/games/:slug/edit"
+        component={SellerListingsEdit}
       />
     </Switch>
   );

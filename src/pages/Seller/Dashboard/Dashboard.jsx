@@ -5,10 +5,10 @@ import { Helmet } from 'react-helmet';
 import './Dashboard.scss';
 import Navbar from '../../../components/Navbar/Navbar';
 
-import Tabs from './Tabs';
-
-import Games from './Games';
-import Payments from './Payments';
+import Tabs from './Tabs/Tabs';
+import Games from './Tabs/Games';
+import Payments from './Tabs/Payments';
+import RecentOrders from './Tabs/RecentOrders';
 
 const SellerDashboard = () => {
   const [activeTab, setActiveTab] = useState('games');
@@ -22,8 +22,15 @@ const SellerDashboard = () => {
   const tabOptions = [
     { name: 'games', text: 'My Game(s)' },
     { name: 'payments', text: 'Dashboard' },
+    { name: 'recent_orders', text: 'Recent Orders' },
   ];
 
+  const renderActiveTab = () => {
+    if (activeTab === 'games') return <Games />;
+    if (activeTab === 'payments') return <Payments />;
+
+    return <RecentOrders />;
+  };
   const metaDesc = 'Manage your games and review your orders. Set your Bitcoin and/or Monero addresses.';
 
   return (
@@ -45,7 +52,7 @@ const SellerDashboard = () => {
         onClick={handleTabClick}
       />
 
-      {activeTab === 'games' ? <Games /> : <Payments />}
+      {renderActiveTab()}
     </div>
   );
 };

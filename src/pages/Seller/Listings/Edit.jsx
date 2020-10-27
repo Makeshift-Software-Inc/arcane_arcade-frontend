@@ -21,10 +21,12 @@ import Uploader from '../../../components/Uploader/Uploader';
 import Loading from '../../../components/Loading/Loading';
 import './New.scss';
 
-const SellerListingsNew = ({ history }) => {
+const SellerListingsEdit = ({ history, match }) => {
   const [waitList, setWaitList] = useState([]);
 
   const trixInput = useRef(null);
+
+  const { slug } = match.params;
 
   const {
     games,
@@ -65,12 +67,18 @@ const SellerListingsNew = ({ history }) => {
         setReleaseDate,
         releaseDateInFuture,
         preorderable,
+        prepareEdit,
       },
     },
   } = useStore();
 
   useEffect(() => {
-    load();
+    const prepare = async () => {
+      await load();
+      await prepareEdit(slug);
+    };
+
+    prepare();
 
     trixInput.current.addEventListener('trix-change', (event) => {
       if (event.target.name) {
@@ -177,7 +185,7 @@ const SellerListingsNew = ({ history }) => {
 
   const releaseDateAsDate = release_date.length > 0 ? new Date(release_date) : null;
 
-  if (games.creating) return <Loading />;
+  if (loading) return <Loading />;
 
   const metaDesc = 'Sell your game with Arcane Arcade. Receive cryptocurrency (Bitcoin and/or Monero) for your game.';
   return (
@@ -193,7 +201,7 @@ const SellerListingsNew = ({ history }) => {
         </div>
 
         <form onSubmit={handleSubmit}>
-          <h1>Sell your game</h1>
+          <h1>Edit your game</h1>
 
           <div className="columns">
             <div className="column flex">
@@ -498,4 +506,4 @@ const SellerListingsNew = ({ history }) => {
   );
 };
 
-export default observer(SellerListingsNew);
+export default observer(SellerListingsEdit);
