@@ -117,6 +117,10 @@ code {
 
 .modal-content {
   width: auto !important;
+
+  @media (max-width:600px) {
+    width: 85vw;
+  }
 }
 
 .loader-wrapper {

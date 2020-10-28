@@ -2,6 +2,11 @@ $color: #463af3;
 
 .buy-modal {
   min-width: 731px;
+
+  @media (max-width:600px) {
+    min-height: auto;
+  }
+
   button[type='submit'] {
     width: 236px;
   }
