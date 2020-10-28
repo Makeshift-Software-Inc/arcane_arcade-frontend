@@ -4,6 +4,31 @@ import { observer } from 'mobx-react';
 import { useStore } from '../../store';
 
 import RangeSlider from '../Form/Slider/Range';
+import SearchInput from '../Form/SearchInput/SearchInput';
+
+
+const Select = ({ value, onChange, options, keys = false }) => (
+  <select className="" value={value} onChange={onChange}>
+
+    {keys ?  
+
+      (Object.keys(options).map((option) => (
+        <option key={option} value={option}>
+          {options[option]}
+        </option>
+      ))
+      ) : (
+
+      options.map((option) => (
+      <option key={option} value={option}>
+        {option}
+      </option>
+    ))
+    )
+
+  }
+  </select>
+);
 
 const AdvancedSearch = () => {
   const {
@@ -33,95 +58,68 @@ const AdvancedSearch = () => {
   };
 
   return (
-    <nav
-      className="navbar browse-listings flex-column"
-      role="navigation"
-      aria-label="main-navigation"
-    >
-      <div id="navbarBasicExample" className="navbar-menu search-filters">
-        <div className="navbar-start">
-          <div className="navbar-item">
-            <label htmlFor="search-sort-by">Sort By</label>
-
-            <div className="select">
-              <select
-                name="sort_by"
-                id="search-sort-by"
-                value={search.sort_by}
-                onChange={handleChange}
-              >
-                {Object.keys(sortByOptions).map((option) => (
-                  <option key={option} value={option}>
-                    {sortByOptions[option]}
-                  </option>
-                ))}
-              </select>
-            </div>
+    <div className="browse-listings flex-column flex-grow">
+      <div id="navbarBasicExample" className="flex-row flex-grow search-filters">
+        <div className="navbar-start flex-row flex-grow">
+          <div className="search-item flex-row align-center">
+            <label htmlFor="search-sort-by">Sort By:</label>
+            <Select 
+              name="sort_by"
+              id="search-sort-by"
+              value={search.sort_by}
+              onChange={handleChange}  
+              options={sortByOptions}
+              keys={true}
+            />
           </div>
 
-          <div className="navbar-item">
-            <label htmlFor="search-platform">Platform</label>
-
-            <div className="select">
-              <select
-                name="platform"
-                id="search-platform"
-                value={search.platform}
-                onChange={handleChange}
-              >
-                {Object.keys(platformOptions).map((option) => (
-                  <option key={option} value={option}>
-                    {platformOptions[option]}
-                  </option>
-                ))}
-              </select>
-            </div>
+          <div className="search-item flex-row align-center">
+            <label htmlFor="search-platform">Platform:</label>
+            <Select 
+              name="platform"
+              id="search-platform"
+              value={search.platform}
+              onChange={handleChange} 
+              options={platformOptions}
+              keys={true}
+            />
           </div>
+
         </div>
 
-        <div className="navbar-end">
-          <div className="navbar-item">
+  
+
+        <div className="flex-row align-center justify-flex-end">
             <form onSubmit={handleSubmit}>
-              <input
-                onChange={handleChange}
-                value={search.query}
-                name="query"
-                type="search"
-                placeholder="search"
-                className="topcoat-search-input"
-              />
+              <SearchInput onChange={handleChange} value={search.query}  name="query"/>
             </form>
-          </div>
         </div>
       </div>
-      <div className="flex-row justify-between">
-        <div className="navbar-item">
-          <label htmlFor="search-genre">Platform</label>
-          <div className="select">
-            <select
-              name="genre"
-              id="search-genre"
-              value={search.genre}
-              onChange={handleChange}
-              aria-label="search by genre"
-            >
-              {genreOptions.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-          </div>
+
+      <div className="flex-row justify-between more-filters">
+        <div className="search-item">
+          <label htmlFor="search-genre">Genre:</label>
+          <Select 
+            name="genre"
+            id="search-genre"
+            value={search.genre}
+            onChange={handleChange}
+            options={genreOptions}
+            keys={false}
+          />
         </div>
-        <div className="navbar-item">
+
+        <div className="search-item flex-row align-center">
+          <label htmlFor="price-range">Price Range:</label>
           <RangeSlider
             range={search.price.defaultRange()}
             values={search.price.values()}
             setValues={setPriceValues}
           />
         </div>
+
       </div>
-    </nav>
+    </div>
   );
 };
 

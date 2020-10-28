@@ -10,6 +10,7 @@ import { useStore } from '../../store';
 import Navbar from '../../components/Navbar/Navbar';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import Loading from '../../components/Loading/Loading';
+import DropDown from '../../components/Home/DropDown/DropDown';
 
 import GamesListings from './GamesListings';
 import SliderInfo from '../../components/Home/SliderInfo';
@@ -147,6 +148,22 @@ const Home = () => {
 
       <div className="page-container flex-column flex-grow align-center">
         <div className="flex-column home-page-container">
+
+          <DropDown activeTab={selectedTab}>
+            <div className="tabs-mobile flex-column">
+              <Tab
+                text="Discover"
+                selected={selectedTab === 'discover'}
+                onClick={() => setSelectedTab('discover')}
+              />
+              <Tab
+                text="Explore"
+                selected={selectedTab === 'explore'}
+                onClick={() => setSelectedTab('explore')}
+              />
+            </div>
+          </DropDown>
+
           <SearchBar show={selectedTab == 'discover' ? true : false} >
             <div className="tabs flex-row">
               <Tab
@@ -221,18 +238,8 @@ const Home = () => {
                 })}
               </Splide>
             </div> ): (
-              <div className="explore">
+              <div className="explore flex-row flex-grow">
                 <AdvancedSearch />
-
-                <div className="games">
-                  <div className="game-list">
-                    {searching ? (
-                      <Loading />
-                    ) : (
-                      <GamesListings games={searchResults} loading={searching} />
-                    )}
-                  </div>
-                </div>
               </div>
             )
           }
@@ -244,7 +251,11 @@ const Home = () => {
 
             <div className="games flex-row flex-grow flex-wrap">
 
-              <GamesListings />
+              {searching ? (
+                <Loading />
+              ) : (
+                <GamesListings games={searchResults} loading={searching} />
+              )}
 
             </div>
           </div>

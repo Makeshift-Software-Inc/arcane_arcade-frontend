@@ -67,7 +67,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className="navbar arcane-nav"
+      className="navbar arcane-nav flex-row align-center"
       role="navigation"
       aria-label="main navigation"
     >
