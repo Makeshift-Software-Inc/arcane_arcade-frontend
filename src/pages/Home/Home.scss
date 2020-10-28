@@ -24,12 +24,14 @@
   }
 
   .top-search-bar {
-    padding: 3em 0;
+    height: 65px;
   }
 
   .tabs {
-
+    display: flex;
     margin-bottom: 0;
+    overflow: visible;
+    overflow-x: visible;
 
 
     .tab {
@@ -236,6 +238,10 @@
             }
           }
         }
+
+        .explore {
+          display: none;
+        }
       }
     }
   }
@@ -350,11 +356,7 @@
     
 
   .browse-listings {
-    margin-bottom: 74px; 
 
-    .search-filters {
-      margin-bottom: 30px;
-    }
 
     .arcane-range-slider {
       padding-top: 30px;
@@ -374,31 +376,7 @@
         color: rgba(#e4e4e4, 0.5);
       }
     }
-    
-    @media (max-width:1025px) {
-      width:100vw;
-      margin-bottom: 2em;
-      padding: 0;
-
-      .navbar-item {
-        display: inline-flex;
-
-        label {
-          font-size: 12px;
-        }
-      }
-
-      .search-filters {
-        display: flex;
-        background-color: transparent;
-        justify-content: space-between;
-
-
-        input[type=search] {
-          width: 13vw;
-        }
-      }
-    }
+  
 
     select {
       &:focus {
@@ -476,7 +454,7 @@
     @media (max-width:768px) {
 
      position: relative;
-     
+
       .top-search-bar {
         flex-direction: column;
       }

@@ -11,6 +11,7 @@ import Navbar from '../../components/Navbar/Navbar';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import Loading from '../../components/Loading/Loading';
 import DropDown from '../../components/Home/DropDown/DropDown';
+import Tabs from '../../components/Home/Tabs';
 
 import GamesListings from './GamesListings';
 import SliderInfo from '../../components/Home/SliderInfo';
@@ -30,20 +31,6 @@ import xbIcon from '../../img/platform_icons/XB1.svg';
 
 import './Home.scss';
 
-const Tab = ({ text, selected, onClick }) => (
-  <div className="tab">
-    {/* eslint-disable jsx-a11y/click-events-have-key-events */}
-    <a
-      className={selected ? 'selected' : ''}
-      onClick={onClick}
-      role="button"
-      tabIndex={0}
-    >
-      {text}
-    </a>
-    {/* eslint-enable jsx-a11y/click-events-have-key-events */}
-  </div>
-);
 
 const SplideItem = ({ data }) => (
   <SplideSlide>
@@ -148,36 +135,16 @@ const Home = () => {
 
       <div className="page-container flex-column flex-grow align-center">
         <div className="flex-column home-page-container">
+          <div className="flex-row">
+            <DropDown activeTab={selectedTab}>
+              <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} mobile={true} />
+            </DropDown>
 
-          <DropDown activeTab={selectedTab}>
-            <div className="tabs-mobile flex-column">
-              <Tab
-                text="Discover"
-                selected={selectedTab === 'discover'}
-                onClick={() => setSelectedTab('discover')}
-              />
-              <Tab
-                text="Explore"
-                selected={selectedTab === 'explore'}
-                onClick={() => setSelectedTab('explore')}
-              />
-            </div>
-          </DropDown>
 
-          <SearchBar show={selectedTab == 'discover' ? true : false} >
-            <div className="tabs flex-row">
-              <Tab
-                text="Discover"
-                selected={selectedTab === 'discover'}
-                onClick={() => setSelectedTab('discover')}
-              />
-              <Tab
-                text="Explore"
-                selected={selectedTab === 'explore'}
-                onClick={() => setSelectedTab('explore')}
-              />
-            </div>
-          </SearchBar>
+            <SearchBar show={selectedTab == 'discover' ? true : false} >
+              <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} mobile={false} />
+            </SearchBar>
+          </div>
 
           <div className="flex-row slider">
             <Splide
