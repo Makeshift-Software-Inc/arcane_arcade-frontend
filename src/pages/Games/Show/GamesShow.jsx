@@ -145,6 +145,7 @@ const GamesShow = ({ match, history }) => {
         <meta charSet="utf-8" />
         <title>
           Buy
+          {' '}
           {selectedGame.title}
           {' '}
           on Arcane Arcade
