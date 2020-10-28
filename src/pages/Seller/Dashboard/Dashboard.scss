@@ -29,30 +29,37 @@
     margin: 2rem 0;
   }
 
-  .chart-filters {
-    width: 100%;
+  .info p {
+    color: aliceblue;
+    font-family: "Montserrat";
+    font-size: 21px;
+    letter-spacing: 0.3px;
+  }
 
-    .button-bar {
-      display: flex;
-    }
-    .button-bar__item {
-      width: 25vw;
+  .button-bar {
+    display: flex;
+  }
+  .button-bar__item {
+    width: 25vw;
 
-      button {
-        width: 100%;
-        padding: 1em;
-        font-size: 19px;
-        background-color: transparent;
+    button {
+      width: 100%;
+      padding: 1em;
+      font-size: 19px;
+      background-color: transparent;
 
-        &:hover,
-        &.active {
-          cursor: pointer;
-          background-color: #463af3;
-          color: whitesmoke;
-        }
+      &:hover,
+      &.active {
+        cursor: pointer;
+        background-color: #463af3;
+        color: whitesmoke;
       }
     }
   }
+  .chart-filters {
+    width: 100%;
+  }
+
 
   .listings {
     width: 1100px;

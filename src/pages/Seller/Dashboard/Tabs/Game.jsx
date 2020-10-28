@@ -10,8 +10,8 @@ const Game = ({ game }) => (
         <p>{game.title}</p>
 
         <div className="actions">
-          <div className="topcoat-button-bar">
-            <div className="topcoat-button-bar__item">
+          <div className="button-bar">
+            <div className="button-bar__item">
               <Link key={game.id} to={`/games/${game.slug}`}>
                 <button type="button" className="topcoat-button-bar__button">
                   View
@@ -19,7 +19,7 @@ const Game = ({ game }) => (
               </Link>
             </div>
 
-            <div className="topcoat-button-bar__item">
+            <div className="button-bar__item">
               <Link key={game.id} to={`/games/${game.slug}/edit`}>
                 <button type="button" className="topcoat-button-bar__button">
                   Edit
@@ -27,7 +27,7 @@ const Game = ({ game }) => (
               </Link>
             </div>
 
-            <div className="topcoat-button-bar__item">
+            <div className="button-bar__item">
               <Link
                 key={game.id}
                 to={`/sell-your-game/${game.id}/distribution/add`}
