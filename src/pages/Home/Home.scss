@@ -113,7 +113,13 @@
       .games {
         grid-template-columns: repeat(5, 1fr);
         grid-gap: 43px;
-        width:100vw
+        width: 100vw;
+
+        .game-listing {
+          img {
+            height: 173px
+          }
+        }
       }
     }
 
@@ -122,6 +128,12 @@
       .games {
         grid-template-columns: repeat(4, 1fr);
         grid-gap: 33px;
+
+         .game-listing {
+          img {
+            height: 153px
+          }
+        }
       }
     }
 
@@ -130,6 +142,12 @@
       .games {
         grid-template-columns: repeat(3, 1fr);
         grid-gap: 23px;
+
+         .game-listing {
+          img {
+            height: 123px
+          }
+        }
       }
     }
 
@@ -137,6 +155,11 @@
 
       .games {
         grid-template-columns: repeat(2, 1fr);
+        .game-listing {
+          img {
+            height: 93px
+          }
+        }
       }
     }
   }
@@ -388,7 +411,6 @@
 
     input[type='search'] {
       outline: none;
-      padding: 0.3em 2.5em;
       margin-right: 1em;
       border-radius: 15px;
     }
@@ -449,14 +471,49 @@
     max-width: 1640px;
     width: 100%;
 
+    .homepage-dropdown {
+      display: none;
+    }
+
+    .filters-btn {
+      display: none;
+    }
 
 
-    @media (max-width:768px) {
 
-     position: relative;
+      @media (max-width:768px) {
 
-      .top-search-bar {
-        flex-direction: column;
+      .top-search-bar .advanced-search {
+            flex-direction: column;
+            display: none;
+        }
+
+      position: relative;
+
+      .homepage-dropdown {
+        display: flex;
+
+         
+
+        .drop-bar {
+          .browse-listings {
+            width: 100%;
+          }
+
+          .top-search-bar {
+            display: flex;
+            flex-direction: column;
+          }
+        }
+      }
+
+
+
+      .filters-btn {
+        display: flex;
+        padding: 17px 25px;
+        font-size: 17px;
+        color: #FFFFFF;
       }
     }
 

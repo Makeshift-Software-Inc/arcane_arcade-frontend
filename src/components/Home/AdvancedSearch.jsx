@@ -5,30 +5,9 @@ import { useStore } from '../../store';
 
 import RangeSlider from '../Form/Slider/Range';
 import SearchInput from '../Form/SearchInput/SearchInput';
+import Select from './Input/Select';
 
 
-const Select = ({ value, onChange, options, keys = false }) => (
-  <select className="" value={value} onChange={onChange}>
-
-    {keys ?  
-
-      (Object.keys(options).map((option) => (
-        <option key={option} value={option}>
-          {options[option]}
-        </option>
-      ))
-      ) : (
-
-      options.map((option) => (
-      <option key={option} value={option}>
-        {option}
-      </option>
-    ))
-    )
-
-  }
-  </select>
-);
 
 const AdvancedSearch = ({showFilters = true}) => {
   const {
@@ -58,12 +37,12 @@ const AdvancedSearch = ({showFilters = true}) => {
   };
 
   return (
-    <div className="browse-listings flex-column flex-grow">
-      <div id="navbarBasicExample" className="flex-row flex-grow justify-flex-end search-filters">
+    <div className="browse-listings flex-column flex-grow advanced-search">
+      <div className="flex-row flex-grow justify-flex-end search-filters">
 
        
-       {showFilters &&
-        <div className="navbar-start flex-column flex-grow">
+      
+        <div className={`navbar-start flex-column flex-grow ${ !showFilters ? 'visibility-hidden' : ''}`}>
 
           <div className="flex-row flex-grow">
             <div className="search-item flex-row align-center">
@@ -115,7 +94,7 @@ const AdvancedSearch = ({showFilters = true}) => {
           </div>
 
         </div>
-      }
+
 
   
 

@@ -9,7 +9,7 @@ const SearchBar = ({ children, onSubmit, show = true }) => (
 
     { 
       show &&
-      <div className="flex-row flex-grow justify-flex-end">
+      <div className="flex-row flex-grow justify-flex-end advanced-search">
 
           <AdvancedSearch showFilters={false}/>
 

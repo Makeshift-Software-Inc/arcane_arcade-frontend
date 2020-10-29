@@ -83,6 +83,10 @@ code {
   align-items: start;
 }
 
+.align-flex-end {
+  align-items: flex-end;
+}
+
 .justify-between {
   justify-content: space-between;
 }
@@ -131,4 +135,11 @@ button {
   background-color: #463af3;
   color: aliceblue;
   border: none;
+  outline: none;
+}
+
+.visibility-hidden {
+  visibility: hidden;
+  width: 0;
+  height: 0;
 }

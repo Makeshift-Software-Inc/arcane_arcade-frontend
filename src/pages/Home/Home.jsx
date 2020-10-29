@@ -59,6 +59,7 @@ const Home = () => {
   } = useStore();
 
   const [selectedTab, setSelectedTab] = useState('explore');
+  const [filtersOpen, setFiltersOpen] = useState(false);
 
   useEffect(() => {
     load();
@@ -135,16 +136,26 @@ const Home = () => {
 
       <div className="page-container flex-column flex-grow align-center">
         <div className="flex-column home-page-container">
-          <div className="flex-row">
-            <DropDown activeTab={selectedTab}>
+    
+            
+      
+             <DropDown activeTab={selectedTab}>
               <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} mobile={true} />
-            </DropDown>
+            </DropDown> 
 
 
             <SearchBar show={selectedTab == 'discover' ? true : false} >
               <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} mobile={false} />
             </SearchBar>
-          </div>
+  
+
+          {
+            selectedTab == 'discover' &&
+            <div className="flex-column align-flex-end filters-btn" onClick={() => setFiltersOpen(true)}>
+              <p>Filters</p>
+            </div>
+          }
+
 
           <div className="flex-row slider">
             <Splide
