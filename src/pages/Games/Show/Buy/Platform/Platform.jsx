@@ -5,7 +5,7 @@ import Select from '../Select/Select';
 import windowsIcon from '../../../../../img/platform_icons/WINDOWS_blue.svg';
 import macIcon from '../../../../../img/platform_icons/MAC_blue.svg';
 import xb1Icon from '../../../../../img/platform_icons/XB1_blue.svg';
-import linuxIcon from '../../../../../img/platform_icons/linux_blue.svg';
+import linuxIcon from '../../../../../img/platform_icons/linux.svg';
 import switchIcon from '../../../../../img/platform_icons/SWITCH_blue.svg';
 import ps4Icon from '../../../../../img/platform_icons/PS4_blue.svg';
 
