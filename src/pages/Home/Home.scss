@@ -151,11 +151,6 @@
 
       .games {
         grid-template-columns: repeat(2, 1fr);
-        .game-listing {
-          img {
-            height: 93px
-          }
-        }
       }
     }
   }
@@ -167,6 +162,7 @@
 
     .discover {
       width: 100%;
+      padding: 0 35px;
       margin-top: 85px;
 
       .title-container { 
@@ -175,13 +171,14 @@
         margin-bottom: 34px;
         font-family: Montserrat;
         font-size: 25px;
-        font-weight: 500;
+        font-weight: 600;
         line-height: 1.2;
         text-align: left;
         color: #e4e4e4;
       }
 
       .new-releases {
+        width: 100%;
         margin-bottom: 34px;
 
         .release-slider {
@@ -212,7 +209,7 @@
           }
 
           .releases-games-listing {
- 
+            position: relative;
             width: 100%;
             height: 100%;
             border-radius: 20px;
@@ -226,6 +223,7 @@
 
             .overlay {
               display: none;
+              font-size: 22px;
             }
 
             &:hover {
@@ -311,7 +309,27 @@
     @media (max-width:768px) {
       .discover {
         .new-releases {
+          width: 100%;
+
           .release-slider {
+            width: 100%;
+
+            .releases-games-listing {
+              position: relative;
+
+              .overlay {
+                font-size: 13px !important;
+                .description {
+                  display: none; 
+                }
+                .overlay-button {
+                  width: 100%;
+                  height: 25px !important;
+                  font-size: 11px !important;
+                }
+              }
+            }
+
             .splide__list {
               display: flex;
               flex-wrap: wrap;
@@ -323,6 +341,7 @@
 
               li.splide__slide {
                 width: 50% !important;
+                padding: 0 15px;
                 margin-bottom: 15px;
               }
             }
