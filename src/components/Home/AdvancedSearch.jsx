@@ -42,7 +42,7 @@ const AdvancedSearch = ({showFilters = true}) => {
 
        
       
-        <div className={`navbar-start flex-column flex-grow ${ !showFilters ? 'visibility-hidden' : ''}`}>
+        <div className={`navbar-start flex-column flex-grow ${ !showFilters ? 'display-none' : ''}`}>
 
           <div className="flex-row flex-grow">
             <div className="search-item flex-row align-center">

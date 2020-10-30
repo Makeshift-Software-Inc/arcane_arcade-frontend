@@ -139,7 +139,7 @@ const Home = () => {
     
             
       
-             <DropDown activeTab={selectedTab}>
+             <DropDown activeTab={filtersOpen ? "filters" : selectedTab}>
               <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} mobile={true} />
             </DropDown> 
 
@@ -148,13 +148,6 @@ const Home = () => {
               <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} mobile={false} />
             </SearchBar>
   
-
-          {
-            selectedTab == 'discover' &&
-            <div className="flex-column align-flex-end filters-btn" onClick={() => setFiltersOpen(true)}>
-              <p>Filters</p>
-            </div>
-          }
 
 
           <div className="flex-row slider">
