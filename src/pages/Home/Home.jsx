@@ -136,8 +136,6 @@ const Home = () => {
 
       <div className="page-container flex-column flex-grow align-center">
         <div className="flex-column home-page-container">
-    
-            
       
              <DropDown activeTab={filtersOpen ? "filters" : selectedTab}>
               <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} mobile={true} />
@@ -147,7 +145,6 @@ const Home = () => {
             <SearchBar show={selectedTab == 'discover' ? true : false} >
               <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} mobile={false} />
             </SearchBar>
-  
 
 
           <div className="flex-row slider">
@@ -199,9 +196,41 @@ const Home = () => {
                   return (
                     <SplideSlide key={game.id}>
                       <div className="releases-games-listing flew-row flex-grow" key={game.id}>
-                        <Link to={listingShowLink}>
-                          <img src={game.images[0]} alt={imageAlt} />
-                        </Link>
+                
+                        <img src={game.images[0]} alt={imageAlt} />
+
+                        <div className="flex-column align-center justify-between overlay">
+                          <p>{game.title}</p>
+
+                          <div className="description">
+                            <p>
+                              Dark Souls continues to push the boundaries with the latest, 
+                              ambitious chapter in the critically-acclaimed and genre-defining series. 
+                              Prepare yourself and Embrace The Darkness!
+                            </p>
+                          </div>
+
+
+                          <div className="flex-row price-info">
+                            <p>{game.currency_symbol}</p>
+                            <p>{game.price}</p>
+                            {' '}
+                            <p>{game.default_currency}</p>
+                          </div>
+
+                          <div className="overlay-button flex-row align-center justify-center trailer">
+                            <Link to={listingShowLink}>
+                              Watch Trailer
+                            </Link>
+                          </div>
+
+                          <div className="overlay-button flex-row align-center justify-center buy">
+                            <Link to={listingShowLink}>
+                              View
+                            </Link>
+                          </div>
+                        </div>
+
                         <div className="magic foolishIn info" />
                       </div>
                     </SplideSlide>

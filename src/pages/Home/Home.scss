@@ -88,16 +88,12 @@
       grid-gap: 52px;
 
       .game-listing {
-        width: 100%;
-        height: 100%;
+
 
         img {
           width: 100%;
           height: 233px;
         }
-
-        border-radius: 1.1em;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 
         &:hover {
           box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3),
@@ -205,21 +201,13 @@
            }
 
           .splide__list {
-            gap: 88px;
-            grid-template-columns: repeat(auto-fill, minmax(344px, 1fr));
-            grid-auto-flow: column;
-            grid-auto-columns: minmax(344px, 1fr);
-            display: grid;
-            width: 100%;
-            max-width: 1640px;
-
-            &::before,
-            &::after {
-              content: ‘’;
-            }
+            display: flex;
+            flex-direction: row;
+            max-width: 1670px;
 
             li.splide__slide {
-              width: 100% !important;
+              padding: 0 15px;
+              width: 25% !important;
             }
           }
 
@@ -227,13 +215,87 @@
  
             width: 100%;
             height: 100%;
-            border-radius: 1.1em;
+            border-radius: 20px;
  
             img {
-              height: 344px;
+              height: 100%;
               width: 100%;
+              object-fit: cover;
+              border-radius: 20px;
             }
-            
+
+            .overlay {
+              display: none;
+            }
+
+            &:hover {
+              .overlay {
+                display: flex;
+                padding: 20px 17px;
+                background: rgba(70, 58, 243, 0.80);
+                position: absolute;
+                height: 100%;
+                width: 100%;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                right: 0;
+                border-radius: 20px;
+                color: #FFFFFF;
+                text-align: center;
+                font-size: 22px;
+                font-weight: 600;
+                z-index: 9999;
+                -webkit-transition: all 0.4s ease-in-out 0s;
+                -moz-transition: all 0.4s ease-in-out 0s;
+                transition: all 0.4s ease-in-out 0s;
+
+                .price-info {
+                  color: #FFDD00;
+                }
+
+                .description {
+                  font-size: 14px;
+                  font-family:  Open Sans;
+                  font-weight: normal;
+                }
+
+                .overlay-button {
+                  width: 100%;
+                  max-width: 153px;
+                  height: 35px;
+                  font-size: 13px;
+                  border: 1px solid #FFFFFF;
+                  border-radius: 25px;
+                  opacity: 1;
+
+                  a {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: center;
+                  }
+
+                  &.buy {
+                    background-color: #FFFFFF;
+                    margin-top: 11px;
+
+                    a {
+                      color: #4539EE;
+                    }
+                  }
+
+                  &.trailer {
+                    background-color: #463AF3;
+
+                    a {
+                      color: #FFFFFF;
+                    }
+                  }
+                }
+              }
+            }
           }
 
         }
@@ -251,13 +313,23 @@
         .new-releases {
           .release-slider {
             .splide__list {
-              gap: 20px;
-              grid-template-columns: repeat(auto-fill, minmax(153px, 1fr));
-              grid-auto-columns: minmax(153px, 1fr);
+              display: flex;
+              flex-wrap: wrap;
+              transform: none !important;
 
               img {
                 height: 153px;
               }
+
+              li.splide__slide {
+                width: 50% !important;
+                margin-bottom: 15px;
+              }
+            }
+
+            .splide__pagination,
+            .splide__arrows {
+              display: none;
             }
           }
         }
