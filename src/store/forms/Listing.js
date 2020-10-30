@@ -3,6 +3,7 @@ import Base from './Base';
 import Errors from './Errors';
 
 import SupportedPlatform from '../models/SupportedPlatform';
+import SupportedLanguages from '../models/SupportedLanguages';
 import Category from '../models/Category';
 import Tag from '../models/Tag';
 import SystemRequirements from '../models/SystemRequirements';
@@ -35,6 +36,7 @@ const ListingForm = types
     attachments: types.array(UploadedFile),
     saved_files: types.array(types.reference(SavedFile)),
     release_date: types.optional(types.string, ''),
+    supported_languages: types.optional(SupportedLanguages, {}),
     preorderable: false,
     loaded: false,
   })
@@ -125,16 +127,27 @@ const ListingForm = types
     addSupportedPlatform(id, name) {
       self.supported_platforms.push(id);
       if (self.allowedSystemRequirementsFields().includes(name)) {
-        self.system_requirements.push({ name, description: '' });
+        self.system_requirements.push({ platform: name });
       }
     },
     removeSupportedPlatform(id, name) {
       self.supported_platforms = self.supported_platforms.filter(
         (platform) => id !== platform.id,
       );
+      if (name === 'PC') {
+        self.supported_platforms = self.supported_platforms.filter(
+          (platform) => !self.allowedSystemRequirementsFields().includes(platform.name),
+        );
+      }
       if (self.allowedSystemRequirementsFields().includes(name)) {
         self.system_requirements = self.system_requirements.filter(
-          (systemRequirement) => systemRequirement.name !== name,
+          (systemRequirement) => systemRequirement.platform !== name,
+        );
+      } else if (name === 'PC') {
+        self.system_requirements = self.system_requirements.filter(
+          (systemRequirement) => !self
+            .allowedSystemRequirementsFields()
+            .includes(systemRequirement.platform),
         );
       }
     },

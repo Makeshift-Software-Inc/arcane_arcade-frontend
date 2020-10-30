@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import { Helmet } from 'react-helmet';
 
 import { useStore } from '../../../store';
-import Form from './Form';
+import Form from './Form/Form';
 
 import Loading from '../../../components/Loading/Loading';
 

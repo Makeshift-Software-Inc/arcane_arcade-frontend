@@ -29,4 +29,11 @@ $gray-color: #c4c4c4;
     /* Microsoft Edge */
     color: $gray-color;
   }
+  &[type='checkbox'] {
+    width: 18px;
+    height: 18px;
+    margin-bottom: 0;
+    margin-right: 18px;
+    min-width: unset;
+  }
 }

@@ -5,12 +5,18 @@ import Tippy from '@tippyjs/react';
 import ReactTags from 'react-tag-autocomplete';
 import DatePicker from 'react-datepicker';
 
-import Errors from '../../../components/Errors/Errors';
+import Errors from '../../../../components/Errors/Errors';
 
-import Uploader from '../../../components/Uploader/Uploader';
+import Uploader from '../../../../components/Uploader/Uploader';
+
+import SystemRequirements from './SystemRequirements';
+import SupportedPlatforms from './SupportedPlatforms';
+import SupportedLanguages from './SupportedLanguages';
 
 import 'trix/dist/trix';
 import 'trix/dist/trix.css';
+
+import './Form.scss';
 
 const Form = ({
   form, onSubmit, text, isUpdate,
@@ -87,7 +93,7 @@ const Form = ({
   const releaseDateAsDate = form.release_date.length > 0 ? new Date(form.release_date) : null;
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} className="listing-form">
       <h1>{text}</h1>
 
       <div className="columns">
@@ -252,88 +258,29 @@ const Form = ({
         </div>
       </div>
 
-      <div>
-        <h4>Platforms Supported</h4>
-        <div className="flex-column">
-          {form.supportedPlatformOptions.map((platform) => {
-            const checked = !!form.supported_platforms.find(
-              (p) => p.id === platform.id,
-            );
-            return (
-              <React.Fragment key={platform.id}>
-                <label className="topcoat-checkbox" style={{ margin: 10 }}>
-                  <input
-                    type="checkbox"
-                    name={platform.name}
-                    data-id={platform.id}
-                    onChange={handleSupportedPlatformChange}
-                    checked={checked}
-                  />
-                  <div
-                    className="topcoat-checkbox__checkmark"
-                    style={{ marginRight: 10 }}
-                  />
-                  {platform.name}
-                </label>
-                {platform.children.length > 0 && (
-                  <div className="pc-platforms">
-                    {checked
-                      && platform.children.map((children) => (
-                        <label
-                          className="topcoat-checkbox"
-                          key={children.id}
-                          style={{ margin: 10 }}
-                        >
-                          <input
-                            type="checkbox"
-                            name={children.name}
-                            data-id={children.id}
-                            onChange={handleSupportedPlatformChange}
-                            checked={
-                              !!form.supported_platforms.find(
-                                (p) => p.id === children.id,
-                              )
-                            }
-                          />
-                          <div
-                            className="topcoat-checkbox__checkmark"
-                            style={{ marginRight: 10 }}
-                          />
-                          {children.name}
-                        </label>
-                      ))}
-                  </div>
-                )}
-              </React.Fragment>
-            );
-          })}
+      <div className="flex-row">
+        <div className="flex-column flex-1">
+          <label className="label">Languages Supported</label>
+          <SupportedLanguages languages={form.supported_languages} />
         </div>
       </div>
 
-      <div className="system-requirements">
-        {form.system_requirements.length > 0 && (
-          <React.Fragment>
-            <h4>System Requirements</h4>
-            {form.system_requirements.map((systemRequirement) => (
-              <div key={systemRequirement.name}>
-                <div className="topcoat-tab-bar">
-                  <label className="topcoat-tab-bar__item">
-                    <button type="button" className="topcoat-tab-bar__button">
-                      {systemRequirement.name}
-                    </button>
-                  </label>
-                </div>
-
-                <textarea
-                  name="description"
-                  className="topcoat-text-input"
-                  value={systemRequirement.description}
-                  onChange={systemRequirement.onChange}
-                />
-              </div>
-            ))}
-          </React.Fragment>
-        )}
+      <div className="flex-row">
+        <div className="flex-column align-start supported-platforms">
+          <label className="label">Platforms Supported</label>
+          <SupportedPlatforms
+            options={form.supportedPlatformOptions}
+            platforms={form.supported_platforms}
+            onChange={handleSupportedPlatformChange}
+          />
+        </div>
+        <div className="flex-column flex-1">
+          {form.system_requirements.length > 0 && (
+            <SystemRequirements
+              system_requirements={form.system_requirements}
+            />
+          )}
+        </div>
       </div>
 
       {form.releaseDateInFuture() && (

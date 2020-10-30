@@ -2,6 +2,7 @@ import { types, getParent } from 'mobx-state-tree';
 import BaseUpdate from './BaseUpdate';
 import Seller from './Seller';
 import SupportedPlatformListing from './SupportedPlatformListing';
+import SupportedLanguages from './SupportedLanguages';
 import Category from './Category';
 import Tag from './Tag';
 
@@ -11,6 +12,7 @@ const Game = types
     slug: types.string,
     title: types.string,
     description: types.string,
+    raw_description: types.string,
     price: types.number,
     images: types.array(types.string),
     videos: types.array(types.string),
@@ -29,6 +31,8 @@ const Game = types
     categories: types.array(types.reference(Category)),
     tags: types.array(types.reference(Tag)),
     release_date: types.string,
+    featured: types.boolean,
+    supported_languages: types.maybeNull(SupportedLanguages),
   })
   .views((self) => ({
     supportedPlatforms() {
