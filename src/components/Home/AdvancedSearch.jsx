@@ -8,7 +8,6 @@ import SearchInput from '../Form/SearchInput/SearchInput';
 import Select from './Input/Select';
 
 
-
 const AdvancedSearch = ({showFilters = true}) => {
   const {
     forms: { search },
@@ -37,15 +36,13 @@ const AdvancedSearch = ({showFilters = true}) => {
   };
 
   return (
-    <div className="browse-listings flex-column flex-grow advanced-search">
-      <div className="flex-row flex-grow justify-flex-end search-filters">
+    <div className="browse-listings flex-row flex-grow advanced-search search-filters">
 
-       
-      
-        <div className={`navbar-start flex-column flex-grow ${ !showFilters ? 'display-none' : ''}`}>
+        <div className={`navbar-start flex-column ${ !showFilters ? 'display-none' : ''}`}>
 
-          <div className="flex-row flex-grow">
-            <div className="search-item flex-row align-center">
+          <div className="flex-row flex-grow flex-wrap justify-between">
+
+            <div className="search-item flex-row flex-wrap align-center">
               <label htmlFor="search-sort-by">Sort By:</label>
               <Select 
                 name="sort_by"
@@ -57,7 +54,7 @@ const AdvancedSearch = ({showFilters = true}) => {
               />
             </div>
 
-            <div className="search-item flex-row align-center">
+            <div className="search-item flex-row flex-wrap align-center">
               <label htmlFor="search-platform">Platform:</label>
               <Select 
                 name="platform"
@@ -70,8 +67,9 @@ const AdvancedSearch = ({showFilters = true}) => {
             </div>
           </div>
 
-          <div className="flex-row more-filters align-center">
-            <div className="search-item">
+          <div className="flex-row flex-wrap justify-between more-filters align-center">
+
+            <div className="search-item flex-row flex-wrap">
               <label htmlFor="search-genre">Genre:</label>
               <Select 
                 name="genre"
@@ -83,7 +81,7 @@ const AdvancedSearch = ({showFilters = true}) => {
               />
             </div>
 
-            <div className="search-item flex-row align-center">
+            <div className="search-item flex-row flex-wrap align-center">
               <label htmlFor="price-range">Price Range:</label>
               <RangeSlider
                 range={search.price.defaultRange()}
@@ -92,22 +90,14 @@ const AdvancedSearch = ({showFilters = true}) => {
               />
             </div>
           </div>
-
         </div>
 
-
-  
-
-        <div className="flex-row align-center justify-flex-end">
+        <div className="flex-row align-center justify-flex-end flex-grow">
             <form onSubmit={handleSubmit}>
               <SearchInput onChange={handleChange} value={search.query}  name="query"/>
             </form>
         </div>
 
-
-      </div>
-
-      
     </div>
   );
 };
