@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import { useStore } from '../../../store';
 
 import AdvancedSearch from '../AdvancedSearch';
+import RangeSlider from '../../Form/Slider/Range';
 
 import arrowIcon from './../../../img/light-combo-box-bg.png';
 import closeIcon from './../../../img/close_white.svg';
@@ -28,6 +29,10 @@ const DropDown = ({ content, onChange, children, activeTab }) => {
     if (e) e.preventDefault();
     setOpenModal(false);
     games.search();
+  };
+
+  const setPriceValues = (values) => {
+    search.price.setValues(values);
   };
 
 
@@ -125,23 +130,31 @@ const DropDown = ({ content, onChange, children, activeTab }) => {
              
             </div>
 
-            <div className="filters-tab filters-container range-mobile flex-column">
-              <div className="flex-row justify-between align-center">
+            <div className="filters-tab filters-container genre-mobile flex-column">
+              <div className="filter flex-row justify-between align-center">
                   <p>Range:</p>
                 <img src={arrowIcon} alt="close-icon"/>
+              </div>
+
+              <div className="flex-column filters-list">
+                <div className="filter">
+                  <RangeSlider
+                    range={search.price.defaultRange()}
+                    values={search.price.values()}
+                    setValues={setPriceValues}
+                  />
+                </div>
               </div>
           
             </div>
 
-            <button className="button align-self-flex-end" onClick={()  => handleSubmit()}>
-              Submit
-            </button>
-
+            <div className="filters-tab filters-container genre-mobile flex-column">
+              <button className="dropdown-modal-button button align-self-flex-end" onClick={()  => handleSubmit()}>
+                DONE
+              </button>
+            </div>
           </div>
-        
       }
-
-      
     </div>
 )};
 
