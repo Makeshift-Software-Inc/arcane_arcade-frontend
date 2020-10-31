@@ -136,10 +136,10 @@ const Home = () => {
 
       <div className="page-container flex-column flex-grow align-center">
         <div className="flex-column home-page-container">
-      
+
              <DropDown activeTab={filtersOpen ? "filters" : selectedTab}>
               <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} mobile={true} />
-            </DropDown> 
+            </DropDown>
 
 
             <SearchBar show={selectedTab == 'discover' ? true : false} >
@@ -155,7 +155,6 @@ const Home = () => {
                 clones: 0,
                 lazyLoad: true,
                 waitForTransition: true,
-
               }}
             >
               {
@@ -167,7 +166,7 @@ const Home = () => {
 
         <div className="discover flex-column align-center">
 
-          { selectedTab == 'discover' ? ( 
+          { selectedTab == 'discover' ? (
             <div className="new-releases flex-column align-center">
               <div className="flex-row flex-grow title-container">
                 <h1>New Releases</h1>
@@ -196,7 +195,7 @@ const Home = () => {
                   return (
                     <SplideSlide key={game.id}>
                       <div className="releases-games-listing flew-row flex-grow" key={game.id}>
-                
+
                         <img src={game.images[0]} alt={imageAlt} />
 
                         <div className="flex-column align-center justify-between overlay">
@@ -204,8 +203,8 @@ const Home = () => {
 
                           <div className="description">
                             <p>
-                              Dark Souls continues to push the boundaries with the latest, 
-                              ambitious chapter in the critically-acclaimed and genre-defining series. 
+                              Dark Souls continues to push the boundaries with the latest,
+                              ambitious chapter in the critically-acclaimed and genre-defining series.
                               Prepare yourself and Embrace The Darkness!
                             </p>
                           </div>
