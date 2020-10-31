@@ -66,6 +66,16 @@
     }
   }
 
+  .splide__pagination__page {
+    width: 18px;
+    height: 18px;
+
+    &.is-active {
+      height: 18px;
+      width: 18px;
+    }
+  }
+
   .tabs-mobile {
     display: none;
 
@@ -438,6 +448,8 @@
         width: 60%;
         height: 600px;
       }
+
+
 
       .slider-item {
         flex-direction: row;
