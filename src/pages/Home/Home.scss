@@ -189,13 +189,14 @@
 
         .release-slider {
 
-          max-width: 1900px;
+          max-width: 1500px;
           width: 100vw;
+          height: 400px;
           display: flex;
           justify-content: center;
 
           .splide__track {
-            max-width: 1670px;
+            max-width: 1400px;
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -457,7 +458,7 @@
         }
 
         .slider-info {
-          height: 300px;
+          height: 350px;
           padding: 25px 21px;
 
         }
