@@ -141,8 +141,13 @@
 
          .game-listing {
           img {
-            height: 150px;
-            width: 150px;
+            height: 30vw;
+            width: 30vw;
+          }
+
+          .overlay {
+            height: 30vw;
+            width: 30vw;
           }
         }
       }
@@ -251,7 +256,7 @@
                 -moz-transition: all 0.4s ease-in-out 0s;
                 transition: all 0.4s ease-in-out 0s;
 
-                @media (max-width:768px) {
+                @media (max-width:1024px) {
                   height: 36vw;
                 }
                 .price-info {
@@ -313,7 +318,7 @@
 
     }
 
-    @media (max-width:768px) {
+    @media (max-width:1024px) {
       .discover {
         .new-releases {
           width: 100%;
@@ -484,6 +489,10 @@
     }
 
     .search-item {
+
+      &.price-range {
+        margin-left: 10px;
+      }
 
       select {
         width: 130px;

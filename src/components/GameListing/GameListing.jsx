@@ -10,7 +10,7 @@ const GameListing = ({ game }) => {
   return (
     <div className="game-listing" key={game.id}>
       <img src={game.images[0]} alt={imageAlt} />
-    
+
       <div className="flex-column align-center justify-center overlay">
         <p>{game.title}</p>
         <div className="flex-row price-info">

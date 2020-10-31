@@ -44,11 +44,11 @@ const AdvancedSearch = ({showFilters = true}) => {
 
             <div className="search-item flex-row flex-wrap align-center">
               <label htmlFor="search-sort-by">Sort By:</label>
-              <Select 
+              <Select
                 name="sort_by"
                 id="search-sort-by"
                 value={search.sort_by}
-                onChange={handleChange}  
+                onChange={handleChange}
                 options={sortByOptions}
                 keys={true}
               />
@@ -56,11 +56,11 @@ const AdvancedSearch = ({showFilters = true}) => {
 
             <div className="search-item flex-row flex-wrap align-center">
               <label htmlFor="search-platform">Platform:</label>
-              <Select 
+              <Select
                 name="platform"
                 id="search-platform"
                 value={search.platform}
-                onChange={handleChange} 
+                onChange={handleChange}
                 options={platformOptions}
                 keys={true}
               />
@@ -71,7 +71,7 @@ const AdvancedSearch = ({showFilters = true}) => {
 
             <div className="search-item flex-row flex-wrap">
               <label htmlFor="search-genre">Genre:</label>
-              <Select 
+              <Select
                 name="genre"
                 id="search-genre"
                 value={search.genre}
@@ -81,7 +81,7 @@ const AdvancedSearch = ({showFilters = true}) => {
               />
             </div>
 
-            <div className="search-item flex-row flex-wrap align-center">
+            <div className="search-item flex-row flex-wrap align-center price-range">
               <label htmlFor="price-range">Price Range:</label>
               <RangeSlider
                 range={search.price.defaultRange()}
