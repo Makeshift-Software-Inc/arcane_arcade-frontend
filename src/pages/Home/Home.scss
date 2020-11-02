@@ -71,8 +71,9 @@
     height: 18px;
 
     &.is-active {
-      height: 18px;
-      width: 18px;
+      height: 16px;
+      width: 16px;
+      margin: 5px;
     }
   }
 
@@ -249,7 +250,7 @@
               .overlay {
                 display: flex;
                 padding: 20px 17px;
-                background: rgba(70, 58, 243, 0.80);
+                background: rgba(70, 58, 243, 0.96);
                 position: absolute;
                 height: 100%;
                 width: 100%;
@@ -580,7 +581,8 @@
   .home-page-container {
     max-width: 1640px;
     width: 100%;
-
+    padding: 2em;
+    
     .homepage-dropdown {
       display: none;
     }
