@@ -507,6 +507,11 @@
 
       select {
         width: 130px;
+        margin-right: 10px;
+        &.search-platform,
+        &.search-genre {
+          max-width: 70px
+        }
       }
 
       label {

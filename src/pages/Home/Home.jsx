@@ -90,6 +90,8 @@ const Home = () => {
   const [trailerOpen, setTrailerOpen] = useState(false);
   const [trailerGame, setTrailerGame] = useState(false);
 
+  const [showOverlay, setShowOverlay] = useState(false);
+
   const handleTrailer = (game) => {
     setTrailerGame(game);
     setTrailerOpen(true);
@@ -241,19 +243,22 @@ const Home = () => {
 
                   return (
                     <SplideSlide key={game.id}>
-                      <div className="releases-games-listing flew-row flex-grow" key={game.id}>
+                      <div className="releases-games-listing flew-row flex-grow" key={game.id} >
                 
                         <img src={game.images[0]} alt={imageAlt} />
 
                         <div className="flex-column align-center justify-between overlay">
-                          <p>{game.title}</p>
+                          <div className="flex-column flex-grow justify-evenly align-center">
+                            <p>{game.title}</p>
 
-                          <div className="description">
-                            <p>
-                              Dark Souls continues to push the boundaries with the latest, 
-                              ambitious chapter in the critically-acclaimed and genre-defining series. 
-                              Prepare yourself and Embrace The Darkness!
-                            </p>
+                            <div className="description">
+                              <p>
+                                Dark Souls continues to push the boundaries with the latest, 
+                                ambitious chapter in the critically-acclaimed and genre-defining series. 
+                                Prepare yourself and Embrace The Darkness!
+                              </p>
+                            </div>
+                       
                           </div>
 
                           <div className="flex-row price-info">
@@ -262,7 +267,6 @@ const Home = () => {
                             {' '}
                             <p>{game.default_currency}</p>
                           </div>
-
 
                           <div className="flex-column flex-grow justify-flex-end align-center overlay-buttons">
                             <div className="overlay-button flex-row align-center justify-center trailer" onClick={() => handleTrailer(game)}>
@@ -277,7 +281,6 @@ const Home = () => {
                               </Link>
                             </div>
                           </div>
-
                         </div>
 
                         <div className="magic foolishIn info" />
@@ -295,9 +298,11 @@ const Home = () => {
           }
 
           <div className="promotions flex-column flex-grow">
-            <div className="title-container">
-              <h1>Promotions</h1>
-            </div>
+            { selectedTab == 'discover' &&
+              <div className="title-container">
+                <h1>Promotions</h1>
+              </div>
+            }
 
             <div className="games flex-row flex-grow flex-wrap">
 

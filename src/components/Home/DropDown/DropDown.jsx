@@ -68,7 +68,7 @@ const DropDown = ({ content, onChange, children, activeTab }) => {
       {
           openModal && 
           <div className="filters-modal flex-column justify-flex-start" >
-
+          <div className="flex-column flex-grow">
             <div className="filters-tab flex-row justify-between">
               <p>Filters</p>
               <img src={closeIcon} alt="close-icon" onClick={() => setOpenModal(false) }/>
@@ -153,8 +153,9 @@ const DropDown = ({ content, onChange, children, activeTab }) => {
                 </div>
               }
             </div>
+          </div>  
 
-            <div className="filters-tab filters-container genre-mobile flex-column">
+            <div className="flex-row">
               <button className="dropdown-modal-button button align-self-flex-end" onClick={()  => handleSubmit()}>
                 DONE
               </button>

@@ -1,7 +1,7 @@
 import React from 'react';
 
-const Select = ({ value, onChange, options, name, id, keys = false }) => (
-  <select className="" value={value} onChange={onChange} name={name} id={id} >
+const Select = ({ value, onChange, options, name, id, className, keys = false }) => (
+  <select className="" value={value} onChange={onChange} name={name} id={id} className={className} >
 
     {keys ?  
 

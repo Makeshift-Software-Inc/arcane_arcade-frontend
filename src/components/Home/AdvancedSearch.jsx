@@ -40,12 +40,13 @@ const AdvancedSearch = ({showFilters = true}) => {
 
         <div className={`navbar-start flex-column ${ !showFilters ? 'display-none' : ''}`}>
 
-          <div className="flex-row flex-grow flex-wrap justify-between">
+          <div className="flex-row flex-grow flex-wrap">
 
             <div className="search-item flex-row flex-wrap align-center">
               <label htmlFor="search-sort-by">Sort By:</label>
               <Select 
                 name="sort_by"
+                className="search-sort-by"
                 id="search-sort-by"
                 value={search.sort_by}
                 onChange={handleChange}  
@@ -58,6 +59,7 @@ const AdvancedSearch = ({showFilters = true}) => {
               <label htmlFor="search-platform">Platform:</label>
               <Select 
                 name="platform"
+                className="search-platform"
                 id="search-platform"
                 value={search.platform}
                 onChange={handleChange} 
@@ -65,14 +67,12 @@ const AdvancedSearch = ({showFilters = true}) => {
                 keys={true}
               />
             </div>
-          </div>
-
-          <div className="flex-row flex-wrap justify-between more-filters align-center">
-
-            <div className="search-item flex-row flex-wrap">
+        
+            <div className="search-item flex-row flex-wrap align-center">
               <label htmlFor="search-genre">Genre:</label>
               <Select 
                 name="genre"
+                className="search-genre"
                 id="search-genre"
                 value={search.genre}
                 onChange={handleChange}
