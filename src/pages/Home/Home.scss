@@ -84,10 +84,9 @@
       max-width: 100%;
       width: 100%;
       display: grid;
-      grid-gap: 52px;
+      grid-gap: 48px;
 
       .game-listing {
-
 
         img {
           width: 100%;
@@ -202,6 +201,7 @@
             max-width: 1670px;
 
             li.splide__slide {
+
               padding: 0 15px;
               width: 25% !important;
             }
@@ -223,6 +223,8 @@
             .overlay {
               display: none;
               font-size: 22px;
+
+
             }
 
             &:hover {
@@ -255,6 +257,10 @@
                   font-size: 14px;
                   font-family:  Open Sans;
                   font-weight: normal;
+                }
+
+                .overlay-buttons {
+                  width: 100%;
                 }
 
                 .overlay-button {
@@ -438,6 +444,12 @@
           height: 20px;
           margin: 20px;
           position: absolute;
+          cursor: pointer;
+        }
+
+        .play-btn {
+          width: 139px;
+          height: 139px;
         }
       }
 

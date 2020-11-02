@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import './GameListing.scss';
 
-const GameListing = ({ game }) => {
+const GameListing = ({ game, handleTrailer }) => {
   const imageAlt = `${game.title} cover`;
   const listingShowLink = `/games/${game.slug}`;
 
@@ -11,7 +11,7 @@ const GameListing = ({ game }) => {
     <div className="game-listing" key={game.id}>
       <img src={game.images[0]} alt={imageAlt} />
     
-      <div className="flex-column align-center justify-center overlay">
+      <div className="flex-column flex-grow align-center justify-center overlay">
         <p>{game.title}</p>
         <div className="flex-row price-info">
           <p>{game.currency_symbol}</p>
@@ -20,12 +20,18 @@ const GameListing = ({ game }) => {
           <p>{game.default_currency}</p>
         </div>
 
-        <p className="watch-trailer">Watch Trailer</p>
-        <div className="overlay-button flex-row align-center justify-center buy">
-          <Link to={listingShowLink}>
-            View
-          </Link>
+        <div className="overlay-buttons flex-column justify-flex-end align-center flex-grow">
+          <div className="watch-trailer flex-row align-center justify-center" onClick={() => handleTrailer(game)} >
+            Watch Trailer
+          </div>
+
+          <div className="overlay-button flex-row align-center justify-center buy">
+            <Link to={listingShowLink}>
+              View
+            </Link>
+          </div>
         </div>
+
       </div>
     </div>
   );

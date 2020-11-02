@@ -69,7 +69,7 @@ const SplideVideoItem = ({ src, thumbnail, closeTrailer }) => (
         controls
         muted
       />
-      <img src={closeButton} alt="close-icon" class="close-player" onClick={() => closeTrailer()} />
+      <img src={closeButton} alt="close-icon" className="close-player" onClick={() => closeTrailer()} />
     </div>
   </SplideSlide>
 );
@@ -175,11 +175,9 @@ const Home = () => {
               <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} mobile={true} />
             </DropDown> 
 
-
             <SearchBar show={selectedTab == 'discover' ? true : false} >
               <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} mobile={false} />
             </SearchBar>
-
 
           <div className="flex-row slider">
             <Splide
@@ -207,7 +205,6 @@ const Home = () => {
                     />
                     )
                   })
-                 
                 )
               }
             </Splide>
@@ -259,7 +256,6 @@ const Home = () => {
                             </p>
                           </div>
 
-
                           <div className="flex-row price-info">
                             <p>{game.currency_symbol}</p>
                             <p>{game.price}</p>
@@ -267,17 +263,21 @@ const Home = () => {
                             <p>{game.default_currency}</p>
                           </div>
 
-                          <div className="overlay-button flex-row align-center justify-center trailer" onClick={() => handleTrailer(game)}>
-                         
-                              Watch Trailer
-                          
+
+                          <div className="flex-column flex-grow justify-flex-end align-center overlay-buttons">
+                            <div className="overlay-button flex-row align-center justify-center trailer" onClick={() => handleTrailer(game)}>
+                              <p>
+                                Watch Trailer
+                              </p>
+                            </div>
+
+                            <div className="overlay-button flex-row align-center justify-center buy">
+                              <Link to={listingShowLink}>
+                                View
+                              </Link>
+                            </div>
                           </div>
 
-                          <div className="overlay-button flex-row align-center justify-center buy">
-                            <Link to={listingShowLink}>
-                              View
-                            </Link>
-                          </div>
                         </div>
 
                         <div className="magic foolishIn info" />
@@ -304,7 +304,7 @@ const Home = () => {
               {searching ? (
                 <Loading />
               ) : (
-                <GamesListings games={searchResults} loading={searching} />
+                <GamesListings games={searchResults} loading={searching} handleTrailer={handleTrailer}/>
               )}
 
             </div>

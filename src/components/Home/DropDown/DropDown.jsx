@@ -52,8 +52,9 @@ const DropDown = ({ content, onChange, children, activeTab }) => {
           {activeTab === 'discover' && <AdvancedSearch showFilters={false} /> }
         </div>
          {activeTab === 'discover' && 
-          <div className="flex-column align-flex-end filters-btn" onClick={() => setOpenModal(true)}>
+          <div className="flex-row justify-flex-end align-center filters-btn" onClick={() => setOpenModal(true)}>
             <p>Filters</p>
+            <i className="fas fa-sort"></i>
           </div>
         }
       </div>

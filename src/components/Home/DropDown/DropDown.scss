@@ -6,6 +6,12 @@
   
   box-shadow: 0px 1px 1px #FFFFFF26;
 
+  .filters-btn {
+    p {
+      margin-right: 10px;
+    }
+  }
+
   .drop-btn,
   .tab {
     text-align: left;
@@ -13,7 +19,6 @@
     font-family: Montserrat;
     display: flex;
     flex-direction: row;
-
   }
 
   .drop-btn,
