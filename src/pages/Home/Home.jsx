@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
 
 import { Splide, SplideSlide } from '@splidejs/react-splide';
+import ReactPlayer from 'react-player';
+
 import { useStore } from '../../store';
 
 // import Api from '../../services/Api';
@@ -29,10 +31,14 @@ import psIcon from '../../img/platform_icons/PS4.svg';
 import switchIcon from '../../img/platform_icons/SWITCH.svg';
 import xbIcon from '../../img/platform_icons/XB1.svg';
 
+
+import playButton from '../../img/Play_Button.svg';
+import closeButton from '../../img/close_white.svg';
+
 import './Home.scss';
 
 
-const SplideItem = ({ data }) => (
+const SplideImageItem = ({ data }) => (
   <SplideSlide>
     <div className="slider-item flex-row">
       <img
@@ -50,6 +56,26 @@ const SplideItem = ({ data }) => (
   </SplideSlide>
 );
 
+const SplideVideoItem = ({ src, thumbnail, closeTrailer }) => (
+  <SplideSlide>
+    <div className=" flex-row trailer-container">
+      <ReactPlayer
+        className="trailer-player"
+        url={src}
+        light={thumbnail}
+        playing={false}
+        preload={thumbnail}
+        playIcon={<img src={playButton} className="play-btn" alt="play-btn" />}
+        controls
+        muted
+      />
+      <img src={closeButton} alt="close-icon" class="close-player" onClick={() => closeTrailer()} />
+    </div>
+  </SplideSlide>
+);
+
+
+
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const {
@@ -58,8 +84,16 @@ const Home = () => {
     },
   } = useStore();
 
-  const [selectedTab, setSelectedTab] = useState('explore');
+  const [selectedTab, setSelectedTab] = useState('discover');
   const [filtersOpen, setFiltersOpen] = useState(false);
+
+  const [trailerOpen, setTrailerOpen] = useState(false);
+  const [trailerGame, setTrailerGame] = useState(false);
+
+  const handleTrailer = (game) => {
+    setTrailerGame(game);
+    setTrailerOpen(true);
+  }
 
   useEffect(() => {
     load();
@@ -159,7 +193,22 @@ const Home = () => {
               }}
             >
               {
-                mainSplideData.map((item) => <SplideItem data={item} key={item.title} />)
+                !trailerOpen ? (
+                mainSplideData.map((item) => {
+                  return <SplideImageItem data={item} key={item.title} />})
+                ) : (
+                trailerGame.videos.map((item, i) => {
+                  return  (
+                    <SplideVideoItem 
+                      src={item} 
+                      key={item} 
+                      thumbnail={trailerGame.images.length > 0 ? trailerGame.images[i] : null} 
+                      closeTrailer={() => setTrailerOpen(false)}
+                    />
+                    )
+                  })
+                 
+                )
               }
             </Splide>
           </div>
@@ -218,10 +267,10 @@ const Home = () => {
                             <p>{game.default_currency}</p>
                           </div>
 
-                          <div className="overlay-button flex-row align-center justify-center trailer">
-                            <Link to={listingShowLink}>
+                          <div className="overlay-button flex-row align-center justify-center trailer" onClick={() => handleTrailer(game)}>
+                         
                               Watch Trailer
-                            </Link>
+                          
                           </div>
 
                           <div className="overlay-button flex-row align-center justify-center buy">
@@ -234,6 +283,7 @@ const Home = () => {
                         <div className="magic foolishIn info" />
                       </div>
                     </SplideSlide>
+
                   );
                 })}
               </Splide>
