@@ -13,14 +13,16 @@ const GameListing = ({ game, handleTrailer }) => {
     
       <div className="flex-column flex-grow align-center justify-center overlay">
         <p>{game.title}</p>
-        <div className="flex-row price-info">
-          <p>{game.currency_symbol}</p>
-          <p>{game.price}</p>
-          {' '}
-          <p>{game.default_currency}</p>
-        </div>
+        
 
         <div className="overlay-buttons flex-column justify-flex-end align-center flex-grow">
+          <div className="flex-row price-info">
+            <p>{game.currency_symbol}</p>
+            <p>{game.price}</p>
+            {' '}
+            <p>{game.default_currency}</p>
+          </div>
+        
           <div className="watch-trailer flex-row align-center justify-center" onClick={() => handleTrailer(game)} >
             Watch Trailer
           </div>

@@ -258,28 +258,29 @@ const Home = () => {
                                 Prepare yourself and Embrace The Darkness!
                               </p>
                             </div>
-                       
                           </div>
 
-                          <div className="flex-row price-info">
-                            <p>{game.currency_symbol}</p>
-                            <p>{game.price}</p>
-                            {' '}
-                            <p>{game.default_currency}</p>
-                          </div>
-
-                          <div className="flex-column flex-grow justify-flex-end align-center overlay-buttons">
-                            <div className="overlay-button flex-row align-center justify-center trailer" onClick={() => handleTrailer(game)}>
-                              <p>
-                                Watch Trailer
-                              </p>
+                          <div className="flex-column flex-grow justify-flex-end align-center ">
+                            <div className="flex-row flex-grow align-center price-info">
+                              <p>{game.currency_symbol}</p>
+                              <p>{game.price}</p>
+                              {' '}
+                              <p>{game.default_currency}</p>
                             </div>
 
-                            <div className="overlay-button flex-row align-center justify-center buy">
-                              <Link to={listingShowLink}>
-                                View
-                              </Link>
-                            </div>
+                            <div className="flex-column overlay-buttons">
+                              <div className="overlay-button flex-row align-center justify-center trailer" onClick={() => handleTrailer(game)}>
+                                <p>
+                                  Watch Trailer
+                                </p>
+                              </div>
+
+                              <div className="overlay-button flex-row align-center justify-center buy">
+                                <Link to={listingShowLink}>
+                                  View
+                                </Link>
+                              </div>
+                             </div> 
                           </div>
                         </div>
 

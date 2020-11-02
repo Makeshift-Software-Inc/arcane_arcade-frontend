@@ -20,7 +20,7 @@
       border-radius: 20px;
       color: #FFFFFF;
       text-align: center;
-      font-size: 22px;
+      font-size: 18px;
       font-weight: 600;
       z-index: 9999;
       -webkit-transition: all 0.4s ease-in-out 0s;
@@ -28,6 +28,7 @@
       transition: all 0.4s ease-in-out 0s;
 
       .price-info {
+        margin-bottom: 19px;
         color: #FFDD00;
       }
 
@@ -73,14 +74,14 @@
     @media (max-width:1200px) {
 
       .overlay {
-        font-size: 18px;
+        font-size: 16px;
       }
     }
 
     @media (max-width:992px) {
 
       .overlay {
-        font-size: 16px;
+        font-size: 14px;
       }
     }
 
