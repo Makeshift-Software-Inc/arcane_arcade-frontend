@@ -1,15 +1,11 @@
-import React, { useState, useRef } from 'react';
+import React, { Fragment, useState, useRef } from 'react';
 import { observer } from 'mobx-react';
 
-import Tippy from '@tippyjs/react';
-
-import SortablePreviews from './SortablePreviews';
+import searchIcon from '../../img/search.svg';
 
 import './Uploader.scss';
 
-const Uploader = ({
-  accept, files, addFile, reorder,
-}) => {
+const Uploader = ({ accept, addFile }) => {
   const [canDrop, setCanDrop] = useState(false);
   const inputField = useRef(null);
 
@@ -40,10 +36,6 @@ const Uploader = ({
     setCanDrop(false);
   };
 
-  const onSortEnd = ({ oldIndex, newIndex }) => {
-    reorder(oldIndex, newIndex);
-  };
-
   const chooseFiles = (e) => {
     e.preventDefault();
     inputField.current.click();
@@ -51,76 +43,73 @@ const Uploader = ({
 
   const handleFilesChange = (e) => {
     if (e.target.files.length) {
-      const { newFiles } = e.target;
+      const { files: newFiles } = e.target;
       for (let i = 0; i < newFiles.length; i += 1) {
         addFile(newFiles[i]);
       }
     }
   };
 
-  return (
-    <div className="uploader">
-      <div className="icons">
-        <Tippy
-          content="High Resolution Image (.png, .jpeg, .gif 1024x720, 1920x1080)"
-          interactive
-          interactiveBorder={20}
-          delay={100}
-          arrow
-          placement="auto"
-        >
-          <i className="far fa-image" />
-        </Tippy>
-        <Tippy
-          content="Videos (.mp4, .webm) 16:9"
-          interactive
-          interactiveBorder={20}
-          delay={100}
-          arrow
-          placement="auto"
-        >
-          <i className="far fa-file-video" />
-        </Tippy>
-      </div>
+  const onDragEnter = () => {
+    setCanDrop(true);
+  };
 
-      <div className="drop-column">
-        <div
-          className="drop-placeholder"
-          onDrop={handleDrop}
-          onDragOver={allowDrop}
-          onDragLeave={cancelDrop}
-        >
-          {!canDrop && (
-            <h4>
+  return (
+    <div
+      className="uploader"
+      onDrop={handleDrop}
+      onDragOver={allowDrop}
+      onDragEnter={onDragEnter}
+      onDragLeave={cancelDrop}
+    >
+      <div
+        className={`drop-placeholder flex-column ${canDrop ? 'drag-over' : ''}`}
+      >
+        <div className="drop-placeholder-icons flex-row justify-center">
+          <div className="flex-row drop-placeholder-icon">
+            <img src={searchIcon} alt="Icon" />
+            <div className="flex-column icon-details">
+              <p className="icon-title">High Resolution Image</p>
+              <p className="icon-caption">PNG, JPG</p>
+            </div>
+          </div>
+          <div className="flex-row drop-placeholder-icon">
+            <img src={searchIcon} alt="Icon" />
+            <div className="flex-column icon-details">
+              <p className="icon-title">Animated Gif</p>
+              <p className="icon-caption">1024x720, 1920x1080</p>
+            </div>
+          </div>
+          <div className="flex-row drop-placeholder-icon">
+            <img src={searchIcon} alt="Icon" />
+            <div className="flex-column icon-details">
+              <p className="icon-title">Videos</p>
+              <p className="icon-caption">MP4, 16:9</p>
+            </div>
+          </div>
+        </div>
+        <span className="drop-here flex-grow flex-row align-center justify-center">
+          {canDrop ? (
+            'Drop Now'
+          ) : (
+            <Fragment>
               Drag & Drop or
-              {' '}
               {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
               <a href="#" onClick={chooseFiles}>
                 Browse
               </a>
-            </h4>
+            </Fragment>
           )}
-          {canDrop && <h1>Drop Now</h1>}
-        </div>
-        <input
-          multiple
-          type="file"
-          className="is-hidden"
-          accept={accept}
-          ref={inputField}
-          onChange={handleFilesChange}
-        />
+        </span>
       </div>
-
-      <div className="preview-column">
-        <SortablePreviews
-          files={files}
-          onSortEnd={onSortEnd}
-          helperClass="SortableHelper"
-          axis="xy"
-          useDragHandle
-        />
-      </div>
+      <input
+        multiple
+        type="file"
+        className="is-hidden"
+        accept={accept}
+        ref={inputField}
+        onChange={handleFilesChange}
+      />
     </div>
   );
 };

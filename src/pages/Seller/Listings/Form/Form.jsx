@@ -8,6 +8,8 @@ import DatePicker from 'react-datepicker';
 import Errors from '../../../../components/Errors/Errors';
 
 import Uploader from '../../../../components/Uploader/Uploader';
+import SortablePreviews from '../../../../components/Uploader/SortablePreviews';
+import Switch from '../../../../components/Form/Switch/Switch';
 
 import SystemRequirements from './SystemRequirements';
 import SupportedPlatforms from './SupportedPlatforms';
@@ -80,6 +82,10 @@ const Form = ({
     }
   };
 
+  const onSortEnd = ({ oldIndex, newIndex }) => {
+    form.reorderFiles(oldIndex, newIndex);
+  };
+
   const selectedCategoriesAsTags = form.categories.map((category) => ({
     ...category,
     name: category.title,
@@ -94,147 +100,97 @@ const Form = ({
 
   return (
     <form onSubmit={onSubmit} className="listing-form">
-      <h1>{text}</h1>
+      <h1 className="form-title">{text}</h1>
 
-      <div className="columns">
-        <div className="column flex">
-          <Uploader
-            accept="image/*,video/*"
-            addFile={form.addFile}
-            files={form.files}
-            reorder={form.reorderFiles}
+      <div className="flex-row">
+        <div className="flex-column flex-grow">
+          <Uploader accept="image/*,video/*" addFile={form.addFile} />
+        </div>
+        <div className="flex-column listing-basic-info">
+          <label htmlFor="title" className="label">
+            Game Title
+          </label>
+          <input
+            type="text"
+            value={form.title}
+            onChange={form.onChange}
+            name="title"
+            placeholder="Game Title"
           />
-          <div className="form-column">
-            <div className="title">
-              <label htmlFor="title" className="form-label">
-                Game Title
-              </label>
-              <input
-                type="text"
-                value={form.title}
-                onChange={form.onChange}
-                name="title"
-                className="topcoat-text-input"
-              />
-            </div>
-            <div className="esrb">
-              <label htmlFor="esrb" className="form-label">
-                ESRB
-              </label>
+          <label htmlFor="esrb" className="label">
+            ESRB
+          </label>
 
-              <select
-                name="esrb"
-                value={form.esrb}
-                onChange={form.onChange}
-                className="topcoat-text-input"
-              >
-                <option value="EVERYONE">EVERYONE</option>
-                <option value="E_TEN_PLUS">E10+</option>
-                <option value="TEEN">TEEN</option>
-                <option value="MATURE">MATURE</option>
-                <option value="ADULT">ADULT</option>
-              </select>
-            </div>
-            <div className="game-category">
-              <label htmlFor="category" className="form-label">
-                Game Category
-              </label>
-              <ReactTags
-                tags={selectedCategoriesAsTags}
-                suggestions={categoriesOptionsAsTags}
-                onDelete={form.removeCategory}
-                onAddition={form.addCategory}
-                autoresize={false}
-                placeholderText="Select Category"
-                minQueryLength={0}
-                maxSuggestionsLength={
-                  selectedCategoriesAsTags.length === 2 ? 0 : 100
-                }
-                classNames={{
-                  root: 'react-tags',
-                  rootFocused: 'is-focused',
-                  selected: 'react-tags__selected',
-                  selectedTag: 'react-tags__selected-tag',
-                  selectedTagName: 'react-tags__selected-tag-name',
-                  search: `react-tags__search ${
-                    selectedCategoriesAsTags.length === 2 ? 'is-hidden' : ''
-                  }`,
-                  searchWrapper: 'react-tags__search-wrapper',
-                  searchInput: 'react-tags__search-input topcoat-text-input',
-                  suggestions: 'react-tags__suggestions',
-                  suggestionActive: 'is-active',
-                  suggestionDisabled: 'is-disabled',
-                }}
-              />
-            </div>
-            <div className="game-tags">
-              <label htmlFor="tags" className="form-label">
-                Game Tags
-              </label>
-              <ReactTags
-                tags={form.tags}
-                suggestions={form.tagsOptions.filter((tag) => !tag.disabled)}
-                onDelete={form.removeTag}
-                onAddition={form.addTag}
-                autoresize={false}
-                classNames={{
-                  root: 'react-tags',
-                  rootFocused: 'is-focused',
-                  selected: 'react-tags__selected',
-                  selectedTag: 'react-tags__selected-tag',
-                  selectedTagName: 'react-tags__selected-tag-name',
-                  search: 'react-tags__search',
-                  searchWrapper: 'react-tags__search-wrapper',
-                  searchInput: 'react-tags__search-input topcoat-text-input',
-                  suggestions: 'react-tags__suggestions',
-                  suggestionActive: 'is-active',
-                  suggestionDisabled: 'is-disabled',
-                }}
-              />
-            </div>
-            <div className="early-access">
-              <label className="form-label" htmlFor="early-access">
-                Early Access
-                <input
-                  type="checkbox"
-                  className="topcoat-switch__input"
-                  onChange={toggleEarlyAccess}
-                  id="early-access"
-                  name="early-access"
-                  checked={form.early_access}
-                />
-              </label>
-            </div>
-          </div>
+          <select name="esrb" value={form.esrb} onChange={form.onChange}>
+            <option value="EVERYONE">EVERYONE</option>
+            <option value="E_TEN_PLUS">E10+</option>
+            <option value="TEEN">TEEN</option>
+            <option value="MATURE">MATURE</option>
+            <option value="ADULT">ADULT</option>
+          </select>
+          <label htmlFor="category" className="label">
+            Game Category
+          </label>
+          <ReactTags
+            tags={selectedCategoriesAsTags}
+            suggestions={categoriesOptionsAsTags}
+            onDelete={form.removeCategory}
+            onAddition={form.addCategory}
+            autoresize
+            placeholderText="Select Category"
+            minQueryLength={0}
+            maxSuggestionsLength={
+              selectedCategoriesAsTags.length === 2 ? 0 : 100
+            }
+            classNames={{
+              root: 'react-tags',
+              rootFocused: 'is-focused',
+              selected: 'react-tags__selected',
+              selectedTag: 'react-tags__selected-tag',
+              selectedTagName: 'react-tags__selected-tag-name',
+              search: `react-tags__search ${
+                selectedCategoriesAsTags.length === 2 ? 'is-hidden' : ''
+              }`,
+              searchWrapper: 'react-tags__search-wrapper',
+              searchInput: 'react-tags__search-input',
+              suggestions: 'react-tags__suggestions',
+              suggestionActive: 'is-active',
+              suggestionDisabled: 'is-disabled',
+            }}
+          />
+          <label htmlFor="tags" className="label">
+            Game Tags
+          </label>
+          <ReactTags
+            tags={form.tags}
+            suggestions={form.tagsOptions.filter((tag) => !tag.disabled)}
+            onDelete={form.removeTag}
+            onAddition={form.addTag}
+            autoresize
+          />
+          <label className="label flex-row align-center" htmlFor="early-access">
+            Early Access
+            <Switch
+              value={form.early_access}
+              checked={form.early_access}
+              onChange={toggleEarlyAccess}
+            />
+          </label>
         </div>
       </div>
 
-      <div className="field description-field">
-        <div className="form-row">
-          <div className="price">
-            <label className="form-label" htmlFor="price">
-              Price in USD
-            </label>
-            <input
-              type="number"
-              className="topcoat-text-input"
-              value={form.price || ''}
-              onChange={form.setPrice}
-              name="price"
-            />
-          </div>
+      <div className="flex-row">
+        <SortablePreviews
+          files={form.files}
+          onSortEnd={onSortEnd}
+          helperClass="SortableHelper"
+          axis="xy"
+          useDragHandle
+        />
+      </div>
 
-          <div>
-            <label className="form-label">Release Date:</label>
-            <DatePicker
-              selected={releaseDateAsDate}
-              onChange={form.setReleaseDate}
-              dateFormat="Pp"
-            />
-          </div>
-        </div>
-
-        <label className="form-label description">
+      <div className="flex-column">
+        <label className="label">
           Game Description
           <Tippy
             content="You may want to add photos or .gifs for a more appealing synopsis. (600x295)"
@@ -254,14 +210,12 @@ const Form = ({
             value={form.description}
             name="description"
           />
-          <trix-editor input="trix" name="description" ref={trixInput} />
-        </div>
-      </div>
-
-      <div className="flex-row">
-        <div className="flex-column flex-1">
-          <label className="label">Languages Supported</label>
-          <SupportedLanguages languages={form.supported_languages} />
+          <trix-editor
+            placeholder="Enter game description here"
+            input="trix"
+            name="description"
+            ref={trixInput}
+          />
         </div>
       </div>
 
@@ -283,36 +237,65 @@ const Form = ({
         </div>
       </div>
 
-      {form.releaseDateInFuture() && (
-        <div className="early-access">
-          <label className="form-label">Preorderable</label>
-          <label className="topcoat-switch">
+      <div className="flex-row">
+        <div className="flex-column flex-1">
+          <label className="label">Languages Supported</label>
+          <SupportedLanguages languages={form.supported_languages} />
+        </div>
+      </div>
+
+      <div className="flex-row justify-between align-center price-details">
+        <div className="flex-column">
+          <label className="label" htmlFor="price">
+            Price in USD
+          </label>
+          <div>
+            <span className="input-addon-left">$</span>
             <input
-              type="checkbox"
-              className="topcoat-switch__input"
-              onChange={togglePreorderable}
-              id="preorderable"
-              name="preorderable"
-              value={form.preorderable}
+              type="number"
+              value={form.price || ''}
+              onChange={form.setPrice}
+              name="price"
+              placeholder="Enter price"
             />
-            <div className="topcoat-switch__toggle" />
+          </div>
+        </div>
+        <div className="flex-column">
+          <label className="label">Release Date:</label>
+          <DatePicker
+            selected={releaseDateAsDate}
+            onChange={form.setReleaseDate}
+            showTimeSelect
+            dateFormat="Pp"
+            placeholderText="Select release date"
+          />
+        </div>
+      </div>
+      {form.releaseDateInFuture() && (
+        <div className="flex-column preorderable">
+          <label className="label flex-row align-center">
+            Preorderable
+            <Switch
+              value={form.preorderable}
+              checked={form.preorderable}
+              onChange={togglePreorderable}
+            />
           </label>
         </div>
       )}
 
-      <br />
-
       <Errors errors={form.errors.full_messages.toJSON()} />
 
-      <br />
+      <div className="flex-row align-center justify-center">
+        <button
+          type="submit"
+          disabled={!form.allFilesUploaded() || waitList.length !== 0}
+          className="button"
+        >
+          {isUpdate ? 'UPDATE' : 'POST'}
+        </button>
+      </div>
 
-      <button
-        type="submit"
-        disabled={!form.allFilesUploaded() || waitList.length !== 0}
-        className="button"
-      >
-        {isUpdate ? 'UPDATE' : 'CREATE'}
-      </button>
       {(!form.allFilesUploaded() || waitList.length !== 0) && (
         <p>Some files are still not uploaded.</p>
       )}
