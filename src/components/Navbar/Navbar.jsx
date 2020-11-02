@@ -9,6 +9,8 @@ import OnboardingModalContent from '../Onboarding/Modal';
 
 import './Navbar.scss';
 import logo from '../../img/logo.png';
+import hamburgerIcon from '../../img/hamburger_light.svg';
+import closeIcon from '../../img/close_white.svg';
 
 import { useStore } from '../../store';
 
@@ -16,6 +18,8 @@ const Navbar = () => {
   const history = useHistory();
   const [showOnboardingModal, setShowOnboardingModal] = useState(false);
   const { isLoggedIn, user } = useStore('auth');
+
+  const [openMobNav, setOpenMobNav] = useState(false);
 
   const isSeller = isLoggedIn && user && user.isSeller();
 
@@ -67,7 +71,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className="navbar arcane-nav flex-row align-center"
+      className="navbar arcane-nav flex-row justify-between align-center"
       role="navigation"
       aria-label="main navigation"
     >
@@ -108,6 +112,41 @@ const Navbar = () => {
             </Link>
           )}
         </div>
+      </div>
+
+      <div className="mobile-nav">
+        <img src={openMobNav ? closeIcon : hamburgerIcon} alt="hamburger-icon" onClick={() => setOpenMobNav(!openMobNav)}/>
+
+        { openMobNav &&
+
+            <div className="mobile-nav-dropdown">
+              {renderSellerLinks()}
+
+              {isLoggedIn ? (
+                <Link to="/my-library" className="navbar-item">
+                  My Library
+                </Link>
+              ) : (
+                <Link to="/login" className="navbar-item">
+                  Login
+                </Link>
+              )}
+
+              <Link to="/how-it-works" className="navbar-item">
+                How It Works
+              </Link>
+              <Link to="/contact-us" className="navbar-item">
+                Contact Us
+              </Link>
+
+              {isLoggedIn && (
+                <Link to="/logout" className="navbar-item">
+                  Logout
+                </Link>
+              )}
+          </div>
+        }
+
       </div>
     </nav>
   );
