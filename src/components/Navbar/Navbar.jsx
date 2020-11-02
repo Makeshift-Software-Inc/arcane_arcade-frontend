@@ -115,35 +115,48 @@ const Navbar = () => {
       </div>
 
       <div className="mobile-nav">
-        <img src={openMobNav ? closeIcon : hamburgerIcon} alt="hamburger-icon" onClick={() => setOpenMobNav(!openMobNav)}/>
+        <img src={openMobNav ? closeIcon : hamburgerIcon} alt="hamburger-icon" class="hamburger-icon" onClick={() => setOpenMobNav(!openMobNav)}/>
 
         { openMobNav &&
 
             <div className="mobile-nav-dropdown">
-              {renderSellerLinks()}
 
-              {isLoggedIn ? (
-                <Link to="/my-library" className="navbar-item">
-                  My Library
+              <div className="mobile-start-links flex-column">
+                {isLoggedIn &&
+                  <Link to="/my-library" className="navbar-item">
+                    My Library
+                  </Link>
+                }
+                <Link to="/how-it-works" className="navbar-item">
+                  How It Works
                 </Link>
-              ) : (
-                <Link to="/login" className="navbar-item">
-                  Login
+                <Link to="/contact-us" className="navbar-item">
+                  Contact Us
                 </Link>
-              )}
 
-              <Link to="/how-it-works" className="navbar-item">
-                How It Works
-              </Link>
-              <Link to="/contact-us" className="navbar-item">
-                Contact Us
-              </Link>
+                {isLoggedIn && (
+                  <Link to="/logout" className="navbar-item">
+                    Logout
+                  </Link>
+                )}
+              </div>  
 
-              {isLoggedIn && (
-                <Link to="/logout" className="navbar-item">
-                  Logout
-                </Link>
-              )}
+              <div className="end-mobile-links flex-column">
+                <div className="flex-row">
+                  {!isLoggedIn ? (
+                    <Link to="/login" className="navbar-item highlited-link">
+                      Login
+                    </Link> ) : (
+                    <Link to="/" className="navbar-item highlited-link">
+                      {user.username}
+                    </Link>
+                    )
+                  }
+                </div> 
+                <div className="seller-navbar-item">
+                  {renderSellerLinks()}
+                </div>
+              </div>
           </div>
         }
 
