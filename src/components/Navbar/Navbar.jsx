@@ -114,8 +114,8 @@ const Navbar = () => {
         </div>
       </div>
 
-      <div className="mobile-nav">
-        <img src={openMobNav ? closeIcon : hamburgerIcon} alt="hamburger-icon" class="hamburger-icon" onClick={() => setOpenMobNav(!openMobNav)}/>
+      <div className="mobile-nav flex-row align-center">
+       
 
         { openMobNav &&
 
@@ -159,6 +159,8 @@ const Navbar = () => {
               </div>
           </div>
         }
+
+         <img src={openMobNav ? closeIcon : hamburgerIcon} alt="hamburger-icon" class="hamburger-icon" onClick={() => setOpenMobNav(!openMobNav)}/>
 
       </div>
     </nav>

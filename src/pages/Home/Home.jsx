@@ -166,6 +166,10 @@ const Home = () => {
     },
   ];
 
+  const dummyText = `Dark Souls continues to push the boundaries with the latest, 
+                      ambitious chapter in the critically-acclaimed and genre-defining series. 
+                      Prepare yourself and Embrace The Darkness!`
+
   return (
     <div className="App flex-column">
       <Navbar />
@@ -249,18 +253,16 @@ const Home = () => {
 
                         <div className="flex-column align-center justify-between overlay">
                           <div className="flex-column flex-grow justify-evenly align-center">
-                            <p>{game.title}</p>
+                            <p className="overlay-title">{game.title}</p>
 
                             <div className="description">
                               <p>
-                                Dark Souls continues to push the boundaries with the latest, 
-                                ambitious chapter in the critically-acclaimed and genre-defining series. 
-                                Prepare yourself and Embrace The Darkness!
+                                {`${dummyText.substring(0, 80)} ... `}
                               </p>
                             </div>
                           </div>
 
-                          <div className="flex-column flex-grow justify-flex-end align-center ">
+                          <div className="flex-column flex-grow justify-flex-end align-center overlay-info">
                             <div className="flex-row flex-grow align-center price-info">
                               <p>{game.currency_symbol}</p>
                               <p>{game.price}</p>
@@ -268,7 +270,7 @@ const Home = () => {
                               <p>{game.default_currency}</p>
                             </div>
 
-                            <div className="flex-column overlay-buttons">
+                            <div className="flex-column align-center justify-center overlay-buttons">
                               <div className="overlay-button flex-row align-center justify-center trailer" onClick={() => handleTrailer(game)}>
                                 <p>
                                   Watch Trailer
@@ -277,7 +279,7 @@ const Home = () => {
 
                               <div className="overlay-button flex-row align-center justify-center buy">
                                 <Link to={listingShowLink}>
-                                  View
+                                  Buy
                                 </Link>
                               </div>
                              </div> 

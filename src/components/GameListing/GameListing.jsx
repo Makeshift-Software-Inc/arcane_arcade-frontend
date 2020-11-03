@@ -12,7 +12,7 @@ const GameListing = ({ game, handleTrailer }) => {
       <img src={game.images[0]} alt={imageAlt} />
     
       <div className="flex-column flex-grow align-center justify-center overlay">
-        <p>{game.title}</p>
+        <p className="overlay-title">{game.title}</p>
         
 
         <div className="overlay-buttons flex-column justify-flex-end align-center flex-grow">

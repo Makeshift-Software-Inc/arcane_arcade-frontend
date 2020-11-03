@@ -2,6 +2,7 @@
   height: 78px;
   background-color: #2A2A2A;
   padding: 25px;
+  align-items: center;
 
   .navbar-item {
     &:hover, &:focus {
@@ -35,6 +36,10 @@
   }
 
    @media (max-width:1023px) {
+    .navbar-brand {
+      position: absolute;
+      left: calc(50% - 40px);
+     }
     .mobile-nav {
       display: flex;
 
@@ -45,7 +50,7 @@
       .mobile-nav-dropdown {
         position: absolute;
         top: 78px;
-        right: 0;
+        left: 0;
         z-index: 9999;
         width: 100%;
         max-width: 276px;

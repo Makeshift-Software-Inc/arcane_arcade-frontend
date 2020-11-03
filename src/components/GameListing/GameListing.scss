@@ -27,14 +27,16 @@
       -moz-transition: all 0.4s ease-in-out 0s;
       transition: all 0.4s ease-in-out 0s;
 
+      .overlay-title {
+        font-size: 14px;
+      }
+
       .price-info {
-        margin-bottom: 19px;
         color: #FFDD00;
       }
 
       .overlay-buttons {
         width: 100%;
-        margin-top: 19px;
       }
 
       .watch-trailer {
@@ -45,7 +47,7 @@
       .overlay-button {
         width: 100%;
         max-width: 153px;
-        height: 35px;
+        height: 25px;
         font-size: 12px;
         border: 1px solid #FFFFFF;
         border-radius: 25px;
