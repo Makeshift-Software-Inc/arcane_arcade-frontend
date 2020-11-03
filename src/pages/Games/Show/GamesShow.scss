@@ -28,14 +28,14 @@
       }
 
       :-moz-placeholder { /* Firefox 18- */
-         color:transparent; 
+         color:transparent;
       }
 
       ::-moz-placeholder {  /* Firefox 19+ */
-         color:transparent; 
+         color:transparent;
       }
 
-      :-ms-input-placeholder {  
+      :-ms-input-placeholder {
          color:transparent;
       }
       padding: 0;
@@ -81,7 +81,7 @@
       color: aliceblue;
 
       .section-text {
-        max-width: 998px; 
+        max-width: 998px;
       }
 
       img {
@@ -169,10 +169,10 @@
         margin-top: 76px;
         margin-bottom: 114px;
       }
-                
+
       .section-text {
         font-family:  Montserrat;
-        max-width: 100%; 
+        max-width: 100%;
         text-align: left;
         font-size: 23px;
         letter-spacing: 0px;
@@ -186,6 +186,11 @@
       .game-description {
         font-family: OpenSans;
         max-width: 998px;
+
+        strong {
+          font-family: Montserrat;
+          color: aliceblue;
+        }
       }
 
       .descr-toggle-button {
@@ -194,7 +199,7 @@
 
       .system-req-btns {
         .system-req-btn {
-          padding: 20px; 
+          padding: 20px;
           border: 1px solid white;
         }
 
@@ -454,7 +459,7 @@
     }
 
     .splide {
-      
+
       .splide__arrow {
         top: 110%;
       }
@@ -470,7 +475,7 @@
       div[preload] {
         height: 400px !important;
       }
-      
+
       video {
         height: 400px !important;
       }
