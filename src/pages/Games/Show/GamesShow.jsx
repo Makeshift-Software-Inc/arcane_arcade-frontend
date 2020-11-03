@@ -21,7 +21,7 @@ import OrderDetailsModal from '../../MyLibrary/Modal/Modal';
 import SearchInput from '../../../components/Form/SearchInput/SearchInput';
 
 // suported platforms imgs
-import PC from '../../../img/platform_icons/PS4.svg';
+import PS4 from '../../../img/platform_icons/PS4.svg';
 import WINDOWS from '../../../img/platform_icons/WINDOWS.svg';
 import MAC from '../../../img/platform_icons/MAC.svg';
 import LINUX from '../../../img/platform_icons/linux.svg';
@@ -31,6 +31,24 @@ import XB1 from '../../../img/platform_icons/XB1.svg';
 import playButton from '../../../img/Play_Button.svg';
 
 import './GamesShow.scss';
+
+const SystemRequirementTabs = ({ options, selected, onClick }) => (
+  <div className="system-req-btns flex-row flex-grow">
+    {options.map((option) => (
+      // eslint-disable-next-line
+      <div
+        key={option}
+        className={`system-req-btn flex-column  align-center ${
+          selected === option ? 'active' : ''
+        }`}
+        onClick={() => onClick(option)}
+      >
+        <div>{option}</div>
+      </div>
+    ))}
+    <div className="flex-row flex-grow border-div" />
+  </div>
+);
 
 const Images = ({ images, gameTitle }) => images.map((image) => (
   <SplideSlide key={image}>
@@ -60,18 +78,18 @@ const Splides = ({ images, videos, gameTitle }) => (
 );
 
 const supportedPlatformsImgs = {
-  PC,
   WINDOWS,
   MAC,
   LINUX,
   SWITCH,
   XB1,
+  PS4,
 };
 
 const GamesShow = ({ match, history }) => {
   const [showBuyModal, setShowBuyModal] = useState(false);
 
-  const [systemReq, setSystemReq] = useState('windows');
+  const [systemReq, setSystemReq] = useState();
 
   const [openMobileDecription, setOpenMobileDescription] = useState(false);
 
@@ -93,6 +111,12 @@ const GamesShow = ({ match, history }) => {
       selectGame();
     };
   }, [slug]);
+
+  useEffect(() => {
+    if (selectedGame && selectedGame.hasSystemRequirements()) {
+      setSystemReq(selectedGame.systemRequirements()[0].platform);
+    }
+  }, [selectedGame]);
 
   if (!selectedGame) return <Loading />;
 
@@ -139,21 +163,22 @@ const GamesShow = ({ match, history }) => {
 
   const metaDesc = 'Arcane Arcade is an emerging marketplace for game developers and publishers to sell games for cryptocurrency.';
 
+  const system_requirements = selectedGame.systemRequirements();
+
+  const selectedSystemReq = systemReq
+    && system_requirements.find((req) => req.platform === systemReq);
+
   return (
     <div className="App listings-show">
       <Helmet>
         <meta charSet="utf-8" />
         <title>
           Buy
-          {' '}
           {selectedGame.title}
           {' '}
           on Arcane Arcade
         </title>
-        <meta
-          name="description"
-          content={metaDesc}
-        />
+        <meta name="description" content={metaDesc} />
       </Helmet>
 
       <Navbar />
@@ -291,93 +316,70 @@ const GamesShow = ({ match, history }) => {
                   </div>
                 </div>
 
-                <div className="game-specification game-info flex-row flex-grow justify-between align-start">
-                  <div className="first-section flex-grow">
-                    <h3 className="section-title">Game Specification</h3>
-                  </div>
-
-                  <div className="flex-column justify-flex-end flex-grow section-text">
-                    <p className="info-text">Languages Supported</p>
-                    <p>Audio: English, French, German, Spanish</p>
-                    <p>
-                      Text: English, French, Spanish - Spain, Italian, German,
-                      Polish, Russian, Portuguese - Brazil, Japanese, Spanish -
-                      Mexico, Chinese - Traditional
-                    </p>
-                  </div>
-                </div>
-
-                <div className="system-requirements game-info  flex-row flex-grow justify-between align-start">
-                  <div className="first-section flex-row flex-grow">
-                    <h3 className="section-title">System Requirements</h3>
-                  </div>
-
-                  <div className="flex-column flex-grow section-text">
-                    <div className="system-req-btns flex-row flex-grow">
-                      {/* eslint-disable jsx-a11y/click-events-have-key-events */}
-                      <div
-                        className={`system-req-btn flex-column  align-center ${
-                          systemReq === 'windows' ? 'active' : ''
-                        }`}
-                        onClick={() => setSystemReq('windows')}
-                        role="button"
-                        tabIndex={0}
-                      >
-                        <div>Windows</div>
-                      </div>
-                      <div
-                        className={`system-req-btn flex-column align-center ${
-                          systemReq === 'mac' ? 'active' : ''
-                        }`}
-                        onClick={() => setSystemReq('mac')}
-                        role="button"
-                        tabIndex={0}
-                      >
-                        <div>Mac</div>
-                      </div>
-                      <div
-                        className={`system-req-btn flex-column align-center ${
-                          systemReq === 'linux' ? 'active' : ''
-                        }`}
-                        onClick={() => setSystemReq('linux')}
-                        role="button"
-                        tabIndex={0}
-                      >
-                        <div>Linux</div>
-                      </div>
-                      <div className="flex-row flex-grow border-div" />
-                      {/* eslint-enable jsx-a11y/click-events-have-key-events */}
+                {selectedGame.supported_languages && (
+                  <div className="game-specification game-info flex-row flex-grow justify-between align-start">
+                    <div className="first-section flex-grow">
+                      <h3 className="section-title">Game Specification</h3>
                     </div>
 
-                    <div className="flex-row flex-grow flex-wrap justify-between system-req-text">
-                      <div className="flex-column flex-grow">
-                        <p className="info-text">Minimum</p>
-                        <p>
-                          Requires a 64-bit processor and operating system OS:
-                          Windows 7 - Service Pack 1 (6.1.7601) Processor:
-                          Intel® Core™ i5-2500K / AMD FX-6300 Memory: 8 GB RAM
-                          Graphics: Nvidia GeForce GTX 770 2GB / AMD Radeon R9
-                          280 3GB Network: Broadband Internet connection
-                          Storage: 150 GB available space Sound Card: Direct X
-                          Compatible
-                        </p>
-                      </div>
-
-                      <div className="flex-column flex-grow recommended">
-                        <p className="info-text">Recommended</p>
-                        <p>
-                          Requires a 64-bit processor and operating system OS:
-                          Windows 10 - April 2018 Update (v1803) Processor:
-                          Intel® Core™ i7-4770K / AMD Ryzen 5 1500X Memory: 12
-                          GB RAM Graphics: Nvidia GeForce GTX 1060 6GB / AMD
-                          Radeon RX 480 4GB Network: Broadband Internet
-                          connection Storage: 150 GB available space Sound Card:
-                          Direct X Compatible
-                        </p>
-                      </div>
+                    <div className="flex-column justify-flex-end flex-grow section-text">
+                      <p className="info-text">Languages Supported</p>
+                      <p>
+                        Audio:
+                        {' '}
+                        {selectedGame.supported_languages.audio
+                          .map((lang) => lang.name)
+                          .join(', ')}
+                      </p>
+                      <p>
+                        Text:
+                        {' '}
+                        {selectedGame.supported_languages.text
+                          .map((lang) => lang.name)
+                          .join(', ')}
+                      </p>
                     </div>
                   </div>
-                </div>
+                )}
+
+                {system_requirements.length > 0 && (
+                  <div className="system-requirements game-info  flex-row flex-grow justify-between align-start">
+                    <div className="first-section flex-row flex-grow">
+                      <h3 className="section-title">System Requirements</h3>
+                    </div>
+
+                    <div className="flex-column flex-grow section-text">
+                      <SystemRequirementTabs
+                        options={system_requirements.map((req) => req.platform)}
+                        onClick={setSystemReq}
+                        selected={systemReq}
+                      />
+                      {selectedSystemReq && (
+                        <div className="flex-column flex-grow flex-wrap justify-between system-req-text">
+                          <div className="flex-column">
+                            <p className="info-text">Minimum</p>
+                            <p>{selectedSystemReq.minimum.asString()}</p>
+                          </div>
+
+                          {selectedSystemReq.recommended.asString().length
+                            > 0 && (
+                            <div className="flex-column recommended">
+                              <p className="info-text">Recommended</p>
+                              <p>{selectedSystemReq.recommended.asString()}</p>
+                            </div>
+                          )}
+
+                          {selectedSystemReq.additional_notes.length > 0 && (
+                            <div className="flex-column recommended">
+                              <p className="info-text">Additional Notes</p>
+                              <p>{selectedSystemReq.additional_notes}</p>
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>

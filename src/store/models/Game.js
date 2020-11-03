@@ -36,9 +36,9 @@ const Game = types
   })
   .views((self) => ({
     supportedPlatforms() {
-      return self.supported_platform_listings.map(
-        (platform) => platform.supported_platform,
-      );
+      return self.supported_platform_listings
+        .filter((platform) => platform.supported_platform.name !== 'PC')
+        .map((platform) => platform.supported_platform);
     },
     supportedPlatformsToBuy() {
       return self.supported_platform_listings.filter(
@@ -49,6 +49,14 @@ const Game = types
       return !!self
         .supportedPlatforms()
         .find((platform) => platform.name === name);
+    },
+    hasSystemRequirements() {
+      return self.systemRequirements().length > 0;
+    },
+    systemRequirements() {
+      return self.supported_platform_listings
+        .filter((platform) => platform.system_requirements)
+        .map((platform) => platform.system_requirements);
     },
   }))
   .actions((self) => ({

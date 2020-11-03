@@ -1,4 +1,6 @@
-import { types, flow, getRoot } from 'mobx-state-tree';
+import {
+  types, flow, getRoot, destroy,
+} from 'mobx-state-tree';
 import Base from './Base';
 import Errors from './Errors';
 
@@ -52,6 +54,12 @@ const ListingForm = types
 
       return true;
     },
+    allFiles() {
+      return self.files.toJSON().concat(self.saved_files.toJSON());
+    },
+    filesSorted() {
+      return self.allFiles().sort((a, b) => (a.position > b.position ? 1 : -1));
+    },
     images() {
       return self.files.filter((file) => file.type.startsWith('image'));
     },
@@ -70,6 +78,19 @@ const ListingForm = types
     releaseDateInFuture() {
       if (self.release_date.length === 0) return false;
       return new Date(self.release_date) > new Date();
+    },
+    nextPosition() {
+      const allFiles = self.allFiles();
+      if (allFiles.length > 0) {
+        return (
+          // eslint-disable-next-line
+          Math.max.apply(
+            Math,
+            self.allFiles().map((file) => file.position),
+          ) + 1
+        );
+      }
+      return 0;
     },
   }))
   .actions((self) => ({
@@ -169,12 +190,15 @@ const ListingForm = types
       // if there is a file with a same name, don't add it again
       if (self.files.find((f) => f.name === file.name)) return;
 
+      const position = self.nextPosition();
+
       self.files.push({
         name: file.name,
         type: file.type,
         size: file.size,
         data: file,
         url: URL.createObjectURL(file),
+        position,
       });
     },
     addAttachment: flow(function* addAttachment(event) {
@@ -210,10 +234,17 @@ const ListingForm = types
     reorderFiles(oldIndex, newIndex) {
       if (oldIndex === newIndex) return;
 
-      const items = self.files.toJSON();
-      const [removed] = items.splice(oldIndex, 1);
-      items.splice(newIndex, 0, removed);
-      self.files = items;
+      const allFiles = self.filesSorted();
+
+      const [removed] = allFiles.splice(oldIndex, 1);
+      allFiles.splice(newIndex, 0, removed);
+      self.repositionFiles(allFiles);
+    },
+    repositionFiles(filesToSort = null) {
+      const files = filesToSort || self.filesSorted();
+      files.forEach((file, position) => {
+        file.update({ position });
+      });
     },
     addTag(tag) {
       self.tags.push(tag);
@@ -241,6 +272,10 @@ const ListingForm = types
     },
     setPrice(e) {
       self.price = parseFloat(e.target.value);
+    },
+    destroyFile(file) {
+      destroy(file);
+      self.repositionFiles();
     },
     validate: () => true,
   }));

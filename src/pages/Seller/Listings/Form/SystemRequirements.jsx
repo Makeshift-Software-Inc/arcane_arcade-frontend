@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import { observer } from 'mobx-react';
 
-const Tabs = ({ selectedTab, options, setSelectedTab }) => {
+export const Tabs = ({ selectedTab, options, setSelectedTab }) => {
   const onClick = (e) => {
     e.preventDefault();
     setSelectedTab(e.target.name);

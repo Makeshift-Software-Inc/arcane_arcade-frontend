@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { Helmet } from 'react-helmet';
 
 import { useStore } from '../../../store';
 import Form from './Form/Form';
 
+import Navbar from '../../../components/Navbar/Navbar';
 import Loading from '../../../components/Loading/Loading';
 
 const SellerListingsEdit = ({ match }) => {
@@ -61,16 +61,13 @@ const SellerListingsEdit = ({ match }) => {
   const metaDesc = 'Sell your game with Arcane Arcade. Receive cryptocurrency (Bitcoin and/or Monero) for your game.';
   return (
     <div className="App seller-listings-new">
+      <Navbar />
       <Helmet>
         <meta charSet="utf-8" />
         <title>{title}</title>
         <meta name="description" content={metaDesc} />
       </Helmet>
       <div className="form-container">
-        <div className="back-to-dashboard">
-          <Link to="/seller/dashboard">⟵ Back To Dashboard</Link>
-        </div>
-
         <Form form={listing} text={title} onSubmit={handleSubmit} isUpdate />
       </div>
     </div>

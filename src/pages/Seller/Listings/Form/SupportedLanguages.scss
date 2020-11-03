@@ -5,6 +5,9 @@
   .react-tags {
     background-color: transparent !important;
     height: auto !important;
+    &__suggestions {
+      z-index: 10;
+    }
     &__search-input {
       height: 50px;
       border-radius: 5px;

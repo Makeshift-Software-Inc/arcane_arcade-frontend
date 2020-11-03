@@ -27,6 +27,13 @@ const Requirement = types
       });
       return object;
     },
+    asString() {
+      return self
+        .keys()
+        .filter((key) => self[key].length > 0)
+        .map((key) => `${key}: ${self[key]}`)
+        .join(' ');
+    },
   }))
   .actions((self) => ({
     onChange(e) {

@@ -55,9 +55,11 @@ const SellerListingsNew = ({ history }) => {
       supported_languages: listing.supported_languages,
       listing_images_attributes: listing.images().map((image) => ({
         image: image.keys(),
+        position: image.position,
       })),
       listing_videos_attributes: listing.videos().map((video) => ({
         video: video.keys(),
+        position: video.position,
       })),
       listing_attachments_attributes: listing.attachments.map((attachment) => ({
         attachment: attachment.keys(),

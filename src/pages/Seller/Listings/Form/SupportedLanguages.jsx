@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactTags from 'react-tag-autocomplete';
+import { observer } from 'mobx-react';
 
 import './SupportedLanguages.scss';
 
@@ -9,7 +10,7 @@ const SupportedLanguages = ({ languages }) => (
       <span className="content-item-text">Audio</span>
       <ReactTags
         tags={languages.audio}
-        suggestions={languages.suggestions()}
+        suggestions={languages.audioSuggestions}
         onDelete={languages.removeAudio}
         onAddition={languages.addAudio}
         autoresize={false}
@@ -22,7 +23,7 @@ const SupportedLanguages = ({ languages }) => (
       <span className="content-item-text">Text</span>
       <ReactTags
         tags={languages.text}
-        suggestions={languages.suggestions()}
+        suggestions={languages.textSuggestions}
         onDelete={languages.removeText}
         onAddition={languages.addText}
         autoresize={false}
@@ -34,4 +35,4 @@ const SupportedLanguages = ({ languages }) => (
   </div>
 );
 
-export default SupportedLanguages;
+export default observer(SupportedLanguages);

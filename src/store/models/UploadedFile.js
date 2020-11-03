@@ -1,4 +1,4 @@
-import { types, flow } from 'mobx-state-tree';
+import { types, flow, getParent } from 'mobx-state-tree';
 import axios from 'axios';
 import BaseUpdate from './BaseUpdate';
 
@@ -15,7 +15,6 @@ const UploadedFile = types
     data: types.frozen(),
     isDragged: false,
     loading: false,
-    source: types.frozen(),
     progress: 0,
     awsId: types.maybe(types.string),
     awsUrl: types.maybe(types.string),
@@ -23,6 +22,7 @@ const UploadedFile = types
     uploaded: false,
     secure: false,
     autoupload: true,
+    position: 0,
   })
   .views((self) => ({
     storage() {
@@ -49,13 +49,17 @@ const UploadedFile = types
   }))
   .actions((self) => ({
     afterCreate() {
-      self.source = CancelToken.source();
       if (self.autoupload) {
         self.upload();
       }
     },
     setDragging(value) {
       self.isDragged = value;
+    },
+    remove() {
+      self.cancelUpload();
+      const listing = getParent(self, 2);
+      listing.destroyFile(self);
     },
     presign: flow(function* presign() {
       const params = {
@@ -101,7 +105,9 @@ const UploadedFile = types
           url: presignParams.url,
           data,
           onUploadProgress: self.onUploadProgress,
-          cancelToken: self.source.token,
+          cancelToken: new CancelToken((c) => {
+            self.cancelRequest = c;
+          }),
         });
 
         const splitedKeys = presignParams.fields.key.split('/');
@@ -113,13 +119,16 @@ const UploadedFile = types
         self.loading = false;
         return true;
       } catch (e) {
+        if (e.message && e.message === 'User canceled') return false;
         console.log('UPLOAD ERROR', e);
         self.loading = false;
         return false;
       }
     }),
     cancelUpload() {
-      self.source.cancel('Upload canceled');
+      if (self.cancelRequest) {
+        self.cancelRequest('User canceled');
+      }
     },
     onUploadProgress(e) {
       self.progress = (e.loaded / e.total) * 100;

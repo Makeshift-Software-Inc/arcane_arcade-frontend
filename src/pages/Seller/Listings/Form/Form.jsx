@@ -181,11 +181,12 @@ const Form = ({
 
       <div className="flex-row">
         <SortablePreviews
-          files={form.files}
+          files={form.filesSorted()}
           onSortEnd={onSortEnd}
           helperClass="SortableHelper"
-          axis="xy"
-          useDragHandle
+          axis="x"
+          lockAxis="x"
+          pressDelay={200}
         />
       </div>
 
@@ -286,6 +287,10 @@ const Form = ({
 
       <Errors errors={form.errors.full_messages.toJSON()} />
 
+      {(!form.allFilesUploaded() || waitList.length !== 0) && (
+        <p className="text-center">Please wait until all files are uploaded.</p>
+      )}
+
       <div className="flex-row align-center justify-center">
         <button
           type="submit"
@@ -295,10 +300,6 @@ const Form = ({
           {isUpdate ? 'UPDATE' : 'POST'}
         </button>
       </div>
-
-      {(!form.allFilesUploaded() || waitList.length !== 0) && (
-        <p>Some files are still not uploaded.</p>
-      )}
     </form>
   );
 };
