@@ -50,8 +50,10 @@
   }
 
   .dropdown-content {
+    position: absolute;
+    top: 63px;
     padding: 0;
-    z-index: 999;
+    z-index: 9;
     width: 100vw;
     height: 100vh;
     background-color: rgba(18, 18, 18, 0.90);

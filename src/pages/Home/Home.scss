@@ -78,6 +78,10 @@
 
     @media (max-width:768px) {
       display: none;
+
+      .top-search-bar {
+        height: auto;
+      }
     }
   }
 
