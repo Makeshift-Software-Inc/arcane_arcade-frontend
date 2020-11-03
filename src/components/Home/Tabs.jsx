@@ -2,8 +2,8 @@ import React from 'react';
 
 import Tab from './Tab';
 
-const Tabs = ({selectedTab, setSelectedTab, mobile}) => (
-  <div className={mobile ? "tabs-mobile flex-column" : "tabs flex-row"}>
+const Tabs = ({ selectedTab, setSelectedTab, mobile }) => (
+  <div className={mobile ? 'tabs-mobile flex-column' : 'tabs flex-row'}>
     <Tab
       text="Discover"
       selected={selectedTab === 'discover'}

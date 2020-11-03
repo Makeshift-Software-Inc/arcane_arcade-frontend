@@ -10,10 +10,9 @@ const GameListing = ({ game, handleTrailer }) => {
   return (
     <div className="game-listing" key={game.id}>
       <img src={game.images[0]} alt={imageAlt} />
-    
+
       <div className="flex-column flex-grow align-center justify-center overlay">
         <p className="overlay-title">{game.title}</p>
-        
 
         <div className="overlay-buttons flex-column justify-flex-end align-center flex-grow">
           <div className="flex-row price-info">
@@ -22,10 +21,17 @@ const GameListing = ({ game, handleTrailer }) => {
             {' '}
             <p>{game.default_currency}</p>
           </div>
-        
-          <div className="watch-trailer flex-row align-center justify-center" onClick={() => handleTrailer(game)} >
+
+          {/* eslint-disable jsx-a11y/click-events-have-key-events */}
+          <div
+            className="watch-trailer flex-row align-center justify-center"
+            onClick={() => handleTrailer(game)}
+            role="button"
+            tabIndex={0}
+          >
             Watch Trailer
           </div>
+          {/* eslint-enable jsx-a11y/click-events-have-key-events */}
 
           <div className="overlay-button flex-row align-center justify-center buy">
             <Link to={listingShowLink}>

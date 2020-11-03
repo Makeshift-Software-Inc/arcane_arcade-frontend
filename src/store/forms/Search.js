@@ -98,10 +98,10 @@ const Search = types
   }))
   .actions((self) => ({
     setSearchParameters(field, value) {
-      console.log(self[field], value, field)
+      console.log(self[field], value, field);
       self[field] = value;
       console.log(self[field]);
-    }
+    },
   }));
 
 export default types.compose(Base, Search);

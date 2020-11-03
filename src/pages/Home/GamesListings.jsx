@@ -5,7 +5,7 @@ import { useStore } from '../../store';
 import GameListing from '../../components/GameListing/GameListing';
 import Loading from '../../components/Loading/Loading';
 
-const GamesListings = ({handleTrailer}) => {
+const GamesListings = ({ handleTrailer }) => {
   const { games, load, loading } = useStore('games');
 
   useEffect(() => {
@@ -15,7 +15,9 @@ const GamesListings = ({handleTrailer}) => {
 
   if (loading) return <Loading />;
 
-  return games.map((game) => <GameListing key={game.id} game={game} handleTrailer={handleTrailer} />);
+  return games.map((game) => (
+    <GameListing key={game.id} game={game} handleTrailer={handleTrailer} />
+  ));
 };
 
 export default observer(GamesListings);

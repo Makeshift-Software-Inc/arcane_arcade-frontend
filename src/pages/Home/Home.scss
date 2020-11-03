@@ -25,13 +25,14 @@
   .tab-bar-container {
     top: 78px;
     position: fixed;
-    z-index: 9999999;
+    z-index: 99;
     background: #121212;
     left: 0;
     right: 0;
 
     @media (max-width:1023px) {
       position: static;
+      z-index: 0;
     }
   }
 

@@ -31,12 +31,10 @@ import psIcon from '../../img/platform_icons/PS4.svg';
 import switchIcon from '../../img/platform_icons/SWITCH.svg';
 import xbIcon from '../../img/platform_icons/XB1.svg';
 
-
 import playButton from '../../img/Play_Button.svg';
 import closeButton from '../../img/close_white.svg';
 
 import './Home.scss';
-
 
 const SplideImageItem = ({ data }) => (
   <SplideSlide>
@@ -69,47 +67,44 @@ const SplideVideoItem = ({ src, thumbnail, closeTrailer }) => (
         controls
         muted
       />
-      <img src={closeButton} alt="close-icon" className="close-player" onClick={() => closeTrailer()} />
+      {/* eslint-disable jsx-a11y/click-events-have-key-events */}
+      {/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */}
+      {/* eslint-disable jsx-a11y/no-noninteractive-element-to-interactive-role */}
+      <img
+        src={closeButton}
+        alt="close-icon"
+        className="close-player"
+        onClick={() => closeTrailer()}
+      />
+      {/* eslint-enable jsx-a11y/click-events-have-key-events */}
+      {/* eslint-enable jsx-a11y/no-noninteractive-element-interactions */}
+      {/* eslint-enable jsx-a11y/no-noninteractive-element-to-interactive-role */}
     </div>
   </SplideSlide>
 );
 
-
-
 const Home = () => {
-  const [searchQuery, setSearchQuery] = useState('');
   const {
     games: {
-      selectedGame, games, load, loading, searching, searchResults,
+      games, load, loading, searching, searchResults,
     },
   } = useStore();
 
   const [selectedTab, setSelectedTab] = useState('discover');
-  const [filtersOpen, setFiltersOpen] = useState(false);
 
   const [trailerOpen, setTrailerOpen] = useState(false);
   const [trailerGame, setTrailerGame] = useState(false);
 
-  const [showOverlay, setShowOverlay] = useState(false);
-
   const handleTrailer = (game) => {
     setTrailerGame(game);
     setTrailerOpen(true);
-  }
+  };
 
   useEffect(() => {
     load();
   }, []);
 
   if (loading) return <Loading />;
-
-  const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
 
   // this is the model data that yet has to be done on BE for the first, main slide
   const mainSplideData = [
@@ -168,7 +163,7 @@ const Home = () => {
 
   const dummyText = `Dark Souls continues to push the boundaries with the latest, 
                       ambitious chapter in the critically-acclaimed and genre-defining series. 
-                      Prepare yourself and Embrace The Darkness!`
+                      Prepare yourself and Embrace The Darkness!`;
 
   return (
     <div className="App flex-column">
@@ -176,16 +171,16 @@ const Home = () => {
 
       <div className="page-container flex-column flex-grow align-center">
         <div className="flex-column home-page-container">
-      
-             <DropDown activeTab={filtersOpen ? "filters" : selectedTab}>
-              <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} mobile={true} />
-            </DropDown> 
 
-            <div className="tab-bar-container flex-row flex-grow justify-center align-center">
-              <SearchBar show={selectedTab == 'discover' ? true : false} >
-                <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} mobile={false} />
-              </SearchBar>
-            </div>
+          <DropDown activeTab={selectedTab}>
+            <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} mobile />
+          </DropDown>
+
+          <div className="tab-bar-container flex-row flex-grow justify-center align-center">
+            <SearchBar show={selectedTab === 'discover'}>
+              <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} mobile={false} />
+            </SearchBar>
+          </div>
 
           <div className="flex-row slider">
             <Splide
@@ -200,19 +195,16 @@ const Home = () => {
             >
               {
                 !trailerOpen ? (
-                mainSplideData.map((item) => {
-                  return <SplideImageItem data={item} key={item.title} />})
+                  mainSplideData.map((item) => <SplideImageItem data={item} key={item.title} />)
                 ) : (
-                trailerGame.videos.map((item, i) => {
-                  return  (
-                    <SplideVideoItem 
-                      src={item} 
-                      key={item} 
-                      thumbnail={trailerGame.images.length > 0 ? trailerGame.images[i] : null} 
+                  trailerGame.videos.map((item, i) => (
+                    <SplideVideoItem
+                      src={item}
+                      key={item}
+                      thumbnail={trailerGame.images.length > 0 ? trailerGame.images[i] : null}
                       closeTrailer={() => setTrailerOpen(false)}
                     />
-                    )
-                  })
+                  ))
                 )
               }
             </Splide>
@@ -221,7 +213,7 @@ const Home = () => {
 
         <div className="discover flex-column align-center">
 
-          { selectedTab == 'discover' ? ( 
+          { selectedTab === 'discover' ? (
             <div className="new-releases flex-column align-center">
               <div className="flex-row flex-grow title-container">
                 <h1>New Releases</h1>
@@ -249,8 +241,8 @@ const Home = () => {
 
                   return (
                     <SplideSlide key={game.id}>
-                      <div className="releases-games-listing flew-row flex-grow" key={game.id} >
-                
+                      <div className="releases-games-listing flew-row flex-grow" key={game.id}>
+
                         <img src={game.images[0]} alt={imageAlt} />
 
                         <div className="flex-column align-center justify-between overlay">
@@ -273,7 +265,14 @@ const Home = () => {
                             </div>
 
                             <div className="flex-column align-center justify-center overlay-buttons">
-                              <div className="overlay-button flex-row align-center justify-center trailer" onClick={() => handleTrailer(game)}>
+                              {/* eslint-disable jsx-a11y/click-events-have-key-events */}
+                              <div
+                                className="overlay-button flex-row align-center justify-center trailer"
+                                onClick={() => handleTrailer(game)}
+                                role="button"
+                                tabIndex={0}
+                              >
+                                {/* eslint-enable jsx-a11y/click-events-have-key-events */}
                                 <p>
                                   Watch Trailer
                                 </p>
@@ -284,7 +283,7 @@ const Home = () => {
                                   Buy
                                 </Link>
                               </div>
-                             </div> 
+                            </div>
                           </div>
                         </div>
 
@@ -295,33 +294,36 @@ const Home = () => {
                   );
                 })}
               </Splide>
-            </div> ): (
-              <div className="explore flex-row flex-grow">
-                <AdvancedSearch />
-              </div>
-            )
-          }
+            </div>
+          ) : (
+            <div className="explore flex-row flex-grow">
+              <AdvancedSearch />
+            </div>
+          )}
 
           <div className="promotions flex-column flex-grow">
-            { selectedTab == 'discover' &&
+            { selectedTab === 'discover'
+              && (
               <div className="title-container">
                 <h1>Promotions</h1>
               </div>
-            }
+              )}
 
             <div className="games flex-row flex-grow flex-wrap">
 
               {searching ? (
                 <Loading />
               ) : (
-                <GamesListings games={searchResults} loading={searching} handleTrailer={handleTrailer}/>
+                <GamesListings
+                  games={searchResults}
+                  loading={searching}
+                  handleTrailer={handleTrailer}
+                />
               )}
 
             </div>
           </div>
         </div>
-
-
 
       </div>
 

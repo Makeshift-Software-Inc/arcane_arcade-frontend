@@ -7,8 +7,7 @@ import RangeSlider from '../Form/Slider/Range';
 import SearchInput from '../Form/SearchInput/SearchInput';
 import Select from './Input/Select';
 
-
-const AdvancedSearch = ({showFilters = true}) => {
+const AdvancedSearch = ({ showFilters = true }) => {
   const {
     forms: { search },
     games,
@@ -38,65 +37,65 @@ const AdvancedSearch = ({showFilters = true}) => {
   return (
     <div className="browse-listings flex-row flex-grow advanced-search search-filters">
 
-        <div className={`navbar-start flex-column ${ !showFilters ? 'display-none' : ''}`}>
+      <div className={`navbar-start flex-column ${!showFilters ? 'display-none' : ''}`}>
 
-          <div className="flex-row flex-grow flex-wrap">
+        <div className="flex-row flex-grow flex-wrap">
 
-            <div className="search-item flex-row flex-wrap align-center">
-              <label htmlFor="search-sort-by">Sort By:</label>
-              <Select 
-                name="sort_by"
-                className="search-sort-by"
-                id="search-sort-by"
-                value={search.sort_by}
-                onChange={handleChange}  
-                options={sortByOptions}
-                keys={true}
-              />
-            </div>
+          <div className="search-item flex-row flex-wrap align-center">
+            <label htmlFor="search-sort-by">Sort By:</label>
+            <Select
+              name="sort_by"
+              className="search-sort-by"
+              id="search-sort-by"
+              value={search.sort_by}
+              onChange={handleChange}
+              options={sortByOptions}
+              keys
+            />
+          </div>
 
-            <div className="search-item flex-row flex-wrap align-center">
-              <label htmlFor="search-platform">Platform:</label>
-              <Select 
-                name="platform"
-                className="search-platform"
-                id="search-platform"
-                value={search.platform}
-                onChange={handleChange} 
-                options={platformOptions}
-                keys={true}
-              />
-            </div>
-        
-            <div className="search-item flex-row flex-wrap align-center">
-              <label htmlFor="search-genre">Genre:</label>
-              <Select 
-                name="genre"
-                className="search-genre"
-                id="search-genre"
-                value={search.genre}
-                onChange={handleChange}
-                options={genreOptions}
-                keys={false}
-              />
-            </div>
+          <div className="search-item flex-row flex-wrap align-center">
+            <label htmlFor="search-platform">Platform:</label>
+            <Select
+              name="platform"
+              className="search-platform"
+              id="search-platform"
+              value={search.platform}
+              onChange={handleChange}
+              options={platformOptions}
+              keys
+            />
+          </div>
 
-            <div className="search-item flex-row flex-wrap align-center">
-              <label htmlFor="price-range">Price Range:</label>
-              <RangeSlider
-                range={search.price.defaultRange()}
-                values={search.price.values()}
-                setValues={setPriceValues}
-              />
-            </div>
+          <div className="search-item flex-row flex-wrap align-center">
+            <label htmlFor="search-genre">Genre:</label>
+            <Select
+              name="genre"
+              className="search-genre"
+              id="search-genre"
+              value={search.genre}
+              onChange={handleChange}
+              options={genreOptions}
+              keys={false}
+            />
+          </div>
+
+          <div className="search-item flex-row flex-wrap align-center">
+            <label htmlFor="price-range">Price Range:</label>
+            <RangeSlider
+              range={search.price.defaultRange()}
+              values={search.price.values()}
+              setValues={setPriceValues}
+            />
           </div>
         </div>
+      </div>
 
-        <div className="flex-row align-center justify-flex-end flex-grow">
-            <form onSubmit={handleSubmit}>
-              <SearchInput onChange={handleChange} value={search.query}  name="query"/>
-            </form>
-        </div>
+      <div className="flex-row align-center justify-flex-end flex-grow">
+        <form onSubmit={handleSubmit}>
+          <SearchInput onChange={handleChange} value={search.query} name="query" />
+        </form>
+      </div>
 
     </div>
   );

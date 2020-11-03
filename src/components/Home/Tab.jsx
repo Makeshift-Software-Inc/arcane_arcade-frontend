@@ -15,5 +15,4 @@ const Tab = ({ text, selected, onClick }) => (
   </div>
 );
 
-
 export default Tab;

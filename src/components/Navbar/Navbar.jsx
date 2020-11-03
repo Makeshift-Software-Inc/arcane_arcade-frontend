@@ -115,18 +115,19 @@ const Navbar = () => {
       </div>
 
       <div className="mobile-nav flex-row align-center">
-       
 
-        { openMobNav &&
+        { openMobNav
 
+            && (
             <div className="mobile-nav-dropdown">
 
               <div className="mobile-start-links flex-column">
-                {isLoggedIn &&
+                {isLoggedIn
+                  && (
                   <Link to="/my-library" className="navbar-item">
                     My Library
                   </Link>
-                }
+                  )}
                 <Link to="/how-it-works" className="navbar-item">
                   How It Works
                 </Link>
@@ -135,33 +136,42 @@ const Navbar = () => {
                 </Link>
 
                 {isLoggedIn && (
-                  <Link to="/logout" className="navbar-item">
-                    Logout
-                  </Link>
+                <Link to="/logout" className="navbar-item">
+                  Logout
+                </Link>
                 )}
-              </div>  
+              </div>
 
               <div className="end-mobile-links flex-column">
                 <div className="flex-row">
                   {!isLoggedIn ? (
                     <Link to="/login" className="navbar-item highlited-link">
                       Login
-                    </Link> ) : (
+                    </Link>
+                  ) : (
                     <Link to="/" className="navbar-item highlited-link">
                       {user.username}
                     </Link>
-                    )
-                  }
-                </div> 
+                  )}
+                </div>
                 <div className="seller-navbar-item">
                   {renderSellerLinks()}
                 </div>
               </div>
-          </div>
-        }
-
-         <img src={openMobNav ? closeIcon : hamburgerIcon} alt="hamburger-icon" class="hamburger-icon" onClick={() => setOpenMobNav(!openMobNav)}/>
-
+            </div>
+            )}
+        {/* eslint-disable jsx-a11y/click-events-have-key-events */}
+        {/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */}
+        {/* eslint-disable jsx-a11y/no-noninteractive-element-to-interactive-role */}
+        <img
+          src={openMobNav ? closeIcon : hamburgerIcon}
+          alt="hamburger-icon"
+          className="hamburger-icon"
+          onClick={() => setOpenMobNav(!openMobNav)}
+        />
+        {/* eslint-enable jsx-a11y/click-events-have-key-events */}
+        {/* eslint-enable jsx-a11y/no-noninteractive-element-interactions */}
+        {/* eslint-enable jsx-a11y/no-noninteractive-element-to-interactive-role */}
       </div>
     </nav>
   );
