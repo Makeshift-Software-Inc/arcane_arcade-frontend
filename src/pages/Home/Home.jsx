@@ -181,9 +181,11 @@ const Home = () => {
               <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} mobile={true} />
             </DropDown> 
 
-            <SearchBar show={selectedTab == 'discover' ? true : false} >
-              <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} mobile={false} />
-            </SearchBar>
+            <div className="tab-bar-container flex-row flex-grow justify-center align-center">
+              <SearchBar show={selectedTab == 'discover' ? true : false} >
+                <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} mobile={false} />
+              </SearchBar>
+            </div>
 
           <div className="flex-row slider">
             <Splide

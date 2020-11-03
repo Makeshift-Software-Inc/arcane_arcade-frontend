@@ -22,7 +22,21 @@
     text-align: center;
   }
 
+  .tab-bar-container {
+    top: 78px;
+    position: fixed;
+    z-index: 9999999;
+    background: #121212;
+    left: 0;
+    right: 0;
+
+    @media (max-width:1023px) {
+      position: static;
+    }
+  }
+
   .top-search-bar {
+    max-width: 1200px;
     height: 125px;
   }
 
@@ -65,6 +79,7 @@
       display: none;
     }
   }
+
 
   .tabs-mobile {
     display: none;
@@ -739,6 +754,7 @@
   .home-page-container {
     max-width: 1200px;
     width: 100%;
+    padding-top: 120px;
 
     .homepage-dropdown {
       display: none;
@@ -748,7 +764,11 @@
       display: none;
     }
 
-      @media (max-width:768px) {
+    @media (max-width:1023px) {
+      padding-top: 0; 
+    }
+
+    @media (max-width:768px) {
 
       .top-search-bar .advanced-search {
         flex-direction: column;
