@@ -21,6 +21,11 @@ body {
   display: block;
   background-color: #121212;
   min-height: 100vh;
+  padding-top: 78px;
+
+  @media (max-width:1023px) {
+    padding-top: 0;
+  }
 
   @keyframes gradient {
     0% {

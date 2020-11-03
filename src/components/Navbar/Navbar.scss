@@ -4,6 +4,11 @@
   padding: 25px;
   align-items: center;
 
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+
   .navbar-item {
     &:hover, &:focus {
       background-color: #2A2A2A;
@@ -36,6 +41,7 @@
   }
 
    @media (max-width:1023px) {
+    position: static; 
     .navbar-brand {
       position: absolute;
       left: calc(50% - 40px);
