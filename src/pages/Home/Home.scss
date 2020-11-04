@@ -209,8 +209,11 @@
             flex-direction: row;
             align-items: center;
             justify-content: center;
+          }
 
-           }
+          .splide-pagination {
+            bottom: -20px;
+          }
 
           .splide__list {
             display: flex;
@@ -364,6 +367,20 @@
       }
     }
 
+    @media (max-width:865px) {
+      .discover {
+        .new-releases {
+          .release-slider {
+            .splide__list {
+              li.splide__slide {
+                padding: 0 5px;
+              }   
+            }
+          }
+        }
+      }
+    }
+
 
 
     @media (max-width:768px) {
@@ -373,6 +390,7 @@
 
           .release-slider {
             width: 100%;
+            max-width: 100%;
 
             .releases-games-listing {
               position: relative;
@@ -393,24 +411,17 @@
             }
 
             .splide__list {
-              display: flex;
-              flex-wrap: wrap;
-              transform: none !important;
-
-              img {
-                height: 153px;
-              }
+              max-width: 100%;
 
               li.splide__slide {
-                width: 33.3% !important;
-                padding: 0 15px;
-                margin-bottom: 15px;
+                padding: 0 10px;
+                width: 33.33% !important;
               }
             }
 
             .splide__pagination,
             .splide__arrows {
-              display: none;
+              
             }
           }
         }
@@ -422,7 +433,7 @@
     }
 
 
-    @media (max-width:600px) {
+    @media (max-width:670px) {
       .discover {
         padding: 0 25px;
         .new-releases {
@@ -432,7 +443,7 @@
             .splide__list {
               
               img {
-                height: 193px;
+                height: 250px;
               }
 
               li.splide__slide {
@@ -464,7 +475,7 @@
             .splide__list {
               
               img {
-                height: 173px;
+                height: 200px;
               }
 
               li.splide__slide {
@@ -513,7 +524,7 @@
             .splide__list {
               
               img {
-                height: 123px;
+                height: 155px;
               }
               
 
