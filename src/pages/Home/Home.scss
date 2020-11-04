@@ -22,6 +22,13 @@
     text-align: center;
   }
 
+  .main-slider,
+  .new-releases {
+    ul.splide__pagination {
+      bottom: -20px !important;
+    }
+  }
+
   .tab-bar-container {
     top: 78px;
     position: fixed;
@@ -209,10 +216,6 @@
             flex-direction: row;
             align-items: center;
             justify-content: center;
-          }
-
-          .splide-pagination {
-            bottom: -20px;
           }
 
           .splide__list {
@@ -417,11 +420,6 @@
                 padding: 0 10px;
                 width: 33.33% !important;
               }
-            }
-
-            .splide__pagination,
-            .splide__arrows {
-              
             }
           }
         }
@@ -685,7 +683,7 @@
 
     .arcane-range-slider {
       padding-top: 30px;
-      width: 250px;
+      width: 200px;
       margin-left: 13px;
       padding-right: 13px;
     }
@@ -816,6 +814,9 @@
         padding: 17px 25px;
         font-size: 17px;
         color: #FFFFFF;
+        i, p {
+          cursor: pointer;
+        }
       }
     }
   }

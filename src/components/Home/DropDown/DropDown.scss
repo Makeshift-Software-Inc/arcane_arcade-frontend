@@ -75,6 +75,10 @@
     z-index: 999999;
     font-family: Montserrat;
 
+    .filter-btn {
+      cursor: pointer;
+      padding: 5px 0;
+    }
 
     .filters-tab, .filter {
       padding: 19px 25px;
@@ -83,6 +87,7 @@
     }
 
     .filter {
+      cursor: pointer;
       background-color: #242222;
     }
 

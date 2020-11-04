@@ -155,6 +155,10 @@ button {
   outline: none;
 }
 
+[role="button"] {
+  outline: none;
+}
+
 .display-none {
   display: none !important;
 }

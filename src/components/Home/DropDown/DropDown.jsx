@@ -95,6 +95,7 @@ const DropDown = ({
                   onClick={() => setOpenModal(false)}
                   role="button"
                   tabIndex={0}
+                  className="close-btn"
                 />
                 {/* eslint-enable jsx-a11y/click-events-have-key-events */}
                 {/* eslint-enable jsx-a11y/no-noninteractive-element-to-interactive-role */}
@@ -103,7 +104,7 @@ const DropDown = ({
               <div className="filters-tab filters-container sortby-mobile flex-column">
                 {/* eslint-disable jsx-a11y/click-events-have-key-events */}
                 <div
-                  className="flex-row justify-between align-center"
+                  className="flex-row justify-between align-center filter-btn"
                   onClick={() => setOpenSortBy(!openSortBy)}
                   role="button"
                   tabIndex={0}
@@ -135,7 +136,7 @@ const DropDown = ({
               <div className="filters-tab filters-container platform-mobile flex-column">
                 {/* eslint-disable jsx-a11y/click-events-have-key-events */}
                 <div
-                  className="flex-row justify-between align-center"
+                  className="flex-row justify-between align-center filter-btn"
                   onClick={() => setOpenPlatform(!openPlatform)}
                   role="button"
                   tabIndex={0}
@@ -167,7 +168,7 @@ const DropDown = ({
               <div className="filters-tab filters-container genre-mobile flex-column">
                 {/* eslint-disable jsx-a11y/click-events-have-key-events */}
                 <div
-                  className="flex-row justify-between align-center"
+                  className="flex-row justify-between align-center filter-btn"
                   onClick={() => setOpenGenre(!openGenre)}
                   role="button"
                   tabIndex={0}
@@ -199,7 +200,7 @@ const DropDown = ({
               <div className="filters-tab filters-container genre-mobile flex-column">
                 {/* eslint-disable jsx-a11y/click-events-have-key-events */}
                 <div
-                  className="flex-row justify-between align-center"
+                  className="flex-row justify-between align-center filter-btn"
                   onClick={() => setOpenPrice(!openPrice)}
                   role="button"
                   tabIndex={0}
