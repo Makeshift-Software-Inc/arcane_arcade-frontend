@@ -10,7 +10,7 @@ const SearchInput = ({
   <div className="search-input flex-row flex-grow align-center">
     <img src={searchIcon} alt="search-icon" className="search-icon" />
     <input
-      type="text"
+      type="search"
       name={name}
       value={value}
       onChange={onChange}

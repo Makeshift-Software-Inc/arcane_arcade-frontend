@@ -12,22 +12,40 @@ const GamesStore = types
     loading: false,
     creating: false,
     gamesLoaded: false,
+    searching: false,
+    searchResults: types.array(Game),
   })
   .actions((self) => ({
-    load: flow(function* load(query = null) {
+    search: flow(function* search() {
+      if (self.searching) return true;
+
+      console.log('Search');
+
+      self.searching = true;
+
+      const {
+        forms: { search: searchForm },
+      } = getRoot(self);
+
+      try {
+        const response = yield Api.get('/listings', searchForm.toParams());
+        self.searchResults = deserialize(response.data);
+        self.searching = false;
+        return true;
+      } catch (e) {
+        console.log(e);
+        self.searching = false;
+        return false;
+      }
+    }),
+    load: flow(function* load() {
       // don't load again if games are loaded
       if (self.gamesLoaded) return true;
 
       self.loading = true;
 
       try {
-        let response = {};
-        if (!query) {
-          response = yield Api.get('/listings');
-        } else {
-          response = yield Api.get(`/listings?q=${query}`);
-        }
-
+        const response = yield Api.get('/listings');
         self.games = deserialize(response.data);
         self.loading = false;
         self.gamesLoaded = true;

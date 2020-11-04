@@ -21,6 +21,11 @@ body {
   display: block;
   background-color: #121212;
   min-height: 100vh;
+  padding-top: 78px;
+
+  @media (max-width:1023px) {
+    padding-top: 0;
+  }
 
   @keyframes gradient {
     0% {
@@ -83,8 +88,20 @@ code {
   align-items: start;
 }
 
+.align-flex-end {
+  align-items: flex-end;
+}
+
+.align-flex-start {
+  align-items: flex-start;
+}
+
 .justify-between {
   justify-content: space-between;
+}
+
+.justify-evenly {
+  justify-content: space-evenly; 
 }
 
 .justify-center {
@@ -105,6 +122,10 @@ code {
 
 .align-self-stretch {
   align-self: stretch;
+}
+
+.align-self-bottom {
+  align-self: flex-end;
 }
 
 .justify-around {
@@ -135,4 +156,13 @@ button {
   background-color: #463af3;
   color: aliceblue;
   border: none;
+  outline: none;
+}
+
+[role="button"] {
+  outline: none;
+}
+
+.display-none {
+  display: none !important;
 }

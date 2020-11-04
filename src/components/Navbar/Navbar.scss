@@ -1,6 +1,13 @@
 .arcane-nav {
   height: 78px;
   background-color: #2A2A2A;
+  padding: 25px;
+  align-items: center;
+
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
 
   .navbar-item {
     &:hover, &:focus {
@@ -22,5 +29,65 @@
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  .mobile-nav {
+    display: none;
+  }
+
+  .seller-navbar-item {
+    text-align: center;
+    background-color: #463AF3;
+  }
+
+   @media (max-width:1023px) {
+    position: static; 
+    .navbar-brand {
+      position: absolute;
+      left: calc(50% - 40px);
+     }
+    .mobile-nav {
+      display: flex;
+
+      .hamburger-icon {
+        cursor: pointer;
+      }
+
+      .mobile-nav-dropdown {
+        position: absolute;
+        top: 78px;
+        left: 0;
+        z-index: 9999999;
+        width: 100%;
+        max-width: 276px;
+        background-color: #2A2A2A;
+      }
+
+      .navbar-item {
+        padding: 15px 20px;
+        font-size: 11px;
+        font-family: Montserrat;
+        color: #FFFFFF;
+        box-shadow: 0px 1px 1px #FFFFFF26;
+      }
+
+      .end-mobile-links {
+      .navbar-item {
+          padding: 11px 20px;
+        }
+      }
+
+      .navbar-item:hover {
+        background-color: #575757;
+      }
+
+      .highlited-link {
+        text-align: center;
+        margin-top: 69px;
+        width: 100%;
+        background-color: #2A2A2A;
+        box-shadow: 0px -3px 6px #00000029;
+      }
+    }
   }
 }

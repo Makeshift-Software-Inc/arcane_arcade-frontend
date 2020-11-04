@@ -9,6 +9,8 @@ import OnboardingModalContent from '../Onboarding/Modal';
 
 import './Navbar.scss';
 import logo from '../../img/logo.png';
+import hamburgerIcon from '../../img/hamburger_light.svg';
+import closeIcon from '../../img/close_white.svg';
 
 import { useStore } from '../../store';
 
@@ -16,6 +18,8 @@ const Navbar = () => {
   const history = useHistory();
   const [showOnboardingModal, setShowOnboardingModal] = useState(false);
   const { isLoggedIn, user } = useStore('auth');
+
+  const [openMobNav, setOpenMobNav] = useState(false);
 
   const isSeller = isLoggedIn && user && user.isSeller();
 
@@ -67,7 +71,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className="navbar arcane-nav"
+      className="navbar arcane-nav flex-row justify-between align-center"
       role="navigation"
       aria-label="main navigation"
     >
@@ -108,6 +112,66 @@ const Navbar = () => {
             </Link>
           )}
         </div>
+      </div>
+
+      <div className="mobile-nav flex-row align-center">
+
+        { openMobNav
+
+            && (
+            <div className="mobile-nav-dropdown">
+
+              <div className="mobile-start-links flex-column">
+                {isLoggedIn
+                  && (
+                  <Link to="/my-library" className="navbar-item">
+                    My Library
+                  </Link>
+                  )}
+                <Link to="/how-it-works" className="navbar-item">
+                  How It Works
+                </Link>
+                <Link to="/contact-us" className="navbar-item">
+                  Contact Us
+                </Link>
+
+                {isLoggedIn && (
+                <Link to="/logout" className="navbar-item">
+                  Logout
+                </Link>
+                )}
+              </div>
+
+              <div className="end-mobile-links flex-column">
+                <div className="flex-row">
+                  {!isLoggedIn ? (
+                    <Link to="/login" className="navbar-item highlited-link">
+                      Login
+                    </Link>
+                  ) : (
+                    <Link to="/" className="navbar-item highlited-link">
+                      {user.username}
+                    </Link>
+                  )}
+                </div>
+                <div className="seller-navbar-item">
+                  {renderSellerLinks()}
+                </div>
+              </div>
+            </div>
+            )}
+        {/* eslint-disable jsx-a11y/click-events-have-key-events */}
+        {/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */}
+        {/* eslint-disable jsx-a11y/no-noninteractive-element-to-interactive-role */}
+        <img
+          src={openMobNav ? closeIcon : hamburgerIcon}
+          alt="hamburger-icon"
+          className="hamburger-icon"
+          onClick={() => setOpenMobNav(!openMobNav)}
+        />
+        {/* eslint-enable jsx-a11y/click-events-have-key-events */}
+        {/* eslint-enable jsx-a11y/no-noninteractive-element-interactions */}
+        {/* eslint-enable jsx-a11y/no-noninteractive-element-to-interactive-role */}
       </div>
     </nav>
   );

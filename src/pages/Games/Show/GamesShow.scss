@@ -186,6 +186,11 @@
       .game-description {
         font-family: OpenSans;
         max-width: 998px;
+
+        strong {
+          font-family: Montserrat;
+          color: aliceblue;
+        }
       }
 
       .descr-toggle-button {
