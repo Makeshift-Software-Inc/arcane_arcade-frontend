@@ -1,26 +1,21 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { observer } from 'mobx-react';
+import React, {useRef, useEffect, useState} from 'react';
+import {observer} from 'mobx-react';
 
-import { Line } from 'chart.js';
+import {Line} from 'chart.js';
 import 'chart.js/dist/Chart.min.css';
 
-import { useStore } from '../../../../store';
+import {useStore} from '../../../../store';
 import Loading from '../../../../components/Loading/Loading';
 
 import CoinWallets from '../CoinWallets/CoinWallets';
 
-const ChartOptions = ({ options, onClick, active }) => options.map((option) => (
-  <div className="button-bar__item" key={option}>
-    <button
-      type="button"
-      name={option}
-      onClick={onClick}
-      className={`button-bar__button ${active === option ? 'active' : ''}`}
-    >
-      {option}
-    </button>
-  </div>
-));
+const ChartOptions = ({options, onClick, active}) => options.map((option) => (<div className="button-bar__item" key={option}>
+  <button type="button" name={option} onClick={onClick} className={`button-bar__button ${active === option
+      ? 'active'
+      : ''}`}>
+    {option}
+  </button>
+</div>));
 
 const Payments = () => {
   const [showCoinWalletsModal, setShowCoinWalletsModal] = useState(false);
@@ -31,9 +26,12 @@ const Payments = () => {
   const {
     user: {
       seller: {
-        statsLoaded, loadStats, statsLabelsFor, statsDataFor,
-      },
-    },
+        statsLoaded,
+        loadStats,
+        statsLabelsFor,
+        statsDataFor
+      }
+    }
   } = useStore('auth');
 
   useEffect(() => {
@@ -44,6 +42,9 @@ const Payments = () => {
     if (statsLoaded) {
       const labels = statsLabelsFor(activeChartOption);
       const data = statsDataFor(activeChartOption);
+
+      const max = Math.max.apply(Math, data) + 5;
+
       // eslint-disable-next-line no-new
       new Line(lineChartCtx.current, {
         data: {
@@ -54,19 +55,43 @@ const Payments = () => {
               data,
               backgroundColor: 'rgba(69,57,240, 0.2)',
               borderColor: 'rgba(42, 106, 152, 1)',
-              borderWidth: 1,
-            },
-          ],
+              borderWidth: 1
+            }
+          ]
         },
         options: {
-          scaleStartValue: 0,
+          responsive: true,
+          mainrainAspectRatio: true,
+          aspectRatio: 4,
+          scales: {
+            xAxes: [
+              {
+                display: true,
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Month'
+                }
+              }
+            ],
+            yAxes: [
+              {
+                display: true,
+                ticks: {
+                  beginAtZero: true,
+                  steps: 5,
+                  stepValue: 1,
+                  max: max
+                }
+              }
+            ]
+          },
           legend: {
             labels: {
               fontColor: 'rgba(69,57,240, 1)',
-              fontSize: 14,
-            },
-          },
-        },
+              fontSize: 14
+            }
+          }
+        }
       });
     }
   }, [statsLoaded, activeChartOption]);
@@ -79,7 +104,8 @@ const Payments = () => {
     setShowCoinWalletsModal(true);
   };
 
-  if (!statsLoaded) return <Loading />;
+  if (!statsLoaded)
+    return <Loading/>;
 
   const chartOptions = ['Daily', 'Weekly', 'Monthly', 'Yearly'];
 
@@ -87,26 +113,20 @@ const Payments = () => {
     setActiveChartOption(e.target.name);
   };
 
-  return (
-    <div className="payments">
-      <div className="manage-payments">
-        <button type="button" className="button" onClick={openCoinWalletsModal}>
-          Manage Payments
-        </button>
-      </div>
-      <canvas id="lineChart" ref={lineChartCtx} />
-      <div className="chart-filters">
-        <div className="button-bar">
-          <ChartOptions
-            active={activeChartOption}
-            options={chartOptions}
-            onClick={handleChartOptionClick}
-          />
-        </div>
-      </div>
-      {showCoinWalletsModal && <CoinWallets close={closeCoinWalletsModal} />}
+  return (<div className="payments">
+    <div className="manage-payments">
+      <button type="button" className="button" onClick={openCoinWalletsModal}>
+        Manage Payments
+      </button>
     </div>
-  );
+    <canvas id="lineChart" ref={lineChartCtx}/>
+    <div className="chart-filters">
+      <div className="button-bar">
+        <ChartOptions active={activeChartOption} options={chartOptions} onClick={handleChartOptionClick}/>
+      </div>
+    </div>
+    {showCoinWalletsModal && <CoinWallets close={closeCoinWalletsModal}/>}
+  </div>);
 };
 
 export default observer(Payments);
