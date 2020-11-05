@@ -10,7 +10,8 @@ import deserialize from '../../utils/deserialize';
 
 const SupportedPlatformListing = types
   .model('SupportedPlatformListing', {
-    id: types.identifier,
+    id: types.maybe(types.string),
+    _destroy: false,
     supported_platform: types.reference(SupportedPlatform),
     distribution: types.maybeNull(Distribution),
     distributionForm: types.optional(DistributionForm, {}),

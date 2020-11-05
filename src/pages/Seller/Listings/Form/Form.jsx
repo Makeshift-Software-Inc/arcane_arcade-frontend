@@ -28,6 +28,10 @@ const Form = ({
   const trixInput = useRef(null);
 
   useEffect(() => {
+    trixInput.current.addEventListener('trix-initialize', (e) => {
+      e.currentTarget.editor.loadHTML(form.description);
+    });
+
     trixInput.current.addEventListener('trix-change', (event) => {
       if (event.target.name) {
         form.onChange(event);
@@ -86,14 +90,20 @@ const Form = ({
     form.reorderFiles(oldIndex, newIndex);
   };
 
-  const selectedCategoriesAsTags = form.categories.map((category) => ({
-    ...category,
-    name: category.title,
-  }));
+  const selectedCategoriesAsTags = form
+    .categories()
+    .map((category_listing) => ({
+      ...category_listing.category,
+      name: category_listing.category.title,
+    }));
 
   const categoriesOptionsAsTags = form.categoryOptions.map((category) => ({
     ...category,
     name: category.title,
+  }));
+
+  const tags = form.tags().map((listing_tag) => ({
+    ...listing_tag.tag,
   }));
 
   const releaseDateAsDate = form.release_date.length > 0 ? new Date(form.release_date) : null;
@@ -162,7 +172,7 @@ const Form = ({
             Game Tags
           </label>
           <ReactTags
-            tags={form.tags}
+            tags={tags}
             suggestions={form.tagsOptions.filter((tag) => !tag.disabled)}
             onDelete={form.removeTag}
             onAddition={form.addTag}
@@ -225,14 +235,14 @@ const Form = ({
           <label className="label">Platforms Supported</label>
           <SupportedPlatforms
             options={form.supportedPlatformOptions}
-            platforms={form.supported_platforms}
+            platforms={form.supportedPlatforms()}
             onChange={handleSupportedPlatformChange}
           />
         </div>
         <div className="flex-column flex-1">
-          {form.system_requirements.length > 0 && (
+          {form.systemRequirements().length > 0 && (
             <SystemRequirements
-              system_requirements={form.system_requirements}
+              system_requirements={form.systemRequirements()}
             />
           )}
         </div>

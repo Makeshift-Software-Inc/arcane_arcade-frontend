@@ -32,27 +32,10 @@ const SellerListingsNew = ({ history }) => {
       price: listing.price ? listing.price * 100 : null,
       release_date: listing.release_date,
       preorderable: listing.preorderable,
-      // category_ids: listing.categories.map((category) => category.id),
-      // supported_platforms_ids: listing.supported_platforms.map(
-      //   (platform) => platform.id,
-      // ),
-      category_listings_attributes: listing.categories.map((category) => ({
-        category_id: category.id,
-      })),
-      supported_platform_listings_attributes: listing.supported_platforms.map(
-        (platform) => {
-          const system_requirement = listing.system_requirements.find(
-            (requirement) => requirement.platform === platform.name,
-          );
-          return {
-            supported_platform_id: platform.id,
-            system_requirements: system_requirement
-              ? system_requirement.keysToSend()
-              : null,
-          };
-        },
-      ),
-      supported_languages: listing.supported_languages,
+      category_listings_attributes: listing.categoryListingsKeys(),
+      listing_tags_attributes: listing.listingTagsKeys(),
+      supported_platform_listings_attributes: listing.supportedPlatformListingsKeys(),
+      supported_languages: listing.supportedLanguagesKeys(),
       listing_images_attributes: listing.images().map((image) => ({
         image: image.keys(),
         position: image.position,
@@ -64,7 +47,6 @@ const SellerListingsNew = ({ history }) => {
       listing_attachments_attributes: listing.attachments.map((attachment) => ({
         attachment: attachment.keys(),
       })),
-      listing_tags_attributes: listing.tags.map((tag) => ({ tag_id: tag.id })),
     };
 
     const id = await games.create(data);

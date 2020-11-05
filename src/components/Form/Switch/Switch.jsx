@@ -3,7 +3,8 @@ import React from 'react';
 import './Switch.scss';
 
 const Switch = ({ value, checked, onChange }) => {
-  const handleClick = () => {
+  const handleClick = (e) => {
+    e.preventDefault();
     onChange(value, !checked);
   };
 

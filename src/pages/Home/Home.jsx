@@ -188,7 +188,6 @@ const Home = () => {
         {!selectedGame && (
           <div className="flex flex-grow">
             <div className="row flex-column">
-
               <div className="tabs">
                 <div className="tab">
                   {/* eslint-disable-next-line */}
@@ -252,7 +251,6 @@ const Home = () => {
                           iconType={mainSplideData[mainSplideIndex].iconType}
                         />
                       </div>
-
                     </SplideSlide>
                     <SplideSlide>
                       <div className="slider-item flex-row">
@@ -302,9 +300,7 @@ const Home = () => {
                         />
                       </div>
                     </SplideSlide>
-
                   </Splide>
-
                 </div>
               </div>
             </div>
@@ -427,7 +423,6 @@ const Home = () => {
                   <select name="genre" aria-label="search by genre" />
                 </div>
               </div>
-
             </div>
 
             <div className="card">
@@ -436,7 +431,12 @@ const Home = () => {
               </header>
               <div className="card-content">
                 <div className="content">
-                  <input type="range" className="topcoat-range" min="0" max="60" />
+                  <input
+                    type="range"
+                    className="topcoat-range"
+                    min="0"
+                    max="60"
+                  />
                 </div>
               </div>
             </div>

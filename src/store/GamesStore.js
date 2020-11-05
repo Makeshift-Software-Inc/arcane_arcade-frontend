@@ -52,13 +52,11 @@ const GamesStore = types
         } = getRoot(self);
 
         const game = deserialize(response.data);
-        console.log(game);
 
         seller.addGame(game);
         self.creating = false;
         return game.id;
       } catch (e) {
-        console.log(e);
         const { forms } = getRoot(self);
         self.loading = false;
         if (e.response && e.response.data) {
