@@ -112,11 +112,21 @@ const Form = ({
     <form onSubmit={onSubmit} className="listing-form">
       <h1 className="form-title">{text}</h1>
 
-      <div className="flex-row">
-        <div className="flex-column flex-grow">
+      <div className="flex-row large-and-down-flex-column">
+        <div className="flex-column flex-3">
           <Uploader accept="image/*,video/*" addFile={form.addFile} />
         </div>
-        <div className="flex-column listing-basic-info">
+        <div className="flex-row is-flex-touch if-flex-desktop is-hidden-widescreen">
+          <SortablePreviews
+            files={form.filesSorted()}
+            onSortEnd={onSortEnd}
+            helperClass="SortableHelper"
+            axis="x"
+            lockAxis="x"
+            pressDelay={100}
+          />
+        </div>
+        <div className="flex-column listing-basic-info flex-1">
           <label htmlFor="title" className="label">
             Game Title
           </label>
@@ -158,9 +168,7 @@ const Form = ({
               selected: 'react-tags__selected',
               selectedTag: 'react-tags__selected-tag',
               selectedTagName: 'react-tags__selected-tag-name',
-              search: `react-tags__search ${
-                selectedCategoriesAsTags.length === 2 ? 'is-hidden' : ''
-              }`,
+              search: `${selectedCategoriesAsTags.length === 2 ? 'is-hidden' : 'react-tags__search'}`,
               searchWrapper: 'react-tags__search-wrapper',
               searchInput: 'react-tags__search-input',
               suggestions: 'react-tags__suggestions',
@@ -189,14 +197,14 @@ const Form = ({
         </div>
       </div>
 
-      <div className="flex-row">
+      <div className="flex-row is-hidden-touch is-hidden-desktop-only is-flex-widescreen">
         <SortablePreviews
           files={form.filesSorted()}
           onSortEnd={onSortEnd}
           helperClass="SortableHelper"
           axis="x"
           lockAxis="x"
-          pressDelay={200}
+          pressDelay={100}
         />
       </div>
 
@@ -230,7 +238,7 @@ const Form = ({
         </div>
       </div>
 
-      <div className="flex-row">
+      <div className="flex-row large-and-down-flex-column">
         <div className="flex-column align-start supported-platforms">
           <label className="label">Platforms Supported</label>
           <SupportedPlatforms
@@ -239,7 +247,7 @@ const Form = ({
             onChange={handleSupportedPlatformChange}
           />
         </div>
-        <div className="flex-column flex-1">
+        <div className="flex-column flex-grow">
           {form.systemRequirements().length > 0 && (
             <SystemRequirements
               system_requirements={form.systemRequirements()}
@@ -255,7 +263,7 @@ const Form = ({
         </div>
       </div>
 
-      <div className="flex-row justify-between align-center price-details">
+      <div className="flex-row justify-between align-center mobile-align-start price-details mobile-flex-column">
         <div className="flex-column">
           <label className="label" htmlFor="price">
             Price in USD

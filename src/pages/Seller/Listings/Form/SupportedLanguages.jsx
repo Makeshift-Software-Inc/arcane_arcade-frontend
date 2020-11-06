@@ -5,7 +5,7 @@ import { observer } from 'mobx-react';
 import './SupportedLanguages.scss';
 
 const SupportedLanguages = ({ languages }) => (
-  <div className="flex-row supported-languages">
+  <div className="flex-row supported-languages mobile-flex-column">
     <div className="flex-column flex-1 audio-languages">
       <span className="content-item-text">Audio</span>
       <ReactTags

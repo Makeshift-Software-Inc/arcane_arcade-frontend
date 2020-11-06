@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
 import { toast } from 'react-toastify';
 import { Helmet } from 'react-helmet';
@@ -364,17 +364,23 @@ const GamesShow = ({ match, history }) => {
 
                           {selectedSystemReq.recommended.asString().length
                             > 0 && (
-                            <div className="flex-column recommended">
-                              <p className="info-text">Recommended</p>
-                              <p>{selectedSystemReq.recommended.asString()}</p>
-                            </div>
+                            <Fragment>
+                              <hr />
+                              <div className="flex-column recommended">
+                                <p className="info-text">Recommended</p>
+                                <p>{selectedSystemReq.recommended.asString()}</p>
+                              </div>
+                            </Fragment>
                           )}
 
                           {selectedSystemReq.additional_notes.length > 0 && (
-                            <div className="flex-column recommended">
-                              <p className="info-text">Additional Notes</p>
-                              <p>{selectedSystemReq.additional_notes}</p>
-                            </div>
+                            <Fragment>
+                              <hr />
+                              <div className="flex-column recommended">
+                                <p className="info-text">Additional Notes</p>
+                                <p>{selectedSystemReq.additional_notes}</p>
+                              </div>
+                            </Fragment>
                           )}
                         </div>
                       )}

@@ -12,6 +12,9 @@ $border-color: #2a2a2a;
       color: #ffffff;
       margin: 41px 0 71px 0;
       text-align: center;
+      @media (max-width: 768px) {
+        font-size: 32px;
+      }
     }
     .label {
       font-size: 26px;
@@ -55,13 +58,20 @@ $border-color: #2a2a2a;
     }
     .listing-basic-info {
       padding: 13px 0 13px 121px;
+      @media (max-width: 1215px) {
+        padding-left: 0;
+        margin-bottom: 32px;
+      }
       input[type='text'] {
-        min-width: 434px;
         padding: 11px 25px;
+        width: 100%;
       }
       .react-tags {
         display: flex;
-        padding: 7px 17px;
+        height: auto;
+        flex-wrap: wrap;
+        padding: 0;
+        background-color: transparent;
         &__suggestions {
           z-index: 10;
         }
@@ -70,6 +80,8 @@ $border-color: #2a2a2a;
           font-size: 20px;
           line-height: 1.2;
           color: #ffffff;
+          display: flex;
+          flex-wrap: wrap;
         }
         &__selected-tag {
           border-radius: 10px;
@@ -85,13 +97,23 @@ $border-color: #2a2a2a;
         }
         &__search {
           width: 100%;
-          margin-bottom: 0;
-          padding: 0;
-          display: inherit;
+          height: 50px;
+          border-radius: 5px;
+          background-color: #e4e4e4;
+          color: #121212;
+          margin-bottom: 32px;
+          border: none;
+          outline: none;
+          font-family: Montserrat;
+          font-size: 22px;
+          line-height: 1.23;
+          color: #121212;
+          padding: 11px 25px;
         }
         &__search-input {
           margin-bottom: 0;
           height: 100%;
+          width: 100%;
         }
       }
       .react-tags__search-input {
@@ -127,7 +149,7 @@ $border-color: #2a2a2a;
     }
 
     .supported-platforms {
-      margin-right: 219px;
+      margin-right: 10%;
       margin-bottom: 55px;
       .child-platforms {
         margin-left: 40px;
@@ -148,30 +170,46 @@ $border-color: #2a2a2a;
     }
     .system-requirements {
       margin-bottom: 55px;
-      .system-requirement-tab {
-        border: solid 1px $border-color;
-        border-bottom: none;
-        background-color: #b6b6b6;
-        font-size: 13px;
-        font-weight: 500;
-        line-height: 1.23;
-        color: #121212;
-        padding: 10px 24px;
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
-        z-index: 2;
-        &:first-of-type {
-          z-index: 3;
+      .system-requirement-tabs {
+        .system-requirement-tab {
+          border: solid 1px $border-color;
+          border-bottom: none;
+          background-color: #b6b6b6;
+          font-size: 13px;
+          font-weight: 500;
+          line-height: 1.23;
+          color: #121212;
+          padding: 10px 24px;
+          border-top-left-radius: 10px;
+          border-top-right-radius: 10px;
+          z-index: 2;
+          text-align: center;
+          &:first-of-type {
+            z-index: 3;
+          }
+          &:last-of-type {
+            z-index: 1;
+          }
+          &:not(:first-of-type) {
+            margin-left: -15px;
+          }
+          &.selected {
+            background-color: $color;
+            z-index: 4;
+          }
         }
-        &:last-of-type {
-          z-index: 1;
-        }
-        &:not(:first-of-type) {
-          margin-left: -15px;
-        }
-        &.selected {
-          background-color: $color;
-          z-index: 4;
+        &.mobile {
+          border-bottom: solid 1px $border-color;
+          .system-requirement-tab {
+            background-color: #b6b6b6;
+            margin-left: 0;
+            border-radius: 0;
+            border: none;
+            flex: 1;
+            &.selected {
+              background-color: $color;
+            }
+          }
         }
       }
       .system-requirements-content {
@@ -210,10 +248,19 @@ $border-color: #2a2a2a;
             margin-bottom: 15px;
             color: black;
             background-color: white;
+            width: 100%;
           }
           textarea {
             width: 100%;
             resize: none;
+          }
+        }
+        &.mobile {
+          .content-item {
+            border-right: none;
+            .content-item-text {
+              display: none;
+            }
           }
         }
       }
@@ -223,8 +270,9 @@ $border-color: #2a2a2a;
       input {
         padding: 11px 25px;
         text-align: center;
+        width: 100%;
         &[type='number'] {
-          width: 177px;
+          width: 200px;
         }
       }
     }

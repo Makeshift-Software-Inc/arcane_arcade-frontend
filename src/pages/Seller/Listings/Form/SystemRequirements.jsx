@@ -1,14 +1,18 @@
 import React, { Fragment, useState } from 'react';
 import { observer } from 'mobx-react';
 
-export const Tabs = ({ selectedTab, options, setSelectedTab }) => {
+import useBreakpoints from '../../../../hooks/useBreakpoints';
+
+export const Tabs = ({
+  selectedTab, options, setSelectedTab, mobile,
+}) => {
   const onClick = (e) => {
     e.preventDefault();
     setSelectedTab(e.target.name);
   };
 
   return (
-    <div className="system-requirement-tabs flex-row">
+    <div className={`system-requirement-tabs flex-row ${mobile ? 'mobile' : ''}`}>
       {options.map((option) => (
         <a
           href="#"
@@ -42,10 +46,17 @@ const SystemRequirements = ({ system_requirements }) => {
   const [selectedTab, setSelectedTab] = useState(
     system_requirements[0].platform,
   );
+  const [selectedMobileTab, setSelectedMobileTab] = useState('Minimum');
+
+  const { isMobile } = useBreakpoints();
+
+  console.log(isMobile);
 
   const tabOptions = system_requirements.map(
     (requirement) => requirement.platform,
   );
+
+  const mobileTabOptions = ['Minimum', 'Recommended'];
 
   const selectedRequirement = system_requirements.find(
     (requirement) => requirement.platform === selectedTab,
@@ -70,16 +81,28 @@ const SystemRequirements = ({ system_requirements }) => {
 
       {selectedTab && (
         <Fragment>
-          <div className="flex-column system-requirements-content">
+          <div className={`flex-column system-requirements-content ${isMobile ? 'mobile' : ''}`}>
+            { isMobile && (
+              <Tabs
+                mobile
+                options={mobileTabOptions}
+                selectedTab={selectedMobileTab}
+                setSelectedTab={setSelectedMobileTab}
+              />
+            )}
             <div className="flex-row">
-              <div className="flex-column flex-1 content-item">
-                <span className="content-item-text">Minimum</span>
-                <Requirements requirement={selectedRequirement.minimum} />
-              </div>
-              <div className="flex-column flex-1 content-item">
-                <span className="content-item-text">Recommended</span>
-                <Requirements requirement={selectedRequirement.recommended} />
-              </div>
+              { (!isMobile || selectedMobileTab === 'Minimum') && (
+                <div className="flex-column flex-1 content-item">
+                  <span className="content-item-text">Minimum</span>
+                  <Requirements requirement={selectedRequirement.minimum} />
+                </div>
+              ) }
+              { (!isMobile || selectedMobileTab === 'Recommended') && (
+                <div className="flex-column flex-1 content-item">
+                  <span className="content-item-text">Recommended</span>
+                  <Requirements requirement={selectedRequirement.recommended} />
+                </div>
+              )}
             </div>
             <div className="flex-column flex-1 content-item">
               <span className="content-item-label">Additional Notes</span>

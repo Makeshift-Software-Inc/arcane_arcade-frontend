@@ -31,8 +31,8 @@ const Requirement = types
       return self
         .keys()
         .filter((key) => self[key].length > 0)
-        .map((key) => `${key}: ${self[key]}`)
-        .join(' ');
+        .map((key) => `${key.toUpperCase()}: ${self[key]}`)
+        .join(', ');
     },
   }))
   .actions((self) => ({

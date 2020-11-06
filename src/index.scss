@@ -44,6 +44,14 @@ code {
   flex: 1;
 }
 
+.flex-2 {
+  flex: 2
+}
+
+.flex-3 {
+  flex: 2
+}
+
 .flex-row {
   display: flex;
   flex-direction: row;
@@ -113,6 +121,40 @@ code {
 
 .justify-self-stretch {
   justify-self: stretch;
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (max-width: 768px) {
+  .mobile-flex-column {
+    flex-direction: column;
+  }
+  .large-and-down-flex-column {
+    flex-direction: column;
+  }
+  .mobile-align-start {
+    align-items: flex-start;
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (max-width: 1023px) {
+  .tablet-flex-column {
+    flex-direction: column;
+  }
+  .large-and-down-flex-column {
+    flex-direction: column;
+  }
+
+}
+
+// Large devices (desktops, 992px and up)
+@media (max-width: 1215px) {
+  .large-flex-column {
+    flex-direction: column;
+  }
+  .large-and-down-flex-column {
+    flex-direction: column;
+  }
 }
 
 .cursor-pointer {

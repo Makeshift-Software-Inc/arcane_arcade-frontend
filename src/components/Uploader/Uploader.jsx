@@ -1,7 +1,9 @@
 import React, { Fragment, useState, useRef } from 'react';
 import { observer } from 'mobx-react';
 
-import searchIcon from '../../img/search.svg';
+import imageIcon from '../../img/uploader/image.svg';
+import gifIcon from '../../img/uploader/gif.svg';
+import videoIcon from '../../img/uploader/video.svg';
 
 import './Uploader.scss';
 
@@ -65,30 +67,30 @@ const Uploader = ({ accept, addFile }) => {
       <div
         className={`drop-placeholder flex-column ${canDrop ? 'drag-over' : ''}`}
       >
-        <div className="drop-placeholder-icons flex-row justify-center">
-          <div className="flex-row drop-placeholder-icon">
-            <img src={searchIcon} alt="Icon" />
+        <div className="drop-placeholder-icons flex-row justify-between is-hidden-touch">
+          <div className="flex-row drop-placeholder-icon align-center justify-center">
+            <img src={imageIcon} alt="Icon" />
             <div className="flex-column icon-details">
               <p className="icon-title">High Resolution Image</p>
               <p className="icon-caption">PNG, JPG</p>
             </div>
           </div>
-          <div className="flex-row drop-placeholder-icon">
-            <img src={searchIcon} alt="Icon" />
+          <div className="flex-row drop-placeholder-icon align-center justify-center">
+            <img src={gifIcon} alt="Icon" />
             <div className="flex-column icon-details">
               <p className="icon-title">Animated Gif</p>
               <p className="icon-caption">1024x720, 1920x1080</p>
             </div>
           </div>
-          <div className="flex-row drop-placeholder-icon">
-            <img src={searchIcon} alt="Icon" />
+          <div className="flex-row drop-placeholder-icon align-center justify-center">
+            <img src={videoIcon} alt="Icon" />
             <div className="flex-column icon-details">
               <p className="icon-title">Videos</p>
               <p className="icon-caption">MP4, 16:9</p>
             </div>
           </div>
         </div>
-        <span className="drop-here flex-grow flex-row align-center justify-center">
+        <span className="drop-here flex-grow flex-row align-center justify-center mobile-flex-column">
           {canDrop ? (
             'Drop Now'
           ) : (
