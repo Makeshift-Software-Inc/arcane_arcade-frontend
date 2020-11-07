@@ -81,6 +81,10 @@
       display: inline-block;
       height: 70vh;
       overflow-y: scroll;
+
+      .game-listing {
+        margin: 1em;
+      }
     }
 
     .game-listing {
