@@ -189,8 +189,9 @@
 
       .game-description {
         font-family: OpenSans;
-        max-width: 998px;
+        max-width: 700px;
 
+        img { width: 100%; }
         strong {
           font-family: Montserrat;
           color: aliceblue;
