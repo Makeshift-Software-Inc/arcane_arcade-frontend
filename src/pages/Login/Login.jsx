@@ -98,7 +98,8 @@ const LoginPage = ({ history }) => {
                   <span className="form-text">Remember Me</span>
                 </div>
 
-                <Link className="form-text flex" to="/">
+
+                <Link className="form-text flex" to="/forgot-password">
                   Forgot Your Password
                 </Link>
 

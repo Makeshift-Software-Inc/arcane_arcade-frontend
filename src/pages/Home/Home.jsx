@@ -104,7 +104,6 @@ const Home = () => {
     load();
   }, []);
 
-  if (loading) return <Loading />;
 
   // this is the model data that yet has to be done on BE for the first, main slide
   const mainSplideData = [
@@ -122,48 +121,51 @@ const Home = () => {
     },
     {
       image: fire_emblem,
-      text: `Dark Souls continues to push the boundaries with the latest,
-      ambitious chapter in the critically-acclaimed and genre-defining series.
-      Prepare yourself and Embrace The Darkness!`,
-      title: 'Dark Souls III',
-      icons: [macIcon, switchIcon, psIcon, windowsIcon, xbIcon],
+      text: `Fire Emblem: Path of Radiance brings back to consoles the strategic
+      combat series Fire Emblem from the Game Boy Advance. In this installment,
+      you can control units such as knights, mages, and winged creatures, and
+      use their unique fighting styles to win battles and gain experience.
+      Fire Emblem: Path of Radiance also includes a detailed story that connects
+      the battles and characters together.`,
+      title: 'Fire Emblem: Path of Radiance',
+      icons: [switchIcon],
       link: '#',
     },
     {
       image: hades,
-      text: `Aenean sed consectetur magna. Donec metus nulla,
-        faucibus eu nibh at, dapibus accumsan justo.
-        Sed elit sapien, venenatis sed odio dictum,
-        suscipit porttitor erat.`,
-      title: 'Third Title',
-      icons: [macIcon, switchIcon, psIcon, windowsIcon, xbIcon],
+      text: `Hades is one of the best roguelites of all-time. It's a phenomenal
+      achievement in story telling, gameplay, and an absolute treat for both your
+      eyes and ears. It's astounding, and it's always been fairly astounding through
+      Early Access, but this final release cements it as one of the greats.
+      If you like roguelites, and even if you don't, you should probably get in
+      on this as soon as you can.`,
+      title: 'Hades',
+      icons: [windowsIcon, macIcon],
       link: '#',
     },
     {
       image: greedfall,
-      text: `Nullam luctus massa ut massa lobortis,
-        vel tincidunt sapien malesuada. Duis aliquet nec purus eget condimentum.
-        Morbi mattis tempor commodo. Mauris commodo consectetur lacinia.
-        Sed id nisi vitae velit placerat maximus.`,
-      title: 'Forth Title',
-      icons: [macIcon, switchIcon, psIcon, windowsIcon, xbIcon],
+      text: `Greedfall is a highly ambitious step for Spiders, and one that
+      shows that they are hitting their stride. With excellent voice acting
+      and gorgeous environments, Greedfall serves as a grand adventure in a genre
+      that is sorely needing a fresh face. There are still some bugs to crush,
+      but once those are gone, only a memorable RPG capable of filling the
+      open world RPG void will remain.`,
+      title: 'GreedFall',
+      icons: [windowsIcon],
       link: '#',
     },
     {
       image: xcom,
-      text: `Phasellus in lectus turpis.
-        Pellentesque tincidunt dignissim sagittis.
-        Sed semper, eros vitae molestie rhoncus, ipsum metus sagittis odio,
-        eu ultrices ante quam quis turpis.`,
-      title: 'Fifth Title',
-      icons: [macIcon, switchIcon, psIcon, windowsIcon, xbIcon],
+      text: `XCOM: Enemy Unknown is a worthy tribute to its progenitor and
+      hopefully the start of something brand new for players who've been dying
+      to get a good squad-based strategy game that lets them not only think, but
+      feel as well.`,
+      title: 'XCOM: Enemy Unknown',
+      icons: [macIcon, windowsIcon],
       link: '#',
     },
   ];
-
-  const dummyText = `Dark Souls continues to push the boundaries with the latest,
-                      ambitious chapter in the critically-acclaimed and genre-defining series.
-                      Prepare yourself and Embrace The Darkness!`;
 
   return (
     <div className="App flex-column">
