@@ -246,12 +246,12 @@ const GamesShow = ({ match, history }) => {
                     <div className="second-section flex-row flex-grow flex-wrap justify-flex-end">
                       <div className="info-container">
                         <p className="info-text">Developer</p>
-                        <p>-</p>
+                        <p>{selectedGame.seller.business_name}</p>
                       </div>
 
                       <div className="info-container">
                         <p className="info-text">Publisher</p>
-                        <p>-</p>
+                        <p>{selectedGame.seller.business_name}</p>
                       </div>
 
                       <div className="info-container">
@@ -261,11 +261,6 @@ const GamesShow = ({ match, history }) => {
                             Date.parse(selectedGame.release_date),
                           ).toDateString()}
                         </p>
-                      </div>
-
-                      <div className="info-container">
-                        <p className="info-text">Rating</p>
-                        <p>-</p>
                       </div>
 
                       <div className="flex-column info-container">
