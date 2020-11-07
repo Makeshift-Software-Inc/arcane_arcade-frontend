@@ -161,8 +161,8 @@ const Home = () => {
     },
   ];
 
-  const dummyText = `Dark Souls continues to push the boundaries with the latest, 
-                      ambitious chapter in the critically-acclaimed and genre-defining series. 
+  const dummyText = `Dark Souls continues to push the boundaries with the latest,
+                      ambitious chapter in the critically-acclaimed and genre-defining series.
                       Prepare yourself and Embrace The Darkness!`;
 
   return (
@@ -250,7 +250,7 @@ const Home = () => {
 
                             <div className="description">
                               <p>
-                                {`${dummyText.substring(0, 80)} ... `}
+                                {`${game.raw_description.substring(0, 80)} ... `}
                               </p>
                             </div>
                           </div>
