@@ -3,7 +3,16 @@ import React from 'react';
 import './Input.scss';
 
 const Input = ({
-  type, name, value, onChange, placeholder, label, labelClass, className, ref,
+  type,
+  name,
+  value,
+  onChange,
+  placeholder,
+  label,
+  labelClass,
+  className,
+  ref,
+  ...rest
 }) => (
   <>
     {label && <p className={`label ${labelClass}`}>{label}</p>}
@@ -15,6 +24,7 @@ const Input = ({
       onChange={onChange}
       placeholder={placeholder || ''}
       className={`arcane-input ${className}`}
+      {...rest}
     />
   </>
 );

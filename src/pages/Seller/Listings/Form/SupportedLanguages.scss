@@ -1,0 +1,46 @@
+.supported-languages {
+  .audio-languages {
+    margin-right: 50px;
+    @media (max-width: 768px) {
+      margin-right: 0;
+    }
+  }
+  .react-tags {
+    background-color: transparent !important;
+    height: auto !important;
+    padding: 0;
+    &__suggestions {
+      z-index: 10;
+    }
+    &__search-input {
+      height: 50px;
+      width: 100%;
+      border-radius: 5px;
+      background-color: #e4e4e4;
+      color: #121212;
+      border: none;
+      outline: none;
+      padding: 11px 25px;
+    }
+    &__selected {
+      white-space: nowrap;
+      font-size: 20px;
+      line-height: 1.2;
+      color: #ffffff;
+      display: flex;
+      flex-wrap: wrap;
+    }
+    &__selected-tag {
+      border-radius: 10px;
+      background-color: #463af3;
+      border: none;
+      outline: none;
+      font-family: 'Montserrat';
+      padding: 6px 11px;
+      margin: 0 17px 17px 0;
+      &:after {
+        content: '';
+      }
+    }
+  }
+}

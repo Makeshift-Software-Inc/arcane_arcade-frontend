@@ -1,0 +1,96 @@
+.uploader-previews {
+  margin-top: 65px;
+  margin-bottom: 57px;
+  overflow: hidden;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding-bottom: 15px;
+  display: flex;
+  flex-wrap: nowrap;
+
+  .uploader-preview {
+    margin: 0 1em;
+    padding: 10px;
+    position: relative;
+    flex-direction: column;
+    width: 178px;
+    height: 109px;
+    min-width: 178px;
+    min-height: 109px;
+    border-radius: 20px;
+    border: 1px dashed #e4e4e4;
+    cursor: move;
+
+    &:first-of-type {
+      margin-left: 0;
+    }
+
+    .remove-handle {
+      display: flex;
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      padding: 5px;
+      background-color: black;
+      border-radius: 50%;
+      z-index: 10;
+      img {
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    .drag-handle {
+      position: absolute;
+      top: -10px;
+      right: 0;
+      z-index: 2;
+      font-size: 26px;
+      font-style: bold;
+      cursor: pointer;
+      color: aliceblue;
+    }
+    img,
+    video,
+    .loader-wrapper {
+      width: 158px;
+      height: 89px;
+      border-radius: 20px;
+    }
+    .loader-wrapper {
+      min-height: auto;
+    }
+    .progress {
+      position: absolute;
+      bottom: 10px;
+      width: 160px;
+      background: white;
+      height: 15px;
+      .progress-bar {
+        height: 100%;
+        background-color: green;
+      }
+    }
+  }
+}
+
+.SortableHelper.uploader-preview {
+  padding: 10px;
+  position: relative;
+  flex-direction: column;
+  width: 178px;
+  height: 109px;
+  border-radius: 20px;
+  border: 1px dashed #e4e4e4;
+  cursor: move;
+  img,
+  video {
+    width: 158px;
+    height: 89px;
+    border-radius: 20px;
+  }
+  .remove-handle,
+  .progress {
+    display: none;
+  }
+}

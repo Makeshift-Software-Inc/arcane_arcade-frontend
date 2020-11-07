@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { Helmet } from 'react-helmet';
+import Navbar from '../../../components/Navbar/Navbar';
 
 import { useStore } from '../../../store';
 
 import Loading from '../../../components/Loading/Loading';
-import Form from './Form';
+import Form from './Form/Form';
 
 import './New.scss';
 
@@ -32,20 +32,21 @@ const SellerListingsNew = ({ history }) => {
       price: listing.price ? listing.price * 100 : null,
       release_date: listing.release_date,
       preorderable: listing.preorderable,
-      category_ids: listing.categories.map((category) => category.id),
-      supported_platforms_ids: listing.supported_platforms.map(
-        (platform) => platform.id,
-      ),
+      category_listings_attributes: listing.categoryListingsKeys(),
+      listing_tags_attributes: listing.listingTagsKeys(),
+      supported_platform_listings_attributes: listing.supportedPlatformListingsKeys(),
+      supported_languages: listing.supportedLanguagesKeys(),
       listing_images_attributes: listing.images().map((image) => ({
         image: image.keys(),
+        position: image.position,
       })),
       listing_videos_attributes: listing.videos().map((video) => ({
         video: video.keys(),
+        position: video.position,
       })),
       listing_attachments_attributes: listing.attachments.map((attachment) => ({
         attachment: attachment.keys(),
       })),
-      listing_tags_attributes: listing.tags.map((tag) => ({ tag_id: tag.id })),
     };
 
     const id = await games.create(data);
@@ -66,16 +67,13 @@ const SellerListingsNew = ({ history }) => {
   const metaDesc = 'Sell your game with Arcane Arcade. Receive cryptocurrency (Bitcoin and/or Monero) for your game.';
   return (
     <div className="App seller-listings-new">
+      <Navbar />
       <Helmet>
         <meta charSet="utf-8" />
         <title>{title}</title>
         <meta name="description" content={metaDesc} />
       </Helmet>
       <div className="form-container">
-        <div className="back-to-dashboard">
-          <Link to="/seller/dashboard">⟵ Back To Dashboard</Link>
-        </div>
-
         <Form form={listing} text={title} onSubmit={handleSubmit} />
       </div>
     </div>

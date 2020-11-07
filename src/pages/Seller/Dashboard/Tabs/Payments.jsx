@@ -15,7 +15,9 @@ const ChartOptions = ({ options, onClick, active }) => options.map((option) => (
       type="button"
       name={option}
       onClick={onClick}
-      className={`button-bar__button ${active === option ? 'active' : ''}`}
+      className={`button-bar__button ${active === option
+        ? 'active'
+        : ''}`}
     >
       {option}
     </button>
@@ -31,7 +33,10 @@ const Payments = () => {
   const {
     user: {
       seller: {
-        statsLoaded, loadStats, statsLabelsFor, statsDataFor,
+        statsLoaded,
+        loadStats,
+        statsLabelsFor,
+        statsDataFor,
       },
     },
   } = useStore('auth');
@@ -44,6 +49,10 @@ const Payments = () => {
     if (statsLoaded) {
       const labels = statsLabelsFor(activeChartOption);
       const data = statsDataFor(activeChartOption);
+
+      // eslint-disable-next-line prefer-spread
+      const max = Math.max.apply(Math, data) + 5;
+
       // eslint-disable-next-line no-new
       new Line(lineChartCtx.current, {
         data: {
@@ -59,7 +68,31 @@ const Payments = () => {
           ],
         },
         options: {
-          scaleStartValue: 0,
+          responsive: true,
+          mainrainAspectRatio: true,
+          aspectRatio: 4,
+          scales: {
+            xAxes: [
+              {
+                display: true,
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Month',
+                },
+              },
+            ],
+            yAxes: [
+              {
+                display: true,
+                ticks: {
+                  beginAtZero: true,
+                  steps: 5,
+                  stepValue: 1,
+                  max,
+                },
+              },
+            ],
+          },
           legend: {
             labels: {
               fontColor: 'rgba(69,57,240, 1)',

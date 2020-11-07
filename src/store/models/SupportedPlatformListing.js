@@ -3,17 +3,20 @@ import BaseUpdate from './BaseUpdate';
 import SupportedPlatform from './SupportedPlatform';
 import Distribution from './Distribution';
 import DistributionForm from '../forms/Distribution';
+import SystemRequirements from './SystemRequirements';
 
 import Api from '../../services/Api';
 import deserialize from '../../utils/deserialize';
 
 const SupportedPlatformListing = types
   .model('SupportedPlatformListing', {
-    id: types.identifier,
+    id: types.maybe(types.string),
+    _destroy: false,
     supported_platform: types.reference(SupportedPlatform),
     distribution: types.maybeNull(Distribution),
     distributionForm: types.optional(DistributionForm, {}),
     creatingDistribution: false,
+    system_requirements: types.maybeNull(SystemRequirements),
   })
   .views((self) => ({
     getChildrenPlatforms() {

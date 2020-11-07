@@ -168,7 +168,6 @@ const Home = () => {
   return (
     <div className="App flex-column">
       <Navbar />
-
       <div className="page-container flex-column flex-grow align-center">
         <div className="flex-column home-page-container">
 
@@ -310,7 +309,6 @@ const Home = () => {
               )}
 
             <div className="games flex-row flex-grow flex-wrap">
-
               {searching ? (
                 <Loading />
               ) : (
@@ -320,7 +318,6 @@ const Home = () => {
                   handleTrailer={handleTrailer}
                 />
               )}
-
             </div>
           </div>
         </div>

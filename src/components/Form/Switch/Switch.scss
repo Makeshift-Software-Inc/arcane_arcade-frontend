@@ -7,7 +7,6 @@
     width: 34px;
     height: 14px;
     background-color: white;
-    border: solid 2px #e3e5e6;
     border-radius: 7px;
     position: relative;
     &:before {
@@ -22,7 +21,7 @@
       transform: translateY(-50%);
     }
     &.checked {
-      background-color: #99dda9;
+      background-color: green;
       &:before {
         left: unset;
         right: -5px;
