@@ -98,6 +98,12 @@ const Home = () => {
   const handleTrailer = (game) => {
     setTrailerGame(game);
     setTrailerOpen(true);
+
+    window.scroll({
+     top: 0,
+     left: 0,
+     behavior: 'smooth'
+    });
   };
 
   useEffect(() => {
