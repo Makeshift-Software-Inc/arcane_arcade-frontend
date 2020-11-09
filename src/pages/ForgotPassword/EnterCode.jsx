@@ -46,7 +46,11 @@ const EnterCode = ({ authorize, resend }) => {
 
   return (
     <div className="authorize">
-      <h1> 2-Factor Auth </h1>
+      <h1> Secure Code </h1>
+
+      <p>
+        Check your e-mail for a secure code.
+      </p>
 
       <div className="code">
         <input

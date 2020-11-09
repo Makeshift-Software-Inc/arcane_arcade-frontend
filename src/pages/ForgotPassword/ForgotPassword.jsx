@@ -2,12 +2,16 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import { toast } from 'react-toastify';
+
 
 import Loading from '../../components/Loading/Loading';
 import Errors from '../../components/Errors/Errors';
 
 import SendCode from './SendCode';
 import EnterCode from './EnterCode';
+import ResetPassword from './ResetPassword';
+
 
 import './ForgotPassword.scss'
 import logo from '../../img/logo.png';
@@ -30,6 +34,17 @@ const ForgotPassword = ({ history }) => {
     }
   };
 
+  const resetPassword = async () => {
+    if (await auth.resetPassword()) {
+      console.log('GOOD');
+
+      const msg = 'Your password has been reset'
+      toast(msg);
+
+      history.push('/login')
+    }
+  }
+
   const renderContent = () => {
     if (auth.loading) return <Loading />;
 
@@ -47,7 +62,14 @@ const ForgotPassword = ({ history }) => {
       return <EnterCode authorize={authorize} resend={sendPasswordToken} />;
     }
 
-
+    return (
+      <ResetPassword
+        password={forgot_password.password}
+        passwordConfirmation={forgot_password.password_confirmation}
+        onChange={forgot_password.onChange}
+        send={resetPassword}
+      />
+    )
   };
 
   return (

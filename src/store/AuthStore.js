@@ -179,6 +179,27 @@ const AuthStore = types
         return false;
       }
     }),
+    resetPassword: flow(function* resetPassword() {
+      const { forms } = getRoot(self);
+      self.loading = true;
+
+      try {
+        yield Api.post('/reset_password', {
+          email: forms.forgot_password.email,
+          password: forms.forgot_password.password
+        });
+
+        self.loading = false;
+        return true;
+      } catch (e) {
+        console.log(e);
+        if (e.response && e.response.data) {
+          forms.forgot_password.errors.update(e.response.data);
+        }
+        self.loading = false;
+        return false;
+      }
+    }),
     logout() {
       try {
         localStorage.removeItem('auth_token');

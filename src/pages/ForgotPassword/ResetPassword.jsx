@@ -15,10 +15,20 @@ import logo from '../../img/logo.png';
 
 // import './SignUp.scss';
 
-const ResetPassword = ({ password, passwordConfirmation, onChange }) => {
+const ResetPassword = ({ password, passwordConfirmation, onChange, send }) => {
 
   const [seePassword, setseePassword] = useState(false);
 
+  let errorClass;
+  const passwordsMatching = () => {
+    if (password === passwordConfirmation) {
+      errorClass = null;
+      return true
+    } else {
+      errorClass = 'error';
+      return false
+    }
+  }
 
   return (
     <div class="reset-password">
@@ -42,6 +52,7 @@ const ResetPassword = ({ password, passwordConfirmation, onChange }) => {
         <div className="flex-row align-center input-div">
           <Input
             type={seePassword ? 'text' : 'password'}
+            className={errorClass || ''}
             name="password_confirmation"
             value={passwordConfirmation}
             onChange={onChange}
@@ -57,6 +68,7 @@ const ResetPassword = ({ password, passwordConfirmation, onChange }) => {
           type="button"
           onClick={send}
           className="button"
+          disabled={!passwordsMatching()}
           >
           SEND
         </button>
@@ -65,4 +77,4 @@ const ResetPassword = ({ password, passwordConfirmation, onChange }) => {
   );
 };
 
-export default observer(SignUpPage);
+export default observer(ResetPassword);
