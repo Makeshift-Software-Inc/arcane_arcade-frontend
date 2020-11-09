@@ -229,6 +229,12 @@
               display: none;
               font-size: 20px;
 
+              .description {
+                 p {
+                   font-family: Montserrat;
+                 }
+              }
+
               .overlay-info {
                 width: 100%;
               }
@@ -372,8 +378,7 @@
 
             .releases-games-listing {
               position: relative;
-
-              &:hover {
+              &:hover{
                 .overlay {
                   font-size: 13px;
                   .description {
@@ -576,14 +581,10 @@
         height: 576px !important;
       }
 
-      .close-player {
-        top: 0;
-        right: 0;
-        width: 20px;
-        height: 20px;
-        margin: 20px;
-        position: absolute;
-        cursor: pointer;
+    .main-slider {
+      img {
+        width: 60%;
+        height: 500px;
       }
 
       .play-btn {

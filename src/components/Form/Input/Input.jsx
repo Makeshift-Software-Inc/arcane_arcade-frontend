@@ -23,7 +23,7 @@ const Input = ({
       value={value}
       onChange={onChange}
       placeholder={placeholder || ''}
-      className={`arcane-input ${className}`}
+      className={`arcane-input ${className || ''}`}
       {...rest}
     />
   </>
