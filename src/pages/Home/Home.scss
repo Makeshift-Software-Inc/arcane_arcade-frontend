@@ -580,19 +580,12 @@
         width: 100% !important;
         height: 576px !important;
       }
-
-    .main-slider {
-      img {
-        width: 60%;
-        height: 500px;
-      }
-
-      .play-btn {
-        width: 139px;
-        height: 139px;
-      }
     }
 
+    .play-btn {
+      width: 139px;
+      height: 139px;
+    }
     .slider-item {
       flex-direction: row;
     }
@@ -764,8 +757,7 @@
         padding: 17px 25px;
         font-size: 17px;
         color: #ffffff;
-        i,
-        p {
+        i, p {
           cursor: pointer;
         }
       }
