@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { toast } from 'react-toastify';
 
-
 import Loading from '../../components/Loading/Loading';
 import Errors from '../../components/Errors/Errors';
 
@@ -12,8 +11,7 @@ import SendCode from './SendCode';
 import EnterCode from './EnterCode';
 import ResetPassword from './ResetPassword';
 
-
-import './ForgotPassword.scss'
+import './ForgotPassword.scss';
 import logo from '../../img/logo.png';
 
 import { useStore } from '../../store';
@@ -38,12 +36,12 @@ const ForgotPassword = ({ history }) => {
     if (await auth.resetPassword()) {
       console.log('GOOD');
 
-      const msg = 'Your password has been reset'
+      const msg = 'Your password has been reset';
       toast(msg);
 
-      history.push('/login')
+      history.push('/login');
     }
-  }
+  };
 
   const renderContent = () => {
     if (auth.loading) return <Loading />;
@@ -69,7 +67,7 @@ const ForgotPassword = ({ history }) => {
         onChange={forgot_password.onChange}
         send={resetPassword}
       />
-    )
+    );
   };
 
   return (

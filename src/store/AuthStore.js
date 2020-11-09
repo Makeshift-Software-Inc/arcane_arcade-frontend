@@ -186,7 +186,7 @@ const AuthStore = types
       try {
         yield Api.post('/reset_password', {
           email: forms.forgot_password.email,
-          password: forms.forgot_password.password
+          password: forms.forgot_password.password,
         });
 
         self.loading = false;

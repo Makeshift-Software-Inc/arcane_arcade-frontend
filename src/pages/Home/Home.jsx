@@ -27,9 +27,9 @@ import xcom from '../../img/xcom.jpg';
 
 import windowsIcon from '../../img/platform_icons/WINDOWS.svg';
 import macIcon from '../../img/platform_icons/MAC.svg';
-import psIcon from '../../img/platform_icons/PS4.svg';
 import switchIcon from '../../img/platform_icons/SWITCH.svg';
-import xbIcon from '../../img/platform_icons/XB1.svg';
+// import psIcon from '../../img/platform_icons/PS4.svg';
+// import xbIcon from '../../img/platform_icons/XB1.svg';
 
 import playButton from '../../img/Play_Button.svg';
 import closeButton from '../../img/close_white.svg';
@@ -104,6 +104,7 @@ const Home = () => {
     load();
   }, []);
 
+  if (loading) return <Loading />;
 
   // this is the model data that yet has to be done on BE for the first, main slide
   const mainSplideData = [
