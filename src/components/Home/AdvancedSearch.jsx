@@ -7,7 +7,7 @@ import RangeSlider from '../Form/Slider/Range';
 import SearchInput from '../Form/SearchInput/SearchInput';
 import Select from './Input/Select';
 
-const AdvancedSearch = ({ showFilters = true }) => {
+const AdvancedSearch = ({ goToExploreTab, showFilters = true }) => {
   const {
     forms: { search },
     games,
@@ -19,6 +19,7 @@ const AdvancedSearch = ({ showFilters = true }) => {
 
   const handleSubmit = (e) => {
     if (e) e.preventDefault();
+    if (goToExploreTab) goToExploreTab();
     games.search();
   };
 
@@ -36,11 +37,12 @@ const AdvancedSearch = ({ showFilters = true }) => {
 
   return (
     <div className="browse-listings flex-row flex-grow advanced-search search-filters">
-
-      <div className={`navbar-start flex-column ${!showFilters ? 'display-none' : ''}`}>
-
+      <div
+        className={`navbar-start flex-column ${
+          !showFilters ? 'display-none' : ''
+        }`}
+      >
         <div className="flex-row flex-grow flex-wrap">
-
           <div className="search-item flex-row flex-wrap align-center">
             <label htmlFor="search-sort-by">Sort By:</label>
             <Select
@@ -86,6 +88,7 @@ const AdvancedSearch = ({ showFilters = true }) => {
               range={search.price.defaultRange()}
               values={search.price.values()}
               setValues={setPriceValues}
+              maxValue={60}
             />
           </div>
         </div>
@@ -93,10 +96,13 @@ const AdvancedSearch = ({ showFilters = true }) => {
 
       <div className="flex-row align-center justify-flex-end flex-grow">
         <form onSubmit={handleSubmit}>
-          <SearchInput onChange={handleChange} value={search.query} name="query" />
+          <SearchInput
+            onChange={handleChange}
+            value={search.query}
+            name="query"
+          />
         </form>
       </div>
-
     </div>
   );
 };
