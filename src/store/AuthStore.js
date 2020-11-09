@@ -133,6 +133,73 @@ const AuthStore = types
         return false;
       }
     }),
+    sendPasswordToken: flow(function* sendPasswordToken() {
+      const { forms } = getRoot(self);
+
+      const keysToSend = ['email'];
+
+      self.loading = true;
+
+      try {
+        yield Api.post('/send_password_token', {
+          auth: forms.forgot_password.keys(keysToSend),
+        });
+
+        forms.forgot_password.update({ codeSent: true });
+        self.loading = false;
+        return true;
+      } catch (e) {
+        if (e.response && e.response.data) {
+          forms.forgot_password.errors.update(e.response.data);
+        }
+        self.loading = false;
+        return false;
+      }
+    }),
+    authorizePasswordToken: flow(function* authorizePasswordToken(code) {
+      if (!code || code.length !== 7) return false;
+
+      const { forms } = getRoot(self);
+      self.loading = true;
+
+      try {
+        yield Api.post('/authorize_password_token', {
+          auth: { code },
+        });
+        forms.forgot_password.update({ authorized: true });
+
+        self.loading = false;
+        return true;
+      } catch (e) {
+        console.log(e);
+        if (e.response && e.response.data) {
+          forms.forgot_password.errors.update(e.response.data);
+        }
+        self.loading = false;
+        return false;
+      }
+    }),
+    resetPassword: flow(function* resetPassword() {
+      const { forms } = getRoot(self);
+      self.loading = true;
+
+      try {
+        yield Api.post('/reset_password', {
+          email: forms.forgot_password.email,
+          password: forms.forgot_password.password,
+        });
+
+        self.loading = false;
+        return true;
+      } catch (e) {
+        console.log(e);
+        if (e.response && e.response.data) {
+          forms.forgot_password.errors.update(e.response.data);
+        }
+        self.loading = false;
+        return false;
+      }
+    }),
     logout() {
       try {
         localStorage.removeItem('auth_token');

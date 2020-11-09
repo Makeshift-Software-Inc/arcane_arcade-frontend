@@ -149,7 +149,7 @@
         grid-template-columns: repeat(4, 1fr);
         grid-gap: 33px;
 
-         
+
       }
     }
 
@@ -157,7 +157,7 @@
 
       .games {
         grid-template-columns: repeat(3, 1fr);
-        grid-gap: 23px; 
+        grid-gap: 23px;
       }
     }
 
@@ -165,13 +165,13 @@
 
       .games {
        grid-template-columns: repeat(2, 1fr);
-       grid-gap: 10px; 
-         
+       grid-gap: 10px;
+
 
       }
     }
 
-      
+
   }
 
   .page-container {
@@ -184,7 +184,7 @@
       padding: 0 35px;
       margin-top: 85px;
 
-      .title-container { 
+      .title-container {
         width: 100%;
         max-width: 1200px;
         margin-bottom: 34px;
@@ -235,7 +235,7 @@
             height: 100%;
             width: 100%;
             border-radius: 20px;
- 
+
             img {
               height: 270px;
               width: 100%;
@@ -246,6 +246,12 @@
             .overlay {
               display: none;
               font-size: 20px;
+
+              .description {
+                 p {
+                   font-family: Montserrat;
+                 }
+              }
 
               .overlay-info {
                 width: 100%;
@@ -377,7 +383,7 @@
             .splide__list {
               li.splide__slide {
                 padding: 0 5px;
-              }   
+              }
             }
           }
         }
@@ -397,12 +403,12 @@
 
             .releases-games-listing {
               position: relative;
-          
+
               &:hover{
                 .overlay {
                   font-size: 13px;
                   .description {
-                    display: none; 
+                    display: none;
                   }
                   .overlay-button {
                     width: 100%;
@@ -435,11 +441,11 @@
       .discover {
         padding: 0 25px;
         .new-releases {
-          
+
           .release-slider {
-           
+
             .splide__list {
-              
+
               img {
                 height: 250px;
               }
@@ -458,7 +464,7 @@
                 }
               }
             }
-          } 
+          }
         }
       }
     }
@@ -467,11 +473,11 @@
     @media (max-width:530px) {
       .discover {
         .new-releases {
-          
+
           .release-slider {
-           
+
             .splide__list {
-              
+
               img {
                 height: 200px;
               }
@@ -482,7 +488,7 @@
                 margin-bottom: 15px;
               }
             }
-          } 
+          }
         }
       }
     }
@@ -491,7 +497,7 @@
     @media (max-width:430px) {
       .discover {
         .new-releases {
-          
+
           .release-slider {
             .releases-games-listing {
               &:hover {
@@ -518,13 +524,13 @@
                 }
               }
             }
-           
+
             .splide__list {
-              
+
               img {
                 height: 155px;
               }
-              
+
 
               li.splide__slide {
                 width: 50% !important;
@@ -542,13 +548,13 @@
 
 
             }
-          } 
+          }
         }
       }
     }
 
-   
-  
+
+
   }
 
     .slider {
@@ -609,8 +615,8 @@
 
     .main-slider {
       img {
-        width: 60%; 
-        height: 500px; 
+        width: 60%;
+        height: 500px;
       }
 
       .trailer-container {
@@ -701,7 +707,7 @@
         color: rgba(#e4e4e4, 0.5);
       }
     }
-  
+
     select {
       &:focus {
         outline: none;
@@ -776,7 +782,7 @@
     }
 
     @media (max-width:1023px) {
-      padding-top: 0; 
+      padding-top: 0;
     }
 
     @media (max-width:768px) {
@@ -818,4 +824,3 @@
     }
   }
 }
-
