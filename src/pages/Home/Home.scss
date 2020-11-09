@@ -580,6 +580,13 @@
         width: 100% !important;
         height: 576px !important;
       }
+
+      .close-player {
+        position: absolute;
+        width: 21px;
+        height: 60px;
+        right: 10px;
+      }
     }
 
     .play-btn {
