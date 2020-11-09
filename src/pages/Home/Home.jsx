@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useRef, useState, useEffect } from 'react';
 
 import { observer } from 'mobx-react';
 
@@ -16,6 +15,8 @@ import DropDown from '../../components/Home/DropDown/DropDown';
 import Tabs from '../../components/Home/Tabs';
 
 import GamesListings from './GamesListings';
+import Discover from './Discover';
+
 import SliderInfo from '../../components/Home/SliderInfo';
 import AdvancedSearch from '../../components/Home/AdvancedSearch';
 
@@ -39,10 +40,7 @@ import './Home.scss';
 const SplideImageItem = ({ data }) => (
   <SplideSlide>
     <div className="slider-item flex-row">
-      <img
-        src={data.image}
-        alt="kingdom come deliverance cover"
-      />
+      <img src={data.image} alt="kingdom come deliverance cover" />
       <SliderInfo
         title={data.title}
         text={data.text}
@@ -67,18 +65,13 @@ const SplideVideoItem = ({ src, thumbnail, closeTrailer }) => (
         controls
         muted
       />
-      {/* eslint-disable jsx-a11y/click-events-have-key-events */}
-      {/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */}
-      {/* eslint-disable jsx-a11y/no-noninteractive-element-to-interactive-role */}
+      {/* eslint-disable-next-line */}
       <img
         src={closeButton}
         alt="close-icon"
         className="close-player"
         onClick={() => closeTrailer()}
       />
-      {/* eslint-enable jsx-a11y/click-events-have-key-events */}
-      {/* eslint-enable jsx-a11y/no-noninteractive-element-interactions */}
-      {/* eslint-enable jsx-a11y/no-noninteractive-element-to-interactive-role */}
     </div>
   </SplideSlide>
 );
@@ -86,9 +79,11 @@ const SplideVideoItem = ({ src, thumbnail, closeTrailer }) => (
 const Home = () => {
   const {
     games: {
-      games, load, loading, searching, searchResults,
+      games, load, loading, searching, searched, searchResults,
     },
   } = useStore();
+
+  const gamesContainerRef = useRef(null);
 
   const [selectedTab, setSelectedTab] = useState('discover');
 
@@ -100,9 +95,9 @@ const Home = () => {
     setTrailerOpen(true);
 
     window.scroll({
-     top: 0,
-     left: 0,
-     behavior: 'smooth'
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
     });
   };
 
@@ -111,6 +106,11 @@ const Home = () => {
   }, []);
 
   if (loading) return <Loading />;
+
+  const goToExploreTab = () => {
+    setSelectedTab('explore');
+    gamesContainerRef.current.scrollIntoView();
+  };
 
   // this is the model data that yet has to be done on BE for the first, main slide
   const mainSplideData = [
@@ -179,14 +179,24 @@ const Home = () => {
       <Navbar />
       <div className="page-container flex-column flex-grow align-center">
         <div className="flex-column home-page-container">
-
           <DropDown activeTab={selectedTab}>
-            <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} mobile />
+            <Tabs
+              selectedTab={selectedTab}
+              setSelectedTab={setSelectedTab}
+              mobile
+            />
           </DropDown>
 
           <div className="tab-bar-container flex-row flex-grow justify-center align-center">
-            <SearchBar show={selectedTab === 'discover'}>
-              <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} mobile={false} />
+            <SearchBar
+              show={selectedTab === 'discover'}
+              goToExploreTab={goToExploreTab}
+            >
+              <Tabs
+                selectedTab={selectedTab}
+                setSelectedTab={setSelectedTab}
+                mobile={false}
+              />
             </SearchBar>
           </div>
 
@@ -194,115 +204,34 @@ const Home = () => {
             <Splide
               className="main-slider"
               options={{
-
                 clones: 0,
                 lazyLoad: true,
                 waitForTransition: true,
-
               }}
             >
-              {
-                !trailerOpen ? (
-                  mainSplideData.map((item) => <SplideImageItem data={item} key={item.title} />)
-                ) : (
-                  trailerGame.videos.map((item, i) => (
-                    <SplideVideoItem
-                      src={item}
-                      key={item}
-                      thumbnail={trailerGame.images.length > 0 ? trailerGame.images[i] : null}
-                      closeTrailer={() => setTrailerOpen(false)}
-                    />
-                  ))
-                )
-              }
+              {!trailerOpen
+                ? mainSplideData.map((item) => (
+                  <SplideImageItem data={item} key={item.title} />
+                ))
+                : trailerGame.videos.map((item, i) => (
+                  <SplideVideoItem
+                    src={item}
+                    key={item}
+                    thumbnail={
+                        trailerGame.images.length > 0
+                          ? trailerGame.images[i]
+                          : null
+                      }
+                    closeTrailer={() => setTrailerOpen(false)}
+                  />
+                ))}
             </Splide>
           </div>
         </div>
 
         <div className="discover flex-column align-center">
-
-          { selectedTab === 'discover' ? (
-            <div className="new-releases flex-column align-center">
-              <div className="flex-row flex-grow title-container">
-                <h1>New Releases</h1>
-              </div>
-
-              <Splide
-                className="new release-slider"
-                options={{
-                  clones: 0,
-                  perPage: 4,
-                  perMove: 1,
-                  rewind: false,
-                  keyboard: false,
-                  lazyLoad: true,
-                  breakpoints: {
-                    768: {
-                      perPage: 2,
-                    },
-                  },
-                }}
-              >
-                {games.map((game) => {
-                  const imageAlt = `${game.title} cover`;
-                  const listingShowLink = `/games/${game.slug}`;
-
-                  return (
-                    <SplideSlide key={game.id}>
-                      <div className="releases-games-listing flew-row flex-grow" key={game.id}>
-
-                        <img src={game.images[0]} alt={imageAlt} />
-
-                        <div className="flex-column align-center justify-between overlay">
-                          <div className="flex-column flex-grow justify-evenly align-center">
-                            <p className="overlay-title">{game.title}</p>
-
-                            <div className="description">
-                              <p>
-                                {`${game.raw_description.substring(0, 80)} ... `}
-                              </p>
-                            </div>
-                          </div>
-
-                          <div className="flex-column flex-grow justify-flex-end align-center overlay-info">
-                            <div className="flex-row flex-grow align-center price-info">
-                              <p>{game.currency_symbol}</p>
-                              <p>{game.price}</p>
-                              {' '}
-                              <p>{game.default_currency}</p>
-                            </div>
-
-                            <div className="flex-column align-center justify-center overlay-buttons">
-                              {/* eslint-disable jsx-a11y/click-events-have-key-events */}
-                              <div
-                                className="overlay-button flex-row align-center justify-center trailer"
-                                onClick={() => handleTrailer(game)}
-                                role="button"
-                                tabIndex={0}
-                              >
-                                {/* eslint-enable jsx-a11y/click-events-have-key-events */}
-                                <p>
-                                  Watch Trailer
-                                </p>
-                              </div>
-
-                              <div className="overlay-button flex-row align-center justify-center buy">
-                                <Link to={listingShowLink}>
-                                  Buy
-                                </Link>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="magic foolishIn info" />
-                      </div>
-                    </SplideSlide>
-
-                  );
-                })}
-              </Splide>
-            </div>
+          {selectedTab === 'discover' ? (
+            <Discover games={games} handleTrailer={handleTrailer} />
           ) : (
             <div className="explore flex-row flex-grow">
               <AdvancedSearch />
@@ -310,29 +239,35 @@ const Home = () => {
           )}
 
           <div className="promotions flex-column flex-grow">
-            { selectedTab === 'discover'
-              && (
-              <div className="title-container">
-                <h1>Promotions</h1>
-              </div>
-              )}
-
-            <div className="games flex-row flex-grow flex-wrap">
-              {searching ? (
-                <Loading />
+            <div className="title-container">
+              <h1>
+                {selectedTab === 'discover' || !searched
+                  ? 'Promotions'
+                  : 'Search Results'}
+              </h1>
+            </div>
+            <div
+              className="games flex-row flex-grow flex-wrap"
+              ref={gamesContainerRef}
+            >
+              {selectedTab === 'discover' || !searched ? (
+                <GamesListings
+                  games={games}
+                  loading={loading}
+                  handleTrailer={handleTrailer}
+                />
               ) : (
                 <GamesListings
                   games={searchResults}
                   loading={searching}
                   handleTrailer={handleTrailer}
+                  noGamesText="No search results"
                 />
               )}
             </div>
           </div>
         </div>
-
       </div>
-
     </div>
   );
 };

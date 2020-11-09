@@ -13,22 +13,26 @@ const GamesStore = types
     creating: false,
     gamesLoaded: false,
     searching: false,
+    searched: false,
     searchResults: types.array(Game),
   })
   .actions((self) => ({
     search: flow(function* search() {
       if (self.searching) return true;
 
-      console.log('Search');
-
       self.searching = true;
+      self.searched = true;
 
       const {
         forms: { search: searchForm },
       } = getRoot(self);
 
+      const params = searchForm.toParams();
+
+      console.log(params);
+
       try {
-        const response = yield Api.get('/listings', searchForm.toParams());
+        const response = yield Api.get('/listings', { params });
         self.searchResults = deserialize(response.data);
         self.searching = false;
         return true;
