@@ -20,22 +20,26 @@ import Discover from './Discover';
 import SliderInfo from '../../components/Home/SliderInfo';
 import AdvancedSearch from '../../components/Home/AdvancedSearch';
 
-import hades from '../../img/hades.png';
-import fire_emblem from '../../img/fire_emblem.png';
-import kingdomCome from '../../img/kingdom_come.jpeg';
-import greedfall from '../../img/greedfall.jpg';
-import xcom from '../../img/xcom.jpg';
-
-import windowsIcon from '../../img/platform_icons/WINDOWS.svg';
-import macIcon from '../../img/platform_icons/MAC.svg';
-import switchIcon from '../../img/platform_icons/SWITCH.svg';
-// import psIcon from '../../img/platform_icons/PS4.svg';
-// import xbIcon from '../../img/platform_icons/XB1.svg';
+import WINDOWS from '../../img/platform_icons/WINDOWS.svg';
+import MAC from '../../img/platform_icons/MAC.svg';
+import LINUX from '../../img/platform_icons/linux.svg';
+import SWITCH from '../../img/platform_icons/SWITCH.svg';
+import PS4 from '../../img/platform_icons/PS4.svg';
+import XB1 from '../../img/platform_icons/XB1.svg';
 
 import playButton from '../../img/Play_Button.svg';
 import closeButton from '../../img/close_white.svg';
 
 import './Home.scss';
+
+const supportedPlatformsImgs = {
+  WINDOWS,
+  MAC,
+  LINUX,
+  SWITCH,
+  XB1,
+  PS4,
+};
 
 const SplideImageItem = ({ data }) => (
   <SplideSlide>
@@ -79,7 +83,14 @@ const SplideVideoItem = ({ src, thumbnail, closeTrailer }) => (
 const Home = () => {
   const {
     games: {
-      games, load, loading, searching, searched, searchResults,
+      featuredGames,
+      promotedGames,
+      newReleases,
+      load,
+      loading,
+      searching,
+      searched,
+      searchResults,
     },
   } = useStore();
 
@@ -112,74 +123,25 @@ const Home = () => {
     gamesContainerRef.current.scrollIntoView();
   };
 
-  // this is the model data that yet has to be done on BE for the first, main slide
-  const mainSplideData = [
-    {
-      image: kingdomCome,
-      text: `From its inception, Kingdom Come: Deliverance was billed as a
-        game steeped in realism. From period-accurate food and weapon
-        damage to characters drawn from history, Warhorse Studios did
-        its homework. With the game’s release last week, we finally
-        got to play in their (as promised) realistic version of 15th
-        century Bohemia.`,
-      title: 'Kingdom Come: Deliverance',
-      icons: [windowsIcon],
-      link: '#',
-    },
-    {
-      image: fire_emblem,
-      text: `Fire Emblem: Path of Radiance brings back to consoles the strategic
-      combat series Fire Emblem from the Game Boy Advance. In this installment,
-      you can control units such as knights, mages, and winged creatures, and
-      use their unique fighting styles to win battles and gain experience.
-      Fire Emblem: Path of Radiance also includes a detailed story that connects
-      the battles and characters together.`,
-      title: 'Fire Emblem: Path of Radiance',
-      icons: [switchIcon],
-      link: '#',
-    },
-    {
-      image: hades,
-      text: `Hades is one of the best roguelites of all-time. It's a phenomenal
-      achievement in story telling, gameplay, and an absolute treat for both your
-      eyes and ears. It's astounding, and it's always been fairly astounding through
-      Early Access, but this final release cements it as one of the greats.
-      If you like roguelites, and even if you don't, you should probably get in
-      on this as soon as you can.`,
-      title: 'Hades',
-      icons: [windowsIcon, macIcon],
-      link: '#',
-    },
-    {
-      image: greedfall,
-      text: `Greedfall is a highly ambitious step for Spiders, and one that
-      shows that they are hitting their stride. With excellent voice acting
-      and gorgeous environments, Greedfall serves as a grand adventure in a genre
-      that is sorely needing a fresh face. There are still some bugs to crush,
-      but once those are gone, only a memorable RPG capable of filling the
-      open world RPG void will remain.`,
-      title: 'GreedFall',
-      icons: [windowsIcon],
-      link: '#',
-    },
-    {
-      image: xcom,
-      text: `XCOM: Enemy Unknown is a worthy tribute to its progenitor and
-      hopefully the start of something brand new for players who've been dying
-      to get a good squad-based strategy game that lets them not only think, but
-      feel as well.`,
-      title: 'XCOM: Enemy Unknown',
-      icons: [macIcon, windowsIcon],
-      link: '#',
-    },
-  ];
+  const mainSplideData = featuredGames().map((game) => ({
+    image: game.images[0],
+    text:
+      game.raw_description.length > 400
+        ? `${game.raw_description.slice(0, 400)}...`
+        : game.raw_description,
+    title: game.title,
+    icons: game
+      .supportedPlatforms()
+      .map((platform) => supportedPlatformsImgs[platform.name]),
+    link: `/games/${game.slug}`,
+  }));
 
   return (
     <div className="App flex-column">
       <Navbar />
       <div className="page-container flex-column flex-grow align-center">
         <div className="flex-column home-page-container">
-          <DropDown activeTab={selectedTab}>
+          <DropDown goToExploreTab={goToExploreTab} activeTab={selectedTab}>
             <Tabs
               selectedTab={selectedTab}
               setSelectedTab={setSelectedTab}
@@ -231,7 +193,7 @@ const Home = () => {
 
         <div className="discover flex-column align-center">
           {selectedTab === 'discover' ? (
-            <Discover games={games} handleTrailer={handleTrailer} />
+            <Discover games={newReleases()} handleTrailer={handleTrailer} />
           ) : (
             <div className="explore flex-row flex-grow">
               <AdvancedSearch />
@@ -252,7 +214,7 @@ const Home = () => {
             >
               {selectedTab === 'discover' || !searched ? (
                 <GamesListings
-                  games={games}
+                  games={promotedGames()}
                   loading={loading}
                   handleTrailer={handleTrailer}
                 />

@@ -52,7 +52,7 @@ const Track = ({
 const RangeSlider = ({
   range, values, setValues, maxValue,
 }) => {
-  const [update, setUpdate] = useState(range);
+  const [update, setUpdate] = useState(values);
 
   const onUpdate = (newValues) => {
     setUpdate(newValues);
