@@ -32,6 +32,7 @@ const Game = types
     tags: types.array(types.reference(Tag)),
     release_date: types.string,
     featured: types.boolean,
+    promoted: types.boolean,
     supported_languages: types.maybeNull(SupportedLanguages),
   })
   .views((self) => ({

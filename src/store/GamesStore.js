@@ -16,6 +16,17 @@ const GamesStore = types
     searched: false,
     searchResults: types.array(Game),
   })
+  .views((self) => ({
+    featuredGames() {
+      return self.games.filter((game) => game.featured);
+    },
+    promotedGames() {
+      return self.games.filter((game) => game.promoted);
+    },
+    newReleases() {
+      return self.games.filter((game) => !game.featured && !game.promoted);
+    },
+  }))
   .actions((self) => ({
     search: flow(function* search() {
       if (self.searching) return true;
@@ -28,8 +39,7 @@ const GamesStore = types
       } = getRoot(self);
 
       const params = searchForm.toParams();
-
-      console.log(params);
+      params.search = true;
 
       try {
         const response = yield Api.get('/listings', { params });
