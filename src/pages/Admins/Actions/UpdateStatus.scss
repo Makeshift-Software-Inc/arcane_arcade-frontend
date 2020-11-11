@@ -1,0 +1,10 @@
+.update-status-actions {
+  margin-top: 30px;
+  .action {
+    padding: 5px 20px;
+    color: white;
+    &.reject {
+      background-color: red;
+    }
+  }
+}

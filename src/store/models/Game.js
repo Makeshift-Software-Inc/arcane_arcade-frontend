@@ -26,7 +26,6 @@ const Game = types
     default_currency: types.string,
     currency_symbol: types.string,
     seller: types.maybe(Seller),
-    status: types.enumeration(['pending', 'active']),
     supported_platform_listings: types.array(SupportedPlatformListing),
     categories: types.array(types.reference(Category)),
     tags: types.array(types.reference(Tag)),

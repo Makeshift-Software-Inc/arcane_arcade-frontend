@@ -22,6 +22,7 @@ const Navbar = () => {
   const [openMobNav, setOpenMobNav] = useState(false);
 
   const isSeller = isLoggedIn && user && user.isSeller();
+  const isAdmin = isLoggedIn && user && user.admin;
 
   const handleShowOnboardingModal = (e) => {
     e.preventDefault();
@@ -35,6 +36,16 @@ const Navbar = () => {
 
   const closeOnboardingModal = () => {
     setShowOnboardingModal(false);
+  };
+
+  const renderAdminLinks = () => {
+    if (!isAdmin) return null;
+
+    return (
+      <Link to="/admins/dashboard" className="navbar-item">
+        Admin Pannel
+      </Link>
+    );
   };
 
   const renderSellerLinks = () => {
@@ -96,6 +107,7 @@ const Navbar = () => {
               Login
             </Link>
           )}
+          {renderAdminLinks()}
         </div>
 
         <div className="navbar-end">
@@ -129,6 +141,8 @@ const Navbar = () => {
               <Link to="/contact-us" className="navbar-item">
                 Contact Us
               </Link>
+
+              {renderAdminLinks()}
 
               {isLoggedIn && (
                 <Link to="/logout" className="navbar-item">
