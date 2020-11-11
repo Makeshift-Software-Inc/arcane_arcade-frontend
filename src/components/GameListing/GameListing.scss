@@ -1,15 +1,15 @@
 .game-listing {
   border-radius: 20px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   position: relative;
 
   &:hover {
-    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
 
     .overlay {
       display: flex;
       padding: 15px;
-      background: rgba(70, 58, 243, 0.80);
+      background: rgba(70, 58, 243, 0.8);
       position: absolute;
       height: 100%;
       width: 100%;
@@ -18,7 +18,7 @@
       bottom: 0;
       right: 0;
       border-radius: 20px;
-      color: #FFFFFF;
+      color: #ffffff;
       text-align: center;
       font-size: 18px;
       font-weight: 600;
@@ -32,7 +32,7 @@
       }
 
       .price-info {
-        color: #FFDD00;
+        color: #ffdd00;
       }
 
       .overlay-buttons {
@@ -40,7 +40,7 @@
       }
 
       .watch-trailer {
-        background-color: #463AF3;
+        background-color: #463af3;
       }
 
       .watch-trailer,
@@ -49,16 +49,15 @@
         max-width: 153px;
         height: 25px;
         font-size: 12px;
-        border: 1px solid #FFFFFF;
+        border: 1px solid #ffffff;
         border-radius: 25px;
         opacity: 1;
         cursor: pointer;
       }
 
       .overlay-button {
-
         &.buy {
-          background-color: #FFFFFF;
+          background-color: #ffffff;
           margin-top: 11px;
 
           a {
@@ -67,28 +66,25 @@
             flex-direction: row;
             align-items: center;
             justify-content: center;
-            color: #4539EE;
+            color: #4539ee;
           }
         }
       }
     }
 
-    @media (max-width:1200px) {
-
+    @media (max-width: 1200px) {
       .overlay {
         font-size: 16px;
       }
     }
 
-    @media (max-width:992px) {
-
+    @media (max-width: 992px) {
       .overlay {
         font-size: 14px;
       }
     }
 
-    @media (max-width:768px) {
-
+    @media (max-width: 768px) {
       .overlay {
         font-size: 12px;
       }
@@ -96,14 +92,11 @@
   }
 
   img {
-
     object-fit: cover;
     border-radius: 20px;
   }
 
   .overlay {
     display: none;
-
-
   }
 }

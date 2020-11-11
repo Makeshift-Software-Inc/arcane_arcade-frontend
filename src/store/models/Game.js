@@ -1,4 +1,8 @@
-import { types, getParent } from 'mobx-state-tree';
+import {
+  types, getParent, flow, getRoot,
+} from 'mobx-state-tree';
+import { toast } from 'react-toastify';
+
 import BaseUpdate from './BaseUpdate';
 import Seller from './Seller';
 import SupportedPlatformListing from './SupportedPlatformListing';
@@ -6,9 +10,12 @@ import SupportedLanguages from './SupportedLanguages';
 import Category from './Category';
 import Tag from './Tag';
 
+import Api from '../../services/Api';
+
 const Game = types
   .model('Game', {
     id: types.identifier,
+    status: types.enumeration(['pending', 'active', 'rejected']),
     slug: types.string,
     title: types.string,
     description: types.string,
@@ -33,6 +40,7 @@ const Game = types
     featured: types.boolean,
     promoted: types.boolean,
     supported_languages: types.maybeNull(SupportedLanguages),
+    updating: false,
   })
   .views((self) => ({
     supportedPlatforms() {
@@ -64,6 +72,27 @@ const Game = types
       const { selectGame } = getParent(self, 2);
       selectGame(self);
     },
+    handleStatusUpdate: flow(function* handleStatusUpdate(event) {
+      self.updating = true;
+
+      try {
+        yield Api.put(`/admins/listings/${self.id}`, {
+          listing: { status: event.target.value },
+        });
+        const {
+          admin: { pendingListings },
+        } = getRoot(self);
+        pendingListings.removeListing(self);
+        return true;
+      } catch (e) {
+        console.log(e);
+        if (e.response && e.response.data) {
+          toast(e.response.data.full_messages.join('. '));
+        }
+        self.updating = false;
+        return false;
+      }
+    }),
   }));
 
 export default types.compose(BaseUpdate, Game);

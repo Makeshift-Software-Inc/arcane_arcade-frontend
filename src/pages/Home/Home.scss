@@ -230,9 +230,9 @@
               font-size: 20px;
 
               .description {
-                 p {
-                   font-family: Montserrat;
-                 }
+                p {
+                  font-family: Montserrat;
+                }
               }
 
               .overlay-info {
@@ -378,7 +378,7 @@
 
             .releases-games-listing {
               position: relative;
-              &:hover{
+              &:hover {
                 .overlay {
                   font-size: 13px;
                   .description {
@@ -764,7 +764,8 @@
         padding: 17px 25px;
         font-size: 17px;
         color: #ffffff;
-        i, p {
+        i,
+        p {
           cursor: pointer;
         }
       }

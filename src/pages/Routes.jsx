@@ -20,6 +20,7 @@ import SellerListingsEdit from './Seller/Listings/Edit';
 import SellerListingsAddDistribution from './Seller/Listings/Distribution';
 import MyLibrary from './MyLibrary/MyLibrary';
 import AdminDashboard from './Admins/Dashboard';
+import AdminGamesShow from './Admins/Games/Show';
 
 const Routes = () => {
   const {
@@ -119,6 +120,13 @@ const Routes = () => {
         exact
         path="/admins/dashboard"
         component={AdminDashboard}
+      />
+      <ProtectedRoute
+        asAdmin
+        redirectTo="/"
+        exact
+        path="/admins/games/:slug"
+        component={AdminGamesShow}
       />
     </Switch>
   );

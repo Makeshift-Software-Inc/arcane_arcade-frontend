@@ -4,7 +4,6 @@ import { toast } from 'react-toastify';
 import { Helmet } from 'react-helmet';
 import ReactPlayer from 'react-player';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
-
 import '@splidejs/splide/dist/css/themes/splide-default.min.css';
 
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -27,6 +26,8 @@ import MAC from '../../../img/platform_icons/MAC.svg';
 import LINUX from '../../../img/platform_icons/linux.svg';
 import SWITCH from '../../../img/platform_icons/SWITCH.svg';
 import XB1 from '../../../img/platform_icons/XB1.svg';
+
+import Actions from '../../Admins/Actions/UpdateStatus';
 
 import playButton from '../../../img/Play_Button.svg';
 
@@ -86,7 +87,9 @@ const supportedPlatformsImgs = {
   PS4,
 };
 
-const GamesShow = ({ match, history }) => {
+const GamesShow = ({
+  match, history, forAdmin, game,
+}) => {
   const [showBuyModal, setShowBuyModal] = useState(false);
 
   const [systemReq, setSystemReq] = useState();
@@ -94,22 +97,27 @@ const GamesShow = ({ match, history }) => {
   const [openMobileDecription, setOpenMobileDescription] = useState(false);
 
   const {
-    games: { loadGame, selectedGame, selectGame },
+    games,
+    games: { loadGame, selectGame },
     auth: { isLoggedIn, user },
     forms: {
       buy: { reset },
     },
   } = useStore();
 
+  const selectedGame = forAdmin ? game : games.selectedGame;
+
   const { slug } = match.params;
 
+  // eslint-disable-next-line
   useEffect(() => {
-    loadGame(slug);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (!forAdmin) {
+      loadGame(slug);
 
-    return () => {
-      selectGame();
-    };
+      return () => {
+        selectGame();
+      };
+    }
   }, [slug]);
 
   useEffect(() => {
@@ -118,7 +126,7 @@ const GamesShow = ({ match, history }) => {
     }
   }, [selectedGame]);
 
-  if (!selectedGame) return <Loading />;
+  if (!selectedGame || selectedGame.updating) return <Loading />;
 
   const openBuyModal = () => {
     if (!isLoggedIn) {
@@ -139,34 +147,46 @@ const GamesShow = ({ match, history }) => {
     reset();
   };
 
-  const TopSearchBar = () => (
-    <div className="flex-row justify-between top-search-bar">
-      {/* eslint-disable jsx-a11y/click-events-have-key-events */}
-      <div
-        className="flex-row align-center back-button"
-        onClick={() => history.goBack()}
-        role="button"
-        tabIndex={0}
-      >
-        <img src={backSvg} alt="back-button" className="back-img" />
-        <p>Back to store</p>
-      </div>
-      {/* eslint-enable jsx-a11y/click-events-have-key-events */}
+  const handleStatusUpdate = async (e) => {
+    const success = await game.handleStatusUpdate(e);
+    if (success) {
+      history.push('/admins/dashboard');
+    }
+  };
 
-      <div className="flex-row flex-grow justify-flex-end">
-        <form>
-          <SearchInput />
-        </form>
+  const TopSearchBar = () => {
+    if (forAdmin) return null;
+
+    return (
+      <div className="flex-row justify-between top-search-bar">
+        {/* eslint-disable jsx-a11y/click-events-have-key-events */}
+        <div
+          className="flex-row align-center back-button"
+          onClick={() => history.goBack()}
+          role="button"
+          tabIndex={0}
+        >
+          <img src={backSvg} alt="back-button" className="back-img" />
+          <p>Back to store</p>
+        </div>
+        {/* eslint-enable jsx-a11y/click-events-have-key-events */}
+
+        <div className="flex-row flex-grow justify-flex-end">
+          <form>
+            <SearchInput />
+          </form>
+        </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   const metaDesc = 'Arcane Arcade is an emerging marketplace for game developers and publishers to sell games for cryptocurrency.';
 
   const system_requirements = selectedGame.systemRequirements();
 
-  const selectedSystemReq = systemReq
-    && system_requirements.find((req) => req.platform === systemReq);
+  // eslint-disable-next-line
+  const selectedSystemReq =
+    systemReq && system_requirements.find((req) => req.platform === systemReq);
 
   return (
     <div className="App listings-show">
@@ -174,7 +194,6 @@ const GamesShow = ({ match, history }) => {
         <meta charSet="utf-8" />
         <title>
           Buy
-          {' '}
           {selectedGame.title}
           {' '}
           on Arcane Arcade
@@ -225,7 +244,7 @@ const GamesShow = ({ match, history }) => {
 
                   <div className="payment-submit">
                     <button
-                      disabled={!(user && user.ordersLoaded)}
+                      disabled={!(user && user.ordersLoaded) || forAdmin}
                       onClick={openBuyModal}
                       className="button"
                       type="button"
@@ -363,7 +382,9 @@ const GamesShow = ({ match, history }) => {
                               <hr />
                               <div className="flex-column recommended">
                                 <p className="info-text">Recommended</p>
-                                <p>{selectedSystemReq.recommended.asString()}</p>
+                                <p>
+                                  {selectedSystemReq.recommended.asString()}
+                                </p>
                               </div>
                             </Fragment>
                           )}
@@ -385,6 +406,7 @@ const GamesShow = ({ match, history }) => {
               </div>
             </div>
           </div>
+          {forAdmin && <Actions handleUpdate={handleStatusUpdate} />}
           {showBuyModal && <BuyModal close={closeBuyModal} />}
           <OrderDetailsModal
             order={isLoggedIn && user.selectedOrder}

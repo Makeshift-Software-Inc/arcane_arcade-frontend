@@ -12,6 +12,7 @@ import SavedFile from './SavedFile';
 const SellerGame = types
   .model('SellerGame', {
     id: types.identifier,
+    status: types.enumeration(['pending', 'active', 'rejected']),
     slug: types.string,
     title: types.string,
     description: types.string,
@@ -25,7 +26,6 @@ const SellerGame = types
     xmr_amount: types.number,
     default_currency: types.string,
     currency_symbol: types.string,
-    status: types.enumeration(['pending', 'active', 'rejected']),
     supported_platforms: types.array(types.reference(SupportedPlatform)),
     supported_platform_listings: types.array(SupportedPlatformListing),
     categories: types.array(types.reference(Category)),

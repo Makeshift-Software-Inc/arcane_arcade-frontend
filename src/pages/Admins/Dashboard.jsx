@@ -33,7 +33,7 @@ const Dashboard = () => {
         setActiveTab={setActiveTab}
       />
 
-      <div className="dashboard-content">
+      <div className="dashboard-content flex-row justify-center">
         <ActiveTab />
       </div>
     </div>
