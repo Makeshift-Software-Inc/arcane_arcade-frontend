@@ -104,10 +104,26 @@
             height: 280px;
             width: 100%;
             padding: 37px 20px 20px 26px;
+
             border-color: #0590FF;
             border-style: solid;
             border-width: 1px 1px 0 1px;
             background-color: rgba(5, 144, 255, 0.15);
+
+            box-sizing: content-box;
+
+            &:after {
+              content: "";
+              position:absolute;
+              top: 0;
+              left: 0;
+              margin:-20px;
+              width:40px;
+              height:40px;
+              transform:rotate(45deg);
+              background-color:#070519;
+              border-right: 1px solid #0590FF;
+            }
 
             img {
               width: 50px;
@@ -119,18 +135,6 @@
               font-size: 17px;
               margin-top: 41px;
             }
-          }
-
-          .b-card:before {
-            content: "";
-            width: 0px;
-            height: 0px;
-            border-style: solid;
-            border-width: 40px 40px 0px 0px;
-            border-color: transparent rgba(5, 144, 255, 0.15) transparent transparent;
-            position: absolute;
-            top: 0px;
-            left: 0;
           }
         }
       }
