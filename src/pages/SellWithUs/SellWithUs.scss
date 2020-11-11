@@ -34,6 +34,7 @@
       }
 
       .crypto-town-img {
+        margin-right: -120px;
         img {
           max-width: 745px;
         }
@@ -44,21 +45,64 @@
       width: 100%;
       max-width: 1250px;
 
-      .sub-title p {
-        font-family: Bebas Neue;
-        font-size: 38px;
-        color: #7A7676;
+      .title {
+        margin-bottom: 100px;
+      }
+
+      .sub-title {
+        margin-bottom: 52px;
+        p {
+          font-family: Bebas Neue;
+          font-size: 38px;
+          text-align: center;
+          color: #7A7676;
+        }
       }
 
       .benefits-cards {
         width: 100%;
 
         .benefits-card {
-          max-width: 303px;
+          width: 100%;
+          max-width: 319px;
+
+          .card-cont {
+            .middle-container {
+              width: 100%;
+            }
+            .top-frame {
+              height: 10px;
+              background-color: #463AF3;
+              width: 181px;
+              border-radius: 25px 25px 0 0;
+            }
+            .left-frame {
+              .first,
+              .second {
+                width: 10px;
+                background-color: #463AF3;
+                border-radius: 25px 0 0 25px;
+              }
+              .first {
+                height: 156px;
+                margin-bottom: 10px;
+              }
+              .second {
+                height: 65px;
+              }
+            }
+            .right-frame {
+              width: 10px;
+              height: 155px;
+              background-color: #463AF3;
+              border-radius: 0 25px 25px 0;
+            }
+          }
 
           .b-card {
             position: relative;
             height: 280px;
+            width: 100%;
             padding: 37px 20px 20px 26px;
             border-color: #0590FF;
             border-style: solid;
@@ -103,8 +147,62 @@
       }
     }
 
-    @media (max-width:1023px) {
+    @media (max-width: 1200px) {
+      padding-left: 30px;
+      padding-right: 30px; 
+      .first-section {
+        padding-left: 0;
+        flex-direction: column;
+        .crypto-town-img {
+          margin-right: 0;
+        }
+        .sub-title {
+          margin-bottom: 10px;
+        }
+      }
+    }
+
+    @media (max-width: 1023px) {
       padding: 57px 37px;
+    }
+
+    @media (max-width: 992px) {
+      .first-section,
+      .second-section {
+        .title p {
+          font-size: 70px;
+        }
+        .sub-title p {
+          font-size: 24px;
+        }
+      }
+      .first-section {
+        .crypto-town-img {
+          padding-left: 20px;
+          padding-right: 20px;
+          img {
+            max-width: 100%;
+            max-height: auto;
+          }
+        }
+      }
+      .second-section {
+        .benefits-cards {
+          flex-direction: column;
+        }
+      }
+    }
+
+    @media (max-width: 600px) {
+      .first-section,
+      .second-section {
+        .title p {
+          font-size: 38px;
+        }
+        .sub-title p {
+          font-size: 18px;
+        }
+      }
     }
   }
 }

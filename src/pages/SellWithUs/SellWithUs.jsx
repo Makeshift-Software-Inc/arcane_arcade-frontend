@@ -2,8 +2,9 @@ import React from 'react';
 
 import SellersNavbar from '../../components/Navbar/SellersNavbar/SellersNavbar';
 
-import cryptoTownSvg from '../../img/crypto-town.svg';
+import Card from './Cards/Card';
 
+import cryptoTownSvg from '../../img/crypto-town.svg';
 import howIcon from '../../img/how-icon.png';
 
 import './SellWithUs.scss';
@@ -41,65 +42,30 @@ const SellWithUs = () => (
 
         <div className="benefits-cards flex-row flex-grow justify-between align-center">
 
-          <div className="benefits-card flex-column">
-            <div className="sub-title">
-              <p>
-                90%/10% REVENUE SPLIT
-              </p>
-            </div>
-            <div className="b-card flex-column align-center">
-              <img src={howIcon} alt="wallet" />
-              <p className="text">
-                90% of each transaction
-                <br />
-                goes directly into your
-                <br />
-                coin wallet
-              </p>
-            </div>
-          </div>
+          <Card
+            title="90%/10% REVENUE SPLIT"
+            text={'90% of each transaction\ngoes directly into your\ncoin wallet'}
+            icon={howIcon}
+          />
 
-          <div className="benefits-card flex-column">
-            <div className="sub-title">
-              <p>
-                INSTANT PAYOUTS
-              </p>
-            </div>
-            <div className="b-card flex-column align-center">
-              <img src={howIcon} alt="wallet" />
-              <p className="text">
-                After a successful sale, the
-                <br />
-                money goes directly to you
-                <br />
-                within 15-30 minutes.
-              </p>
-            </div>
-          </div>
+          <Card
+            title="INSTANT PAYOUTS"
+            text={'After a successful sale, the\nmoney goes directly to you\nwithin 15-30 minutes.'}
+            icon={howIcon}
+          />
 
-          <div className="benefits-card flex-column">
-            <div className="sub-title">
-              <p>
-                NEW REVENUE STREAM
-              </p>
-            </div>
-            <div className="b-card flex-column align-center">
-              <img src={howIcon} alt="wallet" />
-              <p className="text">
-                There&apos;s an untapped market
-                <br />
-                of cryptocurrency owners
-                <br />
-                who are gamers. By selling with
-                <br />
-                us, you can take advantage
-                <br />
-                of this market.
-              </p>
-            </div>
-          </div>
+          <Card
+            title="NEW REVENUE STREAM"
+            text={`There's an untapped market\n
+                of cryptocurrency owners\n
+                who are gamers. By selling with\n
+                us, you can take advantage\n
+                of this market.`}
+            icon={howIcon}
+          />
 
         </div>
+
         <button className="button button-sell" type="button">
           SELL WITH US
         </button>
