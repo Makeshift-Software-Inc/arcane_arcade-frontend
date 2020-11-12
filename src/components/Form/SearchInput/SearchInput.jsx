@@ -5,7 +5,7 @@ import searchIcon from '../../../img/search-bg.png';
 import './SearchInput.scss';
 
 const SearchInput = ({
-  name, value, onChange, className,
+  name, value, onChange, className, ...rest
 }) => (
   <div className="search-input flex-row flex-grow align-center">
     <img src={searchIcon} alt="search-icon" className="search-icon" />
@@ -15,7 +15,9 @@ const SearchInput = ({
       value={value}
       onChange={onChange}
       placeholder="Search for anything"
-      className={`arcane-input ${className}`}
+      className={`arcane-input ${className || ''}`}
+      autoComplete="off"
+      {...rest}
     />
   </div>
 );

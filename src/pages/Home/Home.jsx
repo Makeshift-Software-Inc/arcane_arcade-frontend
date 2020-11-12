@@ -9,7 +9,7 @@ import { useStore } from '../../store';
 
 // import Api from '../../services/Api';
 import Navbar from '../../components/Navbar/Navbar';
-import SearchBar from '../../components/SearchBar/SearchBar';
+import Autocomplete from '../../components/Form/Autocomplete/Autocomplete';
 import Loading from '../../components/Loading/Loading';
 import DropDown from '../../components/Home/DropDown/DropDown';
 import Tabs from '../../components/Home/Tabs';
@@ -82,6 +82,7 @@ const SplideVideoItem = ({ src, thumbnail, closeTrailer }) => (
 
 const Home = () => {
   const {
+    games,
     games: {
       featuredGames,
       promotedGames,
@@ -92,6 +93,7 @@ const Home = () => {
       searched,
       searchResults,
     },
+    forms: { search },
   } = useStore();
 
   const gamesContainerRef = useRef(null);
@@ -123,6 +125,11 @@ const Home = () => {
     gamesContainerRef.current.scrollIntoView();
   };
 
+  const handleMore = (query) => {
+    search.update({ query });
+    goToExploreTab();
+  };
+
   const mainSplideData = featuredGames().map((game) => ({
     image: game.images[0],
     text:
@@ -150,16 +157,19 @@ const Home = () => {
           </DropDown>
 
           <div className="tab-bar-container flex-row flex-grow justify-center align-center">
-            <SearchBar
-              show={selectedTab === 'discover'}
-              goToExploreTab={goToExploreTab}
-            >
+            <div className="flex-row justify-between flex-grow align-center top-search-bar">
               <Tabs
                 selectedTab={selectedTab}
                 setSelectedTab={setSelectedTab}
                 mobile={false}
               />
-            </SearchBar>
+
+              {selectedTab === 'discover' && (
+                <div className="flex-row flex-grow justify-flex-end advanced-search">
+                  <Autocomplete searchForm={games} handleMore={handleMore} />
+                </div>
+              )}
+            </div>
           </div>
 
           <div className="flex-row slider">

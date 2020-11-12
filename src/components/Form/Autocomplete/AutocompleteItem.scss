@@ -1,0 +1,22 @@
+$main-color: #463af3;
+
+.search-autocomplete-dropdown-item {
+  border-bottom: 1px solid lightgray;
+  color: #575757;
+  &:last-of-type {
+    border-bottom: none;
+  }
+  &:hover {
+    background-color: $main-color;
+    color: white;
+  }
+  img {
+    width: 150px;
+    height: 70px;
+    padding: 5px;
+  }
+  .item-details {
+    padding: 5px;
+    overflow: hidden;
+  }
+}

@@ -14,7 +14,7 @@ import Api from '../../services/Api';
 
 const Game = types
   .model('Game', {
-    id: types.identifier,
+    id: types.string,
     status: types.enumeration(['pending', 'active', 'rejected']),
     slug: types.string,
     title: types.string,
@@ -65,6 +65,14 @@ const Game = types
       return self.supported_platform_listings
         .filter((platform) => platform.system_requirements)
         .map((platform) => platform.system_requirements);
+    },
+    autocomplete() {
+      return {
+        image: self.images[0],
+        title: self.title,
+        price: `${self.price} USD`,
+        link: `/games/${self.slug}`,
+      };
     },
   }))
   .actions((self) => ({
