@@ -56,11 +56,7 @@ const SellWithUs = () => (
 
           <Card
             title="NEW REVENUE STREAM"
-            text={`There's an untapped market\n
-                of cryptocurrency owners\n
-                who are gamers. By selling with\n
-                us, you can take advantage\n
-                of this market.`}
+            text={'There\'s an untapped market\nof cryptocurrency owners\nwho are gamers. By selling with\nus, you can take advantage\nof this market.'}
             icon={howIcon}
           />
 

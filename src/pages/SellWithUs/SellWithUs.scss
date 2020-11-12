@@ -66,8 +66,28 @@
           width: 100%;
           max-width: 319px;
 
+          &:hover {
+            .sub-title p{
+              color: #463AF3;
+            }
+            .card-cont {
+              .left-frame {
+                .first {
+                  margin-top: 10px;
+                }
+              }
+            }
+            .right-frame {
+              margin-top: -50px;
+            }
+          }
+
           .card-cont {
+            position: relative;
+            overflow: hidden;
+            border-top-left-radius: 60px;
             .middle-container {
+              overflow: hidden;
               width: 100%;
             }
             .top-frame {
@@ -86,44 +106,52 @@
               .first {
                 height: 156px;
                 margin-bottom: 10px;
+                margin-top: -45px;
+                transition: margin-top 0.80s;
               }
               .second {
                 height: 65px;
               }
+
             }
             .right-frame {
               width: 10px;
               height: 155px;
               background-color: #463AF3;
               border-radius: 0 25px 25px 0;
+              transition: margin-top 0.80s;
             }
           }
 
           .b-card {
-            position: relative;
             height: 280px;
             width: 100%;
             padding: 37px 20px 20px 26px;
-
             border-color: #0590FF;
             border-style: solid;
             border-width: 1px 1px 0 1px;
             background-color: rgba(5, 144, 255, 0.15);
-
             box-sizing: content-box;
 
             &:after {
               content: "";
-              position:absolute;
-              top: 0;
-              left: 0;
-              margin:-20px;
+              position: absolute;
+              top: 11px;
+              left: 10px;
+              margin: -20px;
               width:40px;
               height:40px;
               transform:rotate(45deg);
-              background-color:#070519;
+              background-color: #090822;
               border-right: 1px solid #0590FF;
+
             }
+
+            &:nth-child(3)::after{
+              background-color: red;
+            }
+       
+
 
             img {
               width: 50px;
@@ -132,6 +160,7 @@
 
             .text {
               font-family: Open Sans;
+              white-space: pre-wrap;
               font-size: 17px;
               margin-top: 41px;
             }
@@ -141,6 +170,8 @@
 
       .button-sell {
         max-width: 303px;
+        width: 100%;
+        border: none;
         background-color: #463AF3;
         border-radius: 7px;
         font-family: Bebas Neue;
@@ -166,8 +197,21 @@
       }
     }
 
-    @media (max-width: 1023px) {
+    @media (max-width: 1050px) {
       padding: 57px 37px;
+      .second-section {
+        .benefits-cards {
+          flex-direction: column;
+        }
+
+        .benefits-card {
+          margin-bottom: 84px;
+        }
+
+        .button-sell {
+          margin-top: 10px;
+        }
+      }
     }
 
     @media (max-width: 992px) {
@@ -188,11 +232,6 @@
             max-width: 100%;
             max-height: auto;
           }
-        }
-      }
-      .second-section {
-        .benefits-cards {
-          flex-direction: column;
         }
       }
     }
