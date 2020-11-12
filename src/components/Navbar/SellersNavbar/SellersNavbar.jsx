@@ -11,8 +11,10 @@ import './SellersNavbar.scss';
 import logo from '../../../img/logo.png';
 import hamburgerIcon from '../../../img/hamburger_light.svg';
 
-import howIcon from '../../../img/how-icon.png';
-import userIcon from '../../../img/user-icon.svg';
+import howIcon from '../../../img/sellers-icons/nav/how.svg';
+import userIcon from '../../../img/sellers-icons/nav/avatar.svg';
+import dollarIcon from '../../../img/sellers-icons/nav/dollar.svg';
+
 
 import { useStore } from '../../../store';
 
@@ -44,7 +46,7 @@ const SellersNavbar = () => {
       return (
         <Link to="/seller/dashboard" className="navbar-item">
           <div className="icon-container flex-row justify-center align-center">
-            <img src={howIcon} alt="icon" />
+            <img src={userIcon} alt="icon" />
           </div>
           <p>Dashboard</p>
         </Link>
@@ -55,7 +57,7 @@ const SellersNavbar = () => {
       return (
         <Link to="/login" className="navbar-item">
           <div className="icon-container flex-row justify-center align-center">
-            <img src={howIcon} alt="icon" />
+            <img src={dollarIcon} alt="icon" />
           </div>
           <p>Sell With Us</p>
         </Link>
@@ -67,7 +69,7 @@ const SellersNavbar = () => {
         {/* eslint-disable-next-line */}
         <a onClick={handleShowOnboardingModal} href="#" className="navbar-item">
           <div className="icon-container flex-row justify-center align-center">
-            <img src={howIcon} alt="icon" />
+            <img src={dollarIcon} alt="icon" />
           </div>
           <p>Sell With Us</p>
         </a>

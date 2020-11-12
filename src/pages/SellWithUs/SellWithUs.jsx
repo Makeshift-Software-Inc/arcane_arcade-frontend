@@ -5,7 +5,12 @@ import SellersNavbar from '../../components/Navbar/SellersNavbar/SellersNavbar';
 import Card from './Cards/Card';
 
 import cryptoTownSvg from '../../img/crypto-town.svg';
-import howIcon from '../../img/how-icon.png';
+import clockIcon from '../../img/sellers-icons/clock.svg';
+import hoverClockIcon from '../../img/sellers-icons/clock-blue.svg';
+import dollarIcon from '../../img/sellers-icons/dollar.svg';
+import hoverDollarIcon from '../../img/sellers-icons/dollar-blue.svg';
+import walletIcon from '../../img/sellers-icons/wallet.svg';
+import hoverWalletIcon from '../../img/sellers-icons/wallet-blue.svg';
 
 import './SellWithUs.scss';
 
@@ -45,19 +50,22 @@ const SellWithUs = () => (
           <Card
             title="90%/10% REVENUE SPLIT"
             text={'90% of each transaction\ngoes directly into your\ncoin wallet'}
-            icon={howIcon}
+            icon={walletIcon}
+            hoverIcon={hoverWalletIcon}
           />
 
           <Card
             title="INSTANT PAYOUTS"
             text={'After a successful sale, the\nmoney goes directly to you\nwithin 15-30 minutes.'}
-            icon={howIcon}
+            icon={clockIcon}
+            hoverIcon={hoverClockIcon}
           />
 
           <Card
             title="NEW REVENUE STREAM"
             text={'There\'s an untapped market\nof cryptocurrency owners\nwho are gamers. By selling with\nus, you can take advantage\nof this market.'}
-            icon={howIcon}
+            icon={dollarIcon}
+            hoverIcon={hoverDollarIcon}
           />
 
         </div>
