@@ -1,4 +1,5 @@
 import React from 'react';
+import { observer } from 'mobx-react';
 
 import Loading from '../../Loading/Loading';
 import AutocompleteItem from './AutocompleteItem';
@@ -26,4 +27,4 @@ const AutocompleteDropdown = ({ items, searching, showMore }) => {
   );
 };
 
-export default AutocompleteDropdown;
+export default observer(AutocompleteDropdown);

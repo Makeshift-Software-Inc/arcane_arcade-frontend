@@ -9,6 +9,7 @@ import '@splidejs/splide/dist/css/themes/splide-default.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 import { useStore } from '../../../store';
+import useBreakpoints from '../../../hooks/useBreakpoints';
 
 import backSvg from '../../../img/back.svg';
 
@@ -17,7 +18,8 @@ import Loading from '../../../components/Loading/Loading';
 import BuyModal from './Buy/Modal';
 import OrderDetailsModal from '../../MyLibrary/Modal/Modal';
 
-import SearchInput from '../../../components/Form/SearchInput/SearchInput';
+import Autocomplete from '../../../components/Form/Autocomplete/Autocomplete';
+import SearchModal from '../../../components/Form/SearchInput/Modal';
 
 // suported platforms imgs
 import PS4 from '../../../img/platform_icons/PS4.svg';
@@ -87,6 +89,31 @@ const supportedPlatformsImgs = {
   PS4,
 };
 
+const TopSearchBar = ({ goBack, games, handleMore }) => {
+  const { isMobile } = useBreakpoints();
+
+  return (
+    <div className="flex-row justify-between top-search-bar relative">
+      {/* eslint-disable jsx-a11y/click-events-have-key-events */}
+      <div
+        className="flex-row align-center back-button"
+        onClick={goBack}
+        role="button"
+        tabIndex={0}
+      >
+        <img src={backSvg} alt="back-button" className="back-img" />
+        <p>Back to store</p>
+      </div>
+      {/* eslint-enable jsx-a11y/click-events-have-key-events */}
+      {isMobile ? (
+        <SearchModal games={games} handleMore={handleMore} />
+      ) : (
+        <Autocomplete searchForm={games} handleMore={handleMore} />
+      )}
+    </div>
+  );
+};
+
 const GamesShow = ({
   match, history, forAdmin, game,
 }) => {
@@ -101,6 +128,7 @@ const GamesShow = ({
     games: { loadGame, selectGame },
     auth: { isLoggedIn, user },
     forms: {
+      search,
       buy: { reset },
     },
   } = useStore();
@@ -154,30 +182,9 @@ const GamesShow = ({
     }
   };
 
-  const TopSearchBar = () => {
-    if (forAdmin) return null;
-
-    return (
-      <div className="flex-row justify-between top-search-bar">
-        {/* eslint-disable jsx-a11y/click-events-have-key-events */}
-        <div
-          className="flex-row align-center back-button"
-          onClick={() => history.goBack()}
-          role="button"
-          tabIndex={0}
-        >
-          <img src={backSvg} alt="back-button" className="back-img" />
-          <p>Back to store</p>
-        </div>
-        {/* eslint-enable jsx-a11y/click-events-have-key-events */}
-
-        <div className="flex-row flex-grow justify-flex-end">
-          <form>
-            <SearchInput />
-          </form>
-        </div>
-      </div>
-    );
+  const handleMore = (query) => {
+    search.update({ query });
+    history.push('/#search');
   };
 
   const metaDesc = 'Arcane Arcade is an emerging marketplace for game developers and publishers to sell games for cryptocurrency.';
@@ -204,7 +211,13 @@ const GamesShow = ({
       <Navbar />
       <div className="game-page-container flex-column align-center">
         <div className="game-show">
-          <TopSearchBar />
+          {!forAdmin && (
+            <TopSearchBar
+              handleMore={handleMore}
+              goBack={history.goBack}
+              games={games}
+            />
+          )}
 
           <div className="">
             <div className="splide-container">
@@ -257,11 +270,11 @@ const GamesShow = ({
 
               <div className="description flex-column">
                 <div className="about-game game-info flex-row flex-grow justify-between">
-                  <div className="first-section flex-grow">
+                  <div className="first-section flex-1">
                     <h3 className="section-title">About Game</h3>
                   </div>
 
-                  <div className="flex-column about-game-info">
+                  <div className="flex-column about-game-info flex-2">
                     <div className="second-section flex-row flex-grow flex-wrap justify-flex-end">
                       <div className="info-container">
                         <p className="info-text">Developer</p>
@@ -333,11 +346,11 @@ const GamesShow = ({
 
                 {selectedGame.supported_languages && (
                   <div className="game-specification game-info flex-row flex-grow justify-between align-start">
-                    <div className="first-section flex-grow">
+                    <div className="first-section flex-1">
                       <h3 className="section-title">Game Specification</h3>
                     </div>
 
-                    <div className="flex-column justify-flex-end flex-grow section-text">
+                    <div className="flex-column justify-flex-end flex-2 section-text">
                       <p className="info-text">Languages Supported</p>
                       <p>
                         Audio:
@@ -359,11 +372,11 @@ const GamesShow = ({
 
                 {system_requirements.length > 0 && (
                   <div className="system-requirements game-info  flex-row flex-grow justify-between align-start">
-                    <div className="first-section flex-row flex-grow">
+                    <div className="first-section flex-row flex-1">
                       <h3 className="section-title">System Requirements</h3>
                     </div>
 
-                    <div className="flex-column flex-grow section-text">
+                    <div className="flex-column flex-2 section-text">
                       <SystemRequirementTabs
                         options={system_requirements.map((req) => req.platform)}
                         onClick={setSystemReq}

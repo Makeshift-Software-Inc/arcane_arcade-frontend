@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { observer } from 'mobx-react';
 
 import AutocompleteDropdown from './AutocompleteDropdown';
 import SearchInput from '../SearchInput/SearchInput';
@@ -11,9 +12,12 @@ const Autocomplete = ({ searchForm, handleMore }) => {
 
   const timeoutRef = useRef(null);
 
-  useEffect(() => () => {
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
-  }, []);
+  useEffect(
+    () => () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    },
+    [],
+  );
 
   const showMore = () => {
     handleMore(value);
@@ -43,7 +47,7 @@ const Autocomplete = ({ searchForm, handleMore }) => {
   const hasMore = searchForm.searchResults.length > 5;
 
   return (
-    <div className="search-autocomplete relative">
+    <div className="search-autocomplete relative flex-row flex-grow justify-flex-end align-center">
       <SearchInput
         onKeyUp={handleKeyUp}
         name="query"
@@ -61,4 +65,4 @@ const Autocomplete = ({ searchForm, handleMore }) => {
   );
 };
 
-export default Autocomplete;
+export default observer(Autocomplete);

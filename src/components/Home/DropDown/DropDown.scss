@@ -4,8 +4,6 @@
   left: 0;
   width: 100%;
 
-  box-shadow: 0px 1px 1px #ffffff26;
-
   .filters-btn {
     a {
       color: white;
@@ -13,6 +11,10 @@
     p {
       margin-right: 10px;
     }
+  }
+
+  .drop-bar {
+    box-shadow: 0px 1px 1px #ffffff26;
   }
 
   .drop-btn,

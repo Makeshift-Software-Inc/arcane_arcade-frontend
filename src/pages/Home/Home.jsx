@@ -80,7 +80,7 @@ const SplideVideoItem = ({ src, thumbnail, closeTrailer }) => (
   </SplideSlide>
 );
 
-const Home = () => {
+const Home = ({ location }) => {
   const {
     games,
     games: {
@@ -103,6 +103,25 @@ const Home = () => {
   const [trailerOpen, setTrailerOpen] = useState(false);
   const [trailerGame, setTrailerGame] = useState(false);
 
+  useEffect(() => {
+    load();
+  }, []);
+
+  const goToExploreTab = () => {
+    setSelectedTab('explore');
+    gamesContainerRef.current.scrollIntoView();
+  };
+
+  useEffect(() => {
+    if (!loading) {
+      if (location.hash === '#search') {
+        goToExploreTab();
+      }
+    }
+  }, [loading]);
+
+  if (loading) return <Loading />;
+
   const handleTrailer = (game) => {
     setTrailerGame(game);
     setTrailerOpen(true);
@@ -112,17 +131,6 @@ const Home = () => {
       left: 0,
       behavior: 'smooth',
     });
-  };
-
-  useEffect(() => {
-    load();
-  }, []);
-
-  if (loading) return <Loading />;
-
-  const goToExploreTab = () => {
-    setSelectedTab('explore');
-    gamesContainerRef.current.scrollIntoView();
   };
 
   const handleMore = (query) => {
@@ -148,7 +156,7 @@ const Home = () => {
       <Navbar />
       <div className="page-container flex-column flex-grow align-center">
         <div className="flex-column home-page-container">
-          <DropDown goToExploreTab={goToExploreTab} activeTab={selectedTab}>
+          <DropDown handleMore={handleMore} activeTab={selectedTab}>
             <Tabs
               selectedTab={selectedTab}
               setSelectedTab={setSelectedTab}
@@ -205,7 +213,7 @@ const Home = () => {
           {selectedTab === 'discover' ? (
             <Discover games={newReleases()} handleTrailer={handleTrailer} />
           ) : (
-            <div className="explore flex-row flex-grow">
+            <div id="explore" className="explore flex-row flex-grow">
               <AdvancedSearch />
             </div>
           )}

@@ -3,15 +3,15 @@ import { observer } from 'mobx-react';
 
 import { useStore } from '../../../store';
 
-import AdvancedSearch from '../AdvancedSearch';
 import RangeSlider from '../../Form/Slider/Range';
+import SearchModal from '../../Form/SearchInput/Modal';
 
 import arrowIcon from '../../../img/light-combo-box-bg.png';
 import closeIcon from '../../../img/close_white.svg';
 
 import './DropDown.scss';
 
-const DropDown = ({ children, activeTab, goToExploreTab }) => {
+const DropDown = ({ children, activeTab, handleMore }) => {
   const {
     forms: { search },
     games,
@@ -58,8 +58,8 @@ const DropDown = ({ children, activeTab, goToExploreTab }) => {
 
   return (
     <div className="homepage-dropdown flex-column">
-      <div className="flex-column drop-bar">
-        <div className="flex-row top">
+      <div className="flex-column">
+        <div className="flex-row justify-between drop-bar relative">
           <button
             className="drop-btn flex-row align-center"
             type="button"
@@ -72,12 +72,7 @@ const DropDown = ({ children, activeTab, goToExploreTab }) => {
               alt="arrow-icon"
             />
           </button>
-          {activeTab === 'explore' && (
-            <AdvancedSearch
-              goToExploreTab={goToExploreTab}
-              showFilters={false}
-            />
-          )}
+          <SearchModal games={games} handleMore={handleMore} />
         </div>
         {/* eslint-disable jsx-a11y/click-events-have-key-events */}
         {activeTab === 'explore' && (
