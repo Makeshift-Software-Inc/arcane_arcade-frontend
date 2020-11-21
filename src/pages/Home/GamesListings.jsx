@@ -20,7 +20,7 @@ const GamesListings = ({
       key={game.id}
       game={game}
       forAdmin={forAdmin}
-      handleTrailer={handleTrailer}
+      handleTrailer={game.videos.length > 0 && handleTrailer}
     />
   ));
 };

@@ -1,11 +1,12 @@
 import { types } from 'mobx-state-tree';
 import BaseUpdate from './BaseUpdate';
 import Installer from './Installer';
+import Image from './Image';
 
 const OwnedGame = types
   .model('OwnedGame', {
     title: types.string,
-    image: types.maybe(types.string),
+    image: types.maybe(Image),
     platform: types.string,
     method: types.enumeration(['steam_keys', 'installer']),
     steam_key: types.maybeNull(types.string),

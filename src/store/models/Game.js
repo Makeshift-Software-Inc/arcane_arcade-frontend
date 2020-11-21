@@ -9,6 +9,8 @@ import SupportedPlatformListing from './SupportedPlatformListing';
 import SupportedLanguages from './SupportedLanguages';
 import Category from './Category';
 import Tag from './Tag';
+import Image from './Image';
+import Video from './Video';
 
 import Api from '../../services/Api';
 
@@ -21,8 +23,8 @@ const Game = types
     description: types.string,
     raw_description: types.string,
     price: types.number,
-    images: types.array(types.string),
-    videos: types.array(types.string),
+    images: types.array(Image),
+    videos: types.array(Video),
     preorderable: types.boolean,
     early_access: types.boolean,
     esrb: types.string,
@@ -43,6 +45,9 @@ const Game = types
     updating: false,
   })
   .views((self) => ({
+    get defaultImage() {
+      return self.images[0];
+    },
     supportedPlatforms() {
       return self.supported_platform_listings
         .filter((platform) => platform.supported_platform.name !== 'PC')

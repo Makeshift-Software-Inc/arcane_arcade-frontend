@@ -7,7 +7,6 @@ import ReactPlayer from 'react-player';
 
 import { useStore } from '../../store';
 
-// import Api from '../../services/Api';
 import Navbar from '../../components/Navbar/Navbar';
 import Autocomplete from '../../components/Form/Autocomplete/Autocomplete';
 import Loading from '../../components/Loading/Loading';
@@ -44,7 +43,7 @@ const supportedPlatformsImgs = {
 const SplideImageItem = ({ data }) => (
   <SplideSlide>
     <div className="slider-item flex-row">
-      <img src={data.image} alt="kingdom come deliverance cover" />
+      <img src={data.image} alt={data.title} />
       <SliderInfo
         title={data.title}
         text={data.text}
@@ -56,15 +55,13 @@ const SplideImageItem = ({ data }) => (
   </SplideSlide>
 );
 
-const SplideVideoItem = ({ src, thumbnail, closeTrailer }) => (
+const SplideVideoItem = ({ src, closeTrailer }) => (
   <SplideSlide>
     <div className=" flex-row trailer-container">
       <ReactPlayer
         className="trailer-player"
         url={src}
-        light={thumbnail}
         playing={false}
-        preload={thumbnail}
         playIcon={<img src={playButton} className="play-btn" alt="play-btn" />}
         controls
         muted
@@ -74,7 +71,7 @@ const SplideVideoItem = ({ src, thumbnail, closeTrailer }) => (
         src={closeButton}
         alt="close-icon"
         className="close-player"
-        onClick={() => closeTrailer()}
+        onClick={closeTrailer}
       />
     </div>
   </SplideSlide>
@@ -139,7 +136,7 @@ const Home = ({ location }) => {
   };
 
   const mainSplideData = featuredGames().map((game) => ({
-    image: game.images[0],
+    image: game.defaultImage.largeImage,
     text:
       game.raw_description.length > 400
         ? `${game.raw_description.slice(0, 400)}...`
@@ -193,15 +190,11 @@ const Home = ({ location }) => {
                 ? mainSplideData.map((item) => (
                   <SplideImageItem data={item} key={item.title} />
                 ))
-                : trailerGame.videos.map((item, i) => (
+                : trailerGame.videos.map((item) => (
                   <SplideVideoItem
-                    src={item}
-                    key={item}
-                    thumbnail={
-                        trailerGame.images.length > 0
-                          ? trailerGame.images[i]
-                          : null
-                      }
+                    src={item.video}
+                    key={item.video}
+                    thumbnail={item.thumbnail}
                     closeTrailer={() => setTrailerOpen(false)}
                   />
                 ))}

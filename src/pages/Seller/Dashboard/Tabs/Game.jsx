@@ -49,7 +49,7 @@ const Game = ({ game }) => (
     key={game.id}
   >
     <div className="game-listing">
-      <img src={game.images[0]} alt={`${game.title} cover`} />
+      <img src={game.defaultImage.smallImage} alt={`${game.title} cover`} />
     </div>
   </Tippy>
 );

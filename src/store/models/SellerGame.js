@@ -8,6 +8,8 @@ import CategoryListing from './CategoryListing';
 import Tag from './Tag';
 import ListingTag from './ListingTag';
 import SavedFile from './SavedFile';
+import Image from './Image';
+import Video from './Video';
 
 const SellerGame = types
   .model('SellerGame', {
@@ -17,8 +19,8 @@ const SellerGame = types
     title: types.string,
     description: types.string,
     price: types.number,
-    images: types.array(types.string),
-    videos: types.array(types.string),
+    images: types.array(Image),
+    videos: types.array(Video),
     preorderable: types.boolean,
     early_access: types.boolean,
     esrb: types.string,
@@ -37,6 +39,9 @@ const SellerGame = types
     supported_languages: types.maybeNull(SupportedLanguages),
   })
   .views((self) => ({
+    get defaultImage() {
+      return self.images[0];
+    },
     active() {
       return self.status === 'active';
     },

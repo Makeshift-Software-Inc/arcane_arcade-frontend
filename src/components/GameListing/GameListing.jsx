@@ -13,7 +13,7 @@ const GameListing = ({ game, handleTrailer, forAdmin }) => {
 
   return (
     <div className="game-listing flex-column" key={game.id}>
-      <img src={game.images[0]} alt={imageAlt} />
+      <img src={game.defaultImage.smallImage} alt={imageAlt} />
 
       <div className="flex-column flex-grow align-center justify-center overlay">
         <p className="overlay-title">{game.title}</p>
@@ -21,9 +21,11 @@ const GameListing = ({ game, handleTrailer, forAdmin }) => {
         <div className="overlay-buttons flex-column justify-flex-end align-center flex-grow">
           <div className="flex-row price-info">
             <p>{game.currency_symbol}</p>
-            <p>{game.price}</p>
-            {' '}
-            <p>{game.default_currency}</p>
+            <p>
+              {game.price}
+              {' '}
+              {game.default_currency}
+            </p>
           </div>
 
           {/* eslint-disable jsx-a11y/click-events-have-key-events */}

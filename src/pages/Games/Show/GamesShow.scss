@@ -286,11 +286,7 @@
     img {
       width: 100%;
       object-fit: cover;
-      height: 600px !important;
-      @media (max-width: 500px) {
-        height: 450px !important;
-      }
-
+      height: 100% !important;
       margin-bottom: 3em;
     }
   }

@@ -28,13 +28,18 @@ const Discover = ({ games, handleTrailer }) => (
         const imageAlt = `${game.title} cover`;
         const listingShowLink = `/games/${game.slug}`;
 
+        const watchTrailer = (e) => {
+          e.preventDefault();
+          handleTrailer(game);
+        };
+
         return (
           <SplideSlide key={game.id}>
             <div
               className="releases-games-listing flew-row flex-grow"
               key={game.id}
             >
-              <img src={game.images[0]} alt={imageAlt} />
+              <img src={game.defaultImage.smallImage} alt={imageAlt} />
 
               <div className="flex-column align-center justify-between overlay">
                 <div className="flex-column flex-grow justify-evenly align-center">
@@ -48,22 +53,25 @@ const Discover = ({ games, handleTrailer }) => (
                 <div className="flex-column flex-grow justify-flex-end align-center overlay-info">
                   <div className="flex-row flex-grow align-center price-info">
                     <p>{game.currency_symbol}</p>
-                    <p>{game.price}</p>
-                    {' '}
-                    <p>{game.default_currency}</p>
+                    <p>
+                      {game.price}
+                      {' '}
+                      {game.default_currency}
+                    </p>
                   </div>
 
                   <div className="flex-column align-center justify-center overlay-buttons">
-                    {/* eslint-disable jsx-a11y/click-events-have-key-events */}
-                    <div
-                      className="overlay-button flex-row align-center justify-center trailer"
-                      onClick={() => handleTrailer(game)}
-                      role="button"
-                      tabIndex={0}
-                    >
-                      {/* eslint-enable jsx-a11y/click-events-have-key-events */}
-                      <p>Watch Trailer</p>
-                    </div>
+                    {game.videos.length > 0 && (
+                      // eslint-disable-next-line
+                      <div
+                        onClick={watchTrailer}
+                        className="overlay-button flex-row align-center justify-center trailer cursor-pointer"
+                        role="button"
+                        tabIndex={0}
+                      >
+                        <p>Watch Trailer</p>
+                      </div>
+                    )}
 
                     <div className="overlay-button flex-row align-center justify-center buy">
                       <Link to={listingShowLink}>Buy</Link>

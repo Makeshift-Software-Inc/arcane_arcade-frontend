@@ -54,18 +54,18 @@ const SystemRequirementTabs = ({ options, selected, onClick }) => (
 );
 
 const Images = ({ images, gameTitle }) => images.map((image) => (
-  <SplideSlide key={image}>
-    <img src={image} alt={`${gameTitle} cover`} />
+  <SplideSlide key={image.largeImage}>
+    <img src={image.largeImage} alt={`${gameTitle} cover`} />
   </SplideSlide>
 ));
 
-const Videos = ({ videos, thumbnail }) => videos.map((video) => (
-  <SplideSlide key={video}>
+const Videos = ({ videos }) => videos.map((video) => (
+  <SplideSlide key={video.video}>
     <ReactPlayer
-      url={video}
-      light={thumbnail}
+      url={video.video}
+      light={video.thumbnail}
       playing={false}
-      preload={thumbnail}
+      preload={video.thumbnail}
       playIcon={<img src={playButton} className="play-btn" alt="play-btn" />}
       controls
       muted
@@ -75,7 +75,7 @@ const Videos = ({ videos, thumbnail }) => videos.map((video) => (
 
 const Splides = ({ images, videos, gameTitle }) => (
   <>
-    <Videos videos={videos} thumbnail={images.length > 0 ? images[0] : null} />
+    <Videos videos={videos} />
     <Images images={images} gameTitle={gameTitle} />
   </>
 );
