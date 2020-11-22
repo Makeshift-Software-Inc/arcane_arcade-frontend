@@ -22,7 +22,7 @@ const SellerDashboard = () => {
   const tabOptions = [
     { name: 'games', text: 'My Game(s)' },
     { name: 'payments', text: 'Dashboard' },
-    { name: 'recent_orders', text: 'Recent Orders' },
+    { name: 'recent_orders', text: 'Orders' },
   ];
 
   const renderActiveTab = () => {
@@ -34,14 +34,11 @@ const SellerDashboard = () => {
   const metaDesc = 'Manage your games and review your orders. Set your Bitcoin and/or Monero addresses.';
 
   return (
-    <div className="App seller-dashboard">
+    <div className="App seller-dashboard flex-column">
       <Helmet>
         <meta charSet="utf-8" />
         <title>Seller Dashboard</title>
-        <meta
-          name="description"
-          content={metaDesc}
-        />
+        <meta name="description" content={metaDesc} />
       </Helmet>
 
       <Navbar />

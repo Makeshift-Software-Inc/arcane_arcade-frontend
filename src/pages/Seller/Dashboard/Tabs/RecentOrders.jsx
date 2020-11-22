@@ -33,11 +33,15 @@ const RecentOrders = () => {
   return (
     <div className="recent-orders">
       <div className="orders">
-        <Orders
-          onClick={handleOrderClick}
-          detailsText="Order Details"
-          orders={recentOrders}
-        />
+        {recentOrders.length > 0 ? (
+          <Orders
+            onClick={handleOrderClick}
+            detailsText="Order Details"
+            orders={recentOrders}
+          />
+        ) : (
+          <p>No orders yet.</p>
+        )}
       </div>
       <OrderDetailsModal
         order={selectedRecentOrder}

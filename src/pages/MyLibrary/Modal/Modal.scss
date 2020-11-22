@@ -1,5 +1,8 @@
 .order-details-modal {
   min-width: 650px;
+  @media (max-width: 768px) {
+    min-width: unset;
+  }
   .active-order {
     .qr-code {
       width: 150px;
@@ -9,7 +12,8 @@
       line-height: 1.5;
 
       &.address {
-        max-width: 510px;
+        max-width: 100%;
+        text-align: center;
         overflow-wrap: break-word;
       }
     }
@@ -19,6 +23,9 @@
   }
   .completed-order {
     padding: 46px 80px 26px 80px;
+    @media (max-width: 768px) {
+      padding: 0;
+    }
     h1 {
       font-size: 37px;
       font-weight: bold;
