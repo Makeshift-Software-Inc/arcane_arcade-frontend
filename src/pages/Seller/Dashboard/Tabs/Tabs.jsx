@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Tabs = ({ options, selectedTab, onClick }) => (
-  <div className="links">
+  <div className="links flex-row flex-wrap">
     {options.map((option) => (
       // eslint-disable-next-line
       <a

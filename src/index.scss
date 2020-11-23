@@ -23,7 +23,7 @@ body {
   min-height: 100vh;
   padding-top: 78px;
 
-  @media (max-width:1023px) {
+  @media (max-width: 1023px) {
     padding-top: 0;
   }
 
@@ -50,11 +50,11 @@ code {
 }
 
 .flex-2 {
-  flex: 2
+  flex: 2;
 }
 
 .flex-3 {
-  flex: 2
+  flex: 2;
 }
 
 .flex-row {
@@ -109,7 +109,7 @@ code {
 }
 
 .justify-evenly {
-  justify-content: space-evenly; 
+  justify-content: space-evenly;
 }
 
 .justify-center {
@@ -165,7 +165,6 @@ code {
   .large-and-down-flex-column {
     flex-direction: column;
   }
-
 }
 
 // Large devices (desktops, 992px and up)
@@ -189,8 +188,8 @@ code {
 .modal-content {
   width: auto !important;
 
-  @media (max-width: 600px) {
-    width: 85vw !important;
+  @media (max-width: 768px) {
+    width: 90vw !important;
   }
 }
 
@@ -209,10 +208,24 @@ button {
   outline: none;
 }
 
-[role="button"] {
+[role='button'] {
   outline: none;
 }
 
 .display-none {
   display: none !important;
+}
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.text-overflow {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }

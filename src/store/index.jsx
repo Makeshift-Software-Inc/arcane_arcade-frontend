@@ -6,6 +6,7 @@ import AuthStore from './AuthStore';
 import NotificationsStore from './NotificationsStore';
 import FormsStore from './FormsStore';
 import GamesStore from './GamesStore';
+import AdminStore from './AdminStore';
 
 let store;
 
@@ -14,6 +15,7 @@ const RootStore = types.model('Root', {
   notifications: types.optional(NotificationsStore, {}),
   forms: types.optional(FormsStore, {}),
   games: types.optional(GamesStore, {}),
+  admin: types.optional(AdminStore, {}),
 });
 
 const initStore = (initialState) => {

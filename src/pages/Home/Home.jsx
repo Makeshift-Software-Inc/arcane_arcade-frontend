@@ -7,9 +7,8 @@ import ReactPlayer from 'react-player';
 
 import { useStore } from '../../store';
 
-// import Api from '../../services/Api';
 import Navbar from '../../components/Navbar/Navbar';
-import SearchBar from '../../components/SearchBar/SearchBar';
+import Autocomplete from '../../components/Form/Autocomplete/Autocomplete';
 import Loading from '../../components/Loading/Loading';
 import DropDown from '../../components/Home/DropDown/DropDown';
 import Tabs from '../../components/Home/Tabs';
@@ -44,7 +43,7 @@ const supportedPlatformsImgs = {
 const SplideImageItem = ({ data }) => (
   <SplideSlide>
     <div className="slider-item flex-row">
-      <img src={data.image} alt="kingdom come deliverance cover" />
+      <img src={data.image} alt={data.title} />
       <SliderInfo
         title={data.title}
         text={data.text}
@@ -56,15 +55,13 @@ const SplideImageItem = ({ data }) => (
   </SplideSlide>
 );
 
-const SplideVideoItem = ({ src, thumbnail, closeTrailer }) => (
+const SplideVideoItem = ({ src, closeTrailer }) => (
   <SplideSlide>
     <div className=" flex-row trailer-container">
       <ReactPlayer
         className="trailer-player"
         url={src}
-        light={thumbnail}
         playing={false}
-        preload={thumbnail}
         playIcon={<img src={playButton} className="play-btn" alt="play-btn" />}
         controls
         muted
@@ -74,14 +71,15 @@ const SplideVideoItem = ({ src, thumbnail, closeTrailer }) => (
         src={closeButton}
         alt="close-icon"
         className="close-player"
-        onClick={() => closeTrailer()}
+        onClick={closeTrailer}
       />
     </div>
   </SplideSlide>
 );
 
-const Home = () => {
+const Home = ({ location }) => {
   const {
+    games,
     games: {
       featuredGames,
       promotedGames,
@@ -92,6 +90,7 @@ const Home = () => {
       searched,
       searchResults,
     },
+    forms: { search },
   } = useStore();
 
   const gamesContainerRef = useRef(null);
@@ -100,6 +99,25 @@ const Home = () => {
 
   const [trailerOpen, setTrailerOpen] = useState(false);
   const [trailerGame, setTrailerGame] = useState(false);
+
+  useEffect(() => {
+    load();
+  }, []);
+
+  const goToExploreTab = () => {
+    setSelectedTab('explore');
+    gamesContainerRef.current.scrollIntoView();
+  };
+
+  useEffect(() => {
+    if (!loading) {
+      if (location.hash === '#search') {
+        goToExploreTab();
+      }
+    }
+  }, [loading]);
+
+  if (loading) return <Loading />;
 
   const handleTrailer = (game) => {
     setTrailerGame(game);
@@ -112,19 +130,13 @@ const Home = () => {
     });
   };
 
-  useEffect(() => {
-    load();
-  }, []);
-
-  if (loading) return <Loading />;
-
-  const goToExploreTab = () => {
-    setSelectedTab('explore');
-    gamesContainerRef.current.scrollIntoView();
+  const handleMore = (query) => {
+    search.update({ query });
+    goToExploreTab();
   };
 
   const mainSplideData = featuredGames().map((game) => ({
-    image: game.images[0],
+    image: game.defaultImage.largeImage,
     text:
       game.raw_description.length > 400
         ? `${game.raw_description.slice(0, 400)}...`
@@ -141,7 +153,7 @@ const Home = () => {
       <Navbar />
       <div className="page-container flex-column flex-grow align-center">
         <div className="flex-column home-page-container">
-          <DropDown goToExploreTab={goToExploreTab} activeTab={selectedTab}>
+          <DropDown handleMore={handleMore} activeTab={selectedTab}>
             <Tabs
               selectedTab={selectedTab}
               setSelectedTab={setSelectedTab}
@@ -150,16 +162,19 @@ const Home = () => {
           </DropDown>
 
           <div className="tab-bar-container flex-row flex-grow justify-center align-center">
-            <SearchBar
-              show={selectedTab === 'discover'}
-              goToExploreTab={goToExploreTab}
-            >
+            <div className="flex-row justify-between flex-grow align-center top-search-bar">
               <Tabs
                 selectedTab={selectedTab}
                 setSelectedTab={setSelectedTab}
                 mobile={false}
               />
-            </SearchBar>
+
+              {selectedTab === 'discover' && (
+                <div className="flex-row flex-grow justify-flex-end advanced-search">
+                  <Autocomplete searchForm={games} handleMore={handleMore} />
+                </div>
+              )}
+            </div>
           </div>
 
           <div className="flex-row slider">
@@ -175,15 +190,11 @@ const Home = () => {
                 ? mainSplideData.map((item) => (
                   <SplideImageItem data={item} key={item.title} />
                 ))
-                : trailerGame.videos.map((item, i) => (
+                : trailerGame.videos.map((item) => (
                   <SplideVideoItem
-                    src={item}
-                    key={item}
-                    thumbnail={
-                        trailerGame.images.length > 0
-                          ? trailerGame.images[i]
-                          : null
-                      }
+                    src={item.video}
+                    key={item.video}
+                    thumbnail={item.thumbnail}
                     closeTrailer={() => setTrailerOpen(false)}
                   />
                 ))}
@@ -195,7 +206,7 @@ const Home = () => {
           {selectedTab === 'discover' ? (
             <Discover games={newReleases()} handleTrailer={handleTrailer} />
           ) : (
-            <div className="explore flex-row flex-grow">
+            <div id="explore" className="explore flex-row flex-grow">
               <AdvancedSearch />
             </div>
           )}

@@ -12,6 +12,8 @@
 
     .top-search-bar {
       margin-bottom: 48px;
+      height: unset;
+      max-width: unset;
     }
 
     .play-btn {
@@ -20,36 +22,11 @@
     }
 
     @media (max-width: 1200px) {
-      ::-webkit-input-placeholder {
-        color: transparent;
-      }
-
-      :-moz-placeholder {
-        /* Firefox 18- */
-        color: transparent;
-      }
-
-      ::-moz-placeholder {
-        /* Firefox 19+ */
-        color: transparent;
-      }
-
-      :-ms-input-placeholder {
-        color: transparent;
-      }
       padding: 0;
 
       .top-search-bar {
         margin-bottom: 0;
-        padding: 13px 25px;
-
-        .search-input {
-          flex-direction: row-reverse;
-
-          .arcane-input {
-            min-width: 100%;
-          }
-        }
+        padding: 13px 0;
       }
     }
   }
@@ -57,7 +34,7 @@
   .back-button {
     cursor: pointer;
     opacity: 0.3;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 500;
     line-height: 1.2;
     color: #e4e4e4;
@@ -189,9 +166,10 @@
 
       .game-description {
         font-family: OpenSans;
-        max-width: 700px;
 
-        img { width: 100%; }
+        img {
+          width: 100%;
+        }
         strong {
           font-family: Montserrat;
           color: aliceblue;
@@ -308,18 +286,14 @@
     img {
       width: 100%;
       object-fit: cover;
-      height: 600px !important;
-      @media (max-width: 500px) {
-        height: 450px !important;
-      }
-
+      height: 100% !important;
       margin-bottom: 3em;
     }
   }
 
   @media (max-width: 768px) {
     .back-button {
-      font-size: 10px;
+      font-size: 18px;
     }
 
     .pricing,

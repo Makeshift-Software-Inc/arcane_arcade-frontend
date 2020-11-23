@@ -22,6 +22,7 @@ const Navbar = () => {
   const [openMobNav, setOpenMobNav] = useState(false);
 
   const isSeller = isLoggedIn && user && user.isSeller();
+  const isAdmin = isLoggedIn && user && user.admin;
 
   const handleShowOnboardingModal = (e) => {
     e.preventDefault();
@@ -35,6 +36,16 @@ const Navbar = () => {
 
   const closeOnboardingModal = () => {
     setShowOnboardingModal(false);
+  };
+
+  const renderAdminLinks = () => {
+    if (!isAdmin) return null;
+
+    return (
+      <Link to="/admins/dashboard" className="navbar-item">
+        Admin Pannel
+      </Link>
+    );
   };
 
   const renderSellerLinks = () => {
@@ -96,6 +107,7 @@ const Navbar = () => {
               Login
             </Link>
           )}
+          {renderAdminLinks()}
         </div>
 
         <div className="navbar-end">
@@ -115,51 +127,46 @@ const Navbar = () => {
       </div>
 
       <div className="mobile-nav flex-row align-center">
-
-        { openMobNav
-
-            && (
-            <div className="mobile-nav-dropdown">
-
-              <div className="mobile-start-links flex-column">
-                {isLoggedIn
-                  && (
-                  <Link to="/my-library" className="navbar-item">
-                    My Library
-                  </Link>
-                  )}
-                <Link to="/how-it-works" className="navbar-item">
-                  How It Works
+        {openMobNav && (
+          <div className="mobile-nav-dropdown">
+            <div className="mobile-start-links flex-column">
+              {isLoggedIn && (
+                <Link to="/my-library" className="navbar-item">
+                  My Library
                 </Link>
-                <Link to="/contact-us" className="navbar-item">
-                  Contact Us
-                </Link>
+              )}
+              <Link to="/how-it-works" className="navbar-item">
+                How It Works
+              </Link>
+              <Link to="/contact-us" className="navbar-item">
+                Contact Us
+              </Link>
 
-                {isLoggedIn && (
+              {renderAdminLinks()}
+
+              {isLoggedIn && (
                 <Link to="/logout" className="navbar-item">
                   Logout
                 </Link>
+              )}
+            </div>
+
+            <div className="end-mobile-links flex-column">
+              <div className="flex-row">
+                {!isLoggedIn ? (
+                  <Link to="/login" className="navbar-item highlited-link">
+                    Login
+                  </Link>
+                ) : (
+                  <Link to="/" className="navbar-item highlited-link">
+                    {user.username}
+                  </Link>
                 )}
               </div>
-
-              <div className="end-mobile-links flex-column">
-                <div className="flex-row">
-                  {!isLoggedIn ? (
-                    <Link to="/login" className="navbar-item highlited-link">
-                      Login
-                    </Link>
-                  ) : (
-                    <Link to="/" className="navbar-item highlited-link">
-                      {user.username}
-                    </Link>
-                  )}
-                </div>
-                <div className="seller-navbar-item">
-                  {renderSellerLinks()}
-                </div>
-              </div>
+              <div className="seller-navbar-item">{renderSellerLinks()}</div>
             </div>
-            )}
+          </div>
+        )}
         {/* eslint-disable jsx-a11y/click-events-have-key-events */}
         {/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */}
         {/* eslint-disable jsx-a11y/no-noninteractive-element-to-interactive-role */}

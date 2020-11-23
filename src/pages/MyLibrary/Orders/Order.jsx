@@ -10,9 +10,14 @@ const Order = ({ order, detailsText, onClick }) => {
 
   return (
     <div className="arcane-order">
-      <img src={order.owned_game.image} alt={order.owned_game.title} />
+      <img
+        src={order.owned_game.image.smallImage}
+        alt={order.owned_game.title}
+      />
       <div className="order-details">
-        <a onClick={handleClick} href="#">{detailsText}</a>
+        <a onClick={handleClick} href="#">
+          {detailsText}
+        </a>
       </div>
     </div>
   );

@@ -15,9 +15,7 @@ const ChartOptions = ({ options, onClick, active }) => options.map((option) => (
       type="button"
       name={option}
       onClick={onClick}
-      className={`button-bar__button ${active === option
-        ? 'active'
-        : ''}`}
+      className={`button-bar__button ${active === option ? 'active' : ''}`}
     >
       {option}
     </button>
@@ -33,10 +31,7 @@ const Payments = () => {
   const {
     user: {
       seller: {
-        statsLoaded,
-        loadStats,
-        statsLabelsFor,
-        statsDataFor,
+        statsLoaded, loadStats, statsLabelsFor, statsDataFor,
       },
     },
   } = useStore('auth');
@@ -69,8 +64,7 @@ const Payments = () => {
         },
         options: {
           responsive: true,
-          mainrainAspectRatio: true,
-          aspectRatio: 4,
+          maintainAspectRatio: false,
           scales: {
             xAxes: [
               {
@@ -121,13 +115,15 @@ const Payments = () => {
   };
 
   return (
-    <div className="payments">
-      <div className="manage-payments">
+    <div className="payments flex-column flex-grow">
+      <div className="manage-payments flex-row justify-center">
         <button type="button" className="button" onClick={openCoinWalletsModal}>
           Manage Payments
         </button>
       </div>
-      <canvas id="lineChart" ref={lineChartCtx} />
+      <div className="chart-container flex-grow relative">
+        <canvas width="100%" height="100%" ref={lineChartCtx} />
+      </div>
       <div className="chart-filters">
         <div className="button-bar">
           <ChartOptions

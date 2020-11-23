@@ -1,0 +1,17 @@
+$main-color: #463af3;
+
+.admin-tabs {
+  padding: 20px 0;
+  .admin-tab {
+    border: 1px solid $main-color;
+    border-left: none;
+    padding: 10px 20px;
+    color: white;
+    &:first-of-type {
+      border-left: 1px solid $main-color;
+    }
+    &.active {
+      background-color: $main-color;
+    }
+  }
+}

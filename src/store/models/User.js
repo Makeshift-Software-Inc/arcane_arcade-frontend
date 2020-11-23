@@ -17,6 +17,7 @@ const User = types
     activation_state: types.enumeration(['pending', 'active']),
     seller: types.maybeNull(Seller),
     orders: types.array(Order),
+    admin: types.boolean,
     selectedOrder: types.maybe(types.reference(Order)),
     loadingSeller: false,
     creatingOrder: false,

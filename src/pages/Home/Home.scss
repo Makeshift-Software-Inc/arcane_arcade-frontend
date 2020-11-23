@@ -111,7 +111,7 @@
       .game-listing {
         img {
           width: 100%;
-          height: 160px;
+          height: 100%;
         }
 
         &:hover {
@@ -126,13 +126,6 @@
         grid-template-columns: repeat(5, 1fr);
         grid-gap: 43px;
         width: 100vw;
-
-        .game-listing {
-          img {
-            min-height: 113px;
-            max-height: 200px;
-          }
-        }
       }
     }
 
@@ -219,8 +212,8 @@
             border-radius: 20px;
 
             img {
-              height: 270px;
               width: 100%;
+              height: 100%;
               object-fit: cover;
               border-radius: 20px;
             }
@@ -230,9 +223,9 @@
               font-size: 20px;
 
               .description {
-                 p {
-                   font-family: Montserrat;
-                 }
+                p {
+                  font-family: Montserrat;
+                }
               }
 
               .overlay-info {
@@ -332,10 +325,6 @@
         .new-releases {
           .release-slider {
             .releases-games-listing {
-              img {
-                height: 200px;
-              }
-
               &:hover {
                 .overlay {
                   .overlay-title {
@@ -378,7 +367,7 @@
 
             .releases-games-listing {
               position: relative;
-              &:hover{
+              &:hover {
                 .overlay {
                   font-size: 13px;
                   .description {
@@ -416,10 +405,6 @@
         .new-releases {
           .release-slider {
             .splide__list {
-              img {
-                height: 250px;
-              }
-
               li.splide__slide {
                 width: 50% !important;
                 padding: 0 15px;
@@ -572,13 +557,15 @@
   .main-slider {
     img {
       width: 60%;
-      height: 500px;
     }
 
     .trailer-container {
       .trailer-player {
         width: 100% !important;
-        height: 576px !important;
+        height: auto !important;
+        video {
+          height: auto !important;
+        }
       }
 
       .close-player {
@@ -604,7 +591,6 @@
 
       img {
         width: 100%;
-        height: 300px;
       }
 
       .slider-item {
@@ -627,6 +613,7 @@
   video,
   div[autoplay] {
     border-radius: 12px;
+    outline: none;
     @media (max-width: 500px) {
       margin: 0.4em;
       width: auto !important;
@@ -764,7 +751,8 @@
         padding: 17px 25px;
         font-size: 17px;
         color: #ffffff;
-        i, p {
+        i,
+        p {
           cursor: pointer;
         }
       }

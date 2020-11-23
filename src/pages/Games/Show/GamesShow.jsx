@@ -4,12 +4,12 @@ import { toast } from 'react-toastify';
 import { Helmet } from 'react-helmet';
 import ReactPlayer from 'react-player';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
-
 import '@splidejs/splide/dist/css/themes/splide-default.min.css';
 
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 import { useStore } from '../../../store';
+import useBreakpoints from '../../../hooks/useBreakpoints';
 
 import backSvg from '../../../img/back.svg';
 
@@ -18,7 +18,8 @@ import Loading from '../../../components/Loading/Loading';
 import BuyModal from './Buy/Modal';
 import OrderDetailsModal from '../../MyLibrary/Modal/Modal';
 
-import SearchInput from '../../../components/Form/SearchInput/SearchInput';
+import Autocomplete from '../../../components/Form/Autocomplete/Autocomplete';
+import SearchModal from '../../../components/Form/SearchInput/Modal';
 
 // suported platforms imgs
 import PS4 from '../../../img/platform_icons/PS4.svg';
@@ -27,6 +28,8 @@ import MAC from '../../../img/platform_icons/MAC.svg';
 import LINUX from '../../../img/platform_icons/linux.svg';
 import SWITCH from '../../../img/platform_icons/SWITCH.svg';
 import XB1 from '../../../img/platform_icons/XB1.svg';
+
+import Actions from '../../Admins/Actions/UpdateStatus';
 
 import playButton from '../../../img/Play_Button.svg';
 
@@ -51,18 +54,18 @@ const SystemRequirementTabs = ({ options, selected, onClick }) => (
 );
 
 const Images = ({ images, gameTitle }) => images.map((image) => (
-  <SplideSlide key={image}>
-    <img src={image} alt={`${gameTitle} cover`} />
+  <SplideSlide key={image.largeImage}>
+    <img src={image.largeImage} alt={`${gameTitle} cover`} />
   </SplideSlide>
 ));
 
-const Videos = ({ videos, thumbnail }) => videos.map((video) => (
-  <SplideSlide key={video}>
+const Videos = ({ videos }) => videos.map((video) => (
+  <SplideSlide key={video.video}>
     <ReactPlayer
-      url={video}
-      light={thumbnail}
+      url={video.video}
+      light={video.thumbnail}
       playing={false}
-      preload={thumbnail}
+      preload={video.thumbnail}
       playIcon={<img src={playButton} className="play-btn" alt="play-btn" />}
       controls
       muted
@@ -72,7 +75,7 @@ const Videos = ({ videos, thumbnail }) => videos.map((video) => (
 
 const Splides = ({ images, videos, gameTitle }) => (
   <>
-    <Videos videos={videos} thumbnail={images.length > 0 ? images[0] : null} />
+    <Videos videos={videos} />
     <Images images={images} gameTitle={gameTitle} />
   </>
 );
@@ -86,7 +89,34 @@ const supportedPlatformsImgs = {
   PS4,
 };
 
-const GamesShow = ({ match, history }) => {
+const TopSearchBar = ({ goBack, games, handleMore }) => {
+  const { isMobile } = useBreakpoints();
+
+  return (
+    <div className="flex-row justify-between top-search-bar relative">
+      {/* eslint-disable jsx-a11y/click-events-have-key-events */}
+      <div
+        className="flex-row align-center back-button"
+        onClick={goBack}
+        role="button"
+        tabIndex={0}
+      >
+        <img src={backSvg} alt="back-button" className="back-img" />
+        <p>Back to store</p>
+      </div>
+      {/* eslint-enable jsx-a11y/click-events-have-key-events */}
+      {isMobile ? (
+        <SearchModal games={games} handleMore={handleMore} />
+      ) : (
+        <Autocomplete searchForm={games} handleMore={handleMore} />
+      )}
+    </div>
+  );
+};
+
+const GamesShow = ({
+  match, history, forAdmin, game,
+}) => {
   const [showBuyModal, setShowBuyModal] = useState(false);
 
   const [systemReq, setSystemReq] = useState();
@@ -94,22 +124,28 @@ const GamesShow = ({ match, history }) => {
   const [openMobileDecription, setOpenMobileDescription] = useState(false);
 
   const {
-    games: { loadGame, selectedGame, selectGame },
+    games,
+    games: { loadGame, selectGame },
     auth: { isLoggedIn, user },
     forms: {
+      search,
       buy: { reset },
     },
   } = useStore();
 
+  const selectedGame = forAdmin ? game : games.selectedGame;
+
   const { slug } = match.params;
 
+  // eslint-disable-next-line
   useEffect(() => {
-    loadGame(slug);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (!forAdmin) {
+      loadGame(slug);
 
-    return () => {
-      selectGame();
-    };
+      return () => {
+        selectGame();
+      };
+    }
   }, [slug]);
 
   useEffect(() => {
@@ -118,7 +154,7 @@ const GamesShow = ({ match, history }) => {
     }
   }, [selectedGame]);
 
-  if (!selectedGame) return <Loading />;
+  if (!selectedGame || selectedGame.updating) return <Loading />;
 
   const openBuyModal = () => {
     if (!isLoggedIn) {
@@ -139,34 +175,25 @@ const GamesShow = ({ match, history }) => {
     reset();
   };
 
-  const TopSearchBar = () => (
-    <div className="flex-row justify-between top-search-bar">
-      {/* eslint-disable jsx-a11y/click-events-have-key-events */}
-      <div
-        className="flex-row align-center back-button"
-        onClick={() => history.goBack()}
-        role="button"
-        tabIndex={0}
-      >
-        <img src={backSvg} alt="back-button" className="back-img" />
-        <p>Back to store</p>
-      </div>
-      {/* eslint-enable jsx-a11y/click-events-have-key-events */}
+  const handleStatusUpdate = async (e) => {
+    const success = await game.handleStatusUpdate(e);
+    if (success) {
+      history.push('/admins/dashboard');
+    }
+  };
 
-      <div className="flex-row flex-grow justify-flex-end">
-        <form>
-          <SearchInput />
-        </form>
-      </div>
-    </div>
-  );
+  const handleMore = (query) => {
+    search.update({ query });
+    history.push('/#search');
+  };
 
   const metaDesc = 'Arcane Arcade is an emerging marketplace for game developers and publishers to sell games for cryptocurrency.';
 
   const system_requirements = selectedGame.systemRequirements();
 
-  const selectedSystemReq = systemReq
-    && system_requirements.find((req) => req.platform === systemReq);
+  // eslint-disable-next-line
+  const selectedSystemReq =
+    systemReq && system_requirements.find((req) => req.platform === systemReq);
 
   return (
     <div className="App listings-show">
@@ -174,7 +201,6 @@ const GamesShow = ({ match, history }) => {
         <meta charSet="utf-8" />
         <title>
           Buy
-          {' '}
           {selectedGame.title}
           {' '}
           on Arcane Arcade
@@ -185,7 +211,13 @@ const GamesShow = ({ match, history }) => {
       <Navbar />
       <div className="game-page-container flex-column align-center">
         <div className="game-show">
-          <TopSearchBar />
+          {!forAdmin && (
+            <TopSearchBar
+              handleMore={handleMore}
+              goBack={history.goBack}
+              games={games}
+            />
+          )}
 
           <div className="">
             <div className="splide-container">
@@ -225,7 +257,7 @@ const GamesShow = ({ match, history }) => {
 
                   <div className="payment-submit">
                     <button
-                      disabled={!(user && user.ordersLoaded)}
+                      disabled={!(user && user.ordersLoaded) || forAdmin}
                       onClick={openBuyModal}
                       className="button"
                       type="button"
@@ -238,11 +270,11 @@ const GamesShow = ({ match, history }) => {
 
               <div className="description flex-column">
                 <div className="about-game game-info flex-row flex-grow justify-between">
-                  <div className="first-section flex-grow">
+                  <div className="first-section flex-1">
                     <h3 className="section-title">About Game</h3>
                   </div>
 
-                  <div className="flex-column about-game-info">
+                  <div className="flex-column about-game-info flex-2">
                     <div className="second-section flex-row flex-grow flex-wrap justify-flex-end">
                       <div className="info-container">
                         <p className="info-text">Developer</p>
@@ -314,11 +346,11 @@ const GamesShow = ({ match, history }) => {
 
                 {selectedGame.supported_languages && (
                   <div className="game-specification game-info flex-row flex-grow justify-between align-start">
-                    <div className="first-section flex-grow">
+                    <div className="first-section flex-1">
                       <h3 className="section-title">Game Specification</h3>
                     </div>
 
-                    <div className="flex-column justify-flex-end flex-grow section-text">
+                    <div className="flex-column justify-flex-end flex-2 section-text">
                       <p className="info-text">Languages Supported</p>
                       <p>
                         Audio:
@@ -340,11 +372,11 @@ const GamesShow = ({ match, history }) => {
 
                 {system_requirements.length > 0 && (
                   <div className="system-requirements game-info  flex-row flex-grow justify-between align-start">
-                    <div className="first-section flex-row flex-grow">
+                    <div className="first-section flex-row flex-1">
                       <h3 className="section-title">System Requirements</h3>
                     </div>
 
-                    <div className="flex-column flex-grow section-text">
+                    <div className="flex-column flex-2 section-text">
                       <SystemRequirementTabs
                         options={system_requirements.map((req) => req.platform)}
                         onClick={setSystemReq}
@@ -363,7 +395,9 @@ const GamesShow = ({ match, history }) => {
                               <hr />
                               <div className="flex-column recommended">
                                 <p className="info-text">Recommended</p>
-                                <p>{selectedSystemReq.recommended.asString()}</p>
+                                <p>
+                                  {selectedSystemReq.recommended.asString()}
+                                </p>
                               </div>
                             </Fragment>
                           )}
@@ -385,6 +419,7 @@ const GamesShow = ({ match, history }) => {
               </div>
             </div>
           </div>
+          {forAdmin && <Actions handleUpdate={handleStatusUpdate} />}
           {showBuyModal && <BuyModal close={closeBuyModal} />}
           <OrderDetailsModal
             order={isLoggedIn && user.selectedOrder}

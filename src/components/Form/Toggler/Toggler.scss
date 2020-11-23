@@ -2,10 +2,13 @@ $blue-color: #463af3;
 $white-color: #ffffff;
 
 .arcane-toggler {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-evenly;
   button {
     width: 162px;
     height: 48px;
-    margin-right: 32px;
     font-size: 14px;
     font-weight: 500;
     line-height: 1.5;
@@ -14,6 +17,8 @@ $white-color: #ffffff;
     border: solid 1px $blue-color;
     box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.3);
     background-color: $blue-color;
+    margin-bottom: 10px;
+
     &.is-outlined {
       color: $blue-color;
       box-shadow: none;
