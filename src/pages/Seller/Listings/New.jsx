@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { Helmet } from 'react-helmet';
+import { toast } from 'react-toastify';
 import Navbar from '../../../components/Navbar/Navbar';
 
 import { useStore } from '../../../store';
@@ -53,9 +54,10 @@ const SellerListingsNew = ({ history }) => {
 
     if (id) {
       const notification = 'Listing created.';
+      toast(notification);
+
       history.push({
-        pathname: `/sell-your-game/${id}/distribution/add`,
-        state: { notification },
+        pathname: `/sell-your-game/${id}/distributions`,
       });
     }
   };

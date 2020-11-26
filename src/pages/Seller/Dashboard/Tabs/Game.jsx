@@ -10,7 +10,7 @@ const Game = ({ game }) => (
       <div className="actions flex-column flex-grow align-center justify-evenly">
         <Link to={`/games/${game.slug}`}>View</Link>
         <Link to={`/games/${game.slug}/edit`}>Edit</Link>
-        <Link to={`/sell-your-game/${game.id}/distribution/add`}>Manage</Link>
+        <Link to={`/sell-your-game/${game.id}/distributions`}>Manage</Link>
       </div>
     </div>
   </div>
