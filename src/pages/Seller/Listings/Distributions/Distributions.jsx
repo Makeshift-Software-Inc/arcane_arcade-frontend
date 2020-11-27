@@ -13,7 +13,7 @@ import Platform from './Platforms/Platform';
 
 import './Distributions.scss';
 
-const Distributions = ({ match, history }) => {
+const Distributions = ({ match }) => {
   const [selectedTab, setSelectedTab] = useState('');
   const { isMobile } = useBreakpoints();
 
@@ -48,15 +48,6 @@ const Distributions = ({ match, history }) => {
 
   if (loadingGames || !selectedGame) return <Loading />;
 
-  const redirect = () => {
-    if (selectedGame.distributionsSet()) {
-      history.push({
-        pathname: '/',
-        state: { notification: 'Done' },
-      });
-    }
-  };
-
   const metaDesc = 'Add Installers or Steam keys to be purchased for Bitcoin or Monero.';
   return (
     <div className="App seller-game-distributions">
@@ -86,7 +77,6 @@ const Distributions = ({ match, history }) => {
             <Platform
               key={platform.id}
               platform={platform}
-              redirect={redirect}
               selected={platform.supported_platform.name === selectedTab}
             />
           ))}

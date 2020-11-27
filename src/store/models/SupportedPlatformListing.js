@@ -81,6 +81,8 @@ const SupportedPlatformListing = types
         return false;
       }
     }),
+    // eslint-disable-next-line
+    updateDistribution: flow(function* updateDistribution() {}),
     createDistribution: flow(function* createDistribution() {
       if (
         self.supported_platform.name === 'PC'

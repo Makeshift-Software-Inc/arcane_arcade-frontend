@@ -1,16 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { observer } from 'mobx-react';
+
+import Papa from 'papaparse';
 
 const SteamKeys = ({ steamKeys, add, remove }) => {
   const [key, setKey] = useState('');
   const [error, setError] = useState(null);
+  const [parsing, setParsing] = useState(false);
+
+  const fileInputRef = useRef(null);
 
   const addKey = (k) => {
     const keyToAdd = k || key;
     setError(false);
 
     if (keyToAdd.trim().length === 0) {
-      setError('Please enter a valid key.');
       setKey('');
       return;
     }
@@ -47,6 +51,42 @@ const SteamKeys = ({ steamKeys, add, remove }) => {
     if (e.keyCode === 13) addKeys();
   };
 
+  const browse = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleFile = (e) => {
+    const file = e.target.files[0];
+    setError(false);
+    if (file) {
+      if (file.type !== 'text/csv') {
+        setError('Only CSV files are supported.');
+        return;
+      }
+      setParsing(true);
+      Papa.parse(file, {
+        complete: (parsed) => {
+          setParsing(false);
+          if (parsed.errors.length) {
+            setError("We couldn't parse your CSV file.");
+            return;
+          }
+
+          parsed.data.forEach((data) => {
+            data
+              .map((k) => k.trim())
+              .filter((k) => k.length > 0)
+              .forEach((k) => {
+                if (!steamKeys.includes(k)) {
+                  add(k);
+                }
+              });
+          });
+        },
+      });
+    }
+  };
+
   return (
     <div className="steam_keys">
       <div className="keys">
@@ -65,12 +105,12 @@ const SteamKeys = ({ steamKeys, add, remove }) => {
           </p>
         ))}
       </div>
-      <p className="flex-row justify-between">
+      <p className="flex-row justify-between counter">
         <span>50 minimum</span>
         <span>
-          {50 - steamKeys.length}
+          {steamKeys.length}
           {' '}
-          left to add
+          added
         </span>
       </p>
       <div className="enter-key">
@@ -86,8 +126,24 @@ const SteamKeys = ({ steamKeys, add, remove }) => {
           ADD KEY
         </button>
       </div>
-      <p>Split your keys with comma, and we will process them all at once.</p>
-      {error && <p className="error">{error}</p>}
+      <div className="csv-parser flex-column align-center">
+        <input
+          ref={fileInputRef}
+          type="file"
+          className="is-hidden"
+          onChange={handleFile}
+        />
+        <button
+          type="button"
+          disabled={parsing}
+          onClick={browse}
+          className="button"
+        >
+          {parsing ? 'Loading...' : 'Import from CSV File'}
+        </button>
+      </div>
+
+      {error && <p className="error text-center">{error}</p>}
     </div>
   );
 };

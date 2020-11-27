@@ -19,12 +19,12 @@ const Console = ({ distribution, create }) => (
       add={distribution.addKey}
       remove={distribution.removeKey}
     />
-    <button onClick={create} type="button" className="button">
-      SAVE
-    </button>
     {distribution.errors.full_messages.length > 0 && (
       <Errors errors={distribution.errors.full_messages.toJSON()} />
     )}
+    <button onClick={create} type="button" className="button is-link submit">
+      SAVE
+    </button>
   </div>
 );
 

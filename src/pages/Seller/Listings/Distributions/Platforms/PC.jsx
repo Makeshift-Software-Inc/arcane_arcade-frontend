@@ -10,8 +10,6 @@ import Installers from './Installers';
 const PC = ({ platform, create }) => {
   const childrens = platform.getChildrenPlatforms();
 
-  if (childrens.every((children) => children.distribution)) return null;
-
   const onChange = (method) => {
     platform.distributionForm.setMethod(method);
   };
@@ -37,20 +35,20 @@ const PC = ({ platform, create }) => {
       ) : (
         <Installers platforms={childrens} />
       )}
-      <button
-        disabled={platform.uploadingInstallers()}
-        onClick={create}
-        type="button"
-        className="button"
-      >
-        SAVE
-      </button>
       {platform.uploadingInstallers() && <p>Installers are uploading</p>}
       {platform.distributionForm.errors.full_messages.length > 0 && (
         <Errors
           errors={platform.distributionForm.errors.full_messages.toJSON()}
         />
       )}
+      <button
+        disabled={platform.uploadingInstallers()}
+        onClick={create}
+        type="button"
+        className="button is-link submit"
+      >
+        SAVE
+      </button>
     </div>
   );
 };
