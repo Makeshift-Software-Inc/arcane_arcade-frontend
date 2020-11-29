@@ -49,9 +49,22 @@ const SellerGame = types
       return self.status === 'pending';
     },
     distributionsSet() {
-      return self.supported_platform_listings
-        .filter((platform) => platform.supported_platform.name !== 'PC')
-        .every((p) => p.distribution);
+      const pcPlatform = self.supported_platform_listings.find(
+        (platform) => platform.supported_platform.name === 'PC',
+      );
+      const otherPlatforms = self.supported_platform_listings.filter(
+        (platform) => !['PC', 'WINDOWS', 'MAC', 'LINUX'].includes(
+          platform.supported_platform.name,
+        ),
+      );
+      if (!pcPlatform || pcPlatform.distribution) {
+        return otherPlatforms.every((p) => p.distribution);
+      }
+
+      return (
+        pcPlatform.getChildrenPlatforms().every((p) => p.distribution)
+        && otherPlatforms.every((p) => p.distribution)
+      );
     },
     groupedSupportedPlatforms() {
       return self.supported_platform_listings.filter((platform) => ['PC', 'XB1', 'PS4', 'SWITCH'].includes(

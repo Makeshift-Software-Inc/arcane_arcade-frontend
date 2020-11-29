@@ -1,4 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
+
 import { observer } from 'mobx-react';
 import { Helmet } from 'react-helmet';
 import { useStore } from '../../../../store';
@@ -80,6 +82,12 @@ const Distributions = ({ match }) => {
               selected={platform.supported_platform.name === selectedTab}
             />
           ))}
+          {selectedGame.distributionsSet() && (
+            <div className="distributions-set flex-row justify-between">
+              <p>All distributions set.</p>
+              <Link to="/seller/dashboard">Go to My Games</Link>
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -39,37 +39,81 @@ const SupportedPlatformListing = types
     },
   }))
   .actions((self) => ({
-    createPCInstallers: flow(function* createPCInstallers() {
+    updatePCInstallers: flow(function* updatePCInstallers() {
       self.creatingDistribution = true;
       const listing = getParent(self, 2);
       const platforms = self.getChildrenPlatforms();
 
-      const data = {
-        listing: {
-          supported_platform_listings_attributes: [
-            ...platforms.map((platform) => ({
-              id: platform.id,
-              distribution_attributes: {
-                method: 'installer',
-                installer_attributes: platform.distributionForm.installer && {
-                  installer: platform.distributionForm.installer.keys(),
+      let data;
+
+      if (self.distributionForm.method === 'installer') {
+        data = {
+          listing: {
+            supported_platform_listings_attributes: [
+              { id: self.id, distribution_attributes: { _destroy: true } },
+              ...platforms.map((platform) => ({
+                id: platform.id,
+                distribution_attributes: {
+                  method: 'installer',
+                  installer_attributes: platform.distributionForm.installer && {
+                    installer: platform.distributionForm.installer.keys(),
+                  },
+                },
+              })),
+            ],
+          },
+        };
+      } else {
+        data = {
+          listing: {
+            supported_platform_listings_attributes: [
+              {
+                id: self.id,
+                distribution_attributes: {
+                  method: 'steam_keys',
+                  steam_keys: self.distributionForm.steam_keys.toJSON(),
                 },
               },
-            })),
-          ],
-        },
-      };
+              ...platforms.map((platform) => ({
+                id: platform.id,
+                distribution_attributes: {
+                  _destroy: true,
+                },
+              })),
+            ],
+          },
+        };
+      }
 
       try {
         const response = yield Api.post(
           `listings/${listing.id}/add_distributions`,
           data,
         );
-        console.log(response.data);
-        console.log(deserialize(response.data));
-        listing.update({
-          supported_platform_listings: deserialize(response.data),
+        const deserialized = deserialize(response.data);
+        deserialized.forEach((platform) => {
+          const foundPlatform = listing.supported_platform_listings.find(
+            (p) => p.id === platform.id,
+          );
+          if (foundPlatform) {
+            foundPlatform.update(platform);
+            foundPlatform.distributionForm.prepare();
+          }
         });
+
+        if (self.distributionForm.method === 'installer') {
+          self.distribution = null;
+          self.distributionForm.update({ steam_keys: [] });
+        } else {
+          self.getChildrenPlatforms().forEach((platform) => {
+            platform.update({ distribution: null });
+            platform.distributionForm.update({
+              installer_url: null,
+              installer: undefined,
+              steam_keys: [],
+            });
+          });
+        }
         self.creatingDistribution = false;
         return true;
       } catch (e) {
@@ -81,14 +125,9 @@ const SupportedPlatformListing = types
         return false;
       }
     }),
-    // eslint-disable-next-line
-    updateDistribution: flow(function* updateDistribution() {}),
-    createDistribution: flow(function* createDistribution() {
-      if (
-        self.supported_platform.name === 'PC'
-        && self.distributionForm.method === 'installer'
-      ) {
-        return yield self.createPCInstallers();
+    updateDistribution: flow(function* createDistribution() {
+      if (self.supported_platform.name === 'PC') {
+        return yield self.updatePCInstallers();
       }
 
       self.creatingDistribution = true;
@@ -111,7 +150,6 @@ const SupportedPlatformListing = types
           { supported_platform_listing },
         );
 
-        console.log(deserialize(response.data));
         self.update(deserialize(response.data));
         self.creatingDistribution = false;
         return true;

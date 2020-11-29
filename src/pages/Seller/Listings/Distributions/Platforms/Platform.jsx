@@ -9,6 +9,11 @@ import Console from './Console';
 const Platform = ({ platform, selected }) => {
   useEffect(() => {
     platform.distributionForm.prepare();
+    if (platform.supported_platform.name === 'PC') {
+      platform
+        .getChildrenPlatforms()
+        .forEach((p) => p.distributionForm.prepare());
+    }
   }, []);
 
   if (platform.creatingDistribution) return <Loading />;
@@ -17,11 +22,7 @@ const Platform = ({ platform, selected }) => {
 
   const create = async () => {
     if (platform.distributionForm.validate()) {
-      if (platform.distributionForm.action === 'create') {
-        await platform.createDistribution();
-      } else {
-        await platform.updateDistribution();
-      }
+      await platform.updateDistribution();
     }
   };
 

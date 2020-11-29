@@ -20,6 +20,10 @@
     .distributions-container {
       max-width: 500px;
       margin: auto;
+      .distributions-set {
+        margin-bottom: 20px;
+        font-size: 16px;
+      }
     }
   }
   .uploader {

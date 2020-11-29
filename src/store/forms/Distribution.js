@@ -25,9 +25,9 @@ const DistributionForm = types
         } else {
           self.action = 'update';
           self.method = 'installer';
-          const platforms = platform.getChildrenPlatforms();
-          platforms.forEach((p) => p.distributionForm.prepare());
         }
+        const platforms = platform.getChildrenPlatforms();
+        platforms.forEach((p) => p.distributionForm.prepare());
       } else if (platform.distribution) {
         self.action = 'update';
         if (platform.distribution.method === 'installer') {
@@ -35,6 +35,12 @@ const DistributionForm = types
         } else {
           self.update(platform.distribution.toJSON());
         }
+      }
+      if (self.method === 'steam_keys') {
+        self.installer = undefined;
+        self.installer_url = null;
+      } else {
+        self.steam_keys = [];
       }
     },
     addKey(key) {
