@@ -23,23 +23,23 @@ const ForgotPassword = ({ history }) => {
   } = useStore();
 
   const sendPasswordToken = async () => {
-    await auth.sendPasswordToken();
-  };
-
-  const authorize = async (code) => {
-    if (await auth.authorizePasswordToken(code)) {
-      console.log('GOOD');
+    if (forgot_password.validate()) {
+      await auth.sendPasswordToken();
     }
   };
 
+  const authorize = async (code) => {
+    await auth.authorizePasswordToken(code);
+  };
+
   const resetPassword = async () => {
-    if (await auth.resetPassword()) {
-      console.log('GOOD');
+    if (forgot_password.validate()) {
+      if (await auth.resetPassword()) {
+        const msg = 'Your password has been reset';
+        toast(msg);
 
-      const msg = 'Your password has been reset';
-      toast(msg);
-
-      history.push('/login');
+        history.push('/login');
+      }
     }
   };
 
@@ -52,6 +52,11 @@ const ForgotPassword = ({ history }) => {
           email={forgot_password.email}
           onChange={forgot_password.onChange}
           send={sendPasswordToken}
+          hasError={forgot_password.hasError('email')}
+          error={
+            forgot_password.hasError('email')
+            && forgot_password.getErrors('email')
+          }
         />
       );
     }
@@ -66,6 +71,7 @@ const ForgotPassword = ({ history }) => {
         passwordConfirmation={forgot_password.password_confirmation}
         onChange={forgot_password.onChange}
         send={resetPassword}
+        errors={forgot_password.errors}
       />
     );
   };
@@ -79,7 +85,6 @@ const ForgotPassword = ({ history }) => {
 
       <div className="flex-row align-center justify-center flex-grow two-factor-page">
         <div className="flex-column flex-grow two-factor-form align-center justify-between">
-
           <Link className="logo flex" to="/">
             <img src={logo} alt="logo" />
           </Link>

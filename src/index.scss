@@ -1,3 +1,5 @@
+$error-color: #dc3545;
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -228,4 +230,20 @@ button {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+}
+
+.input-error {
+  display: flex;
+  justify-content: flex-start;
+  font-size: 12px;
+  font-weight: normal;
+  letter-spacing: 0px;
+  color: $error-color;
+  &.input-error-center {
+    justify-content: center;
+  }
+}
+
+.input-with-error {
+  border-color: $error-color !important;
 }
