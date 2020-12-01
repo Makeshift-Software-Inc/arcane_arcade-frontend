@@ -1,6 +1,8 @@
 import React, { useState, useRef } from 'react';
 
-const EnterCode = ({ authorize, resend }) => {
+const EnterCode = ({
+  authorize, resend, changeEmail, cancel,
+}) => {
   const code1Ref = useRef(null);
   const code2Ref = useRef(null);
   const code3Ref = useRef(null);
@@ -154,6 +156,14 @@ const EnterCode = ({ authorize, resend }) => {
         <button type="button" onClick={resend}>
           Resend Code
         </button>
+      </div>
+      <div className="actions flex-row justify-evenly">
+        <a href="#" onClick={changeEmail}>
+          Back
+        </a>
+        <a href="#" onClick={cancel}>
+          Cancel
+        </a>
       </div>
     </div>
   );

@@ -1,26 +1,66 @@
 import { types } from 'mobx-state-tree';
 import Base from './Base';
+import SessionStorage from '../../services/SessionStorage';
 
 const ForgotPassword = types
   .model('ForgotPassword', {
-    codeSent: false,
-    authorized: false,
     email: types.optional(types.string, ''),
     password: types.optional(types.string, ''),
     password_confirmation: types.optional(types.string, ''),
+    step: types.optional(
+      types.enumeration(['email', 'code', 'password']),
+      'email',
+    ),
+    token: types.maybe(types.string),
   })
   .views((self) => ({
     keysForValidation() {
-      if (!self.codeSent) {
+      if (self.stepEmail) {
         return ['email'];
       }
 
-      if (!self.authorized) return [];
+      if (self.stepCode) return [];
 
       return ['password', 'password_confirmation'];
     },
+    get stepEmail() {
+      return self.step === 'email';
+    },
+    get stepCode() {
+      return self.step === 'code';
+    },
+    get stepPassword() {
+      return self.step === 'password';
+    },
+    get stepKey() {
+      return 'forgot-password-step';
+    },
+    get tokenKey() {
+      return 'forgot-password-token';
+    },
   }))
   .actions((self) => ({
+    afterCreate() {
+      self.step = SessionStorage.get(self.stepKey) || 'email';
+      self.token = SessionStorage.get(self.tokenKey) || undefined;
+    },
+    updateStep(value) {
+      self.step = value;
+      SessionStorage.set(self.stepKey, value);
+    },
+    updateToken(value) {
+      self.token = value;
+      SessionStorage.set(self.tokenKey, value);
+    },
+    cancel() {
+      self.step = 'email';
+      self.token = undefined;
+      self.email = '';
+      self.password = '';
+      self.password_confirmation = '';
+      SessionStorage.remove(self.stepKey);
+      SessionStorage.remove(self.tokenKey);
+    },
     emailValidation() {
       if (self.email.trim().length === 0) {
         return [self.validationError('blank')];

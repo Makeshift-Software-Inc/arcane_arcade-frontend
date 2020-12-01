@@ -3,7 +3,7 @@ import React from 'react';
 import Input from '../../components/Form/Input/Input';
 
 const SendCode = ({
-  onChange, send, email, hasError, error,
+  onChange, send, email, hasError, error, cancel,
 }) => (
   <div className="send-code">
     <h1>Forgot Password</h1>
@@ -28,6 +28,12 @@ const SendCode = ({
       <button type="button" onClick={send} className="button">
         SEND
       </button>
+    </div>
+
+    <div className="actions flex-row">
+      <a href="#" onClick={cancel}>
+        Back
+      </a>
     </div>
   </div>
 );

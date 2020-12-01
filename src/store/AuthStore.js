@@ -145,10 +145,11 @@ const AuthStore = types
           auth: forms.forgot_password.keys(keysToSend),
         });
 
-        forms.forgot_password.update({ codeSent: true });
+        forms.forgot_password.updateStep('code');
         self.loading = false;
         return true;
       } catch (e) {
+        console.log(e);
         if (e.response && e.response.data) {
           forms.forgot_password.errors.update(e.response.data);
         }
@@ -163,10 +164,13 @@ const AuthStore = types
       self.loading = true;
 
       try {
-        yield Api.post('/authorize_password_token', {
+        const {
+          data: { token },
+        } = yield Api.post('/authorize_password_token', {
           auth: { code },
         });
-        forms.forgot_password.update({ authorized: true });
+        forms.forgot_password.updateStep('password');
+        forms.forgot_password.updateToken(token);
 
         self.loading = false;
         return true;
@@ -181,13 +185,21 @@ const AuthStore = types
     }),
     resetPassword: flow(function* resetPassword() {
       const { forms } = getRoot(self);
+      if (!forms.forgot_password.token) {
+        return false;
+      }
+
       self.loading = true;
 
       try {
         yield Api.post('/reset_password', {
-          email: forms.forgot_password.email,
-          password: forms.forgot_password.password,
+          auth: {
+            token: forms.forgot_password.token,
+            password: forms.forgot_password.password,
+          },
         });
+
+        forms.forgot_password.cancel();
 
         self.loading = false;
         return true;

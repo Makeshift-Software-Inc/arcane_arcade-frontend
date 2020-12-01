@@ -43,14 +43,26 @@ const ForgotPassword = ({ history }) => {
     }
   };
 
+  const changeEmail = (e) => {
+    e.preventDefault();
+    forgot_password.updateStep('email');
+  };
+
+  const cancel = (e) => {
+    e.preventDefault();
+    forgot_password.cancel();
+    history.push('/login');
+  };
+
   const renderContent = () => {
     if (auth.loading) return <Loading />;
 
-    if (!forgot_password.codeSent) {
+    if (forgot_password.stepEmail) {
       return (
         <SendCode
           email={forgot_password.email}
           onChange={forgot_password.onChange}
+          cancel={cancel}
           send={sendPasswordToken}
           hasError={forgot_password.hasError('email')}
           error={
@@ -61,8 +73,15 @@ const ForgotPassword = ({ history }) => {
       );
     }
 
-    if (!forgot_password.authorized) {
-      return <EnterCode authorize={authorize} resend={sendPasswordToken} />;
+    if (forgot_password.stepCode) {
+      return (
+        <EnterCode
+          authorize={authorize}
+          resend={sendPasswordToken}
+          changeEmail={changeEmail}
+          cancel={cancel}
+        />
+      );
     }
 
     return (
