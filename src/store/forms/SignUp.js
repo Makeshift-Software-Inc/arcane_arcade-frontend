@@ -38,7 +38,7 @@ const SignUp = types
       if (self.phone_number.trim().length === 0) {
         return [self.validationError('blank')];
       }
-      if (!/^[0-9]+$/.test(self.phone_number.trim())) {
+      if (!/^\+[0-9]+$/.test(self.phone_number.trim())) {
         return [self.validationError('numbersOnly')];
       }
       if (

@@ -12,7 +12,7 @@ const AuthStore = types
   })
   .views(() => ({}))
   .actions((self) => ({
-    signUp: flow(function* signUp(countryCode) {
+    signUp: flow(function* signUp() {
       const { forms } = getRoot(self);
 
       const keysToSend = [
@@ -25,7 +25,6 @@ const AuthStore = types
 
       try {
         const payload = forms.signUp.keys(keysToSend);
-        payload.phone_number = `${countryCode} ${payload.phone_number};`;
 
         const response = yield Api.post('/users', {
           user: payload,

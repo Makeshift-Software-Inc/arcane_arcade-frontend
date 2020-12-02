@@ -1,4 +1,4 @@
-import React, { useEffect, createRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
@@ -21,12 +21,21 @@ import logo from '../../img/logo.png';
 import './SignUp.scss';
 
 const SignUpPage = ({ history }) => {
-  const phoneNumberRef = createRef(null);
+  const phoneNumberRef = useRef(null);
+  const intl = useRef(null);
 
   useEffect(() => {
-    intlTelInput(phoneNumberRef.current, {
+    intl.current = intlTelInput(phoneNumberRef.current, {
       utilsScript: '../../node_modules/intl-tel-input/build/js/utils.js',
       separateDialCode: true,
+      // if you want autofill for country, register to ipinfo
+      // initialCountry: 'auto',
+      // geoIpLookup: async (success, failure) => {
+      //   const response = await fetch('https://ipinfo.io/json');
+      //   const json = await response.json();
+      //   const countryCode = json && json.country ? json.country : 'us';
+      //   success(countryCode);
+      // },
     });
   }, []);
 
@@ -38,11 +47,10 @@ const SignUpPage = ({ history }) => {
   const [seePassword, setSeePassword] = useState(false);
 
   const onSubmit = async (e) => {
-    const countryCode = document.querySelector('.iti__selected-dial-code')
-      .innerHTML;
     e.preventDefault();
+    signUp.update({ phone_number: intl.current.getNumber() });
     if (signUp.validate()) {
-      if (await authStore.signUp(countryCode)) {
+      if (await authStore.signUp()) {
         history.push('/authorize');
       }
     }
