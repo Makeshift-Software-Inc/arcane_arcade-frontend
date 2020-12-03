@@ -78,45 +78,6 @@ const Onboarding = types
         (crypto) => crypto === name,
       );
     },
-    // validate: () => {
-    //   self.errors = {};
-    //   switch (self.currentStep) {
-    //     case 2:
-    //       if (self.companyName.trim().length === 0) {
-    //         self.errors.update({
-    //           full_messages: ["Company name can't be blank"],
-    //         });
-    //         return false;
-    //       }
-    //       return true;
-    //     case 3:
-    //       if (!self.studioSize || self.studioSize.length === 0) {
-    //         self.errors.update({
-    //           full_messages: ['Please choose a studio size.'],
-    //         });
-    //         return false;
-    //       }
-    //       return true;
-    //     case 4:
-    //       if (!self.fiatCurrency || self.fiatCurrency.length === 0) {
-    //         self.errors.update({
-    //           full_messages: ['Please choose a currency.'],
-    //         });
-    //         return false;
-    //       }
-    //       return true;
-    //     case 5:
-    //       if (self.acceptedCrypto.length === 0) {
-    //         self.errors.update({
-    //           full_messages: ['Please choose at least one crypto currency.'],
-    //         });
-    //         return false;
-    //       }
-    //       return true;
-    //     default:
-    //       return true;
-    //   }
-    // },
   }));
 
 export default types.compose(Base, Onboarding);
