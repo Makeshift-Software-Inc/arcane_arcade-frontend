@@ -1,4 +1,5 @@
-import { types, flow } from 'mobx-state-tree';
+import { types, flow, getRoot } from 'mobx-state-tree';
+import { toast } from 'react-toastify';
 import moment from 'moment';
 import BaseUpdate from './BaseUpdate';
 import SellerGame from './SellerGame';
@@ -11,6 +12,7 @@ import deserialize from '../../utils/deserialize';
 const Seller = types
   .model('Seller', {
     id: types.identifier,
+    status: types.enumeration(['pending', 'active', 'rejected']),
     accepted_crypto: types.array(types.string),
     destination_addresses: types.maybeNull(DestinationAddresses, {}),
     business_name: types.string,
@@ -26,6 +28,7 @@ const Seller = types
     recentOrders: types.array(Order),
     selectedRecentOrder: types.maybe(types.reference(Order)),
     stats: types.frozen(),
+    updating: false,
   })
   .views((self) => ({
     activeGames() {
@@ -89,7 +92,6 @@ const Seller = types
 
       try {
         const response = yield Api.get('/listings/seller_listings');
-        console.log(response.data);
         self.games = deserialize(response.data);
         self.gamesLoaded = true;
         self.loadingGames = false;
@@ -113,6 +115,27 @@ const Seller = types
       } catch (e) {
         console.log(e);
         self.addingDestinationAddresses = false;
+        return false;
+      }
+    }),
+    handleStatusUpdate: flow(function* handleStatusUpdate(event) {
+      self.updating = true;
+
+      try {
+        yield Api.put(`/admins/sellers/${self.id}`, {
+          seller: { status: event.target.value },
+        });
+        const {
+          admin: { pendingSellers },
+        } = getRoot(self);
+        pendingSellers.removeSeller(self);
+        return true;
+      } catch (e) {
+        console.log(e);
+        if (e.response && e.response.data) {
+          toast(e.response.data.full_messages.join('. '));
+        }
+        self.updating = false;
         return false;
       }
     }),

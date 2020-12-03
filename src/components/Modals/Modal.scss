@@ -8,6 +8,9 @@ $blue-color: #463af3;
     border-radius: 10px;
     color: $main-color;
     font-family: Montserrat;
+    @media (max-width: 700px) {
+      padding: 20px 20px 40px;
+    }
     &.is-blue {
       background-color: $blue-color;
       color: white;

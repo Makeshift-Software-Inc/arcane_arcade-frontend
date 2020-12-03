@@ -7,6 +7,12 @@ $main-color: #000000;
   &.small-modal {
     min-width: 500px;
   }
+  @media (max-width: 768px) {
+    min-width: unset;
+    &.small-modal {
+      min-width: unset;
+    }
+  }
   // if we need transitons uncomment this
   // opacity: 0;
 

@@ -1,0 +1,149 @@
+.seller-game-distributions {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.56;
+  color: #8f8f8f;
+  font-family: 'Montserrat';
+  .seller-game-distributions-content {
+    padding: 0 20px;
+    .form-title {
+      font-size: 41px;
+      font-weight: 500;
+      line-height: 1.22;
+      color: #ffffff;
+      margin: 41px 0 71px 0;
+      text-align: center;
+      @media (max-width: 768px) {
+        font-size: 32px;
+      }
+    }
+    .distributions-container {
+      max-width: 500px;
+      margin: auto;
+      .distributions-set {
+        margin-bottom: 20px;
+        font-size: 16px;
+      }
+    }
+  }
+  .uploader {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 10px;
+    .progress {
+      position: absolute;
+      bottom: 10px;
+      width: calc(100% - 20px);
+      left: 10px;
+      height: 20px;
+      .progress-bar {
+        width: 100%;
+        height: 20px;
+        background-color: green;
+      }
+    }
+    .uploaded {
+    }
+  }
+  .platform {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border-top-left-radius: 0;
+    border: solid 1px #2a2a2a;
+    background-color: #e4e4e4;
+    .submit {
+      width: 60%;
+      margin-top: 20px;
+    }
+  }
+  .choose-distribution {
+    width: 100%;
+    .arcane-toggler {
+      button {
+        width: 140px;
+        height: 48px;
+        &:first-of-type {
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+  .steam_keys {
+    margin-top: 10px;
+    width: 100%;
+    .keys {
+      height: 200px;
+      border-radius: 20px;
+      overflow-y: auto;
+      color: black;
+      background-color: white;
+      .key {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        .delete {
+          color: black;
+        }
+        &:hover {
+          background-color: lightgray;
+        }
+      }
+    }
+    .csv-parser {
+      margin-top: 20px;
+    }
+    .counter {
+      font-size: 16px;
+      padding: 0 10px;
+    }
+    .enter-key {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      input {
+        border: none;
+        outline: none;
+        padding: 7px 10px;
+        width: 100%;
+      }
+      .button {
+        margin-left: 20px;
+        border: 1px solid transparent;
+        outline: none;
+      }
+      @media (max-width: 768px) {
+        flex-direction: column;
+        .button {
+          margin-top: 10px;
+          margin-left: 0;
+          width: auto;
+        }
+      }
+    }
+    .error {
+      color: red;
+      padding: 10px;
+    }
+  }
+  .drop-placeholder {
+    min-height: 150px;
+    padding: 20px;
+    border: none;
+    background-color: white;
+    p,
+    a {
+      font-size: 16px;
+      max-width: 100%;
+    }
+  }
+}

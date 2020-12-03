@@ -9,6 +9,7 @@ import Home from './Home/Home';
 import Login from './Login/Login';
 import SignUp from './SignUp/SignUp';
 import TwoFactorAuth from './TwoFactorAuth/TwoFactorAuth';
+import ForgotPassword from './ForgotPassword/ForgotPassword';
 import GamesShow from './Games/Show/GamesShow';
 import Logout from './Logout/Logout';
 import HowItWorks from './HowItWorks/HowItWorks';
@@ -17,8 +18,10 @@ import SellWithUs from './SellWithUs/SellWithUs';
 import SellerDashboard from './Seller/Dashboard/Dashboard';
 import SellerListingsNew from './Seller/Listings/New';
 import SellerListingsEdit from './Seller/Listings/Edit';
-import SellerListingsAddDistribution from './Seller/Listings/Distribution';
+import SellerListingsDistributions from './Seller/Listings/Distributions/Distributions';
 import MyLibrary from './MyLibrary/MyLibrary';
+import AdminDashboard from './Admins/Dashboard';
+import AdminGamesShow from './Admins/Games/Show';
 
 const Routes = () => {
   const {
@@ -48,6 +51,13 @@ const Routes = () => {
         exact
         path="/sign-up"
         component={SignUp}
+      />
+      <ProtectedRoute
+        asGuest
+        redirectTo="/"
+        exact
+        path="/forgot-password"
+        component={ForgotPassword}
       />
       <ProtectedRoute
         asLoggedIn
@@ -96,8 +106,8 @@ const Routes = () => {
         asSeller
         redirectTo={isLoggedIn ? '/seller/onboarding' : '/login'}
         exact
-        path="/sell-your-game/:id/distribution/add"
-        component={SellerListingsAddDistribution}
+        path="/sell-your-game/:id/distributions"
+        component={SellerListingsDistributions}
       />
       <ProtectedRoute
         asSeller
@@ -105,6 +115,20 @@ const Routes = () => {
         exact
         path="/games/:slug/edit"
         component={SellerListingsEdit}
+      />
+      <ProtectedRoute
+        asAdmin
+        redirectTo="/"
+        exact
+        path="/admins/dashboard"
+        component={AdminDashboard}
+      />
+      <ProtectedRoute
+        asAdmin
+        redirectTo="/"
+        exact
+        path="/admins/games/:slug"
+        component={AdminGamesShow}
       />
     </Switch>
   );

@@ -1,20 +1,11 @@
 .App.seller-listings-new {
-  min-height: 100vh;
   color: white;
   display: flex;
   flex-direction: column;
 
-  .back-to-dashboard {
-    margin-top: 25px;
-    a {
-      color: aliceblue;
-      font-size: 17px;
-    }
-  }
-
   .form-container {
-    width: 80vw;
-    margin: 0 auto;
+    width: 100%;
+    padding: 0 5%;
   }
   .form-column {
     width: 400px;
@@ -23,158 +14,6 @@
     text-align: left;
     .title {
       margin: 1.35em 0 0em;
-    }
-  }
-  .form-row {
-    display: flex;
-    justify-content: space-around;
-    padding: 0em 0 4em;
-  }
-
-  form {
-    .topcoat-switch {
-      margin-top: 25px;
-    }
-    .topcoat-switch__toggle {
-      &:before { content: "YES"}
-      &:after { content: "NO"}
-      &:before, &:after {
-        z-index: 9;
-      }
-    }
-
-    .react-tags__suggestions {
-      z-index: 10;
-    }
-
-    h1 {
-      margin: 2em 0;
-      font-size: 32px;
-      text-transform: capitalize;
-    }
-    .react-tags {
-      margin-top: 30px;
-      padding: 0;
-      border: none;
-
-      input {
-        padding: 0.6em;
-      }
-
-      &__selected-tag {
-        background-color: black;
-      }
-    }
-
-    label.form-label {
-      position: relative;
-      top: 21px;
-      display: block;
-      color: aliceblue;
-      font-size: 21px;
-      font-weight: 300;
-      vertical-align: bottom;
-
-      &.description {
-        top: -15px;
-        font-size: 25px;
-
-        i {
-          margin-left: 15px;
-        }
-        [data-tippy-root] {
-          font-weight: 900;
-          font-size: 21px;
-        }
-      }
-    }
-
-
-    input, select {
-      background-color: white;
-      color: #777777;
-      &[type=text] {
-        padding-left: 10px !important;
-      }
-    }
-
-    .pc-platforms {
-      display: grid;
-      margin-left: 40px;
-    }
-
-    div.description-field {
-      display: block;
-      margin: 300px 0 100px;
-      justify-content: center;
-
-      trix-editor {
-        padding: 3em;
-        min-height: 50vh;
-        color: aliceblue;
-        background: rgba(0, 0, 0, 0.3);
-
-        textarea {
-          color: aliceblue;
-          background: rgba(0, 0, 0, 0.3);
-        }
-      }
-    }
-
-    input[type="text"], input[type="number"] {
-      margin-top: 22px;
-    }
-
-    select {
-      margin-top: 27px;
-      padding: 0.7em 1em;
-    }
-
-    input[name="title"] {
-      padding: 8px 5px;
-      width: 300px;
-    }
-
-    tags {
-      margin-top: 28px;
-      width: 400px;
-    }
-
-    select[name="category"] {
-      width: 300px;
-    }
-
-    .trix-button {
-      background-color: whitesmoke;
-    }
-
-
-    .early-access {
-      input[type="checkbox"] {
-        margin: 1em;
-        height: 20px;
-        width: 20px;
-      }
-
-      label.drag-cursor {
-        cursor: pointer;
-        text-indent: -9999px;
-        width: 110px;
-        height: 36px;
-        background: grey;
-        display: block;
-        border-radius: 100px;
-        position: relative;
-      }
-
-      input:checked + label {
-        background: #bada55;
-      }
-
-      input:checked + label:after {
-        left: calc(100% - 5px);
-        transform: translateX(-100%);
-      }
     }
   }
 }

@@ -49,8 +49,10 @@ const Track = ({
   />
 );
 
-const RangeSlider = ({ range, values, setValues }) => {
-  const [update, setUpdate] = useState(range);
+const RangeSlider = ({
+  range, values, setValues, maxValue,
+}) => {
+  const [update, setUpdate] = useState(values);
 
   const onUpdate = (newValues) => {
     setUpdate(newValues);
@@ -105,13 +107,11 @@ const RangeSlider = ({ range, values, setValues }) => {
       </Slider>
       <div className="range-text">
         <span>
-          From
-          {' '}
+          From $
           {update[0]}
           {' '}
-          to
-          {' '}
-          {update[1]}
+          to $
+          {maxValue && update[1] === maxValue ? `${update[1]}+` : update[1]}
         </span>
       </div>
     </div>

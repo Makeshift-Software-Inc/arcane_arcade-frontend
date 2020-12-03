@@ -1,18 +1,21 @@
 $gray-color: #c4c4c4;
 
-.search-input{
-  height: 48px;
+.search-input {
   max-width: 447px;
-  padding: 15px;
   border-radius: 5px;
   background-color: #575757;
+  padding: 0 10px;
+
+  .arcane-input {
+    height: unset;
+  }
 
   .search-icon {
     width: 17.5px;
     height: 17.5px;
   }
 
-  .arcane-input{
+  .arcane-input {
     min-width: 0;
     background-color: transparent;
     font-size: 14px;
@@ -20,7 +23,7 @@ $gray-color: #c4c4c4;
     line-height: 1.5;
     padding: 15px;
     border: none;
-    color: #FFFFFF;
+    color: #ffffff;
     opacity: 0.3;
     &:focus {
       border: none;
@@ -28,25 +31,24 @@ $gray-color: #c4c4c4;
     }
     &::placeholder {
       /* Chrome, Firefox, Opera, Safari 10.1+ */
-      color: #FFFFFF;
+      color: #ffffff;
       opacity: 0.3;
     }
 
     &:-ms-input-placeholder {
       /* Internet Explorer 10-11 */
-      color: #FFFFFF;
+      color: #ffffff;
       opacity: 0.3;
     }
 
     &::-ms-input-placeholder {
       /* Microsoft Edge */
-      color: #FFFFFF;
+      color: #ffffff;
       opacity: 0.3;
     }
-
   }
 
-  @media (max-width:768px) {
+  @media (max-width: 768px) {
     background-color: #121212;
 
     .arcane-input:focus {

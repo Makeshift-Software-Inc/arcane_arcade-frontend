@@ -1,0 +1,26 @@
+.search-autocomplete-dropdown {
+  top: calc(100% + 10px);
+  right: 0;
+  max-width: 447px;
+  width: 100%;
+  background-color: whitesmoke;
+  padding: 5px;
+  z-index: 2;
+  @media (max-width: 768px) {
+    top: 100%;
+    left: 0;
+    min-width: 100vw;
+  }
+  .loader-wrapper {
+    background-color: whitesmoke;
+  }
+  .no-results {
+    padding: 20px;
+  }
+  .show-more {
+    color: white;
+    padding: 10px;
+    margin: 10px;
+    align-self: center;
+  }
+}

@@ -10,6 +10,10 @@ $gray-color: #c4c4c4;
   font-weight: 500;
   line-height: 1.5;
   padding: 15px;
+  color: black;
+  @media (max-width: 500px) {
+    min-width: unset;
+  }
   &:focus {
     border: solid 1px $gray-color;
     outline: none;
@@ -19,7 +23,6 @@ $gray-color: #c4c4c4;
     color: $gray-color;
     opacity: 1;
   }
-
   &:-ms-input-placeholder {
     /* Internet Explorer 10-11 */
     color: $gray-color;
@@ -28,5 +31,12 @@ $gray-color: #c4c4c4;
   &::-ms-input-placeholder {
     /* Microsoft Edge */
     color: $gray-color;
+  }
+  &[type='checkbox'] {
+    width: 18px;
+    height: 18px;
+    margin-bottom: 0;
+    margin-right: 18px;
+    min-width: unset;
   }
 }

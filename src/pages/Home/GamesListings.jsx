@@ -1,22 +1,27 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { observer } from 'mobx-react';
-import { useStore } from '../../store';
 
 import GameListing from '../../components/GameListing/GameListing';
 import Loading from '../../components/Loading/Loading';
 
-const GamesListings = ({ handleTrailer }) => {
-  const { games, load, loading } = useStore('games');
+const GamesListings = ({
+  games,
+  loading,
+  handleTrailer,
+  noGamesText,
+  forAdmin,
+}) => {
+  if (loading) return <Loading small />;
 
-  useEffect(() => {
-    load();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  if (loading) return <Loading />;
+  if (noGamesText && games.length === 0) return <p>{noGamesText}</p>;
 
   return games.map((game) => (
-    <GameListing key={game.id} game={game} handleTrailer={handleTrailer} />
+    <GameListing
+      key={game.id}
+      game={game}
+      forAdmin={forAdmin}
+      handleTrailer={game.videos.length > 0 && handleTrailer}
+    />
   ));
 };
 

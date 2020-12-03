@@ -30,7 +30,8 @@ const SORT_BY_OPTIONS = {
   name: 'Name',
   price_asc: 'Lowest Price',
   price_desc: 'Highest Price',
-  reviews: 'User Reviews',
+  // we don't need User reviews for now
+  // reviews: 'User Reviews',
 };
 
 const PLATFORM_OPTIONS = {
@@ -77,11 +78,10 @@ const Search = types
       if (self.query.trim().length > 0) {
         params.query = self.query.trim();
       }
-      if (
-        self.price.min > DEFAULT_RANGE[0]
-        || self.price.max < DEFAULT_RANGE[1]
-      ) {
+      if (self.price.min > DEFAULT_RANGE[0]) {
         params.price_min = self.price.min;
+      }
+      if (self.price.max < DEFAULT_RANGE[1]) {
         params.price_max = self.price.max;
       }
       if (self.genre !== 'ALL') {

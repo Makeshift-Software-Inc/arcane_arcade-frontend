@@ -3,13 +3,18 @@
   top: 0;
   left: 0;
   width: 100%;
-  
-  box-shadow: 0px 1px 1px #FFFFFF26;
 
   .filters-btn {
+    a {
+      color: white;
+    }
     p {
       margin-right: 10px;
     }
+  }
+
+  .drop-bar {
+    box-shadow: 0px 1px 1px #ffffff26;
   }
 
   .drop-btn,
@@ -23,7 +28,7 @@
 
   .drop-btn,
   .tab a {
-    color: #FFFFFF;
+    color: #ffffff;
     padding: 18px 25px;
   }
 
@@ -32,7 +37,7 @@
   }
 
   .tab {
-    box-shadow: 0px 1px 1px #FFFFFF26;
+    box-shadow: 0px 1px 1px #ffffff26;
   }
 
   .drop-btn {
@@ -46,7 +51,6 @@
     .arrow-icon.open {
       transform: rotate(180deg);
     }
-
   }
 
   .dropdown-content {
@@ -56,19 +60,20 @@
     z-index: 9;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(18, 18, 18, 0.90);
+    background-color: rgba(18, 18, 18, 0.9);
   }
 
   .tabs-mobile {
     opacity: 1;
-    background-color: #2A2A2A;
+    background-color: #2a2a2a;
   }
 
   .filters-modal {
     position: absolute;
     top: 0;
     left: 0;
-    overflow: scroll;
+    overflow: hidden;
+    overflow-y: auto;
     width: 100%;
     height: calc(100vh - 78px);
     background-color: #121212;
@@ -80,30 +85,36 @@
       padding: 5px 0;
     }
 
-    .filters-tab, .filter {
+    .filters-tab,
+    .filter {
       padding: 19px 25px;
       font-size: 17px;
-      color: #FFFFFF;
+      color: #ffffff;
     }
 
     .filter {
       cursor: pointer;
       background-color: #242222;
+      &.active {
+        background-color: whitesmoke;
+        color: #242222;
+      }
     }
 
     .filters-container {
-      background-color: #2A2A2A;
+      background-color: #2a2a2a;
     }
 
-    .filters-container, .filter {
-      box-shadow:  0px 1px 1px #FFFFFF26;
+    .filters-container,
+    .filter {
+      box-shadow: 0px 1px 1px #ffffff26;
     }
 
     .filters-tab {
       .filters-list {
         max-height: 100px;
-        overflow-y: scroll;
-      } 
+        overflow-y: auto;
+      }
     }
 
     .arcane-range-slider {
@@ -112,8 +123,8 @@
 
     .dropdown-modal-button {
       width: 100%;
-      color: #FFFFFF;
-      background-color: #463AF3;
+      color: #ffffff;
+      background-color: #463af3;
       border-radius: 8px;
     }
   }

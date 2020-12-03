@@ -24,29 +24,36 @@ const Games = () => {
   if (loadingGames) return <Loading />;
 
   return (
-    <div className="my-games">
-      <div className="post">
+    <div className="my-games flex-column">
+      <div className="post flex-row justify-center">
         <Link to="/sell-your-game">
           <button type="button" className="button">
             Post a New Game
           </button>
         </Link>
       </div>
-      <div className="listings">
-        <div className="active">
-          <h1>Active Listings</h1>
-
-          {activeGames().map((game) => (
-            <Game key={game.id} game={game} />
-          ))}
-        </div>
-
-        <div className="pending">
-          <h1>Pending Listings</h1>
-
-          {pendingGames().map((game) => (
-            <Game key={game.id} game={game} />
-          ))}
+      <div className="listings flex-column">
+        {pendingGames().length > 0 && (
+          <div className="pending flex-column">
+            <h1>Pending Games</h1>
+            <div className="list">
+              {pendingGames().map((game) => (
+                <Game key={game.id} game={game} />
+              ))}
+            </div>
+          </div>
+        )}
+        <div className="active flex-column">
+          <h1>Active Games</h1>
+          {activeGames().length > 0 ? (
+            <div className="list">
+              {activeGames().map((game) => (
+                <Game key={game.id} game={game} />
+              ))}
+            </div>
+          ) : (
+            <p className="text-center">You don&apos;t have any active game.</p>
+          )}
         </div>
       </div>
     </div>

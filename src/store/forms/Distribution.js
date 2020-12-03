@@ -11,9 +11,38 @@ const DistributionForm = types
     ),
     steam_keys: types.array(types.string),
     installer: types.maybe(UploadedFile),
+    installer_url: types.maybeNull(types.string),
     errors: types.optional(Errors, {}),
+    action: types.optional(types.enumeration(['create', 'update']), 'create'),
   })
   .actions((self) => ({
+    prepare() {
+      const platform = getParent(self);
+      if (platform.supported_platform.name === 'PC') {
+        if (platform.distribution) {
+          self.action = 'update';
+          self.update(platform.distribution.toJSON());
+        } else {
+          self.action = 'update';
+          self.method = 'installer';
+        }
+        const platforms = platform.getChildrenPlatforms();
+        platforms.forEach((p) => p.distributionForm.prepare());
+      } else if (platform.distribution) {
+        self.action = 'update';
+        if (platform.distribution.method === 'installer') {
+          self.update({ ...platform.distribution.toJSON(), steam_keys: [] });
+        } else {
+          self.update(platform.distribution.toJSON());
+        }
+      }
+      if (self.method === 'steam_keys') {
+        self.installer = undefined;
+        self.installer_url = null;
+      } else {
+        self.steam_keys = [];
+      }
+    },
     addKey(key) {
       self.steam_keys.push(key);
     },
@@ -25,14 +54,14 @@ const DistributionForm = types
       self.errors = {};
     },
     addInstaller(file) {
-      self.installer = {
+      self.installer = UploadedFile.create({
         name: file.name,
         size: file.size,
         type: file.type,
         url: URL.createObjectURL(file),
         data: file,
         secure: true,
-      };
+      });
     },
     validate: () => {
       self.errors = {};

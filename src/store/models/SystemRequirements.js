@@ -1,10 +1,62 @@
-import { types } from 'mobx-state-tree';
+import { types, getParent } from 'mobx-state-tree';
+
+const Requirement = types
+  .model('Requirement', {
+    os: types.optional(types.string, ''),
+    processor: types.optional(types.string, ''),
+    memory: types.optional(types.string, ''),
+    graphics: types.optional(types.string, ''),
+    storage: types.optional(types.string, ''),
+    directX: types.optional(types.string, ''),
+  })
+  .views((self) => ({
+    keys() {
+      const keys = ['os', 'processor', 'memory', 'graphics', 'storage'];
+      const { platform } = getParent(self);
+
+      if (platform === 'WINDOWS') {
+        return [...keys, 'directX'];
+      }
+
+      return keys;
+    },
+    keysToSend() {
+      const object = {};
+      self.keys().forEach((key) => {
+        object[key] = self[key];
+      });
+      return object;
+    },
+    asString() {
+      return self
+        .keys()
+        .filter((key) => self[key].length > 0)
+        .map((key) => `${key.toUpperCase()}: ${self[key]}`)
+        .join(', ');
+    },
+  }))
+  .actions((self) => ({
+    onChange(e) {
+      self[e.target.name] = e.target.value;
+    },
+  }));
 
 const SystemRequirements = types
   .model('SystemRequirements', {
-    name: types.string,
-    description: types.optional(types.string, ''),
+    platform: types.optional(types.string, ''),
+    minimum: types.optional(Requirement, {}),
+    recommended: types.optional(Requirement, {}),
+    additional_notes: types.optional(types.string, ''),
   })
+  .views((self) => ({
+    keysToSend() {
+      return {
+        minimum: self.minimum.keysToSend(),
+        recommended: self.recommended.keysToSend(),
+        additional_notes: self.additional_notes,
+      };
+    },
+  }))
   .actions((self) => ({
     onChange(e) {
       self[e.target.name] = e.target.value;

@@ -9,6 +9,7 @@ const ProtectedRoute = ({
   asGuest,
   asActiveUser,
   asSeller,
+  asAdmin,
   redirectTo,
   ...rest
 }) => {
@@ -46,7 +47,8 @@ const ProtectedRoute = ({
     if (!isLoggedIn) {
       loginToast();
       return redirect;
-    } if (!user.activated()) {
+    }
+    if (!user.activated()) {
       makeToast('Please finish two factor auth first.');
       return redirect;
     }
@@ -56,8 +58,16 @@ const ProtectedRoute = ({
     if (!isLoggedIn) {
       loginToast();
       return redirect;
-    } if (!user.isSeller()) {
+    }
+    if (!user.isSeller()) {
       makeToast('Please create seller account first.');
+      return redirect;
+    }
+  }
+
+  if (asAdmin) {
+    if (!isLoggedIn || !user.admin) {
+      makeToast('You are not authorized to access this page.');
       return redirect;
     }
   }

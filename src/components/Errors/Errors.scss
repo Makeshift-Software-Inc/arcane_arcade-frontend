@@ -1,6 +1,10 @@
+$error-color: #dc3545;
+
 .errors {
-  color: red;
-  .error {
-    margin-top: 10px;
+  .error p {
+    margin-top: 5px;
+    text-align: center;
+    color: $error-color !important;
   }
+  margin: 20px 0;
 }

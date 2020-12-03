@@ -44,6 +44,10 @@ const Payments = () => {
     if (statsLoaded) {
       const labels = statsLabelsFor(activeChartOption);
       const data = statsDataFor(activeChartOption);
+
+      // eslint-disable-next-line prefer-spread
+      const max = Math.max.apply(Math, data) + 5;
+
       // eslint-disable-next-line no-new
       new Line(lineChartCtx.current, {
         data: {
@@ -59,7 +63,30 @@ const Payments = () => {
           ],
         },
         options: {
-          scaleStartValue: 0,
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            xAxes: [
+              {
+                display: true,
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Month',
+                },
+              },
+            ],
+            yAxes: [
+              {
+                display: true,
+                ticks: {
+                  beginAtZero: true,
+                  steps: 5,
+                  stepValue: 1,
+                  max,
+                },
+              },
+            ],
+          },
           legend: {
             labels: {
               fontColor: 'rgba(69,57,240, 1)',
@@ -88,13 +115,15 @@ const Payments = () => {
   };
 
   return (
-    <div className="payments">
-      <div className="manage-payments">
+    <div className="payments flex-column flex-grow">
+      <div className="manage-payments flex-row justify-center">
         <button type="button" className="button" onClick={openCoinWalletsModal}>
           Manage Payments
         </button>
       </div>
-      <canvas id="lineChart" ref={lineChartCtx} />
+      <div className="chart-container flex-grow relative">
+        <canvas width="100%" height="100%" ref={lineChartCtx} />
+      </div>
       <div className="chart-filters">
         <div className="button-bar">
           <ChartOptions
