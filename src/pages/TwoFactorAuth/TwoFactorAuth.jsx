@@ -26,7 +26,6 @@ const TwoFactorAuth = ({ history }) => {
 
   const authorize = async (code) => {
     if (await auth.authorize(code)) {
-      console.log('GOOD');
       history.push('/');
     }
   };
@@ -56,7 +55,6 @@ const TwoFactorAuth = ({ history }) => {
 
       <div className="flex-row align-center justify-center flex-grow two-factor-page">
         <div className="flex-column flex-grow two-factor-form align-center justify-between">
-
           <Link className="logo flex" to="/">
             <img src={logo} alt="logo" />
           </Link>

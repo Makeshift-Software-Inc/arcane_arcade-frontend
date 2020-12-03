@@ -17,7 +17,7 @@ const Requirements = observer(({ requirement }) => requirement.keys().map((key) 
   </div>
 )));
 
-const SystemRequirements = ({ system_requirements }) => {
+const SystemRequirements = ({ system_requirements, error }) => {
   const [selectedTab, setSelectedTab] = useState(
     system_requirements[0].platform,
   );
@@ -57,7 +57,7 @@ const SystemRequirements = ({ system_requirements }) => {
           <div
             className={`flex-column system-requirements-content ${
               isMobile ? 'mobile' : ''
-            }`}
+            } ${error ? 'input-with-error' : ''}`}
           >
             {isMobile && (
               <SystemRequirementsTabs
@@ -92,6 +92,7 @@ const SystemRequirements = ({ system_requirements }) => {
           </div>
         </Fragment>
       )}
+      {error && <small className="input-error">{error}</small>}
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Route, Redirect, useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -18,17 +19,12 @@ const ProtectedRoute = ({
 
   if (history.location.pathname === redirectTo) return <Route {...rest} />;
 
-  const redirect = <Redirect to={redirectTo} />;
+  const redirect = (
+    <Redirect to={{ pathname: redirectTo, state: { isRedirect: true } }} />
+  );
 
   const makeToast = (notification) => {
-    toast(notification, {
-      position: 'top-right',
-      autoClose: false,
-      closeButton: true,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-    });
+    toast.info(notification);
   };
 
   const loginToast = () => makeToast('Please login to continue');
