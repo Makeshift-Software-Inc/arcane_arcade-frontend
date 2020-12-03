@@ -15,7 +15,6 @@ import howIcon from '../../../img/sellers-icons/nav/how.svg';
 import userIcon from '../../../img/sellers-icons/nav/avatar.svg';
 import dollarIcon from '../../../img/sellers-icons/nav/dollar.svg';
 
-
 import { useStore } from '../../../store';
 
 const SellersNavbar = () => {
