@@ -199,7 +199,7 @@ const ListingForm = types
       self.listing_tags = [];
       self.early_access = false;
       self.price = undefined;
-      // self.system_requirements = [];
+      self.supported_languages = SupportedLanguages.create({});
       self.saved_files = [];
       self.release_date = '';
       self.preorderable = false;
@@ -225,7 +225,7 @@ const ListingForm = types
       self.description = game.description;
       self.esrb = game.esrb;
       // eslint-disable-next-line
-      self.category_listings = game.category_listings.map((category_listing) => category_listing.toJSON());
+      self.category_listings = game.category_listings.map((category_listing) => category_listing.toJSON(),);
       self.supported_platform_listings = game.supported_platform_listings.map(
         (supported_platform_listing) => supported_platform_listing.toJSON(),
       );

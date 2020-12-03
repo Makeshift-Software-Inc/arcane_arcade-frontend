@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 
-const EnterCode = ({ authorize, resend }) => {
-  const code1Ref = React.createRef(null);
-  const code2Ref = React.createRef(null);
-  const code3Ref = React.createRef(null);
-  const code4Ref = React.createRef(null);
-  const code5Ref = React.createRef(null);
-  const code6Ref = React.createRef(null);
-  const code7Ref = React.createRef(null);
+const EnterCode = ({
+  authorize, resend, changeEmail, cancel,
+}) => {
+  const code1Ref = useRef(null);
+  const code2Ref = useRef(null);
+  const code3Ref = useRef(null);
+  const code4Ref = useRef(null);
+  const code5Ref = useRef(null);
+  const code6Ref = useRef(null);
+  const code7Ref = useRef(null);
+
+  const [error, setError] = useState(false);
 
   const codes = [
     code1Ref,
@@ -20,12 +24,15 @@ const EnterCode = ({ authorize, resend }) => {
   ];
 
   const authorizeCode = () => {
+    setError(false);
     let code = '';
     codes.forEach((codeRef) => {
       if (codeRef.current) code += codeRef.current.value;
     });
     if (code.length === 7) {
       authorize(code);
+    } else {
+      setError('Please fill in all the fields');
     }
   };
 
@@ -48,9 +55,7 @@ const EnterCode = ({ authorize, resend }) => {
     <div className="authorize">
       <h1> Secure Code </h1>
 
-      <p>
-        Check your e-mail for a secure code.
-      </p>
+      <p>Check your e-mail for a secure code.</p>
 
       <div className="code">
         <input
@@ -137,9 +142,11 @@ const EnterCode = ({ authorize, resend }) => {
           ref={code7Ref}
           data-code="7"
         />
-
         {/* eslint-disable-next-line */}
       </div>
+      {error && (
+        <small className="input-error input-error-center">{error}</small>
+      )}
       <div className="submit-delivery">
         <button type="button" onClick={authorizeCode} className="button">
           Send
@@ -149,6 +156,14 @@ const EnterCode = ({ authorize, resend }) => {
         <button type="button" onClick={resend}>
           Resend Code
         </button>
+      </div>
+      <div className="actions flex-row justify-evenly">
+        <a href="#" onClick={changeEmail}>
+          Back
+        </a>
+        <a href="#" onClick={cancel}>
+          Cancel
+        </a>
       </div>
     </div>
   );

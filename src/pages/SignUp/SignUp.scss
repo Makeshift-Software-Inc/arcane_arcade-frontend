@@ -1,8 +1,13 @@
+$gray-color: #c4c4c4;
+
 .App.sign-up {
-  font-style:  Montserrat;
-  h1, p, span {
+  font-style: Montserrat;
+  padding-top: 0;
+  h1,
+  p,
+  span {
     text-align: center;
-    color: #FFFFFF;
+    color: #ffffff;
   }
 
   h1 {
@@ -10,42 +15,43 @@
   }
 
   .sign-up-page {
-    background-image: url("./../../img/auth-bckg.jpg");
+    background-image: url('./../../img/auth-bckg.jpg');
     background-size: cover;
   }
 
   .sign-up-page::before {
-    content: "";
-    position: absolute;
+    content: '';
+    position: fixed;
     top: 0px;
-    right: 0px;
-    bottom: 0px;
     left: 0px;
-    background-color: rgba(0,0,0,0.8);
+    width: 100%;
+    height: 100%;
+    min-width: 100vw;
+    min-height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
   }
 
   .logo {
     font-style: Segoe UI;
     width: 143px;
     height: 64px;
-    color: #E4E4E4;
+    color: #e4e4e4;
     font-size: 33px;
     font-weight: normal;
     margin: 40px 0 70px;
   }
-
 
   .login-form {
     padding: 30px 25px;
     z-index: 999;
     width: 100%;
     max-width: 844px;
-    background-color: #2A2A2A;
+    background-color: #2a2a2a;
     form {
       width: 100%;
       max-width: 475px;
       text-align: center;
-      color: #FFFFFF;
+      color: #ffffff;
 
       .form-text {
         text-align: left;
@@ -60,16 +66,17 @@
       }
 
       .input-div {
-        background-color: #FFFFFF;
+        background-color: #ffffff;
         border-radius: 8px;
         border: 1px solid #c4c4c4;
+        input {
+          border: none;
+        }
       }
 
       .arcane-input,
-      .arcane-input:active
-      .arcane-input:focus-within {
-        border: none;
-        background-color: #FFFFFF !important;
+      .arcane-input:active .arcane-input:focus-within {
+        background-color: #ffffff !important;
         color: black !important;
         min-width: 0;
       }
@@ -82,17 +89,22 @@
         margin-bottom: 20px;
 
         .iti {
+          border-radius: 8px;
+          border: 1px solid $gray-color;
           width: 100%;
-          color: black;
+          span,
+          .iti__selected-flag {
+            color: black;
+            outline: none;
+          }
         }
       }
-
 
       /* Change the white to any color ;) */
       .arcane-input:-webkit-autofill,
       .arcane-input:-webkit-autofill:hover,
       .arcane-input:-webkit-autofill:focus,
-      .arcane-input:-webkit-autofill:active  {
+      .arcane-input:-webkit-autofill:active {
         -webkit-box-shadow: 0 0 0 30px white inset !important;
       }
 
@@ -108,7 +120,7 @@
 
   .submit-button {
     width: 100%;
-    background-color: #463AF3;
+    background-color: #463af3;
     border-radius: 8px;
   }
 
@@ -116,14 +128,13 @@
     font-size: 10px;
   }
 
-
   .sign-up-link {
     text-align: center;
     margin-bottom: 25px;
     font-size: 13px;
 
     a {
-      color: #463AF3;
+      color: #463af3;
     }
   }
 

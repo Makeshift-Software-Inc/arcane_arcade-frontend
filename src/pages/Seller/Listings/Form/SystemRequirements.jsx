@@ -3,32 +3,7 @@ import { observer } from 'mobx-react';
 
 import useBreakpoints from '../../../../hooks/useBreakpoints';
 
-export const Tabs = ({
-  selectedTab, options, setSelectedTab, mobile,
-}) => {
-  const onClick = (e) => {
-    e.preventDefault();
-    setSelectedTab(e.target.name);
-  };
-
-  return (
-    <div className={`system-requirement-tabs flex-row ${mobile ? 'mobile' : ''}`}>
-      {options.map((option) => (
-        <a
-          href="#"
-          className={`system-requirement-tab ${
-            selectedTab === option ? 'selected' : ''
-          }`}
-          key={option}
-          name={option}
-          onClick={onClick}
-        >
-          {option}
-        </a>
-      ))}
-    </div>
-  );
-};
+import SystemRequirementsTabs from '../../../../components/Tabs/SystemRequirementsTabs';
 
 const Requirements = observer(({ requirement }) => requirement.keys().map((key) => (
   <div key={key} className="flex-column">
@@ -49,8 +24,6 @@ const SystemRequirements = ({ system_requirements }) => {
   const [selectedMobileTab, setSelectedMobileTab] = useState('Minimum');
 
   const { isMobile } = useBreakpoints();
-
-  console.log(isMobile);
 
   const tabOptions = system_requirements.map(
     (requirement) => requirement.platform,
@@ -73,7 +46,7 @@ const SystemRequirements = ({ system_requirements }) => {
     <div className="system-requirements">
       <label className="label">System Requirements</label>
 
-      <Tabs
+      <SystemRequirementsTabs
         options={tabOptions}
         selectedTab={selectedTab}
         setSelectedTab={setSelectedTab}
@@ -81,9 +54,13 @@ const SystemRequirements = ({ system_requirements }) => {
 
       {selectedTab && (
         <Fragment>
-          <div className={`flex-column system-requirements-content ${isMobile ? 'mobile' : ''}`}>
-            { isMobile && (
-              <Tabs
+          <div
+            className={`flex-column system-requirements-content ${
+              isMobile ? 'mobile' : ''
+            }`}
+          >
+            {isMobile && (
+              <SystemRequirementsTabs
                 mobile
                 options={mobileTabOptions}
                 selectedTab={selectedMobileTab}
@@ -91,13 +68,13 @@ const SystemRequirements = ({ system_requirements }) => {
               />
             )}
             <div className="flex-row">
-              { (!isMobile || selectedMobileTab === 'Minimum') && (
+              {(!isMobile || selectedMobileTab === 'Minimum') && (
                 <div className="flex-column flex-1 content-item">
                   <span className="content-item-text">Minimum</span>
                   <Requirements requirement={selectedRequirement.minimum} />
                 </div>
-              ) }
-              { (!isMobile || selectedMobileTab === 'Recommended') && (
+              )}
+              {(!isMobile || selectedMobileTab === 'Recommended') && (
                 <div className="flex-column flex-1 content-item">
                   <span className="content-item-text">Recommended</span>
                   <Requirements requirement={selectedRequirement.recommended} />
