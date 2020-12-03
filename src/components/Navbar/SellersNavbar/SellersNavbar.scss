@@ -1,5 +1,5 @@
 .sellers-navbar.arcane-nav {
-  height: 187px;
+  height: 100px;
   background-color: #1B1A4A;
   align-items: center;
   position: fixed;
@@ -33,7 +33,7 @@
 
     p {
       margin-left: 10px;
-      font-size: 35px;
+      font-size: 23px;
       font-family: Bebas Neue;
       text-transform: uppercase;
       letter-spacing: 2.31px;
@@ -51,8 +51,8 @@
   .navbar-brand {
     .logo img {
       max-height: none;
-      width: 73px;
-      height: 72px;
+      width: 50px;
+      height: 47px;
     }
   }
 
@@ -67,7 +67,7 @@
 
   @media (max-width:1023px) {
     position: static;
-    padding: 0 50px; 
+    padding: 0 50px;
     height: 78px;
 
     .navbar-brand {
