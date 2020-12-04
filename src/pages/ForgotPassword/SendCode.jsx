@@ -7,8 +7,7 @@ const SendCode = ({
 }) => (
   <div className="send-code">
     <h1>Forgot Password</h1>
-
-    <p>Provide the email to your account.</p>
+    <span>Provide the email to your account.</span>
 
     <div>
       <div className="input-container">

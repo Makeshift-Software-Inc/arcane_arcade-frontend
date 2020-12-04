@@ -1,0 +1,125 @@
+.two-factor-page {
+  font-family: Montserrat;
+  .two-factor-form {
+    text-align: center;
+    z-index: 999;
+    max-width: 844px;
+    padding: 30px 25px;
+    background-color: #2a2a2a;
+  }
+
+  .actions {
+    a {
+      text-align: center;
+      font-size: 13px;
+      color: #463af3;
+    }
+  }
+
+  .form-text {
+    text-align: left;
+    font-size: 12px;
+    font-weight: normal;
+    letter-spacing: 0px;
+    color: white;
+  }
+
+  .label {
+    margin-bottom: 8px;
+  }
+
+  .input-container {
+    margin: 20px 0;
+  }
+
+  .arcane-input,
+  .arcane-input:active .arcane-input:focus-within {
+    background-color: #ffffff !important;
+    color: black !important;
+    min-width: 0;
+  }
+
+  .eye-icon-button {
+    padding: 10px 30px;
+  }
+
+  .input-div {
+    background-color: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #c4c4c4;
+    input {
+      border: none;
+    }
+  }
+
+  .logo {
+    font-style: Segoe UI;
+    width: 143px;
+    height: 64px;
+    color: #e4e4e4;
+    font-size: 33px;
+    font-weight: normal;
+    margin: 40px 0 70px;
+  }
+
+  input.code-number {
+    width: 38px;
+    padding: 1em 0px 1em 0;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 23px;
+    height: 40px;
+  }
+
+  .send-code {
+    font-size: 20px;
+    letter-spacing: 0px;
+    color: #ffffff;
+  }
+
+  .authorize {
+    h1 {
+      letter-spacing: 0px;
+      color: #ffffff;
+    }
+
+    p {
+      font-size: 20px;
+      letter-spacing: 0px;
+      color: #ffffff;
+    }
+  }
+  .submit-delivery {
+    display: flex;
+    justify-content: center;
+
+    button {
+      margin: 14px;
+      width: 215px;
+      height: 48px;
+      background-color: #463af3;
+      border-radius: 8px;
+      color: white;
+    }
+  }
+  .sign-up-link {
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 13px;
+
+    a {
+      color: #463af3;
+    }
+  }
+
+  .code {
+    display: flex;
+    justify-content: center;
+  }
+
+  @media only screen and (max-width: 667px) {
+    .two-factor-form {
+      height: 100%;
+    }
+  }
+}

@@ -37,7 +37,7 @@ const Routes = () => {
       <Route exact path="/how-it-works" component={HowItWorks} />
       <Route exact path="/contact-us" component={ContactUs} />
       <Route exact path="/games/:slug" component={GamesShow} />
-      <Route exact path="/sell-with-us" component={SellWithUs} />
+      <Route exact path="/sell-with-us/:modal?" component={SellWithUs} />
       <ProtectedRoute
         asGuest
         redirectTo="/"
