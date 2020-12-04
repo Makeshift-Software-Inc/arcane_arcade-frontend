@@ -9,6 +9,9 @@
     background-color: transparent !important;
     height: auto !important;
     padding: 0;
+    &__search {
+      margin-bottom: 0;
+    }
     &__suggestions {
       z-index: 10;
     }

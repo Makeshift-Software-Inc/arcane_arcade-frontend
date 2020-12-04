@@ -5,10 +5,7 @@ import 'tippy.js/dist/tippy.css';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../react-tags.css';
 import '../normalize.css';
-// import '../topcoat-desktop-dark.css';
 import 'bulma/bulma.sass';
-
-import { ToastContainer } from 'react-toastify';
 
 import { observer } from 'mobx-react';
 
@@ -36,8 +33,7 @@ const App = () => {
 
   return (
     <>
-      <ToastContainer />
-      {auth.isLoggedIn && <Notifications />}
+      <Notifications />
       <Routes />
     </>
   );

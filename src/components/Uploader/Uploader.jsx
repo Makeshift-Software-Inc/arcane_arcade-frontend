@@ -7,7 +7,7 @@ import videoIcon from '../../img/uploader/video.svg';
 
 import './Uploader.scss';
 
-const Uploader = ({ accept, addFile }) => {
+const Uploader = ({ accept, addFile, className }) => {
   const [canDrop, setCanDrop] = useState(false);
   const inputField = useRef(null);
 
@@ -65,7 +65,9 @@ const Uploader = ({ accept, addFile }) => {
       onDragLeave={cancelDrop}
     >
       <div
-        className={`drop-placeholder flex-column ${canDrop ? 'drag-over' : ''}`}
+        className={`drop-placeholder flex-column ${
+          canDrop ? 'drag-over' : ''
+        } ${className || ''}`}
       >
         <div className="drop-placeholder-icons flex-row justify-between is-hidden-touch">
           <div className="flex-row drop-placeholder-icon align-center justify-center">

@@ -4,10 +4,9 @@ import './Step.scss';
 
 const Step = ({ number }) => (
   <small className="current-step align-self-start">
-    STEP
+    STEP&nbsp;
     {number}
-    {' '}
-    OF 6
+&nbsp;OF&nbsp;6
   </small>
 );
 

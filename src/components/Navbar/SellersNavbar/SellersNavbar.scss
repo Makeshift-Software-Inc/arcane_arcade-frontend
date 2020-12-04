@@ -1,0 +1,146 @@
+.sellers-navbar.arcane-nav {
+  height: 100px;
+  background-color: #1b1a4a;
+  align-items: center;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  left: 0;
+  padding: 0 129px;
+
+  .navbar-end {
+    max-width: 830px;
+    margin-left: 0;
+  }
+
+  a.navbar-item {
+    color: white;
+    padding: 0;
+    padding-right: 21px;
+    background-size: 200% 100%;
+    background-image: linear-gradient(to right, transparent 50%, #282755 50%);
+    transition: background-position 0.8s;
+    margin: 0 10px;
+
+    &:hover,
+    &:active,
+    &:focus,
+    &:visited {
+      background-position: -100% 0;
+      opacity: 0.39;
+      background-color: unset;
+    }
+
+    p {
+      margin-left: 10px;
+      font-size: 23px;
+      font-family: Bebas Neue;
+      text-transform: uppercase;
+      letter-spacing: 2.31px;
+      color: #ffffff;
+      opacity: 0.41;
+    }
+
+    .icon-container {
+      width: 47px;
+      height: 55px;
+      background-color: #282755;
+    }
+  }
+
+  .navbar-brand {
+    .logo img {
+      max-height: none;
+      width: 50px;
+      height: 47px;
+    }
+  }
+
+  .mobile-nav {
+    display: none;
+  }
+
+  .seller-navbar-item {
+    text-align: center;
+    background-color: #463af3;
+  }
+
+  @media (max-width: 1023px) {
+    position: static;
+    padding: 0 50px;
+    height: 78px;
+
+    .navbar-brand {
+      .logo img {
+        width: 41px;
+        height: 41px;
+      }
+    }
+
+    .mobile-nav {
+      display: flex;
+
+      .navbar-end {
+        max-width: none;
+      }
+
+      .icon-btn {
+        background-color: transparent;
+      }
+
+      .close-btn {
+        width: 47px;
+        height: 55px;
+        background-color: #282755;
+        color: #0590ff;
+        font-size: 30px;
+        font-weight: 700;
+      }
+
+      .mobile-nav-dropdown {
+        position: absolute;
+        top: 78px;
+        left: 0;
+        right: 0;
+        padding-top: 90px;
+        z-index: 2;
+        width: 100%;
+        height: 100vh;
+        background-color: #1b1a4a;
+      }
+
+      .navbar-item {
+        display: flex;
+        align-items: center;
+        padding: 15px 20px;
+        margin-bottom: 36px;
+        font-size: 11px;
+        font-family: Montserrat;
+        color: #ffffff;
+
+        &:hover {
+          background-color: unset !important;
+        }
+      }
+
+      .end-mobile-links {
+        .navbar-item {
+          padding: 11px 20px;
+        }
+      }
+
+      .navbar-item:hover {
+        background-color: #575757;
+      }
+
+      .highlited-link {
+        text-align: center;
+        margin-top: 69px;
+        width: 100%;
+        background-color: #2a2a2a;
+        box-shadow: 0px -3px 6px #00000029;
+      }
+    }
+  }
+}
