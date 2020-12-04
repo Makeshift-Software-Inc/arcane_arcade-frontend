@@ -8,7 +8,7 @@ import Coins from '../../../Form/Coins/Coins';
 
 import './Crypto.scss';
 
-const Crypto = ({ update, acceptedCrypto }) => {
+const Crypto = ({ update, acceptedCrypto, errors }) => {
   const handleChange = (value, checked) => {
     if (checked) {
       update({ acceptedCrypto: [...acceptedCrypto, value] });
@@ -32,6 +32,11 @@ const Crypto = ({ update, acceptedCrypto }) => {
         btcChecked={btcChecked}
         xmrChecked={xmrChecked}
       />
+      {errors.hasError('acceptedCrypto') && (
+        <small className="input-error mt-3 input-error-center">
+          {errors.getErrors('acceptedCrypto')}
+        </small>
+      )}
     </React.Fragment>
   );
 };

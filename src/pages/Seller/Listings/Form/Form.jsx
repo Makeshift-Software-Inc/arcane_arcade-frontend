@@ -114,7 +114,18 @@ const Form = ({
 
       <div className="flex-row large-and-down-flex-column">
         <div className="flex-column flex-3">
-          <Uploader accept="image/*,video/*" addFile={form.addFile} />
+          <Uploader
+            accept="image/*,video/*"
+            addFile={form.addFile}
+            className={
+              form.errors.hasError('uploader') ? 'input-with-error' : ''
+            }
+          />
+          {form.errors.hasError('uploader') && (
+            <small className="input-error">
+              {form.errors.getErrors('uploader')}
+            </small>
+          )}
         </div>
         <div className="flex-row is-flex-touch if-flex-desktop is-hidden-widescreen">
           <SortablePreviews
@@ -127,73 +138,104 @@ const Form = ({
           />
         </div>
         <div className="flex-column listing-basic-info flex-1">
-          <label htmlFor="title" className="label">
-            Game Title
-          </label>
-          <input
-            type="text"
-            value={form.title}
-            onChange={form.onChange}
-            name="title"
-            placeholder="Game Title"
-          />
-          <label htmlFor="esrb" className="label">
-            ESRB
-          </label>
-
-          <select name="esrb" value={form.esrb} onChange={form.onChange}>
-            <option value="EVERYONE">EVERYONE</option>
-            <option value="E_TEN_PLUS">E10+</option>
-            <option value="TEEN">TEEN</option>
-            <option value="MATURE">MATURE</option>
-            <option value="ADULT">ADULT</option>
-          </select>
-          <label htmlFor="category" className="label">
-            Game Category
-          </label>
-          <ReactTags
-            tags={selectedCategoriesAsTags}
-            suggestions={categoriesOptionsAsTags}
-            onDelete={form.removeCategory}
-            onAddition={form.addCategory}
-            autoresize
-            placeholderText="Select Category"
-            minQueryLength={0}
-            maxSuggestionsLength={
-              selectedCategoriesAsTags.length === 2 ? 0 : 100
-            }
-            classNames={{
-              root: 'react-tags',
-              rootFocused: 'is-focused',
-              selected: 'react-tags__selected',
-              selectedTag: 'react-tags__selected-tag',
-              selectedTagName: 'react-tags__selected-tag-name',
-              search: `${selectedCategoriesAsTags.length === 2 ? 'is-hidden' : 'react-tags__search'}`,
-              searchWrapper: 'react-tags__search-wrapper',
-              searchInput: 'react-tags__search-input',
-              suggestions: 'react-tags__suggestions',
-              suggestionActive: 'is-active',
-              suggestionDisabled: 'is-disabled',
-            }}
-          />
-          <label htmlFor="tags" className="label">
-            Game Tags
-          </label>
-          <ReactTags
-            tags={tags}
-            suggestions={form.tagsOptions.filter((tag) => !tag.disabled)}
-            onDelete={form.removeTag}
-            onAddition={form.addTag}
-            autoresize
-          />
-          <label className="label flex-row align-center" htmlFor="early-access">
-            Early Access
-            <Switch
-              value={form.early_access}
-              checked={form.early_access}
-              onChange={toggleEarlyAccess}
+          <div className="flex-column mb-5">
+            <label htmlFor="title" className="label">
+              Game Title
+            </label>
+            <input
+              type="text"
+              value={form.title}
+              onChange={form.onChange}
+              name="title"
+              placeholder="Game Title"
+              className={
+                form.errors.hasError('title') ? 'input-with-error' : ''
+              }
             />
-          </label>
+            {form.errors.hasError('title') && (
+              <small className="input-error">
+                {form.errors.getErrors('title')}
+              </small>
+            )}
+          </div>
+          <div className="flex-column mb-5">
+            <label htmlFor="esrb" className="label">
+              ESRB
+            </label>
+            <select name="esrb" value={form.esrb} onChange={form.onChange}>
+              <option value="EVERYONE">EVERYONE</option>
+              <option value="E_TEN_PLUS">E10+</option>
+              <option value="TEEN">TEEN</option>
+              <option value="MATURE">MATURE</option>
+              <option value="ADULT">ADULT</option>
+            </select>
+          </div>
+          <div className="flex-column mb-5">
+            <label htmlFor="category" className="label">
+              Game Category
+            </label>
+            <ReactTags
+              tags={selectedCategoriesAsTags}
+              suggestions={categoriesOptionsAsTags}
+              onDelete={form.removeCategory}
+              onAddition={form.addCategory}
+              autoresize
+              placeholderText="Select Category"
+              minQueryLength={0}
+              maxSuggestionsLength={
+                selectedCategoriesAsTags.length === 2 ? 0 : 100
+              }
+              classNames={{
+                root: 'react-tags',
+                rootFocused: 'is-focused',
+                selected: 'react-tags__selected',
+                selectedTag: 'react-tags__selected-tag',
+                selectedTagName: 'react-tags__selected-tag-name',
+                search: `${
+                  selectedCategoriesAsTags.length === 2
+                    ? 'is-hidden'
+                    : 'react-tags__search'
+                }`,
+                searchWrapper: 'react-tags__search-wrapper',
+                searchInput: 'react-tags__search-input',
+                suggestions: 'react-tags__suggestions',
+                suggestionActive: 'is-active',
+                suggestionDisabled: 'is-disabled',
+              }}
+            />
+            {form.errors.hasError('categories') && (
+              <small className="input-error">
+                {form.errors.getErrors('categories')}
+              </small>
+            )}
+          </div>
+          <div className="flex-column mb-5">
+            <label htmlFor="tags" className="label">
+              Game Tags
+            </label>
+            <ReactTags
+              tags={tags}
+              suggestions={form.tagsOptions.filter((tag) => !tag.disabled)}
+              onDelete={form.removeTag}
+              onAddition={form.addTag}
+              autoresize
+            />
+          </div>
+          <div className="flex-column mb-5">
+            <div className="flex-row align-center">
+              <label
+                className="label flex-row align-center m-0"
+                htmlFor="early-access"
+              >
+                Early Access
+              </label>
+              <Switch
+                value={form.early_access}
+                checked={form.early_access}
+                onChange={toggleEarlyAccess}
+              />
+            </div>
+          </div>
         </div>
       </div>
 
@@ -208,7 +250,7 @@ const Form = ({
         />
       </div>
 
-      <div className="flex-column">
+      <div className="flex-column mb-6">
         <label className="label">
           Game Description
           <Tippy
@@ -234,8 +276,16 @@ const Form = ({
             input="trix"
             name="description"
             ref={trixInput}
+            class={
+              form.errors.hasError('description') ? 'input-with-error' : ''
+            }
           />
         </div>
+        {form.errors.hasError('description') && (
+          <small className="input-error">
+            {form.errors.getErrors('description')}
+          </small>
+        )}
       </div>
 
       <div className="flex-row large-and-down-flex-column">
@@ -246,11 +296,20 @@ const Form = ({
             platforms={form.supportedPlatforms()}
             onChange={handleSupportedPlatformChange}
           />
+          {form.errors.hasError('supportedPlatforms') && (
+            <small className="input-error">
+              {form.errors.getErrors('supportedPlatforms')}
+            </small>
+          )}
         </div>
         <div className="flex-column flex-grow">
           {form.systemRequirements().length > 0 && (
             <SystemRequirements
               system_requirements={form.systemRequirements()}
+              error={
+                form.errors.hasError('systemRequirements')
+                && form.errors.getErrors('systemRequirements')
+              }
             />
           )}
         </div>
@@ -259,12 +318,15 @@ const Form = ({
       <div className="flex-row">
         <div className="flex-column flex-1">
           <label className="label">Languages Supported</label>
-          <SupportedLanguages languages={form.supported_languages} />
+          <SupportedLanguages
+            languages={form.supported_languages}
+            errors={form.errors}
+          />
         </div>
       </div>
 
       <div className="flex-row justify-between align-center mobile-align-start price-details mobile-flex-column">
-        <div className="flex-column">
+        <div className="flex-column mb-5">
           <label className="label" htmlFor="price">
             Price in USD
           </label>
@@ -276,10 +338,18 @@ const Form = ({
               onChange={form.setPrice}
               name="price"
               placeholder="Enter price"
+              className={
+                form.errors.hasError('price') ? 'input-with-error' : ''
+              }
             />
           </div>
+          {form.errors.hasError('price') && (
+            <small className="input-error input-error-right">
+              {form.errors.getErrors('price')}
+            </small>
+          )}
         </div>
-        <div className="flex-column">
+        <div className="flex-column mb-5">
           <label className="label">Release Date:</label>
           <DatePicker
             selected={releaseDateAsDate}
@@ -287,7 +357,15 @@ const Form = ({
             showTimeSelect
             dateFormat="Pp"
             placeholderText="Select release date"
+            className={
+              form.errors.hasError('releaseDate') ? 'input-with-error' : ''
+            }
           />
+          {form.errors.hasError('releaseDate') && (
+            <small className="input-error">
+              {form.errors.getErrors('releaseDate')}
+            </small>
+          )}
         </div>
       </div>
       {form.releaseDateInFuture() && (

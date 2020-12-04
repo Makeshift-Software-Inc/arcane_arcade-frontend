@@ -23,6 +23,7 @@ const SellerListingsNew = ({ history }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!listing.validate()) return;
     if (!listing.allFilesUploaded() || games.creating) return;
 
     const data = {

@@ -1,6 +1,5 @@
 import { types, getRoot } from 'mobx-state-tree';
 import Base from './Base';
-import Errors from './Errors';
 
 const Buy = types
   .model('Buy', {
@@ -8,13 +7,38 @@ const Buy = types
     platform: types.optional(types.string, ''),
     payment_method: types.optional(types.string, ''),
     currentStep: 0,
-    errors: types.optional(Errors, {}),
     supportedPlatforms: types.array(types.string),
     purchasedPlatforms: types.array(types.string),
     availablePlatforms: types.array(types.string),
     paymentOptions: types.array(types.string),
     prepared: false,
   })
+  .views((self) => ({
+    keysForValidation() {
+      switch (self.currentStep) {
+        case 0:
+          return ['platform'];
+        case 1:
+          return ['paymentMethod'];
+        default:
+          return [];
+      }
+    },
+    platformValidation() {
+      if (self.platform.length === 0) {
+        self.errors.addFullMessageError('Please choose a platform.');
+        return ['Please choose a platform'];
+      }
+      return false;
+    },
+    paymentMethodValidation() {
+      if (self.payment_method.length === 0) {
+        self.errors.addFullMessageError('Please choose a payment method.');
+        return ['Please choose a payment method'];
+      }
+      return false;
+    },
+  }))
   .actions((self) => ({
     prepare() {
       if (self.prepared) return;
@@ -72,37 +96,6 @@ const Buy = types
       self.supportedPlatforms = [];
       self.paymentOptions = [];
       self.prepared = false;
-    },
-    validate: () => {
-      self.errors = {};
-      switch (self.currentStep) {
-        case 0:
-          if (self.platform.length === 0) {
-            self.errors.addFullMessageError('Please choose a platform.');
-            return false;
-          }
-          if (!self.supportedPlatforms.includes(self.platform)) {
-            self.errors.addFullMessageError(
-              `${self.platform} is not supported by this game.`,
-            );
-            return false;
-          }
-          return true;
-        case 1:
-          if (self.payment_method.length === 0) {
-            self.errors.addFullMessageError('Please choose a payment method.');
-            return false;
-          }
-          if (!self.paymentOptions.includes(self.payment_method)) {
-            self.errors.addFullMessageError(
-              `${self.payment_method} is not supported by this seller.`,
-            );
-            return false;
-          }
-          return true;
-        default:
-          return true;
-      }
     },
   }));
 

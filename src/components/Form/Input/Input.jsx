@@ -12,6 +12,7 @@ const Input = ({
   labelClass,
   className,
   ref,
+  error,
   ...rest
 }) => (
   <>
@@ -26,6 +27,7 @@ const Input = ({
       className={`arcane-input ${className || ''}`}
       {...rest}
     />
+    {error && <small className="input-error">{error}</small>}
   </>
 );
 

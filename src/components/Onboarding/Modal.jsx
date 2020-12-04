@@ -92,6 +92,7 @@ const OnboardingModalContent = ({ close }) => {
 
   const defaultProps = {
     update,
+    errors,
   };
 
   const Component = STEPS[currentStep].component;
