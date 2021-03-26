@@ -15,10 +15,9 @@ const Notifications = () => {
       await notifications.load();
       notifications.notSeen().forEach((notification) => {
         toast(notification.message, {
-          position: 'top-right',
           autoClose: false,
-          closeButton: true,
-          hideProgressBar: false,
+          closeButton: false,
+          hideProgressBar: true,
           closeOnClick: true,
           pauseOnHover: true,
           onClick: () => {
@@ -32,7 +31,15 @@ const Notifications = () => {
     load();
   }, []);
 
-  return <ToastContainer />;
+  return (
+    <ToastContainer
+      newestOnTop
+      hideProgressBar
+      pauseOnHover
+      closeOnClick
+      closeButton={false}
+    />
+  );
 };
 
 export default observer(Notifications);

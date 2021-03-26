@@ -48,7 +48,7 @@ $border-color: #2a2a2a;
       border-radius: 5px;
       background-color: #e4e4e4;
       color: #121212;
-      margin-bottom: 32px;
+      margin-bottom: 0;
       border: none;
       outline: none;
       font-family: Montserrat;
@@ -101,7 +101,7 @@ $border-color: #2a2a2a;
           border-radius: 5px;
           background-color: #e4e4e4;
           color: #121212;
-          margin-bottom: 32px;
+          margin-bottom: 0;
           border: none;
           outline: none;
           font-family: Montserrat;
@@ -142,7 +142,6 @@ $border-color: #2a2a2a;
       color: #121212;
       border-radius: 5px;
       min-height: 366px;
-      margin-bottom: 55px;
     }
     .trix-button {
       background-color: whitesmoke;

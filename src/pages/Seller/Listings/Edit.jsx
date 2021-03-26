@@ -27,6 +27,7 @@ const SellerListingsEdit = ({ match, history }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!listing.validate()) return;
     if (!listing.allFilesUploaded()) return;
 
     // eslint-disable-next-line

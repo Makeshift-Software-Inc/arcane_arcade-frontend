@@ -4,9 +4,9 @@ import { observer } from 'mobx-react';
 
 import './SupportedLanguages.scss';
 
-const SupportedLanguages = ({ languages }) => (
+const SupportedLanguages = ({ languages, errors }) => (
   <div className="flex-row supported-languages mobile-flex-column">
-    <div className="flex-column flex-1 audio-languages">
+    <div className="flex-column flex-1 audio-languages mb-5">
       <span className="content-item-text">Audio</span>
       <ReactTags
         tags={languages.audio}
@@ -18,8 +18,13 @@ const SupportedLanguages = ({ languages }) => (
         placeholderText="Select or add language"
         allowNew
       />
+      {errors.hasError('audioLanguages') && (
+        <small className="input-error">
+          {errors.getErrors('audioLanguages')}
+        </small>
+      )}
     </div>
-    <div className="flex-column flex-1 text-languages">
+    <div className="flex-column flex-1 text-languages mb-5">
       <span className="content-item-text">Text</span>
       <ReactTags
         tags={languages.text}
@@ -31,6 +36,11 @@ const SupportedLanguages = ({ languages }) => (
         placeholderText="Select or add language"
         allowNew
       />
+      {errors.hasError('textLanguages') && (
+        <small className="input-error">
+          {errors.getErrors('textLanguages')}
+        </small>
+      )}
     </div>
   </div>
 );

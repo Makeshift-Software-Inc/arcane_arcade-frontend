@@ -2,7 +2,6 @@ import {
   types, flow, getRoot, destroy,
 } from 'mobx-state-tree';
 import Base from './Base';
-import Errors from './Errors';
 
 import SupportedPlatform from '../models/SupportedPlatform';
 import SupportedPlatformListing from '../models/SupportedPlatformListing';
@@ -33,7 +32,6 @@ const ListingForm = types
     listing_tags: types.array(ListingTag),
     early_access: false,
     price: types.maybe(types.number),
-    errors: types.optional(Errors, {}),
     loading: false,
     files: types.array(UploadedFile),
     attachments: types.array(UploadedFile),
@@ -45,6 +43,96 @@ const ListingForm = types
     isUpdate: false,
   })
   .views((self) => ({
+    keysForValidation() {
+      return [
+        'title',
+        'categories',
+        'uploader',
+        'description',
+        'supportedPlatforms',
+        'price',
+        'releaseDate',
+        'audioLanguages',
+        'textLanguages',
+        'systemRequirements',
+      ];
+    },
+    titleValidation() {
+      if (self.title.trim().length === 0) {
+        return ['Please write the title of your game'];
+      }
+      return false;
+    },
+    categoriesValidation() {
+      if (self.categories().length === 0) {
+        return ['Please select at least one category'];
+      }
+      return false;
+    },
+    uploaderValidation() {
+      if (
+        self.visibleImages().length === 0
+        || self.visibleVideos().length === 0
+      ) {
+        return ['Please upload at least one video and one picture'];
+      }
+      return false;
+    },
+    descriptionValidation() {
+      if (self.description.trim().length === 0) {
+        return ['Please write game description'];
+      }
+      return false;
+    },
+    supportedPlatformsValidation() {
+      const choosedPlatforms = self
+        .supportedPlatforms()
+        .filter((platform) => platform.name !== 'PC');
+      if (choosedPlatforms.length === 0) {
+        return ['Please select at least one platform'];
+      }
+      return false;
+    },
+    priceValidation() {
+      if (!self.price || self.price === 0) {
+        return ['Please enter the game price'];
+      }
+      return false;
+    },
+    releaseDateValidation() {
+      if (self.release_date.trim().length === 0) {
+        return ['Please select the release date'];
+      }
+      return false;
+    },
+    audioLanguagesValidation() {
+      if (self.supported_languages.audio.length === 0) {
+        return ['Please choose at least one language'];
+      }
+      return false;
+    },
+    textLanguagesValidation() {
+      if (self.supported_languages.text.length === 0) {
+        return ['Please choose at least one language'];
+      }
+      return false;
+    },
+    systemRequirementsValidation() {
+      const allSet = self.systemRequirements().every((requirement) => {
+        const values = requirement.keysToSend().minimum;
+        return Object.keys(values).every(
+          (key) => values[key] && values[key].trim().length > 0,
+        );
+      });
+
+      if (!allSet) {
+        return [
+          'Please fill in all the fields for minimum requirements for all platforms.',
+        ];
+      }
+
+      return false;
+    },
     categoryListingsKeys() {
       return self.category_listings.map((category_listing) => ({
         id: category_listing.id,
@@ -121,6 +209,16 @@ const ListingForm = types
       return self.files.concat(
         self.saved_files.filter((file) => !file._destroy),
       );
+    },
+    visibleImages() {
+      return self
+        .visibleFiles()
+        .filter((file) => file.type.startsWith('image'));
+    },
+    visibleVideos() {
+      return self
+        .visibleFiles()
+        .filter((file) => file.type.startsWith('video'));
     },
     filesSorted() {
       return self
@@ -477,7 +575,6 @@ const ListingForm = types
       destroy(file);
       self.repositionFiles();
     },
-    validate: () => true,
   }));
 
 export default types.compose(Base, ListingForm);

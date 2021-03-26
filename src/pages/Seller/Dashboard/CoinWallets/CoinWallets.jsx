@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { Fragment, useEffect } from 'react';
 
 import { toast } from 'react-toastify';
 
@@ -99,25 +99,50 @@ const CoinWallets = ({ close }) => {
                 btcChecked={btcChecked}
                 xmrChecked={xmrChecked}
               />
+              {errors.hasError('acceptedCrypto') && (
+                <small className="input-error input-error-center mt-3">
+                  {errors.getErrors('acceptedCrypto')}
+                </small>
+              )}
               <div className="flex-row align-self-stretch justify-around destination-addresses">
                 <div className="address-wrapper">
                   {btcChecked && (
-                    <Input
-                      onChange={handleAddressChange}
-                      value={destination_addresses.BTC || ''}
-                      name="BTC"
-                      placeholder="Enter your Bitcoin address"
-                    />
+                    <Fragment>
+                      <Input
+                        onChange={handleAddressChange}
+                        value={destination_addresses.BTC || ''}
+                        name="BTC"
+                        placeholder="Enter your Bitcoin address"
+                        className={
+                          errors.hasError('btc') ? 'input-with-error' : ''
+                        }
+                      />
+                      {errors.hasError('btc') && (
+                        <small className="input-error">
+                          {errors.getErrors('btc')}
+                        </small>
+                      )}
+                    </Fragment>
                   )}
                 </div>
                 <div className="address-wrapper">
                   {xmrChecked && (
-                    <Input
-                      onChange={handleAddressChange}
-                      value={destination_addresses.XMR || ''}
-                      name="XMR"
-                      placeholder="Enter your Monero address"
-                    />
+                    <Fragment>
+                      <Input
+                        onChange={handleAddressChange}
+                        value={destination_addresses.XMR || ''}
+                        name="XMR"
+                        placeholder="Enter your Monero address"
+                        className={
+                          errors.hasError('xmr') ? 'input-with-error' : ''
+                        }
+                      />
+                      {errors.hasError('xmr') && (
+                        <small className="input-error">
+                          {errors.getErrors('xmr')}
+                        </small>
+                      )}
+                    </Fragment>
                   )}
                 </div>
               </div>
